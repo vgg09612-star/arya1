@@ -1,4 +1,4 @@
- [<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ku">
 <head>
 <meta charset="UTF-8">
@@ -51,6 +51,8 @@ body{
     padding:12px 18px;
     border-radius:18px;
     max-width:80%;
+    white-space: pre-wrap;
+    direction: rtl;
 }
 
 .bot{
@@ -76,6 +78,7 @@ input{
     border:none;
     border-radius:15px;
     outline:none;
+    direction: rtl;
 }
 
 button{
@@ -95,7 +98,7 @@ button{
 
     <div class="chat" id="chat">
         <div class="message bot">
-            سڵاو ❤️ من هاوڕێی دیجیتاڵی تۆم. باسی ڕۆژەکەت بۆم بکە.
+            سڵاو ❤️ من هاوڕێی دیجیتاڵی تۆم. باسی ڕۆژەکەت بۆم بکە یان هەر پرسیارێکت هەیە لێم بکە!
         </div>
     </div>
 
@@ -106,37 +109,60 @@ button{
 </div>
 
 <script>
-function sendMessage(){
-    let input = document.getElementById("userInput");
-    let text = input.value;
+// کلیلەکەت لێرەدا بە ئامادەیی داندراوە و پێویست بە دەستکاری ناکات
+const API_KEY = "AQ.Ab8RN6IpjSGWmuNv_xZsLE5KXu1e-nWQYjb2grFjLXUKQ-AuBQ"; 
 
-    if(text.trim() === "") return;
+async function sendMessage(){
+    let input = document.getElementById("userInput");
+    let text = input.value.trim();
+
+    if(text === "") return;
 
     let chat = document.getElementById("chat");
 
     chat.innerHTML += `
       <div class="message user">${text}</div>
     `;
+    chat.scrollTop = chat.scrollHeight;
+    input.value = "";
 
-    let replies = [
-      "من گوێم لێتە ❤️",
-      "باسی زیاتر بکە.",
-      "جوانە، دڵم خۆش بوو.",
-      "ئەمڕۆت چۆن تێپەڕی؟",
-      "سوپاس بۆ ئەوەی هاوبەشی دەکەیت."
-    ];
+    let loadingId = "loading-" + Date.now();
+    chat.innerHTML += `
+      <div class="message bot" id="${loadingId}">دڵخۆش خەریکە بیر دەکاتەوە... ⏳</div>
+    `;
+    chat.scrollTop = chat.scrollHeight;
 
-    let reply = replies[Math.floor(Math.random()*replies.length)];
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
-    setTimeout(()=>{
-      chat.innerHTML += `
-        <div class="message bot">${reply}</div>
-      `;
-      chat.scrollTop = chat.scrollHeight;
-    },700);
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: text }] }]
+            })
+        });
 
-    input.value="";
+        const data = await response.json();
+        
+        if (data.candidates && data.candidates[0].content.parts[0].text) {
+            let aiResponse = data.candidates[0].content.parts[0].text;
+            document.getElementById(loadingId).innerText = aiResponse;
+        } else {
+            document.getElementById(loadingId).innerText = "ببوورە، نەمتوانی وەڵامەکەت بدەمەوە. تکایە دووبارە تاقیکەرەوە.";
+        }
+    } catch (error) {
+        document.getElementById(loadingId).innerText = "خەتایەک ڕوویدا! دڵنیا ببەوە کلیلەکەت (API Key) بە دروستی داناوە.";
+    }
+
+    chat.scrollTop = chat.scrollHeight;
 }
+
+document.getElementById("userInput").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+});
 </script>
 
 </body>
