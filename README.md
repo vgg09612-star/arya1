@@ -1,2 +1,1 @@
-# arya1
-my wibsite
+index.html
