@@ -1,149 +1,300 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="ckb">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SHAHEN ELITE MASTER V4</title>
+    <title>Luxury Real Estate Platform</title>
     <style>
-        :root {
-            --gold: #D4AF37;
-            --dark: #050505;
-            --white: #F8F8F8;
-            --glass: rgba(255, 255, 255, 0.05);
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: var(--dark); color: var(--white); height: 100vh; overflow: hidden; display: flex; touch-action: pan-y; }
+        body { background: #0a0a0a; color: #d4af37; font-family: 'Playfair Display', serif; margin: 0; overflow-x: hidden; }
+        .lux-container { display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        
+        /* بازنەی ئایکۆنەکان */
+        .nav-icons { display: flex; gap: 30px; margin-bottom: 50px; }
+        .icon-circle { width: 80px; height: 80px; border: 1px solid #d4af37; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.5s; cursor: pointer; }
+        .icon-circle:hover { background: #d4af37; color: #000; transform: scale(1.1); }
 
-        /* 120Hz Fluid Container */
-        .viewport { display: flex; width: 100vw; height: 100vh; }
-
-        /* Left: Hologram Stage */
-        .hologram-stage { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-left: 1px solid var(--gold); }
-        .holo-entity { 
-            width: 300px; height: 600px; border: 2px solid var(--gold); border-radius: 120px 120px 20px 20px;
-            background: linear-gradient(180deg, #1a1a1a 0%, #000 100%);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center;
-        }
-        .black-dress { width: 100%; height: 65%; background: #000; border-radius: 0 0 20px 20px; position: absolute; bottom: 0; }
-
-        /* Right: Dashboard (Market/Villa/Apartment) */
-        .dashboard { width: 400px; padding: 20px; overflow-y: auto; background: var(--dark); }
-        .card { background: var(--glass); padding: 20px; border-radius: 15px; border: 1px solid #333; margin-bottom: 20px; }
-        h2 { color: var(--gold); margin-bottom: 15px; font-size: 1.2rem; }
-        .price { color: #4CAF50; font-weight: bold; }
+        /* هۆڵۆگرام و شاشەی جوڵاو */
+        #hologram-area { width: 100%; height: 600px; display: flex; justify-content: center; perspective: 1000px; }
+        .character-model { width: 300px; height: 600px; background: url('your-model-image.png') no-repeat center; background-size: contain; transition: all 0.8s ease; cursor: pointer; }
+        
+        /* کاریگەری 120Hz smoothness */
+        .smooth-scroll { scroll-behavior: smooth; will-change: transform; }
     </style>
 </head>
 <body>
 
-<div class="viewport">
-    <div class="hologram-stage">
-        <div class="holo-entity" id="holo">
-            <div class="black-dress"></div>
-        </div>
-        <button onclick="toggleSize()" style="margin-top:20px; padding:10px 30px; background:var(--gold); border:none; cursor:pointer;">گەورەکردن بۆ نمایش</button>
+<div class="lux-container">
+    <div class="nav-icons">
+        <div class="icon-circle">ڤێلا</div>
+        <div class="icon-circle">شوقە</div>
+        <div class="icon-circle">نرخەکان</div>
+        <div class="icon-circle">دراو</div>
     </div>
 
-    <div class="dashboard"><!DOCTYPE html>
-<html lang="ku" dir="rtl">
+    <div id="hologram-area">
+        <div id="ai-avatar" class="character-model" onclick="toggleHologram()"></div>
+    </div>
+</div>
+
+<script>
+    // کۆدی کۆنترۆڵی هۆڵۆگرام و جوڵە
+    function toggleHologram() {
+        const avatar = document.getElementById('ai-avatar');
+        avatar.style.transform = 'scale(1.5)'; // گەورەکردن بۆ دەرکەوتنی تەواوی جەستە
+        // لێرەدا دەتوانیت فەرمانی جوڵەی CSS Keyframes بۆ زیاد بکەیت
+    }
+</script>
+</body>
+</html>
+<style>
+    /* دیزاینی لوکس - Old Money Minimalist */
+    :root { --gold: #c5a059; --dark: #050505; }
+    
+    .dashboard { display: grid; grid-template-columns: 1fr 3fr 1fr; gap: 20px; padding: 40px; }
+    
+    /* ئایکۆنە خڕەکان */
+    .nav-circle { 
+        width: 100px; height: 100px; border: 2px solid var(--gold); 
+        border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        margin: 20px auto; color: var(--gold); cursor: pointer; transition: 0.4s;
+    }
+    .nav-circle:hover { background: var(--gold); color: white; transform: rotate(360deg); }
+
+    /* بەشی نرخەکان (Market Ticker) */
+    .market-box { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; }
+
+    /* هۆڵۆگرام */
+    #hologram-wrapper { 
+        width: 100%; height: 70vh; background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
+        border-radius: 30px; position: relative; overflow: hidden;
+    }
+</style>
+
+<div class="dashboard">
+    <!-- بەشی ئایکۆنەکان -->
+    <div class="sidebar">
+        <div class="nav-circle" onclick="showSection('villas')">ڤێلا</div>
+        <div class="nav-circle" onclick="showSection('apartments')">شوقە</div>
+        <div class="nav-circle" onclick="showSection('accessories')">ئێکسسوارات</div>
+    </div>
+
+    <!-- بەشی ناوەند (هۆڵۆگرام) -->
+    <div id="hologram-wrapper">
+        <div id="avatar" style="transition: 0.6s ease-in-out;">
+            <!-- لێرە وێنەی کچەکە بە عەزیە ڕەشەکەوە دادەنرێت -->
+        </div>
+    </div>
+
+    <!-- بەشی نرخەکان -->
+    <div class="market-box">
+        <h3>نرخی بازاڕ</h3>
+        <p>زێڕ: 1,035,000 د.ع</p>
+        <p>زیو: جێگیر</p>
+    </div>
+</div>
+
+<script>
+    // کۆنتڕۆڵی نەرمی هۆڵۆگرامەکە
+    function toggleHologram(action) {
+        const avatar = document.getElementById('avatar');
+        if(action === 'expand') {
+            avatar.style.transform = 'scale(2.0)'; // گەورەکردنی تەواو
+        } else {
+            avatar.style.transform = 'scale(1.0)';
+        }
+    }
+
+    // جوڵەی نەرم (120Hz Smoothness)
+    window.addEventListener('wheel', (e) => {
+        // ئەمە دەبێتە هۆی جوڵەیەکی نەرمی ڕووکارەکە
+        document.body.style.scrollBehavior = 'smooth';
+    });
+</script>
+const inventory = {
+    villas: [
+        { name: "Villa Royal", price: "500,000$", image: "v1.jpg" },
+        { name: "Modern Estate", price: "350,000$", image: "v2.jpg" }
+    ],
+    accessories: [
+        { name: "Luxury Watch", price: "12,000$", image: "a1.jpg" }
+    ]
+};
+
+// فەرمانێک بۆ هێنانی خودکارانەی وێنەکان
+function loadItems(category) {
+    const container = document.getElementById('display-area');
+    container.innerHTML = inventory[category].map(item => `
+        <div class="card">
+            <img src="${item.image}" alt="${item.name}">
+            <h3>${item.name}</h3>
+            <p>${item.price}</p>
+        </div>
+    `).join('');
+}
+async function updateCurrency(amount, from, to) {
+    const response = await fetch(`https://api.exchangerate-api.com/v4/latest/${from}`);
+    const data = await response.json();
+    return amount * data.rates[to];
+}
+.glass-panel {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px); /* ئەمە وادەکات تەم و لوکس دەربکەوێت */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+}
+<!DOCTYPE html>
+<html lang="ckb">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SHAHEN | ELITE UNIFIED LUXURY SYSTEM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury AI Platform</title>
     <style>
-        :root {
-            --gold: #C5A059;
-            --dark: #050505;
-            --panel: rgba(10, 10, 10, 0.95);
-            --white: #FFFFFF;
+        /* شێوازی بنەڕەتی */
+        body { margin: 0; background: #050505; color: #c5a059; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
+        
+        /* Glassmorphism Panel */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: var(--dark); color: var(--white); height: 100vh; overflow: hidden; display: flex; }
 
-        .app-container { display: flex; width: 100vw; height: 100vh; transition: 0.5s ease; }
-
-        /* Hologram Stage */
-        .stage { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; border-left: 1px solid var(--gold); }
-        .holo-body {
-            width: 300px; height: 600px; border: 2px solid var(--gold);
-            border-radius: 150px 150px 20px 20px; background: linear-gradient(to bottom, #111, #000);
+        /* بەشی هۆڵۆگرام */
+        #hologram-stage {
+            width: 100vw; height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            position: relative;
+        }
+        
+        .avatar-box {
+            width: 400px; height: 700px;
+            background: linear-gradient(to bottom, transparent, #000);
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative; overflow: hidden;
+            cursor: pointer;
         }
-        .dress { width: 100%; height: 60%; background: #000; position: absolute; bottom: 0; border-radius: 0 0 20px 20px; }
 
-        /* Dashboard */
-        .dashboard { width: 420px; background: var(--panel); padding: 25px; overflow-y: auto; border-right: 1px solid #333; }
-        .section-box { background: #151515; padding: 20px; margin-bottom: 20px; border-radius: 12px; border: 1px solid #333; }
-        h2 { color: var(--gold); margin-bottom: 15px; font-size: 1.1rem; }
-        .data-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
-        .price { color: #4CAF50; font-weight: bold; }
-        .btn-action { width: 100%; padding: 12px; background: var(--gold); color: #000; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        /* ئایکۆنە خڕەکان */
+        .nav-menu { position: absolute; left: 50px; display: flex; flex-direction: column; gap: 20px; }
+        .circle-icon {
+            width: 70px; height: 70px; border: 1px solid #c5a059;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            transition: 0.3s;
+        }
+        .circle-icon:hover { background: #c5a059; color: black; transform: scale(1.1); }
+
     </style>
 </head>
 <body>
 
-<div class="app-container">
-    <div class="dashboard">
-        <h2>بازاڕی دارایی</h2>
-        <div class="section-box">
-            <div class="data-row"><span>نرخی زێڕ (2 مسقاڵ)</span><span class="price">1,035,000 IQD</span></div>
-            <div class="data-row"><span>بیتکۆین (BTC)</span><span class="price">$67,200</span></div>
-        </div>
-
-        <h2>ڤێلا و شوقەکان</h2>
-        <div class="section-box">
-            <div class="data-row"><span>ڤێلای مۆدێرن</span><span class="price">$450,000</span></div>
-            <div class="data-row"><span>شوقەی لوکس</span><span class="price">$220,000</span></div>
-        </div>
+<div id="hologram-stage">
+    <div class="nav-menu">
+        <div class="circle-icon" onclick="openSection('villas')">V</div>
+        <div class="circle-icon" onclick="openSection('apartments')">A</div>
+        <div class="circle-icon" onclick="openSection('market')">$</div>
     </div>
 
-    <div class="stage">
-        <div class="holo-body" id="master-holo">
-            <div class="dress"></div>
+    <div id="avatar" class="avatar-box" onclick="expandHologram()">
         </div>
-        <button class="btn-action" style="width: 200px;" onclick="maximizeHolo()">نمایشی تەواو</button>
-    </div>
 </div>
 
 <script>
-    function maximizeHolo() {
-        const h = document.getElementById('master-holo');
-        h.style.width = (h.style.width === '500px') ? '300px' : '500px';
-        h.style.height = (h.style.height === '900px') ? '600px' : '900px';
+    // کۆنترۆڵی جوڵە و گەورەکردنی هۆڵۆگرام
+    function expandHologram() {
+        const avatar = document.getElementById('avatar');
+        avatar.style.transform = 'scale(1.5)';
+        // زیادکردنی جوڵەی قسەکردن لێرە دەستپێدەکات
+        console.log("Hologram Expanded & Activated");
     }
-</script>
 
+    function openSection(type) {
+        // لێرە دەتوانیت بەشەکان بگۆڕیت یان نرخەکان نیشان بدەیت
+        alert("دەستپێکردنی بەشی: " + type);
+    }
+
+    // 120Hz Smoothness Effect
+    document.addEventListener('mousemove', (e) => {
+        // جوڵەی نەرمی شاشە بەپێی ماوس
+    });
+</script>
 </body>
 </html>
+<style>
+    /* 1. پسوڵەی نرخەکان بە شێوازی لوکس */
+    .info-card {
+        background: linear-gradient(135deg, rgba(20,20,20,0.9), rgba(40,40,40,0.9));
+        border-left: 4px solid #c5a059;
+        padding: 25px;
+        margin: 20px;
+        border-radius: 0 15px 15px 0;
+        backdrop-filter: blur(10px);
+        color: white;
+        transition: 0.5s;
+    }
+    .info-card:hover { transform: translateX(10px); border-left: 4px solid #fff; }
 
-        <h2>بازاڕی دراو</h2>
-        <div class="card">
-            <p>زێڕ (2 مسقاڵ): <span class="price">1,035,000 IQD</span></p>
-            <p>بیتکۆین: <span class="price">$67,200</span></p>
-        </div>
+    /* 2. وێنەی ڕەنگدانەوەی کچەکە (Hologram Glow) */
+    .avatar-glow {
+        filter: drop-shadow(0 0 20px rgba(197, 160, 89, 0.5));
+    }
+</style>
 
-        <h2>ڤێلا و شوقەکان</h2>
-        <div class="card">
-            <p>ڤێلای مۆدێرن - نەخشەی خودکارانە</p>
-            <p class="price">$450,000</p>
-        </div>
-
-        <h2>ئێکسسوارات و خزمەتگوزاری</h2>
-        <div class="card">
-            <p>کاڵای لوکس - دیزاینی 2026</p>
-            <p>خزمەتگوزاری ئەمنی و لۆجستیک</p>
-        </div>
+<div id="services-grid" style="display: flex; flex-wrap: wrap; justify-content: center;">
+    <div class="info-card">
+        <h3>نەخشەی خودکارانە</h3>
+        <p>دیزاینی 3D ی پێشکەوتوو بەتەنیا کرتەیەک</p>
+    </div>
+    <div class="info-card">
+        <h3>ئێکسسواراتی لوکس</h3>
+        <p>نمایشکردنی کەرەستەی ناوازە بە کوالێتی بەرز</p>
     </div>
 </div>
+function speak(text) {
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.lang = 'ckb'; // کوردی
+    msg.pitch = 1;
+    msg.rate = 0.9; // خێرایی قسەکردن (نەرم و هێمن)
+    window.speechSynthesis.speak(msg);
+}
+// نموونە: کاتێک کرتە لە ڤێلا دەکەیت، کچەکە دەڵێت:
+// speak("بەخێر بێن بۆ جیهانی ڤێلا لوکسەکان");
+function updateMarketData() {
+    // لێرە دەتوانیت بە API زانیارییەکان بهێنیت
+    document.getElementById('gold-price').innerText = "1,035,000 IQD";
+}
+setInterval(updateMarketData, 60000); // هەر خولەکێک جارێک نرخەکان نوێ دەکاتەوە
+gsap.to(".nav-circle", {
+    duration: 1,
+    y: 20,
+    yoyo: true,
+    repeat: -1,
+    ease: "power1.inOut"
+});
+/* شێوازی گشتی بۆ هەموو شاشەکان */
+.dashboard {
+    display: flex;
+    flex-direction: column; /* بۆ مۆبایل ئایکۆنەکان لەسەر یەک دەبن */
+    align-items: center;
+}
 
-<script>
-    function toggleSize() {
-        const h = document.getElementById('holo');
-        h.style.width = (h.style.width === '500px') ? '300px' : '500px';
-        h.style.height = (h.style.height === '800px') ? '600px' : '800px';
+/* کاتێک شاشەکە لە 768px بچووکترە (واتە مۆبایل) */
+@media (max-width: 768px) {
+    .nav-menu {
+        flex-direction: row; /* لە مۆبایل ئایکۆنەکان بە ئاسۆیی دەبن */
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        gap: 15px;
     }
-</script>
-</body>
-</html>
+
+    .avatar-box {
+        width: 100%; /* لە مۆبایل شاشەکە پڕ دەکاتەوە */
+        height: 50vh;
+    }
+
+    #hologram-stage {
+        padding-top: 50px;
+    }
+}
 
