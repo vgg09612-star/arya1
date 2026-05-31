@@ -2,127 +2,34 @@
 <html lang="ckb" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شێخە گروپ | Shekha Group</title>
+    <title>شەهێن - چاتبۆت</title>
     <style>
-        /* دیزاینی بنەڕەتی لوکس */
-        :root { --gold: #d4af37; --bg: #050505; --glass: rgba(255, 255, 255, 0.05); }
-        * { box-sizing: border-box; transition: 0.4s ease; }
-        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; }
-
-        /* جوڵەی وێنە و کارتەکان */
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; padding: 50px; }
-        .card { 
-            background: var(--glass); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1);
-            padding: 30px; border-radius: 30px; cursor: pointer; overflow: hidden; position: relative;
-        }
-        .card:hover { transform: translateY(-20px) scale(1.02); border-color: var(--gold); }
-        
-        .img-box { width: 100%; height: 250px; background: #333; border-radius: 20px; margin-bottom: 20px; }
-        
-        /* تایبەتمەندییە پێشکەوتووەکان */
-        .btn-luxury { 
-            background: linear-gradient(45deg, #d4af37, #f7d56e); border: none; padding: 15px 30px;
-            border-radius: 50px; cursor: pointer; font-weight: bold; margin-top: 20px; width: 100%;
-        }
+        #chat-box { width: 300px; height: 400px; border: 1px solid #ccc; overflow-y: scroll; padding: 10px; }
     </style>
 </head>
 <body>
 
-<header style="height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center;">
-    <h1 style="font-size: 5rem; letter-spacing: 20px; color: var(--gold);">شێخە گروپ</h1>
-</header>
+    <h2>بەخێر بێیت بۆ لای شەهێن</h2>
+    <div id="chat-box"></div>
+    <input type="text" id="user-input" placeholder="پرسیارەکەت بنووسە...">
+    <button onclick="sendMessage()">ناردن</button>
 
-<main class="grid-container">
-    <div class="card">
-        <div class="img-box"></div> <h2>شوقەی VIP - نهۆمی ٢</h2>
-        <p>دیزاینی مۆدێرن، سیستەمی ئاسایشی زیرەک، ڕووبەری ١٦٠ مەتر.</p>
-        <div style="font-size: 1.5rem; color: var(--gold);">120,000$</div>
-        <button class="btn-luxury" onclick="alert('تاپۆکەت ئامادەیە')">کڕین و دەرکردنی تاپۆ</button>
-    </div>
-
-    <div class="card">
-        <div class="img-box"></div>
-        <h2>ڤێلای شاهانە - گاردن ستی</h2>
-        <p>مەلەوانگەی تایبەت، باخچەی کراوە، دیزاینی ئەوروپی.</p>
-        <div style="font-size: 1.5rem; color: var(--gold);">450,000$</div>
-        <button class="btn-luxury" onclick="alert('تاپۆکەت ئامادەیە')">کڕین و دەرکردنی تاپۆ</button>
-    </div>
-</main>
-
-<script>
-    // جوڵەی نەرم لەکاتی کردنەوەی سایتەکە
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
-        card.style.opacity = 0;
-        card.style.transform = 'translateY(100px)';
-        setTimeout(() => {
-            card.style.transition = '1s ease';
-            card.style.opacity = 1;
-            card.style.transform = 'translateY(0)';
-        }, 300);
-    });
-</script>
+    <script src="script.js"></script>
 </body>
 </html>
-<!DOCTYPE html>
-<html lang="ckb" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>شێخە گروپ | Shekha Group</title>
-    <style>
-        :root { --gold: #d4af37; --bg: #050505; }
-        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; }
-        
-        /* سیستەمی فلتەر */
-        .filter-nav { display: flex; justify-content: center; gap: 20px; padding: 40px; }
-        .filter-btn { padding: 15px 30px; border: 1px solid var(--gold); background: transparent; color: var(--gold); cursor: pointer; border-radius: 50px; }
-        .filter-btn:hover { background: var(--gold); color: #000; }
+function sendMessage() {
+    let input = document.getElementById("user-input").value;
+    let chatBox = document.getElementById("chat-box");
 
-        /* کارتەکان */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; padding: 20px; }
-        .card { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); transition: 0.5s; }
-        
-        /* ژمێریاری لوکس */
-        .floating-calc { position: fixed; bottom: 20px; right: 20px; background: var(--gold); padding: 20px; border-radius: 20px; color: #000; width: 300px; }
-    </style>
-</head>
-<body>
+    if (input.trim() === "") return;
 
-<div class="filter-nav">
-    <button class="filter-btn" onclick="filter('all')">هەموو</button>
-    <button class="filter-btn" onclick="filter('apartment')">شوقە</button>
-    <button class="filter-btn" onclick="filter('villa')">ڤێلا</button>
-</div>
+    // پیشاندانی پرسیارەکەی تۆ
+    chatBox.innerHTML += `<p><b>تۆ:</b> ${input}</p>`;
 
-<div class="grid" id="grid">
-    </div>
+    // لێرەدا دەبێت پەیوەندی بە APIـی Geminiـیەوە بکەیت
+    // وەک نموونەیەک:
+    chatBox.innerHTML += `<p><b>شەهێن:</b> ئەمە تەنها تاقیکردنەوەیە!</p>`;
 
-<div class="floating-calc">
-    <h4>ژمێریاری نرخ</h4>
-    <input type="number" id="meter" placeholder="مەتر" style="width: 100%; margin-bottom: 10px;">
-    <button onclick="calculate()">هەژمارکردن</button>
-    <p id="total"></p>
-</div>
-
-<script>
-    // سیستەمی فلتەرکردن
-    function filter(type) {
-        // لێرە لۆژیکی دەرخستن و شاردنەوەی کارتەکان دەبێت
-        console.log("Showing: " + type);
-    }
-
-    // سیستەمی ژمێریاری
-    function calculate() {
-        let m = document.getElementById('meter').value;
-        document.getElementById('total').innerText = "نرخی کۆتایی: " + (m * 950) + "$";
-    }
-
-    // سیستەمی دەرکردنی تاپۆ (بەڵگەنامە)
-    function generateTapu(item) {
-        let name = prompt("ناوی کڕیار بنووسە:");
-        if(name) alert("بەڵگەنامەی فەرمی بۆ " + item + " بە ناوی " + name + " ئامادەیە.");
-    }
-</script>
-</body>
-</html>
+    document.getElementById("user-input").value = "";
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
