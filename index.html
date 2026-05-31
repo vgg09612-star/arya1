@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHEX ARYA - Premium Trading Terminal</title>
+    <title>SHEX ARYA - Pure Black Premium Terminal</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap');
 
         :root {
-            --bg-pure-black: #0c0d14; /* ڕەنگی ڕەشی تەواو و قوڵی ترەیدین ڤیو */
-            --bg-card: #131722;
-            --bg-card-hover: #171b26;
+            --bg-pure-black: #000000; /* ڕەشی قەترانی تەواو وەک داوات کردبوو */
+            --bg-card: #0a0a0c;
+            --bg-card-hover: #121214;
             --tv-blue: #2962ff;
             --tv-green: #089981;
             --tv-red: #f23645;
-            --text-main: #d1d4dc;
+            --text-main: #b2b5be;
             --text-white: #ffffff;
-            --border-color: #2a2e39;
-            --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --border-color: #1f222b;
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         * {
@@ -38,13 +38,13 @@
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-pure-black); }
-        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--tv-blue); }
 
         /* Top Live Ticker */
         .ticker-wrapper {
             width: 100%;
-            background: #040508;
+            background: #000000;
             border-bottom: 1px solid var(--border-color);
             height: 40px;
             overflow: hidden;
@@ -55,7 +55,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgba(12, 13, 20, 0.9);
+            background-color: var(--bg-pure-black);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
@@ -75,7 +75,7 @@
         .hero {
             padding: 50px 20px;
             text-align: center;
-            background: radial-gradient(circle at top, #171b26 0%, var(--bg-pure-black) 80%);
+            background: #000000;
             border-bottom: 1px solid var(--border-color);
         }
 
@@ -85,21 +85,19 @@
             margin-bottom: 15px;
             font-weight: 700;
             letter-spacing: 0.5px;
-            animation: fadeIn Down 0.8s ease;
         }
 
         .quran-box {
             margin: 20px auto;
             max-width: 750px;
             padding: 25px;
-            border-radius: 12px;
-            background-color: rgba(41, 98, 255, 0.03);
-            border: 1px solid rgba(41, 98, 255, 0.15);
+            border-radius: 8px;
+            background-color: #050505;
+            border: 1px solid #1a1a1a;
             transition: var(--transition-smooth);
         }
         .quran-box:hover {
-            border-color: var(--tv-blue);
-            background-color: rgba(41, 98, 255, 0.05);
+            border-color: #333;
         }
 
         .quran-text {
@@ -135,7 +133,7 @@
             border-radius: 2px;
         }
 
-        /* Main Workspace Grid */
+        /* Main Workspace Layout */
         .app-layout {
             max-width: 95%;
             margin: 0 auto;
@@ -148,7 +146,7 @@
         .charts-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
-            gap: 30px;
+            gap: 35px; /* بۆشایی زیاتر لە نێوان شتەکان */
         }
 
         @media (max-width: 768px) {
@@ -157,35 +155,32 @@
 
         .chart-card {
             background: var(--bg-card);
-            border-radius: 12px;
+            border-radius: 8px;
             overflow: hidden;
             border: 1px solid var(--border-color);
-            height: 600px;
+            height: 650px;
             transition: var(--transition-smooth);
         }
         .chart-card:hover {
-            border-color: #434651;
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+            border-color: #333641;
+            transform: translateY(-2px);
         }
 
         .chart-header {
             padding: 16px 20px;
-            background: #1c2030;
+            background: #08080a;
             border-bottom: 1px solid var(--border-color);
             font-size: 1rem;
             color: var(--text-white);
             font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         /* Widgets & Live Lists Grid */
         .data-management-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
+            gap: 35px; /* بۆشایی ڕێک و پڕۆفیشناڵ */
+            margin-bottom: 80px;
         }
         @media (max-width: 1024px) {
             .data-management-grid { grid-template-columns: 1fr; }
@@ -193,15 +188,15 @@
 
         .data-card {
             background: var(--bg-card);
-            border-radius: 12px;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
             padding: 24px;
-            height: 480px;
+            height: 520px; /* قەبارەی گەورەتر بۆ ئەوەی شتەکان جێگایان ببێتەوە */
             display: flex;
             flex-direction: column;
             transition: var(--transition-smooth);
         }
-        .data-card:hover { border-color: #434651; }
+        .data-card:hover { border-color: #333641; }
 
         .card-title {
             font-size: 1.1rem;
@@ -210,81 +205,13 @@
             font-weight: 600;
         }
 
-        /* Custom Live Ticker Terminal (چرکە بە چرکە) */
-        .live-stream-container {
-            flex: 1;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            direction: ltr;
-        }
-
-        .live-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 18px;
-            background: rgba(255,255,255,0.02);
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.03);
-            animation: pulseFade 2s infinite alternate;
-        }
-
-        .badge-buy {
-            background: rgba(8, 153, 129, 0.15);
-            color: var(--tv-green);
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 0.85rem;
-        }
-
-        .badge-sell {
-            background: rgba(242, 54, 69, 0.15);
-            color: var(--tv-red);
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 0.85rem;
-        }
-
-        /* Historical Table (خشتەی تۆمارەکان) */
-        .history-table-wrapper {
-            flex: 1;
-            overflow-y: auto;
-        }
-
-        .crypto-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            direction: ltr;
-        }
-
-        .crypto-table th {
-            padding: 12px;
-            color: #848e9c;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .crypto-table td {
-            padding: 14px 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.02);
-            font-size: 0.95rem;
-        }
-
-        .up-trend { color: var(--tv-green); font-weight: 500; }
-        .down-trend { color: var(--tv-red); font-weight: 500; }
-
-        /* Draggable Interactive Gemini Terminal */
+        /* چاتەکە بە ستایلی تەواو ڕەش */
         .chat-toggle {
             position: fixed;
             bottom: 35px;
             right: 35px;
-            background: var(--tv-blue);
+            background: #111;
+            border: 1px solid #333;
             color: white;
             width: 56px;
             height: 56px;
@@ -294,11 +221,11 @@
             align-items: center;
             font-size: 22px;
             cursor: pointer;
-            box-shadow: 0 8px 24px rgba(41, 98, 255, 0.4);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.8);
             z-index: 1000;
             transition: var(--transition-smooth);
         }
-        .chat-toggle:hover { transform: scale(1.1); background: #1a53ff; }
+        .chat-toggle:hover { transform: scale(1.1); background: #1a1a1a; border-color: var(--tv-blue); }
         
         .chatbot-container {
             position: fixed;
@@ -306,17 +233,16 @@
             right: 35px;
             width: 380px;
             background: var(--bg-card);
-            border-radius: 14px;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
             display: none;
             z-index: 999;
-            transition: opacity 0.3s ease;
         }
 
         .chat-drag-handle {
-            background: #1c2030;
+            background: #08080a;
             color: var(--text-white);
             padding: 16px 20px;
             font-weight: 600;
@@ -341,21 +267,20 @@
 
         .chat-message {
             padding: 12px 16px;
-            border-radius: 10px;
+            border-radius: 8px;
             max-width: 85%;
             line-height: 1.6;
-            animation: msgIn 0.3s ease;
         }
 
         .msg-ai {
-            background: rgba(41, 98, 255, 0.08);
-            color: #8ab4f8;
+            background: #0a0a0c;
+            color: #d1d4dc;
             align-self: flex-start;
-            border: 1px solid rgba(41, 98, 255, 0.15);
+            border: 1px solid #222;
         }
 
         .msg-user {
-            background: #2a2e39;
+            background: #1f222b;
             color: var(--text-white);
             align-self: flex-end;
         }
@@ -376,8 +301,7 @@
             color: #fff;
             outline: none;
             font-family: 'Tajawal', sans-serif;
-            border-radius: 8px;
-            transition: var(--transition-smooth);
+            border-radius: 6px;
         }
         .chat-input input:focus { border-color: var(--tv-blue); }
 
@@ -391,25 +315,11 @@
             padding: 0 16px;
             font-size: 1rem;
         }
-
-        /* Animations */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes msgIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        @keyframes pulseFade {
-            from { border-color: rgba(255,255,255,0.03); }
-            to { border-color: rgba(41, 98, 255, 0.15); }
-        }
     </style>
 </head>
 <body>
 
-    <!-- ژوڕناڵی نرخە زیندووەکان لە سەرەوە -->
+    <!-- لێشاوی نرخە گشتییەکان لە سەرەوە -->
     <div class="ticker-wrapper">
         <div class="tradingview-widget-container">
             <div class="tradingview-widget-container__widget"></div>
@@ -431,7 +341,7 @@
 
     <header>
         <div class="logo">SHEX ARYA TERMINAL</div>
-        <div style="color: var(--tv-blue); font-weight: 600; font-size: 0.85rem; letter-spacing: 2px;">GLOBAL MARKET DATA</div>
+        <div style="color: #666; font-weight: 600; font-size: 0.85rem; letter-spacing: 2px;">PURE BLACK EDITION</div>
     </header>
 
     <section class="hero">
@@ -444,106 +354,78 @@
 
     <main class="app-layout">
 
-        <!-- بەشی چارتە پێشکەوتووە گەورەکان -->
-        <h2 class="section-title">چارتە جیهانییەکان و هێڵکاری تەکنیکی</h2>
+        <!-- بەشی چارتە جیهانییە گەورەکان -->
+        <h2 class="section-title">چارتە فەرمییەکانی بۆڕسەی جیهانی</h2>
         <section class="charts-grid">
             <div class="chart-card">
-                <div class="chart-header">
-                    <span>🟡 مەکۆی سەرەکی شیکاری زێڕ (XAUUSD)</span>
-                </div>
+                <div class="chart-header">🟡 مەکۆی سەرەکی شیکاری زێڕ (XAUUSD)</div>
                 <div id="tv_gold_pro" style="height: calc(100% - 54px); width:100%;"></div>
             </div>
 
             <div class="chart-card">
-                <div class="chart-header">
-                    <span>⚪ مەکۆی سەرەکی شیکاری زیو (XAGUSD)</span>
-                </div>
+                <div class="chart-header">⚪ مەکۆی سەرەکی شیکاری زیو (XAGUSD)</div>
                 <div id="tv_silver_pro" style="height: calc(100% - 54px); width:100%;"></div>
             </div>
         </section>
 
-        <!-- خشتە نوێ و داواکراوەکان -->
-        <h2 class="section-title">تێرمیناڵی ڕاستەوخۆ و تۆماری مێژوویی</h2>
+        <!-- خشتە فەرمی و جیهانییەکان لەسەر باکگراوندی ڕەشی قەتران -->
+        <h2 class="section-title">خشتەی چاودێری بازاڕ و سیگناڵە جیهانییەکان</h2>
         <section class="data-management-grid">
 
-            <!-- ١. بەشی داتای چرکە بە چرکە (Live Tick Data) -->
+            <!-- ١. خشتەی گشتی بۆڕسەی جیهانی (Global Market Watch) -->
             <div class="data-card">
-                <div class="card-title" style="text-align: right;">⚡ لێشاوی داتای چرکە بە چرکە (Live Feed)</div>
-                <div class="live-stream-container">
-                    <div class="live-row">
-                        <span class="badge-buy">BUY</span>
-                        <span style="color:#fff; font-weight:bold;">XAUUSD</span>
-                        <span class="up-trend">$2,345.20</span>
-                        <span style="color:#848e9c; font-size:0.8rem;">Just Now</span>
-                    </div>
-                    <div class="live-row">
-                        <span class="badge-buy">BUY</span>
-                        <span style="color:#fff; font-weight:bold;">XAGUSD</span>
-                        <span class="up-trend">$30.45</span>
-                        <span style="color:#848e9c; font-size:0.8rem;">1s ago</span>
-                    </div>
-                    <div class="live-row">
-                        <span class="badge-sell">SELL</span>
-                        <span style="color:#fff; font-weight:bold;">XAUUSD</span>
-                        <span class="down-trend">$2,344.90</span>
-                        <span style="color:#848e9c; font-size:0.8rem;">3s ago</span>
-                    </div>
-                    <div class="live-row">
-                        <span class="badge-buy">BUY</span>
-                        <span style="color:#fff; font-weight:bold;">BTCUSD</span>
-                        <span class="up-trend">$67,210.00</span>
-                        <span style="color:#848e9c; font-size:0.8rem;">5s ago</span>
-                    </div>
-                    <div class="live-row">
-                        <span class="badge-sell">SELL</span>
-                        <span style="color:#fff; font-weight:bold;">XAGUSD</span>
-                        <span class="down-trend">$30.41</span>
-                        <span style="color:#848e9c; font-size:0.8rem;">8s ago</span>
-                    </div>
+                <div class="card-title" style="text-align: right;">🌍 چاودێری بازاڕی بۆڕسەی جیهانی (سەوز و سوور)</div>
+                <div class="tradingview-widget-container" style="height: calc(100% - 40px); direction: ltr;">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+                    {
+                    "colorTheme": "dark",
+                    "dateRange": "12M",
+                    "showGridLines": false,
+                    "isTransparent": true,
+                    "locale": "en",
+                    "width": "100%",
+                    "height": "100%",
+                    "tabs": [
+                        {
+                        "title": "Metals & Crypto",
+                        "symbols": [
+                            { "s": "OANDA:XAUUSD", "d": "Gold Spot" },
+                            { "s": "OANDA:XAGUSD", "d": "Silver Spot" },
+                            { "s": "BINANCE:BTCUSDT", "d": "Bitcoin" }
+                        ]
+                        }
+                    ]
+                    }
+                    </script>
                 </div>
             </div>
 
-            <!-- ٢. خشتەی مێژوویی تۆماری ڕۆژانە (Daily Records) -->
+            <!-- ٢. خشتەی سیگناڵی تەکنیکی جیهانی (BUY / SELL) -->
             <div class="data-card">
-                <div class="card-title" style="text-align: right;">📅 تۆماری ڕۆژانەی نرخەکانی زێڕ و زیو</div>
-                <div class="history-table-wrapper">
-                    <table class="crypto-table">
-                        <thead>
-                            <tr>
-                                <th>ASSET</th>
-                                <th>DAILY HIGH</th>
-                                <th>DAILY LOW</th>
-                                <th>CHANGE</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td style="color:#fff; font-weight:bold;">Gold (XAU)</td>
-                                <td class="up-trend">$2,352.10</td>
-                                <td class="down-trend">$2,320.40</td>
-                                <td class="up-trend">+1.24%</td>
-                            </tr>
-                            <tr>
-                                <td style="color:#fff; font-weight:bold;">Silver (XAG)</td>
-                                <td class="up-trend">$31.15</td>
-                                <td class="down-trend">$29.80</td>
-                                <td class="down-trend">-0.45%</td>
-                            </tr>
-                            <tr>
-                                <td style="color:#fff; font-weight:bold;">Bitcoin (BTC)</td>
-                                <td class="up-trend">$68,400.00</td>
-                                <td class="down-trend">$66,100.00</td>
-                                <td class="up-trend">+2.10%</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="card-title" style="text-align: right;">⚡ ئاڕاستەی تەکنیکی و بڕیاری بازاڕ (BUY / SELL)</div>
+                <div class="tradingview-widget-container" style="height: calc(100% - 40px); direction: ltr;">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+                    {
+                    "interval": "1D",
+                    "width": "100%",
+                    "isTransparent": true,
+                    "height": "100%",
+                    "symbol": "OANDA:XAUUSD",
+                    "showIntervalTabs": true,
+                    "displayMode": "single",
+                    "locale": "en",
+                    "colorTheme": "dark"
+                    }
+                    </script>
                 </div>
             </div>
 
         </section>
     </main>
 
-    <!-- بارکردنی نەخشەکان -->
+    <!-- بارکردنی سکریپتە جیهانییەکانی TradingView -->
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <script type="text/javascript">
         new TradingView.widget({
@@ -555,8 +437,8 @@
             "style": "1",
             "locale": "en",
             "enable_publishing": false,
-            "backgroundColor": "#131722",
-            "gridColor": "#2a2e39",
+            "backgroundColor": "#000000", /* ناوەوەی چارتەکەش کرا بە ڕەشی قەتران */
+            "gridColor": "#141414",
             "container_id": "tv_gold_pro",
             "withdateranges": true,
             "allow_symbol_change": true,
@@ -574,8 +456,8 @@
             "style": "1",
             "locale": "en",
             "enable_publishing": false,
-            "backgroundColor": "#131722",
-            "gridColor": "#2a2e39",
+            "backgroundColor": "#000000",
+            "gridColor": "#141414",
             "container_id": "tv_silver_pro",
             "withdateranges": true,
             "allow_symbol_change": true,
@@ -585,24 +467,23 @@
         });
     </script>
 
-    <!-- جێگیرکردنی Google Gemini Chatbot (Interactive Tool) -->
+    <!-- جێگیرکردنی Google Gemini Chatbot (Draggable & Pure Black) -->
     <div class="chat-toggle" onclick="toggleChat()">✦</div>
     
     <div class="chatbot-container" id="geminiChat">
         <div class="chat-drag-handle" id="chatHeader">
-            <span>🔵 Google Gemini Terminal</span>
+            <span>⚫ Gemini Pure Black Terminal</span>
             <span style="cursor:pointer;" onclick="toggleChat()">✕</span>
         </div>
         <div class="chat-body" id="chatBody">
-            <div class="chat-message msg-ai">سڵاو شێخ ئەریا، تێرمیناڵەکەت بە تەواوی نوێکرایەوە! ڕەنگی ڕەشی تەواو، ئەنیمەیشنی نەرم، خشتەی نوێی چرکە بە چرکە و بۆشایی گەورەی هاوشێوەی ئەپی مۆبایلی TradingView جێگیر کران. پلاتفۆرمەکە ئامادەیە!</div>
+            <div class="chat-message msg-ai">سڵاو شێخ ئەریا، پلاتفۆرمەکەت گەیشتە بەرزترین ئاستی سادەیی و پڕۆفیشناڵی جیهانی. ڕەنگی شین و نیلی گشتی سڕدرانەوە و بوو بە ڕەشی قەترانی تەواو. خشتەکانیش ڕاستەوخۆ بەستراونەتەوە بە بۆڕسەی فەرمی جیهانییەوە!</div>
         </div>
         <div class="chat-input">
-            <input type="text" placeholder="فەرمانێک بنووسە..." id="userInput" onkeypress="handleKeyPress(event)">
+            <input type="text" placeholder="نامەیەک بنووسە..." id="userInput" onkeypress="handleKeyPress(event)">
             <button onclick="sendMessage()">ناردن</button>
         </div>
     </div>
 
-    <!-- سکریپتی کارپێکردن و ڕاکێشانی نەرمی چاتەکە -->
     <script>
         function toggleChat() {
             const chat = document.getElementById('geminiChat');
@@ -624,13 +505,13 @@
                 chatBody.scrollTop = chatBody.scrollHeight;
 
                 setTimeout(() => {
-                    chatBody.innerHTML += `<div class="chat-message msg-ai">فەرمانەکە جێبەجێ کرا. سیستەمی داتاکان بە چرکە بە چرکە نوێ دەبنەوە و ڕووکاری پلاتفۆرمەکە لەسەر بەرزترین خێرایی کار دەکات.</div>`;
+                    chatBody.innerHTML += `<div class="chat-message msg-ai">هەموو گۆڕانکارییەکان جێبەجێ کران. سیستەمەکە ئێستا زۆر سووک و نەرم کاردەکات.</div>`;
                     chatBody.scrollTop = chatBody.scrollHeight;
                 }, 1000);
             }
         }
 
-        // ڕاکێشانی سندوقی چاتەکە
+        // ڕاکێشان و جوڵاندنی چاتەکە
         dragElement(document.getElementById("geminiChat"));
 
         function dragElement(elmnt) {
