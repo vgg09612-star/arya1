@@ -774,3 +774,329 @@
     </script>
 </body>
 </html>
+<!-- ================================================================= -->
+<!-- بەشی نوێ: نەخشەی ڤێلاکان، کەلوپەل، بۆرسە و نرخی شوقەکان -->
+<!-- ================================================================= -->
+
+<style>
+    /* ستایلی گشتی بەشە نوێیەکان - دیزاینی مۆدێرن و لوکس */
+    :root {
+        --primary-gold: #c5a880;
+        --dark-slate: #1a1e21;
+        --light-bg: #f8f9fa;
+        --border-color: #e9ecef;
+    }
+
+    .lux-section {
+        padding: 60px 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        direction: rtl;
+        background-color: #ffffff;
+        color: #333;
+    }
+
+    .lux-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .lux-title {
+        text-align: center;
+        font-size: 28px;
+        color: var(--dark-slate);
+        margin-bottom: 40px;
+        position: relative;
+        padding-bottom: 15px;
+    }
+
+    .lux-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: var(--primary-gold);
+    }
+
+    /* ستایلی بەشی لۆگۆ */
+    .brand-logo-container {
+        text-align: center;
+        padding: 20px;
+        background: var(--light-bg);
+        border-radius: 8px;
+        margin-bottom: 30px;
+    }
+    .brand-logo {
+        max-width: 180px;
+        height: auto;
+        border: 2px dashed var(--primary-gold);
+        padding: 10px;
+        background: #fff;
+    }
+
+    /* ستایلی نەخشە و ژوورەکان */
+    .grid-layout {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+
+    .card-lux {
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        transition: transform 0.3s;
+    }
+
+    .card-lux:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-media {
+        background: #e9ecef;
+        height: 220px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #6c757d;
+        font-weight: bold;
+        position: relative;
+    }
+
+    .card-content {
+        padding: 20px;
+    }
+
+    .card-content h3 {
+        margin-top: 0;
+        color: var(--dark-slate);
+        font-size: 20px;
+    }
+
+    .room-specs {
+        list-style: none;
+        padding: 0;
+        margin: 15px 0;
+    }
+
+    .room-specs li {
+        padding: 8px 0;
+        border-bottom: 1px dashed var(--border-color);
+        display: flex;
+        justify-content: space-between;
+    }
+
+    /* حیسابکەری نرخ و بۆڕسە */
+    .calc-box {
+        background: var(--dark-slate);
+        color: #fff;
+        padding: 30px;
+        border-radius: 16px;
+        margin-top: 40px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .calc-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group label {
+        margin-bottom: 8px;
+        color: var(--primary-gold);
+    }
+
+    .form-group input, .form-group select {
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #444;
+        background: #2c3238;
+        color: #fff;
+        font-size: 16px;
+        text-align: left;
+        direction: ltr;
+    }
+
+    .result-display {
+        background: rgba(197, 168, 128, 0.1);
+        border: 1px solid var(--primary-gold);
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        margin-top: 20px;
+        font-size: 18px;
+        font-weight: bold;
+        color: var(--primary-gold);
+    }
+
+    /* بەشی کەلوپەلی ناوماڵ */
+    .furniture-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: var(--primary-gold);
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+    }
+</style>
+
+<section class="lux-section">
+    <div class="lux-container">
+        
+        <!-- بەشی لۆگۆی کۆمپانیا/پڕۆژە -->
+        <div class="brand-logo-container">
+            <!-- لێرە دەتوانیت لە جیاتی src="logo.png" لیکی وێنەی لۆگۆکەت دابنێیت -->
+            <img src="https://via.placeholder.com/180x80?text=YOUR+LOGO" alt="لۆگۆی پڕۆژە" class="brand-logo">
+            <p style="margin-top: 10px; color: #666; font-size: 14px;">دیزاین و تەلارسازی شاهانە</p>
+        </div>
+
+        <!-- ١. بەشی نەخشە و ژوورەکانی ڤێلاکان -->
+        <h2 class="lux-title">نەخشەی تەواوکاری و ژوورەکانی ڤێلاکان</h2>
+        <div class="grid-layout">
+            
+            <!-- ڤێلای جۆری A -->
+            <div class="card-lux">
+                <div class="card-media">
+                    <span style="padding: 20px; text-align: center;">🗺️ وێنەی نەخشەی ئەندازیاری ڤێلا (Floor Plan A)</span>
+                </div>
+                <div class="card-content">
+                    <h3>ڤێلای شاهانە (جۆری مۆدێرن)</h3>
+                    <p style="color: #666; font-size: 14px;">نەخشەی زەوی و دابەشکاری ناوەوە بە وردەکاری تەواوەوە:</p>
+                    <ul class="room-specs">
+                        <li><span>🛏️ ژووری نوستن (ماستەر):</span> <span>٤ ژوور</span></li>
+                        <li><span>🛋️ هۆڵی میوان و دانیشتن:</span> <span>٢ هۆڵی گەورە</span></li>
+                        <li><span>🍳 چێشتخانە (کراوە و داخراو):</span> <span>٢ دانە</span></li>
+                        <li><span>🛁 گەرماو و تەوالێت:</span> <span>٥ دانە</span></li>
+                        <li><span>🚗 گەراجی ئۆتۆمبێل:</span> <span>بۆ ٢ ئۆتۆمبێل</span></li>
+                        <li><span>🌳 حەوشە و باخچە:</span> <span>تەواوکاری سەوزایی</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ڤێلای جۆری B -->
+            <div class="card-lux">
+                <div class="card-media">
+                    <span style="padding: 20px; text-align: center;">🗺️ وێنەی نەخشەی ئەندازیاری ڤێلا (Floor Plan B)</span>
+                </div>
+                <div class="card-content">
+                    <h3>ڤێلای کلاسیک (فەزای فراوان)</h3>
+                    <p style="color: #666; font-size: 14px;">دیزاینێکی ناوازە بۆ خێزانی گەورە لەگەڵ ڕووناکی سروشتی:</p>
+                    <ul class="room-specs">
+                        <li><span>🛏️ ژووری نوستن:</span> <span>٥ ژوور</span></li>
+                        <li><span>🛋️ هۆڵی دانیشتن:</span> <span>٣ هۆڵ</span></li>
+                        <li><span>🍳 چێشتخانەی هاوچەرخ:</span> <span>١ دانەی گەورە</span></li>
+                        <li><span>🛁 گەرماو و مەلەوانگە:</span> <span>جاكوزی + ٦ گەرماو</span></li>
+                        <li><span>📦 ژووری کۆگا و خزمەتکار:</span> <span>٢ ژووری تایبەت</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ٢. بەشی کەلوپەلی ناوماڵ و دیزاینی ناوەوە -->
+        <h2 class="lux-title">کەلوپەلی ناوماڵ و دیزاینی ناوەوە (Interior)</h2>
+        <div class="grid-layout">
+            <div class="card-lux">
+                <div class="card-media">
+                    <span class="furniture-badge">مۆدێرن</span>
+                    <span>🛋️ وێنەی هۆڵ و ئەساسی ناوماڵ</span>
+                </div>
+                <div class="card-content">
+                    <h3>ئەساسی هۆڵی دانیشتن</h3>
+                    <p style="color: #6c757d;">کەلوپەلی کوالیتی بەرز و قەنەفەی مۆدێرن گونجاو لەگەڵ ڕووبەری ڤێلاکان.</p>
+                </div>
+            </div>
+
+            <div class="card-lux">
+                <div class="card-media">
+                    <span class="furniture-badge">لوکس</span>
+                    <span>🍳 دیزاینی چێشتخانە و کابینێت</span>
+                </div>
+                <div class="card-content">
+                    <h3>کابینێتی چێشتخانە</h3>
+                    <p style="color: #6c757d;">چێشتخانەی ئامادەکراو بە باشترین جۆری دار و مەڕمەڕی سروشتی.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ٣. بەشی بۆرسە و گۆڕینەوەی نرخی شوقە و ڤێلاکان (دۆلار ⇄ دینار) -->
+        <h2 class="lux-title">سیستمی بۆڕسە و حیسابکاری نرخی شوقە و ڤێلاکان</h2>
+        
+        <div class="calc-box">
+            <p style="text-align: center; margin-top: 0; color: var(--primary-gold);">🔄 لێرەدا دەتوانیت نرخەکان بەپێی بۆڕسەی ڕۆژ لە دۆلارەوە بگۆڕیت بۆ دینار و بەپێچەوانەشەوە</p>
+            
+            <div class="calc-grid">
+                <!-- نرخی گۆڕینەوەی بۆرسە -->
+                <div class="form-group">
+                    <label for="exchangeRate">نرخی بۆڕسە (١٠٠ دۆلار بە چەند دینارە؟):</label>
+                    <input type="number" id="exchangeRate" value="153000" oninput="calculateExchange()">
+                </div>
+
+                <!-- بڕی پارە بۆ شکاندنەوە -->
+                <div class="form-group">
+                    <label for="amountInput">بڕی پارە (ژمارەکە بنووسە):</label>
+                    <input type="number" id="amountInput" value="100000" oninput="calculateExchange()">
+                </div>
+
+                <!-- جۆری گۆڕینەوە -->
+                <div class="form-group">
+                    <label for="calcDirection">جۆری گۆڕینەوە:</label>
+                    <select id="calcDirection" onchange="calculateExchange()">
+                        <option value="usdToIqd">لە دۆلارەوە ($) بۆ دیناری عێراقی (IQD)</option>
+                        <option value="iqdToUsd">لە دیناری عێراقییەوە (IQD) بۆ دۆلار ($)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- ئەنجامی شکاندنەوەی بۆرسە -->
+            <div class="result-display" id="exchangeResult">
+                ئەنجام: ١٥٣,٠٠٠,٠٠٠ دیناری عێراقی
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script>
+    // نەخشەی حیسابکاری بۆڕسە و گۆڕینەوەی دراو
+    function calculateExchange() {
+        const rate = parseFloat(document.getElementById('exchangeRate').value);
+        const amount = parseFloat(document.getElementById('amountInput').value);
+        const direction = document.getElementById('calcDirection').value;
+        const resultDiv = document.getElementById('exchangeResult');
+
+        if (isNaN(rate) || isNaN(amount) || amount <= 0 || rate <= 0) {
+            resultDiv.innerHTML = "تکایە نرخەکان بە دروستی بنووسە";
+            return;
+        }
+
+        if (direction === "usdToIqd") {
+            // دۆلار بۆ دینار: (بڕی دۆلار دابەشی 100) لێکدانی نرخی دەفتەر
+            const totalIqd = (amount / 100) * rate;
+            resultDiv.innerHTML = `💵 ئەنجام: ${totalIqd.toLocaleString('en-US')} دیناری عێراقی`;
+        } else {
+            // دینار بۆ دۆلار: (بڕی دینار دابەشی نرخی بۆرسە) لێکدانی 100
+            const totalUsd = (amount / rate) * 100;
+            resultDiv.innerHTML = `💲 ئەنجام: $${totalUsd.toLocaleString('en-US', {maximumFractionDigits: 2})} دۆلاری ئەمریکی`;
+        }
+    }
+    
+    // کارپێکردنی سەرەتایی لە کاتی لۆدبوونی لاپەڕەکە
+    window.addEventListener('DOMContentLoaded', (event) => {
+        calculateExchange();
+    });
+</script>
+<!-- ================================================================= -->
