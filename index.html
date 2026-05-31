@@ -310,3 +310,459 @@
     </script>
 </body>
 </html>
+    <!-- دەرکەوتنی چارتی پڕۆفیشناڵی TradingView -->
+    <h2 class="section-title">شیکاری ڕاستەوخۆی بازاڕ</h2>
+    <div class="chart-section" style="width: 90%; max-width: 1200px; margin: 0 auto 60px auto; height: 600px; border-radius: 12px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.6); border: 1px solid rgba(212, 175, 55, 0.2);">
+        <!-- TradingView Widget BEGIN -->
+        <div class="tradingview-widget-container" style="height: 100%; width: 100%;">
+            <div id="tradingview_advanced_chart" style="height: calc(100% - 32px); width: 100%;"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+            <script type="text/javascript">
+            new TradingView.widget({
+                "autosize": true,
+                "symbol": "OANDA:XAUUSD",
+                "interval": "D",
+                "timezone": "Asia/Baghdad",
+                "theme": "dark",
+                "style": "1",
+                "locale": "en",
+                "enable_publishing": false,
+                "backgroundColor": "#121212",
+                "gridColor": "rgba(255, 255, 255, 0.05)",
+                "hide_top_toolbar": false,
+                "hide_legend": false,
+                "save_image": false,
+                "container_id": "tradingview_advanced_chart",
+                "toolbar_bg": "#1e1e1e",
+                "withdateranges": true,
+                "allow_symbol_change": true,
+                "details": true,
+                "hotlist": true,
+                "calendar": false,
+                "studies": [
+                    "Volume@tv-basicstudies",
+                    "RSI@tv-basicstudies"
+                ],
+                "show_popup_button": true,
+                "popup_width": "1000",
+                "popup_height": "650"
+            });
+            </script>
+        </div>
+        <!-- TradingView Widget END -->
+    </div>
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arya - پلاتفۆرمی دارایی و دیجیتاڵی</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght=0,400;0,700;1,400&family=Tajawal:wght@300;400;700&display=swap');
+
+        :root {
+            --primary-bg: #121212;
+            --secondary-bg: #1a1a1a;
+            --gold-accent: #d4af37;
+            --silver-accent: #c0c0c0;
+            --text-light: #f5f5f5;
+            --text-dim: #a0a0a0;
+            --border-color: rgba(212, 175, 55, 0.15);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold-accent);
+            letter-spacing: 1px;
+        }
+
+        /* Top Live Ticker Wrapper */
+        .ticker-wrapper {
+            width: 100%;
+            background: #0d0d0d;
+            border-bottom: 1px solid var(--border-color);
+            height: 40px;
+            overflow: hidden;
+        }
+
+        /* Navigation Header */
+        header {
+            padding: 25px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(18, 18, 18, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--text-light);
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Cinematic Hero Section */
+        .hero {
+            height: 75vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(rgba(18, 18, 18, 0.88), rgba(18, 18, 18, 0.88)), 
+                        url('https://images.unsplash.com/photo-1618042164219-62c820f10723?q=80&w=2000&auto=format&fit=crop') center/cover;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            color: var(--silver-accent);
+            line-height: 1.8;
+        }
+
+        /* Sections Styling */
+        .section-title {
+            text-align: center;
+            margin: 60px 0 30px 0;
+            font-size: 2.2rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 2px;
+            background: var(--gold-accent);
+            margin: 15px auto 0 auto;
+        }
+
+        /* Advanced Drawing Chart Container */
+        .chart-section {
+            width: 90%;
+            max-width: 1300px;
+            margin: 0 auto 60px auto;
+            height: 650px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Info Portfolio Cards */
+        .grid-container {
+            padding: 0 50px 60px 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--secondary-bg);
+            padding: 40px 30px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold-accent);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.08);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: var(--text-dim);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Shahen AI Advanced Chat UI */
+        .chat-toggle {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: linear-gradient(135deg, #d4af37, #aa8416);
+            color: var(--primary-bg);
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .chat-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+        
+        .chatbot-container {
+            position: fixed;
+            bottom: 120px;
+            right: 40px;
+            width: 360px;
+            background: var(--secondary-bg);
+            border-radius: 14px;
+            border: 1px solid var(--gold-accent);
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            display: none;
+            z-index: 999;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .chat-header {
+            background: var(--gold-accent);
+            color: var(--primary-bg);
+            padding: 18px;
+            font-weight: bold;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .chat-body {
+            height: 320px;
+            padding: 20px;
+            overflow-y: auto;
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: #141414;
+        }
+
+        .chat-message {
+            padding: 11px 15px;
+            border-radius: 10px;
+            max-width: 85%;
+            line-height: 1.5;
+        }
+
+        .msg-ai {
+            background: rgba(212, 175, 55, 0.08);
+            color: var(--gold-accent);
+            align-self: flex-start;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+        }
+
+        .msg-user {
+            background: #2a2a2a;
+            color: var(--text-light);
+            align-self: flex-end;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .chat-input {
+            display: flex;
+            border-top: 1px solid #252525;
+            background: var(--secondary-bg);
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 16px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            outline: none;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .chat-input button {
+            padding: 0 22px;
+            background: var(--gold-accent);
+            border: none;
+            cursor: pointer;
+            color: var(--primary-bg);
+            font-weight: bold;
+            font-family: 'Tajawal', sans-serif;
+            transition: background 0.3s;
+        }
+
+        .chat-input button:hover {
+            background: #b5952f;
+        }
+
+        .chat-body::-webkit-scrollbar { width: 5px; }
+        .chat-body::-webkit-scrollbar-thumb { background: var(--gold-accent); border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <!-- ١. شریتی نرخی ڕاستەوخۆی بازاڕەکان (TradingView Live Ticker) -->
+    <div class="ticker-wrapper">
+        <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-tickers.js" async>
+            {
+            "symbols": [
+                { "proName": "OANDA:XAUUSD", "title": "Gold" },
+                { "proName": "OANDA:XAGUSD", "title": "Silver" },
+                { "proName": "BINANCE:BTCUSDT", "title": "Bitcoin" }
+            ],
+            "colorTheme": "dark",
+            "isTransparent": true,
+            "showSymbolLogo": true,
+            "locale": "en"
+            }
+            </script>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo">ARYA.</div>
+        <div style="color: var(--gold-accent); font-family: 'Playfair Display', serif; font-size: 0.95rem; letter-spacing: 2px;">EST. 1991</div>
+    </header>
+
+    <section class="hero">
+        <h1>هێزی داتا و شیکاری پێشکەوتوو</h1>
+        <p>تێکەڵکردنی وردبینی بازاڕە داراییەکان لەگەڵ ژیرۆیی تەکنەلۆجیا. لێرەوە چاودێری جوڵەی کانزا بەنرخەکان بکە و پێشبینی بازاڕ بە شێوازێکی پڕۆفیشناڵ بکێشە.</p>
+    </section>
+
+    <!-- ٢. چارتی پێشکەوتووی TradingView لەگەڵ ئامرازەکانی کێشان و ڤۆلیۆم -->
+    <h2 class="section-title">شیکاری تەکنیکی و سەکۆی نەخشەکان</h2>
+    
+    <section class="chart-section">
+        <div class="tradingview-widget-container" style="height: 100%; width: 100%;">
+            <div id="tradingview_advanced_chart" style="height: 100%; width: 100%;"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+            <script type="text/javascript">
+            new TradingView.widget({
+                "autosize": true,
+                "symbol": "OANDA:XAUUSD",
+                "interval": "D",
+                "timezone": "Asia/Baghdad",
+                "theme": "dark",
+                "style": "1",
+                "locale": "en",
+                "enable_publishing": false,
+                "backgroundColor": "#121212",
+                "gridColor": "rgba(255, 255, 255, 0.04)",
+                "hide_top_toolbar": false,
+                "hide_legend": false,
+                "save_image": true,
+                "container_id": "tradingview_advanced_chart",
+                "toolbar_bg": "#1a1a1a",
+                "withdateranges": true,
+                "allow_symbol_change": true,
+                "details": true,
+                "hotlist": true,
+                "calendar": true,
+                "studies": [
+                    "Volume@tv-basicstudies",
+                    "RSI@tv-basicstudies"
+                ],
+                "show_popup_button": true,
+                "popup_width": "1000",
+                "popup_height": "650"
+            });
+            </script>
+        </div>
+    </section>
+
+    <h2 class="section-title">ستراتیژیەت و تەکنەلۆجیا</h2>
+    
+    <section class="grid-container">
+        <div class="card">
+            <h3>شیکاری زێڕ و زیو</h3>
+            <p>بەدواداچوونی ڕۆژانە بۆ ڕەوتی جوڵەی XAU/USD و XAG/USD بە پشتبەستن بە قەبارەی بازاڕ (Volume) بۆ دۆزینەوەی باشترین دەرفەتی وەبەرهێنان.</p>
+        </div>
+        <div class="card">
+            <h3>بازاڕی کریپتۆ</h3>
+            <p>چاودێریکردنی ڕەفتاری نرخی بیتکۆین و شیکاری پشتگیری و بەرگرییەکان لەسەر کاتی جیاواز بۆ بەدەستهێنانی دیدێکی گشتگیر.</p>
+        </div>
+        <div class="card">
+            <h3>پەرەپێدانی زیرەک</h3>
+            <p>بەکارهێنانی هێزی کۆمپیوتەری گۆگڵ و مۆدێلە پێشکەوتووەکانی کڵاود بۆ دروستکردنی سیستەمی خۆکار و چاتبۆتی هوشمەند.</p>
+        </div>
+    </section>
+
+    <!-- ٣. جێگیرکردنی یاریدەدەری هۆشمەند (Shahen AI Chatbot) -->
+    <div class="chat-toggle" onclick="toggleChat()">✧</div>
+    
+    <div class="chatbot-container" id="shahenChat">
+        <div class="chat-header">SHAHEN AI</div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-message msg-ai">سڵاو، من شاهەنم. ئامادەم بۆ شیکاری داتا و هاوکاریکردنت لە پڕۆژەکانتدا.</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" placeholder="پرسیارەکەت ئاڕاستەی شاهەن بکە..." id="userInput" onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()">ناردن</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleChat() {
+            const chat = document.getElementById('shahenChat');
+            chat.style.display = chat.style.display === 'none' || chat.style.display === '' ? 'block' : 'none';
+        }
+
+        function handleKeyPress(e) {
+            if(e.key === 'Enter') { sendMessage(); }
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const chatBody = document.getElementById('chatBody');
+            const message = input.value.trim();
+            
+            if(message !== "") {
+                chatBody.innerHTML += `<div class="chat-message msg-user">${message}</div>`;
+                input.value = '';
+                chatBody.scrollTop = chatBody.scrollHeight;
+
+                // لێرەدا دەتوانیت لە داهاتوودا بەستەری فەرمی Gemini API دابنێیت بۆ وەڵامدانەوەی زیندوو
+                setTimeout(() => {
+                    chatBody.innerHTML += `<div class="chat-message msg-ai">من ئامادەکراوم بۆ بەستنەوە بە مۆدێلی Gemini. بۆ چالاککردنی وەڵامە زیرەکەکان، پێویستە API Key لە بەشی سکریپتەکەدا بنووسیت.</div>`;
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+</html>
