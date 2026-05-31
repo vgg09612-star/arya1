@@ -95,7 +95,6 @@ select option {
     font-size: 18px;
 }
 
-/* ناوچەی پێشنیارەکان */
 .suggestions {
     display: flex;
     gap: 10px;
@@ -217,8 +216,8 @@ input {
 </div>
 
 <script>
-// تێبینی: کلیلی API بە سەرکەوتوویی جێگیر کرا
-const API_KEY = "AIzaSyCI31KNW2ml9sp1DDckpUubGDALYyPAEbE"; 
+// نوێکردنەوەی کلیلەکە بۆ کلیلی ڕاستەقینەی خۆت
+const API_KEY = "AQ.Ab8RN6II6nymkjHpcGlzwDJ0A4EwaW6ppqCSFTU6LRCZNSb_Gg"; 
 
 let currentLang = "ku";
 
@@ -272,7 +271,6 @@ function changeLanguage() {
     document.getElementById("userInput").placeholder = t.placeholder;
     document.getElementById("sendBtn").innerText = t.send;
     
-    // گۆڕینی ئاڕاستەی نووسین
     if (currentLang === "en") {
         document.documentElement.dir = "ltr";
         document.documentElement.lang = "en";
@@ -281,7 +279,6 @@ function changeLanguage() {
         document.documentElement.lang = currentLang;
     }
     
-    // نوێکردنەوەی دوگمە ئامادەکراوەکان
     const sugBox = document.getElementById("suggestionsBox");
     sugBox.innerHTML = "";
     t.prompts.forEach(p => {
@@ -317,12 +314,16 @@ async function sendMessage(){
     chat.innerHTML += `<div class="message bot" id="${loadingId}">${translations[currentLang].thinking}</div>`;
     chat.scrollTop = chat.scrollHeight;
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+    // لێرەدا ناونیشانەکەمان بە جۆرێک چاککردووە کە پشتگیری کلیلە نوێیەکان بکات
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent`;
 
     try {
         const response = await fetch(url, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json",
+                "x-goog-api-key": API_KEY // لێرەدا کلیلەکە بە شێوازی دروست دەنێردرێت بۆ سێرڤەر
+            },
             body: JSON.stringify({
                 contents: [{ parts: [{ text: text }] }]
             })
