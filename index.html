@@ -1,138 +1,323 @@
 <!DOCTYPE html>
-<html lang="ku">
+<html lang="ku" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>دڵخۆش | هاوڕێی من</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:sans-serif;
+:root {
+    --bg-gradient: linear-gradient(135deg, #ff7eb3, #ff758c, #7a5cff);
+    --container-bg: rgba(255, 255, 255, 0.15);
+    --text-color: #333;
+    --bot-msg-bg: white;
+    --user-msg-bg: #7a5cff;
+    --user-msg-text: white;
+    --input-bg: white;
+    --input-text: #333;
+    --border-blur: blur(15px);
 }
 
-body{
-    background:linear-gradient(135deg,#ff7eb3,#ff758c,#7a5cff);
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+[data-theme="dark"] {
+    --bg-gradient: linear-gradient(135deg, #111, #1e1e2f, #2d1b4e);
+    --container-bg: rgba(0, 0, 0, 0.5);
+    --text-color: #f5f5f5;
+    --bot-msg-bg: #2d2d3d;
+    --user-msg-bg: #907aff;
+    --user-msg-text: white;
+    --input-bg: #222;
+    --input-text: white;
 }
 
-.container{
-    width:90%;
-    max-width:700px;
-    height:85vh;
-    background:rgba(255,255,255,.15);
-    backdrop-filter:blur(15px);
-    border-radius:25px;
-    overflow:hidden;
-    box-shadow:0 10px 40px rgba(0,0,0,.25);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background 0.3s, color 0.3s;
 }
 
-.header{
-    padding:20px;
-    text-align:center;
-    color:white;
-    font-size:28px;
-    font-weight:bold;
+body {
+    background: var(--bg-gradient);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.chat{
-    height:70%;
-    overflow-y:auto;
-    padding:20px;
+.container {
+    width: 95%;
+    max-width: 750px;
+    height: 90vh;
+    background: var(--container-bg);
+    backdrop-filter: var(--border-blur);
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,.25);
+    display: flex;
+    flex-direction: column;
 }
 
-.message{
-    margin:10px 0;
-    padding:12px 18px;
-    border-radius:18px;
-    max-width:80%;
+.header {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    font-size: 24px;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+select, .theme-btn {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    cursor: pointer;
+    outline: none;
+}
+
+select option {
+    color: black;
+}
+
+.theme-btn {
+    font-size: 18px;
+}
+
+/* ناوچەی پێشنیارەکان */
+.suggestions {
+    display: flex;
+    gap: 10px;
+    padding: 10px 20px;
+    overflow-x: auto;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.suggest-btn {
+    padding: 8px 15px;
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 13px;
+}
+
+.suggest-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.chat {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.message {
+    padding: 12px 18px;
+    border-radius: 18px;
+    max-width: 80%;
     white-space: pre-wrap;
-    direction: rtl;
+    line-height: 1.5;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-.bot{
-    background:white;
-    color:#333;
+.bot {
+    background: var(--bot-msg-bg);
+    color: var(--text-color);
+    align-self: flex-start;
 }
 
-.user{
-    background:#7a5cff;
-    color:white;
-    margin-left:auto;
+.user {
+    background: var(--user-msg-bg);
+    color: var(--user-msg-text);
+    align-self: flex-end;
 }
 
-.input-area{
-    display:flex;
-    padding:15px;
-    gap:10px;
+.input-area {
+    display: flex;
+    padding: 15px;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.05);
 }
 
-input{
-    flex:1;
-    padding:15px;
-    border:none;
-    border-radius:15px;
-    outline:none;
-    direction: rtl;
+input {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 15px;
+    outline: none;
+    background: var(--input-bg);
+    color: var(--input-text);
+    font-size: 16px;
 }
 
-button{
-    background:#7a5cff;
-    color:white;
-    border:none;
-    padding:15px 25px;
-    border-radius:15px;
-    cursor:pointer;
+.send-btn {
+    background: #7a5cff;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.send-btn:hover {
+    background: #6445ff;
 }
 </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header">💜 دڵخۆش</div>
+    <div class="header">
+        <h1 id="title">💜 دڵخۆش</h1>
+        <div class="controls">
+            <select id="langSelect" onchange="changeLanguage()">
+                <option value="ku">کوردی</option>
+                <option value="en">English</option>
+                <option value="ar">العربية</option>
+            </select>
+            <button class="theme-btn" onclick="toggleTheme()">🌓</button>
+        </div>
+    </div>
+
+    <div class="suggestions" id="suggestionsBox">
+        <button class="suggest-btn" onclick="sendSuggested('چیرۆکێکی کورت بۆم بگێڕەوە')">📚 گێڕانەوەی چیرۆک</button>
+        <button class="suggest-btn" onclick="sendSuggested('چۆن کاتەکانم ڕێکبخەم؟')">📅 ڕێکخستنی کات</button>
+        <button class="suggest-btn" onclick="sendSuggested('نوکتەیەکی خۆشم بۆ باس بکە')">😂 نوکتە</button>
+    </div>
 
     <div class="chat" id="chat">
-        <div class="message bot">
+        <div class="message bot" id="welcomeMessage">
             سڵاو ❤️ من هاوڕێی دیجیتاڵی تۆم. باسی ڕۆژەکەت بۆم بکە یان هەر پرسیارێکت هەیە لێم بکە!
         </div>
     </div>
 
     <div class="input-area">
         <input type="text" id="userInput" placeholder="پەیام بنووسە...">
-        <button onclick="sendMessage()">ناردن</button>
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()">ناردن</button>
     </div>
 </div>
 
 <script>
-// کلیلەکەت لێرەدا بە ئامادەیی داندراوە و پێویست بە دەستکاری ناکات
-const API_KEY = "AQ.Ab8RN6IpjSGWmuNv_xZsLE5KXu1e-nWQYjb2grFjLXUKQ-AuBQ"; 
+// تێبینی: کلیلی ڕاستەقینەی خۆت لێرە دابنێ کە بە AIzaSy دەست پێ دەکات
+const API_KEY = "لێرە_کلیلی_ڕاستەقینە_دابنێ"; 
+
+let currentLang = "ku";
+
+const translations = {
+    ku: {
+        title: "💜 دڵخۆش",
+        welcome: "سڵاو ❤️ من هاوڕێی دیجیتاڵی تۆم. باسی ڕۆژەکەت بۆم بکە یان هەر پرسیارێکت هەیە لێم بکە!",
+        placeholder: "پەیام بنووسە...",
+        send: "ناردن",
+        thinking: "دڵخۆش خەریکە بیر دەکاتەوە... ⏳",
+        error: "ببوورە کێشەیەک هەیە، تکایە دڵنیا بەرەوە لە کلیلی API.",
+        prompts: [
+            { text: "📚 چیرۆکێکی کورت", value: "چیرۆکێکی کورت بۆم بگێڕەوە" },
+            { text: "📅 ڕێکخستنی کات", value: "چۆن کاتەکانم ڕێکبخەم؟" },
+            { text: "😂 نوکتە", value: "نوکتەیەکی خۆشم بۆ باس بکە" }
+        ]
+    },
+    en: {
+        title: "💜 Delkhosh",
+        welcome: "Hello ❤️ I am your digital friend. Tell me about your day or ask me anything!",
+        placeholder: "Type a message...",
+        send: "Send",
+        thinking: "Delkhosh is thinking... ⏳",
+        error: "Sorry, an error occurred. Please check your API key.",
+        prompts: [
+            { text: "📚 Tell a Story", value: "Tell me a short story" },
+            { text: "📅 Time Management", value: "How can I manage my time?" },
+            { text: "😂 Tell a Joke", value: "Tell me a funny joke" }
+        ]
+    },
+    ar: {
+        title: "💜 دڵخۆش",
+        welcome: "مرحباً ❤️ أنا صديقك الرقمي. أخبرني عن يومك أو اسألني أي شيء!",
+        placeholder: "اكتب رسالة...",
+        send: "إرسال",
+        thinking: "دڵخۆش يفكر حالياً... ⏳",
+        error: "عذراً، حدث خطأ ما. يرجى التحقق من مفتاح الـ API.",
+        prompts: [
+            { text: "📚 احکِ لي قصة", value: "احكِ لي قصة قصيرة" },
+            { text: "📅 تنظيم الوقت", value: "كيف أنظم وقتي؟" },
+            { text: "😂 نكتة", value: "أخبرني بنكتة مضحكة" }
+        ]
+    }
+};
+
+function changeLanguage() {
+    currentLang = document.getElementById("langSelect").value;
+    const t = translations[currentLang];
+    
+    document.getElementById("title").innerText = t.title;
+    document.getElementById("userInput").placeholder = t.placeholder;
+    document.getElementById("sendBtn").innerText = t.send;
+    
+    // گۆڕینی ئاڕاستەی نووسین
+    if (currentLang === "en") {
+        document.documentElement.dir = "ltr";
+        document.documentElement.lang = "en";
+    } else {
+        document.documentElement.dir = "rtl";
+        document.documentElement.lang = currentLang;
+    }
+    
+    // نوێکردنەوەی دوگمە ئامادەکراوەکان
+    const sugBox = document.getElementById("suggestionsBox");
+    sugBox.innerHTML = "";
+    t.prompts.forEach(p => {
+        sugBox.innerHTML += `<button class="suggest-btn" onclick="sendSuggested('${p.value}')">${p.text}</button>`;
+    });
+}
+
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    if (currentTheme === "dark") {
+        document.documentElement.removeAttribute("data-theme");
+    } else {
+        document.documentElement.setAttribute("data-theme", "dark");
+    }
+}
+
+function sendSuggested(text) {
+    document.getElementById("userInput").value = text;
+    sendMessage();
+}
 
 async function sendMessage(){
     let input = document.getElementById("userInput");
     let text = input.value.trim();
-
     if(text === "") return;
 
     let chat = document.getElementById("chat");
-
-    chat.innerHTML += `
-      <div class="message user">${text}</div>
-    `;
+    chat.innerHTML += `<div class="message user">${text}</div>`;
     chat.scrollTop = chat.scrollHeight;
     input.value = "";
 
     let loadingId = "loading-" + Date.now();
-    chat.innerHTML += `
-      <div class="message bot" id="${loadingId}">دڵخۆش خەریکە بیر دەکاتەوە... ⏳</div>
-    `;
+    chat.innerHTML += `<div class="message bot" id="${loadingId}">${translations[currentLang].thinking}</div>`;
     chat.scrollTop = chat.scrollHeight;
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${AQ.Ab8RN6IpjSGWmuNv_xZsLE5KXu1e-nWQYjb2grFjLXUKQ-AuBQ}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
     try {
         const response = await fetch(url, {
@@ -149,10 +334,10 @@ async function sendMessage(){
             let aiResponse = data.candidates[0].content.parts[0].text;
             document.getElementById(loadingId).innerText = aiResponse;
         } else {
-            document.getElementById(loadingId).innerText = "ببوورە، نەمتوانی وەڵامەکەت بدەمەوە. تکایە دووبارە تاقیکەرەوە.";
+            document.getElementById(loadingId).innerText = translations[currentLang].error;
         }
     } catch (error) {
-        document.getElementById(loadingId).innerText = "خەتایەک ڕوویدا! دڵنیا ببەوە کلیلەکەت (API Key) بە دروستی داناوە.";
+        document.getElementById(loadingId).innerText = translations[currentLang].error;
     }
 
     chat.scrollTop = chat.scrollHeight;
