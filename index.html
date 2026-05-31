@@ -3,152 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ماڵپەڕی هۆلۆگرامی پڕۆفیشناڵ</title>
+    <title>Arya - Digital Portfolio & Investments</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;700&display=swap');
+
+        :root {
+            --primary-bg: #121212;
+            --secondary-bg: #1e1e1e;
+            --gold-accent: #d4af37;
+            --silver-accent: #c0c0c0;
+            --text-light: #f5f5f5;
+            --text-dim: #a0a0a0;
+        }
+
         body {
             margin: 0;
-            overflow: hidden;
-            background-color: #050505; /* باکگراوندێکی تاریک بۆ دەرکەوتنی هۆلۆگرامەکە */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
         }
-        #ui-layer {
-            position: absolute;
-            top: 20px;
-            width: 100%;
-            text-align: center;
-            color: #00ffcc;
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold-accent);
+            letter-spacing: 1px;
+        }
+
+        /* Header Navigation */
+        header {
+            padding: 25px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(18, 18, 18, 0.9);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            position: sticky;
+            top: 0;
             z-index: 100;
-            pointer-events: none; /* بۆ ئەوەی ڕێگری نەکات لە دەستلێدانی شاشەکە */
-            text-shadow: 0 0 10px #00ffcc;
         }
-        h1 { margin: 0; font-size: 24px; }
-        p { margin: 5px 0 0 0; font-size: 14px; color: #fff; }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--text-light);
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Hero Section (Cinematic Aesthetic) */
+        .hero {
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            /* Placeholder for a hyper-realistic, rim-lit background */
+            background: linear-gradient(rgba(18,18,18,0.85), rgba(18,18,18,0.85)), url('https://images.unsplash.com/photo-1618042164219-62c820f10723?q=80&w=2000&auto=format&fit=crop') center/cover;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 650px;
+            color: var(--silver-accent);
+            line-height: 1.6;
+        }
+
+        /* Markets & Projects Section */
+        .section-title {
+            text-align: center;
+            margin: 60px 0 30px 0;
+            font-size: 2rem;
+        }
+
+        .grid-container {
+            padding: 0 50px 50px 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--secondary-bg);
+            padding: 40px 30px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold-accent);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.1);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: var(--text-dim);
+            font-size: 1rem;
+        }
+
+        /* Shahen AI Chatbot UI */
+        .chat-toggle {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: var(--gold-accent);
+            color: var(--primary-bg);
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .chat-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        .chatbot-container {
+            position: fixed;
+            bottom: 120px;
+            right: 40px;
+            width: 340px;
+            background: var(--secondary-bg);
+            border-radius: 12px;
+            border: 1px solid var(--gold-accent);
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+            display: none;
+            z-index: 999;
+        }
+
+        .chat-header {
+            background: var(--gold-accent);
+            color: var(--primary-bg);
+            padding: 18px;
+            font-weight: bold;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .chat-body {
+            height: 300px;
+            padding: 20px;
+            overflow-y: auto;
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-message {
+            padding: 10px 15px;
+            border-radius: 8px;
+            max-width: 85%;
+        }
+
+        .msg-ai {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold-accent);
+            align-self: flex-start;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .msg-user {
+            background: #333;
+            color: var(--text-light);
+            align-self: flex-end;
+            text-align: left;
+            direction: ltr;
+        }
+
+        .chat-input {
+            display: flex;
+            border-top: 1px solid #333;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 15px;
+            background: var(--primary-bg);
+            border: none;
+            color: #fff;
+            outline: none;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .chat-input button {
+            padding: 0 20px;
+            background: var(--gold-accent);
+            border: none;
+            cursor: pointer;
+            color: var(--primary-bg);
+            font-weight: bold;
+            font-family: 'Tajawal', sans-serif;
+            transition: background 0.3s;
+        }
+
+        .chat-input button:hover {
+            background: #b5952f;
+        }
+
+        /* Custom Scrollbar for Chat */
+        .chat-body::-webkit-scrollbar { width: 6px; }
+        .chat-body::-webkit-scrollbar-track { background: var(--secondary-bg); }
+        .chat-body::-webkit-scrollbar-thumb { background: var(--gold-accent); border-radius: 10px; }
     </style>
 </head>
 <body>
 
-    <div id="ui-layer">
-        <h1>سیستەمی هۆلۆگرامی زیرەک</h1>
-        <p>دوگمەی (START AR) دابگرە بۆ بینینی هۆلۆگرامەکە لە ژوورەکەتدا</p>
+    <header>
+        <div class="logo">ARYA.</div>
+        <div style="color: var(--gold-accent); font-family: 'Playfair Display', serif;">EST. 1991</div>
+    </header>
+
+    <section class="hero">
+        <h1>دیدگایەکی نوێ بۆ داهاتوو</h1>
+        <p>تێکەڵکردنی شیکارییە داراییەکان لەگەڵ دیزاینی مینیماڵیست و هێزی زیرەکی دەستکرد. دەروازەیەک بۆ پێناسەکردنەوەی پڕۆژە دیجیتاڵییەکانت.</p>
+    </section>
+
+    <h2 class="section-title">پۆرتفۆلیۆی بازاڕ و وەبەرهێنان</h2>
+    
+    <section class="grid-container">
+        <div class="card">
+            <h3>XAU/USD</h3>
+            <p>بەدواداچوونی ورد بۆ بازاڕی زێڕ لە ڕێگەی شیکاری تەکنیکی و ئاماژەکانی بازاڕەوە بۆ دیاریکردنی کاتی گونجاو.</p>
+        </div>
+        <div class="card">
+            <h3>XAG/USD</h3>
+            <p>چاودێریکردنی ئاستەکانی کڕین و فرۆشتنی زیو بە مەبەستی پاراستنی سەرمایە لە هەڵاوسان و قازانجی درێژخایەن.</p>
+        </div>
+        <div class="card">
+            <h3>تەکنەلۆجیا و AI</h3>
+            <p>پەرەپێدانی مۆدێلی زیرەکی دەستکرد و دروستکردنی وێنەی سینەمایی ئاست بەرز بۆ مەبەستی بازرگانی و هونەری.</p>
+        </div>
+    </section>
+
+    <!-- Shahen Chatbot UI -->
+    <div class="chat-toggle" onclick="toggleChat()">✧</div>
+    
+    <div class="chatbot-container" id="shahenChat">
+        <div class="chat-header">SHAHEN AI</div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-message msg-ai">سڵاو، من 'شاهەن'ـم. یاریدەدەری تایبەتی تۆم. چۆن دەتوانم هاوکارت بم؟</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" placeholder="پرسیارەکەت بنووسە..." id="userInput" onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()">ناردن</button>
+        </div>
     </div>
 
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    <script>
+        function toggleChat() {
+            const chat = document.getElementById('shahenChat');
+            chat.style.display = chat.style.display === 'none' || chat.style.display === '' ? 'block' : 'none';
+        }
+
+        function handleKeyPress(e) {
+            if(e.key === 'Enter') {
+                sendMessage();
             }
         }
-    </script>
 
-    <script type="module">
-        import * as THREE from 'three';
-        import { ARButton } from 'three/addons/webxr/ARButton.js';
-
-        let camera, scene, renderer;
-        let hologramObject;
-
-        init();
-        animate();
-
-        function init() {
-            // ١. دروستکردنی دیمەن (Scene)
-            scene = new THREE.Scene();
-
-            // ٢. دانانی کامێرا
-            camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 20);
-
-            // ٣. ڕووناکی (بۆ ئەوەی تەنەکە بە جوانی دەربکەوێت)
-            const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 3);
-            light.position.set(0.5, 1, 0.25);
-            scene.add(light);
-
-            // ٤. دروستکردنی تەنە هۆلۆگرامییەکە (شێوەیەکی ئاڵۆزی ئەندازەیی دەدرەوشێتەوە)
-            const geometry = new THREE.TorusKnotGeometry(0.15, 0.04, 128, 32); // شێوەی گرێیەکی سێ ڕەهەندی
-            const material = new THREE.MeshStandardMaterial({
-                color: 0x00ffff, // ڕەنگی شینباوی هۆلۆگرامی
-                emissive: 0x0088aa, // درەوشانەوەی ناوەوە
-                wireframe: true, // پیشاندانی هێڵەکانی پێکهاتەکە
-                transparent: true,
-                opacity: 0.8
-            });
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const chatBody = document.getElementById('chatBody');
+            const message = input.value.trim();
             
-            hologramObject = new THREE.Mesh(geometry, material);
-            hologramObject.position.set(0, 0, -0.6); // دانانی نیو مەتر لە پێش چاوی بەکارهێنەرەوە
-            scene.add(hologramObject);
+            if(message !== "") {
+                // Add User Message
+                chatBody.innerHTML += `<div class="chat-message msg-user">${message}</div>`;
+                input.value = '';
+                
+                // Auto Scroll
+                chatBody.scrollTop = chatBody.scrollHeight;
 
-            // ٥. ڕێکخستنی ڕێندەرەر بۆ پشتگیریکردنی AR
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setPixelRatio(window.devicePixelRatio);
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.xr.enabled = true; // کاراکردنی تایبەتمەندی ڕاستەقینەی زیادکراو (AR)
-            document.body.appendChild(renderer.domElement);
-
-            // ٦. زیادکردنی دوگمەی AR بۆ سەر شاشەکە
-            document.body.appendChild(ARButton.createButton(renderer));
-
-            // گونجاندنی شاشە کاتێک قەبارەی دەگۆڕێت
-            window.addEventListener('resize', onWindowResize);
-        }
-
-        function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        }
-
-        // ٧. جووڵەپێکردن و سووڕاندنەوەی هۆلۆگرامەکە
-        function animate() {
-            renderer.setAnimationLoop(render);
-        }
-
-        function render() {
-            if (hologramObject) {
-                hologramObject.rotation.x += 0.005;
-                hologramObject.rotation.y += 0.01;
+                // Simulate AI Response (Placeholder until you connect your Gemini API)
+                setTimeout(() => {
+                    chatBody.innerHTML += `<div class="chat-message msg-ai">لەم کاتەدا API Key نەبەستراوەتەوە. تکایە لە کۆدەکەدا بەستەری ڕاستەوخۆی Gemini API دابنێ بۆ وەڵامدانەوەی ڕاستەقینە.</div>`;
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                }, 1000);
             }
-            renderer.render(scene, camera);
         }
     </script>
 </body>
 </html>
-
-<!DOCTYPE html>
-<html lang="ku" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>پڕۆژەی هۆڵۆگرامی جیمینای - جیهانی کۆد</title>
-    <style>
-        body { margin: 0; background: #000; overflow: hidden; font-family: 'KurdishFont', sans-serif; color: cyan; }
-        #ui { position: absolute; top: 10px; width: 100%; text-align: center; pointer-events: none; }
-        .hologram-text { font-size: 20px; text-shadow: 0 0 10px cyan; }
-        .data-panel { position: absolute; border: 1px solid cyan; padding: 10px; background: rgba(0,255,255,0.1); }
-    </style>
-</head>
-<body>
-    <div id="ui">
-        <h1 class="hologram-text">بەخێربێن بۆ جیهانی کۆد - جیمینای</h1>
-        <p>ئەم هۆڵۆگرامە ژنەکە نیشان دەدات کە باسی کۆد دەکات</p>
-    </div>
-
-    <!-- ئەم بەشە پانێڵی داتا نیشان دەدات کە لە وێنەکەدا هەیە -->
-    <div class="data-panel" style="top: 50px; left: 50px;">
-        <p>داتای سیستەم: چالاکە</p>
-        <p>نەخشەی تۆڕ: تەواوە</p>
-    </div>
-
-    <script type="module">
-        import * as THREE from 'https://unpkg.com/three@0.126.0/build/three.module.js';
-        import { ARButton } from 'https://unpkg.com/three@0.126.0/examples/jsm/webxr/ARButton.js';
-
-        let scene, camera, renderer, character;
-
-        init();
-        animate();
-
-        function init() {
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 20);
-
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-Normally I can help with things like this, but I don't seem to have access to that content. You can try again or ask me for something else.
