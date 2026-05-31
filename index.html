@@ -217,8 +217,8 @@ input {
 </div>
 
 <script>
-// تێبینی: کلیلی ڕاستەقینەی خۆت لێرە دابنێ کە بە AIzaSy دەست پێ دەکات
-const API_KEY = "لێرە_کلیلی_ڕاستەقینە_دابنێ"; 
+// تێبینی: کلیلی API بە سەرکەوتوویی جێگیر کرا
+const API_KEY = "AIzaSyCI31KNW2ml9sp1DDckpUubGDALYyPAEbE"; 
 
 let currentLang = "ku";
 
@@ -316,12 +316,10 @@ async function sendMessage(){
     let loadingId = "loading-" + Date.now();
     chat.innerHTML += `<div class="message bot" id="${loadingId}">${translations[currentLang].thinking}</div>`;
     chat.scrollTop = chat.scrollHeight;
-const API_KEY = "AlzAsyCI31KNW2ml9 sp1DDckPcuUbGDALYYPAEbE";`
 
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
     try {
-        
         const response = await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
