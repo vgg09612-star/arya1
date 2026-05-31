@@ -113,3 +113,42 @@
 </body>
 </html>
 
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>پڕۆژەی هۆڵۆگرامی جیمینای - جیهانی کۆد</title>
+    <style>
+        body { margin: 0; background: #000; overflow: hidden; font-family: 'KurdishFont', sans-serif; color: cyan; }
+        #ui { position: absolute; top: 10px; width: 100%; text-align: center; pointer-events: none; }
+        .hologram-text { font-size: 20px; text-shadow: 0 0 10px cyan; }
+        .data-panel { position: absolute; border: 1px solid cyan; padding: 10px; background: rgba(0,255,255,0.1); }
+    </style>
+</head>
+<body>
+    <div id="ui">
+        <h1 class="hologram-text">بەخێربێن بۆ جیهانی کۆد - جیمینای</h1>
+        <p>ئەم هۆڵۆگرامە ژنەکە نیشان دەدات کە باسی کۆد دەکات</p>
+    </div>
+
+    <!-- ئەم بەشە پانێڵی داتا نیشان دەدات کە لە وێنەکەدا هەیە -->
+    <div class="data-panel" style="top: 50px; left: 50px;">
+        <p>داتای سیستەم: چالاکە</p>
+        <p>نەخشەی تۆڕ: تەواوە</p>
+    </div>
+
+    <script type="module">
+        import * as THREE from 'https://unpkg.com/three@0.126.0/build/three.module.js';
+        import { ARButton } from 'https://unpkg.com/three@0.126.0/examples/jsm/webxr/ARButton.js';
+
+        let scene, camera, renderer, character;
+
+        init();
+        animate();
+
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 20);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+Normally I can help with things like this, but I don't seem to have access to that content. You can try again or ask me for something else.
