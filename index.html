@@ -2,6 +2,134 @@
 <html lang="ckb" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <title>شێخە گروپ | Shekha Group - مۆدێرن</title>
+    <style>
+        /* دیزاینی سپی و تاریک */
+        body { background: #0f0f0f; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; overflow-x: hidden; }
+        
+        /* ئەنیمەیشنی جوڵەی نەرم */
+        .card { 
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px; 
+            margin: 20px; 
+            border-radius: 20px; 
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        
+        /* جوڵەی کارتەکان لەکاتی هەبەر */
+        .card:hover { transform: translateY(-15px) scale(1.02); background: rgba(255, 255, 255, 0.1); }
+        
+        .img-placeholder { width: 100%; height: 200px; background: #333; border-radius: 15px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #777; }
+        
+        .price { color: #d4af37; font-size: 1.5rem; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div style="padding: 50px;">
+    <h1>شێخە گروپ</h1>
+    
+    <div class="card">
+        <div class="img-placeholder">وێنەی شوقەی لوکس (ئەگەر وێنەت هەبێت دایبنێ)</div>
+        <h2>شوقەی VIP - شاری سلێمانی</h2>
+        <p>تایبەتمەندی: ٢ ژووری نوستن، سیستەمی زیرەک، ڕووی قیبلە.</p>
+        <div class="price">نرخ: 85,000$</div>
+        <button onclick="alert('سڵاو، تاپۆکەت ئامادەیە')">کڕینی شوقە</button>
+    </div>
+
+    <div class="card">
+        <div class="img-placeholder">وێنەی ڤێلای شاهانە</div>
+        <h2>ڤێلای خەونەکان</h2>
+        <p>تایبەتمەندی: باخچەی تایبەت، مەلەوانگە، ٥ ژووری نوستن.</p>
+        <div class="price">نرخ: 250,000$</div>
+        <button onclick="alert('سڵاو، تاپۆکەت ئامادەیە')">کڕینی ڤێلا</button>
+    </div>
+</div>
+
+<script>
+    // جوڵەی نەرم کاتێک پەڕەکە دەکرێتەوە
+    document.querySelectorAll('.card').forEach((card, index) => {
+        card.style.opacity = 0;
+        card.style.transform = 'translateY(50px)';
+        setTimeout(() => {
+            card.style.transition = 'all 1s ease';
+            card.style.opacity = 1;
+            card.style.transform = 'translateY(0)';
+        }, index * 300);
+    });
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>شێخە گروپ | Shekha Group</title>
+    <style>
+        /* دیزاینی سەرەکی */
+        body { background: #050505; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
+        
+        .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 50px; }
+        
+        /* دیزاینی کارتەکان (Glassmorphism) */
+        .card { 
+            background: rgba(255, 255, 255, 0.03); 
+            backdrop-filter: blur(15px); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px; 
+            padding: 20px; 
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+        }
+        
+        .card:hover { transform: translateY(-20px) scale(1.05); box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2); }
+        
+        .image-box { width: 100%; height: 250px; background: #222; border-radius: 15px; margin-bottom: 20px; transition: 0.5s; }
+        .card:hover .image-box { transform: scale(1.05); }
+
+        .btn-buy { background: #d4af37; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; }
+        
+        /* ئەنیمەیشنی هاتنە ناوەوە */
+        @keyframes slideIn { from { opacity: 0; transform: translateY(100px); } to { opacity: 1; transform: translateY(0); } }
+        .card { animation: slideIn 1s ease forwards; }
+    </style>
+</head>
+<body>
+
+<h1 style="text-align: center; color: #d4af37; padding-top: 50px; font-size: 3rem;">شێخە گروپ</h1>
+
+<div class="container">
+    <div class="card">
+        <div class="image-box" style="background: url('apartment.jpg') center/cover;"></div>
+        <h2>شوقەی لۆکس - تاوەری یەک</h2>
+        <p>ڕووبەر: 150 مەتر | نرخ: 90,000$</p>
+        <button class="btn-buy" onclick="alert('تاپۆکەت ئامادەیە')">کڕین و دەرکردنی تاپۆ</button>
+    </div>
+
+    <div class="card">
+        <div class="image-box" style="background: url('villa.jpg') center/cover;"></div>
+        <h2>ڤێلای شاهانە - گاردن ستی</h2>
+        <p>ڕووبەر: 400 مەتر | نرخ: 350,000$</p>
+        <button class="btn-buy" onclick="alert('تاپۆکەت ئامادەیە')">کڕین و دەرکردنی تاپۆ</button>
+    </div>
+
+    <div class="card">
+        <div class="image-box" style="background: url('accessory.jpg') center/cover;"></div>
+        <h2>ئێکسسواراتی ئەوروپی</h2>
+        <p>جوانکاری ناوماڵ | نرخ: 500$</p>
+        <button class="btn-buy" onclick="alert('داواکارییەکەت قبوڵکرا')">داواکردن</button>
+    </div>
+</div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>شێخە گروپ | Shekha Group</title>
     <style>
