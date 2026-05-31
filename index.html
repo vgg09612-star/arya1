@@ -2,65 +2,67 @@
 <html lang="ckb" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>شێخە گروپ | Shekha Group - مۆدێرن</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شێخە گروپ | Shekha Group</title>
     <style>
-        /* دیزاینی سپی و تاریک */
-        body { background: #0f0f0f; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; overflow-x: hidden; }
-        
-        /* ئەنیمەیشنی جوڵەی نەرم */
+        /* دیزاینی بنەڕەتی لوکس */
+        :root { --gold: #d4af37; --bg: #050505; --glass: rgba(255, 255, 255, 0.05); }
+        * { box-sizing: border-box; transition: 0.4s ease; }
+        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; }
+
+        /* جوڵەی وێنە و کارتەکان */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; padding: 50px; }
         .card { 
-            background: rgba(255, 255, 255, 0.05); 
-            backdrop-filter: blur(10px); 
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 30px; 
-            margin: 20px; 
-            border-radius: 20px; 
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
+            background: var(--glass); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1);
+            padding: 30px; border-radius: 30px; cursor: pointer; overflow: hidden; position: relative;
         }
+        .card:hover { transform: translateY(-20px) scale(1.02); border-color: var(--gold); }
         
-        /* جوڵەی کارتەکان لەکاتی هەبەر */
-        .card:hover { transform: translateY(-15px) scale(1.02); background: rgba(255, 255, 255, 0.1); }
+        .img-box { width: 100%; height: 250px; background: #333; border-radius: 20px; margin-bottom: 20px; }
         
-        .img-placeholder { width: 100%; height: 200px; background: #333; border-radius: 15px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #777; }
-        
-        .price { color: #d4af37; font-size: 1.5rem; font-weight: bold; }
+        /* تایبەتمەندییە پێشکەوتووەکان */
+        .btn-luxury { 
+            background: linear-gradient(45deg, #d4af37, #f7d56e); border: none; padding: 15px 30px;
+            border-radius: 50px; cursor: pointer; font-weight: bold; margin-top: 20px; width: 100%;
+        }
     </style>
 </head>
 <body>
 
-<div style="padding: 50px;">
-    <h1>شێخە گروپ</h1>
-    
+<header style="height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center;">
+    <h1 style="font-size: 5rem; letter-spacing: 20px; color: var(--gold);">شێخە گروپ</h1>
+</header>
+
+<main class="grid-container">
     <div class="card">
-        <div class="img-placeholder">وێنەی شوقەی لوکس (ئەگەر وێنەت هەبێت دایبنێ)</div>
-        <h2>شوقەی VIP - شاری سلێمانی</h2>
-        <p>تایبەتمەندی: ٢ ژووری نوستن، سیستەمی زیرەک، ڕووی قیبلە.</p>
-        <div class="price">نرخ: 85,000$</div>
-        <button onclick="alert('سڵاو، تاپۆکەت ئامادەیە')">کڕینی شوقە</button>
+        <div class="img-box"></div> <h2>شوقەی VIP - نهۆمی ٢</h2>
+        <p>دیزاینی مۆدێرن، سیستەمی ئاسایشی زیرەک، ڕووبەری ١٦٠ مەتر.</p>
+        <div style="font-size: 1.5rem; color: var(--gold);">120,000$</div>
+        <button class="btn-luxury" onclick="alert('تاپۆکەت ئامادەیە')">کڕین و دەرکردنی تاپۆ</button>
     </div>
 
     <div class="card">
-        <div class="img-placeholder">وێنەی ڤێلای شاهانە</div>
-        <h2>ڤێلای خەونەکان</h2>
-        <p>تایبەتمەندی: باخچەی تایبەت، مەلەوانگە، ٥ ژووری نوستن.</p>
-        <div class="price">نرخ: 250,000$</div>
-        <button onclick="alert('سڵاو، تاپۆکەت ئامادەیە')">کڕینی ڤێلا</button>
+        <div class="img-box"></div>
+        <h2>ڤێلای شاهانە - گاردن ستی</h2>
+        <p>مەلەوانگەی تایبەت، باخچەی کراوە، دیزاینی ئەوروپی.</p>
+        <div style="font-size: 1.5rem; color: var(--gold);">450,000$</div>
+        <button class="btn-luxury" onclick="alert('تاپۆکەت ئامادەیە')">کڕین و دەرکردنی تاپۆ</button>
     </div>
-</div>
+</main>
 
 <script>
-    // جوڵەی نەرم کاتێک پەڕەکە دەکرێتەوە
-    document.querySelectorAll('.card').forEach((card, index) => {
+    // جوڵەی نەرم لەکاتی کردنەوەی سایتەکە
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
         card.style.opacity = 0;
-        card.style.transform = 'translateY(50px)';
+        card.style.transform = 'translateY(100px)';
         setTimeout(() => {
-            card.style.transition = 'all 1s ease';
+            card.style.transition = '1s ease';
             card.style.opacity = 1;
             card.style.transform = 'translateY(0)';
-        }, index * 300);
+        }, 300);
     });
 </script>
-
 </body>
 </html>
 <!DOCTYPE html>
@@ -69,865 +71,58 @@
     <meta charset="UTF-8">
     <title>شێخە گروپ | Shekha Group</title>
     <style>
-        /* دیزاینی سەرەکی */
-        body { background: #050505; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
+        :root { --gold: #d4af37; --bg: #050505; }
+        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; }
         
-        .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 50px; }
-        
-        /* دیزاینی کارتەکان (Glassmorphism) */
-        .card { 
-            background: rgba(255, 255, 255, 0.03); 
-            backdrop-filter: blur(15px); 
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 25px; 
-            padding: 20px; 
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            overflow: hidden;
-        }
-        
-        .card:hover { transform: translateY(-20px) scale(1.05); box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2); }
-        
-        .image-box { width: 100%; height: 250px; background: #222; border-radius: 15px; margin-bottom: 20px; transition: 0.5s; }
-        .card:hover .image-box { transform: scale(1.05); }
+        /* سیستەمی فلتەر */
+        .filter-nav { display: flex; justify-content: center; gap: 20px; padding: 40px; }
+        .filter-btn { padding: 15px 30px; border: 1px solid var(--gold); background: transparent; color: var(--gold); cursor: pointer; border-radius: 50px; }
+        .filter-btn:hover { background: var(--gold); color: #000; }
 
-        .btn-buy { background: #d4af37; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; }
+        /* کارتەکان */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; padding: 20px; }
+        .card { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); transition: 0.5s; }
         
-        /* ئەنیمەیشنی هاتنە ناوەوە */
-        @keyframes slideIn { from { opacity: 0; transform: translateY(100px); } to { opacity: 1; transform: translateY(0); } }
-        .card { animation: slideIn 1s ease forwards; }
+        /* ژمێریاری لوکس */
+        .floating-calc { position: fixed; bottom: 20px; right: 20px; background: var(--gold); padding: 20px; border-radius: 20px; color: #000; width: 300px; }
     </style>
 </head>
 <body>
 
-<h1 style="text-align: center; color: #d4af37; padding-top: 50px; font-size: 3rem;">شێخە گروپ</h1>
-
-<div class="container">
-    <div class="card">
-        <div class="image-box" style="background: url('apartment.jpg') center/cover;"></div>
-        <h2>شوقەی لۆکس - تاوەری یەک</h2>
-        <p>ڕووبەر: 150 مەتر | نرخ: 90,000$</p>
-        <button class="btn-buy" onclick="alert('تاپۆکەت ئامادەیە')">کڕین و دەرکردنی تاپۆ</button>
-    </div>
-
-    <div class="card">
-        <div class="image-box" style="background: url('villa.jpg') center/cover;"></div>
-        <h2>ڤێلای شاهانە - گاردن ستی</h2>
-        <p>ڕووبەر: 400 مەتر | نرخ: 350,000$</p>
-        <button class="btn-buy" onclick="alert('تاپۆکەت ئامادەیە')">کڕین و دەرکردنی تاپۆ</button>
-    </div>
-
-    <div class="card">
-        <div class="image-box" style="background: url('accessory.jpg') center/cover;"></div>
-        <h2>ئێکسسواراتی ئەوروپی</h2>
-        <p>جوانکاری ناوماڵ | نرخ: 500$</p>
-        <button class="btn-buy" onclick="alert('داواکارییەکەت قبوڵکرا')">داواکردن</button>
-    </div>
+<div class="filter-nav">
+    <button class="filter-btn" onclick="filter('all')">هەموو</button>
+    <button class="filter-btn" onclick="filter('apartment')">شوقە</button>
+    <button class="filter-btn" onclick="filter('villa')">ڤێلا</button>
 </div>
 
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ckb" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شێخە گروپ | Shekha Group</title>
-    <style>
-        /* بنەما سەرەکییەکان بۆ جوڵەی نەرم و لوکس */
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        body { background-color: #050505; color: #c5a059; font-family: 'Segoe UI', Tahoma, sans-serif; overflow-x: hidden; }
-        
-        /* بەشی پێشوازی گەورە */
-        .hero { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(circle, #1a1a1a, #000); }
-        .hero h1 { font-size: 6rem; letter-spacing: 15px; text-transform: uppercase; animation: pulse 3s infinite; }
-        
-        /* ئاکۆردیۆن و بەشەکان */
-        .container { width: 95%; max-width: 1400px; margin: 50px auto; }
-        .item { border: 1px solid #c5a059; margin-bottom: 10px; background: #111; overflow: hidden; transition: 0.5s ease; }
-        .item-header { padding: 25px; cursor: pointer; font-size: 1.5rem; display: flex; justify-content: space-between; }
-        .item-content { padding: 0 25px; max-height: 0; transition: 0.6s cubic-bezier(0.25, 0.8, 0.25, 1); overflow: hidden; }
-        
-        /* شێوازی کڕین و بەڵگەنامە */
-        .btn-purchase { background: #c5a059; color: #000; padding: 15px 40px; border: none; cursor: pointer; font-weight: bold; margin-top: 20px; transition: 0.3s; }
-        .btn-purchase:hover { background: #fff; transform: translateY(-5px); }
-        
-        @keyframes pulse { 0% { opacity: 0.7; } 50% { opacity: 1; } 100% { opacity: 0.7; } }
-    </style>
-</head>
-<body>
-
-<section class="hero">
-    <h1>شێخە گروپ</h1>
-    <p>لوکس و کوالێتی لە نیشتەجێبوون و ئێکسسوارات</p>
-</section>
-
-<div class="container">
-    <div class="item">
-        <div class="item-header" onclick="toggle(this)">شوقە نیشتەجێبوونەکان ⌄</div>
-        <div class="item-content">
-            <p>وردەکاری شوقەکان: ڕووبەر لە 100م بۆ 250م، دیزاینی ئەوروپی، سیستەمی زیرەک...</p>
-            <button class="btn-purchase" onclick="showContract('شوقە')">کڕینی شوقە و وەرگرتنی تاپۆ</button>
-        </div>
+<div class="grid" id="grid">
     </div>
 
-    <div class="item">
-        <div class="item-header" onclick="toggle(this)">ئێکسسواراتی لوکس ⌄</div>
-        <div class="item-content">
-            <p>کۆمەڵێک ئێکسسواراتی بەنرخ و دیزاینی ناوازە بۆ ماڵەکەت...</p>
-            <button class="btn-purchase" onclick="showContract('ئێکسسوارات')">داواکردنی کاڵا</button>
-        </div>
-    </div>
+<div class="floating-calc">
+    <h4>ژمێریاری نرخ</h4>
+    <input type="number" id="meter" placeholder="مەتر" style="width: 100%; margin-bottom: 10px;">
+    <button onclick="calculate()">هەژمارکردن</button>
+    <p id="total"></p>
 </div>
 
 <script>
-    function toggle(el) {
-        let content = el.nextElementSibling;
-        content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
+    // سیستەمی فلتەرکردن
+    function filter(type) {
+        // لێرە لۆژیکی دەرخستن و شاردنەوەی کارتەکان دەبێت
+        console.log("Showing: " + type);
     }
 
-    function showContract(itemType) {
-        alert("بەخێر بێیت بۆ شێخە گروپ! \nبەرهەم: " + itemType + "\nتێبینی: بەڵگەنامە و تاپۆکەت ئامادە دەکرێت.");
-    }
-</script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ckb" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>شێخە گروپ | Shekha Group</title>
-    <style>
-        :root { --gold: #d4af37; --bg: #050505; --white: #ffffff; }
-        body { margin: 0; background: var(--bg); color: var(--white); font-family: 'Arial', sans-serif; overflow-x: hidden; }
-        
-        /* سەرەتا: پێشوازی لوکس */
-        .header { height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('luxury-bg.jpg'); background-size: cover; text-align: center; }
-        .header h1 { font-size: 5rem; color: var(--gold); text-transform: uppercase; letter-spacing: 5px; }
-
-        /* بەشەکانی ئاکۆردیۆن */
-        .section { padding: 50px; border-bottom: 1px solid #333; }
-        .accordion-header { cursor: pointer; padding: 20px; background: #111; color: var(--gold); font-size: 1.5rem; border: 1px solid var(--gold); }
-        .accordion-body { padding: 20px; display: none; background: #1a1a1a; transition: 0.5s; }
-        
-        /* خشتەی وردەکاریەکان */
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #444; padding: 12px; text-align: center; }
-        
-        .btn-buy { background: var(--gold); color: black; padding: 15px 30px; border: none; cursor: pointer; font-weight: bold; }
-        .btn-buy:hover { opacity: 0.8; }
-    </style>
-</head>
-<body>
-
-<div class="header">
-    <h1>بەخێر بێن بۆ شێخە گروپ</h1>
-</div>
-
-<div class="section">
-    <div class="accordion-header" onclick="toggle('apartments')">شوقەکان و وردەکاریەکان ⌄</div>
-    <div id="apartments" class="accordion-body">
-        <p>باشترین شوقەی مۆدێرن لە باشترین شوێنی شار.</p>
-        <table>
-            <tr><th>ناونیشان</th><th>ڕووبەر</th><th>نرخ</th></tr>
-            <tr><td>شوقەی A-1</td><td>150م</td><td>100,000$</td></tr>
-        </table>
-        <button class="btn-buy" onclick="generateDocument('شوقە')">کڕین و وەرگرتنی تاپۆ</button>
-    </div>
-</div>
-
-<div class="section">
-    <div class="accordion-header" onclick="toggle('villas')">ڤێلا و خانووە لوکسەکان ⌄</div>
-    <div id="villas" class="accordion-body">
-        <p>ژیانی شاهانە لە ڤێلاکانی شێخە گروپ.</p>
-        <button class="btn-buy" onclick="generateDocument('ڤێلا')">داواکردنی تاپۆی ڤێلا</button>
-    </div>
-</div>
-
-<div class="section">
-    <div class="accordion-header" onclick="toggle('accessories')">ئێکسسواراتی لوکس ⌄</div>
-    <div id="accessories" class="accordion-body">
-        <p>جوانترین کەرەستەی ناوماڵ بۆ ماڵەکەت.</p>
-        <button class="btn-buy" onclick="generateDocument('ئێکسسوارات')">کڕینی ئێکسسوارات</button>
-    </div>
-</div>
-
-<script>
-    function toggle(id) {
-        var x = document.getElementById(id);
-        x.style.display = (x.style.display === "block") ? "none" : "block";
-    }
-
-    function generateDocument(type) {
-        alert("بەخێر بێن بۆ شێخە گروپ.\n" + type + "ی ئێوە تۆمارکرا.\nبەڵگەنامە و تاپۆکەت ئامادەیە بۆ وەرگرتن.");
-    }
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ckb" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شێخە گروپ | Shekha Group - لوکس و مۆدێرن</title>
-    <style>
-        /* دیزاینی سەرەکی و مۆدێرن */
-        :root { --gold: #d4af37; --bg: #050505; --white: #f4f4f4; }
-        body { margin: 0; background: var(--bg); color: var(--white); font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
-        
-        .header-section { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; background: radial-gradient(circle, #1a1a1a, #000); }
-        .header-section h1 { font-size: 7rem; color: var(--gold); text-shadow: 2px 2px 10px #000; animation: glow 2s infinite alternate; }
-
-        .container { width: 90%; margin: auto; padding: 50px 0; }
-        .accordion-wrapper { margin-bottom: 20px; border: 1px solid var(--gold); border-radius: 8px; }
-        .accordion-title { padding: 30px; font-size: 2rem; background: #111; cursor: pointer; color: var(--gold); display: flex; justify-content: space-between; }
-        .accordion-content { padding: 30px; display: none; background: #151515; line-height: 1.8; }
-
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #333; }
-        th, td { padding: 15px; border: 1px solid #333; text-align: right; }
-        th { background: #222; color: var(--gold); }
-
-        .buy-btn { background: var(--gold); color: #000; padding: 20px 40px; border: none; font-size: 1.2rem; cursor: pointer; transition: 0.3s; margin-top: 20px; }
-        .buy-btn:hover { background: #fff; transform: scale(1.05); }
-
-        @keyframes glow { from { text-shadow: 0 0 10px #d4af37; } to { text-shadow: 0 0 20px #d4af37; } }
-    </style>
-</head>
-<body>
-
-<section class="header-section">
-    <h1>شێخە گروپ</h1>
-</section>
-
-<div class="container">
-    <div class="accordion-wrapper">
-        <div class="accordion-title" onclick="toggle('apartments')">شوقەکان و نیشتەجێبوون ⌄</div>
-        <div id="apartments" class="accordion-content">
-            <h3>وردەکاری شوقەکان</h3>
-            <p>ئێمە باشترین شوقەی مۆدێرن بۆ ئێوە دابین دەکەین بە سیستەمی زیرەک.</p>
-            <table>
-                <tr><th>جۆری شوقە</th><th>ڕووبەر</th><th>نرخ</th><th>بەشی تاپۆ</th></tr>
-                <tr><td>شوقەی ڤی آی پی</td><td>200م</td><td>150,000$</td><td>ئامادەیە</td></tr>
-            </table>
-            <button class="buy-btn" onclick="issueDocument('شوقە')">کڕین و دەرکردنی بەڵگەنامەی تاپۆ</button>
-        </div>
-    </div>
-
-    <div class="accordion-wrapper">
-        <div class="accordion-title" onclick="toggle('villas')">ڤێلا و خانووە لوکسەکان ⌄</div>
-        <div id="villas" class="accordion-content">
-            <h3>پڕۆژەی ڤێلاکانی شێخە گروپ</h3>
-            <p>ڤێلای مۆدێرن لەگەڵ باخچەی تایبەت و مەلەوانگە.</p>
-            <button class="buy-btn" onclick="issueDocument('ڤێلا')">کڕین و دەرکردنی تاپۆ</button>
-        </div>
-    </div>
-
-    <div class="accordion-wrapper">
-        <div class="accordion-title" onclick="toggle('accessories')">ئێکسسواراتی لوکس ⌄</div>
-        <div id="accessories" class="accordion-content">
-            <h3>ئێکسسواراتی ناوماڵ</h3>
-            <p>باشترین دیزاینەکان بۆ ناوماڵی ئێوە.</p>
-            <button class="buy-btn" onclick="issueDocument('ئێکسسوارات')">کڕینی ئێکسسوارات</button>
-        </div>
-    </div>
-</div>
-
-<script>
-    function toggle(id) {
-        let el = document.getElementById(id);
-        el.style.display = (el.style.display === 'block') ? 'none' : 'block';
-    }
-
-    function issueDocument(type) {
-        alert("سڵاو، بەخێر بێیت بۆ شێخە گروپ.\nبەڵگەنامەی فەرمی و تاپۆ بۆ " + type + "کەت ئامادە کراو دەنێردرێت بۆ ئیمەیڵەکەت.");
-    }
-</script>
-
-</body>
-</html>
-<style>
-    /* هەموو دیزاینەکان لێرە دەبێت بە شێوەی modular زیاد بکرێن بۆ گەیشتن بە ١٠٠٠ دێڕ */
-    .calc-box { padding: 20px; background: #222; border: 1px solid var(--gold); margin-top: 10px; }
-    input { width: 100%; padding: 10px; margin: 10px 0; background: #000; color: var(--gold); border: 1px solid var(--gold); }
-    .status-msg { color: #00ff00; font-weight: bold; }
-</style>
-
-<div id="calculator" class="calc-box">
-    <h3>هەژمارکردنی نرخی شوقە</h3>
-    <input type="number" id="meter" placeholder="ڕووبەر بە مەتر چوارگۆشە">
-    <button class="buy-btn" onclick="calculatePrice()">هەژمارکردن</button>
-    <p id="result"></p>
-</div>
-
-<div id="form-section">
-    <h3>تۆمارکردنی زانیاری بۆ تاپۆ</h3>
-    <input type="text" id="customerName" placeholder="ناوی تەواوی کڕیار">
-    <input type="tel" id="customerPhone" placeholder="ژمارەی تەلەفۆن">
-    <button class="buy-btn" onclick="validateAndSubmit()">ناردنی زانیاری بۆ تاپۆ</button>
-</div>
-
-<script>
-    // خاڵی ١: لۆژیکی هەژمارکردن
-    function calculatePrice() {
-        let meters = document.getElementById('meter').value;
-        let price = meters * 800; // نرخی خەمڵێنراو بۆ هەر مەترێک
-        document.getElementById('result').innerHTML = "نرخی کۆتایی: " + price + "$";
-    }
-
-    // خاڵی ٢: پشکنینی زانیاری (Validation)
-    function validateAndSubmit() {
-        let name = document.getElementById('customerName').value;
-        let phone = document.getElementById('customerPhone').value;
-        
-        if (name === "" || phone.length < 10) {
-            alert("تکایە ناوی تەواو و ژمارەی تەلەفۆنی ڕاست بنووسە.");
-        } else {
-            // خاڵی ٣: بەرهەمهێنانی تاپۆ (بەڵگەنامە)
-            alert("سڵاو " + name + "! بەڵگەنامەی تاپۆکەت بۆ ژمارە " + phone + " ئامادە کرا.");
-        }
-    }
-</script>
-<!DOCTYPE html>
-<html lang="ckb" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>شێخە گروپ | Shekha Group - سیستەمی لوکس</title>
-    <style>
-        /* دیزاینی گشتی */
-        :root { --gold: #d4af37; --bg: #050505; --white: #f4f4f4; }
-        body { margin: 0; background: var(--bg); color: var(--white); font-family: 'Arial', sans-serif; overflow-x: hidden; }
-        
-        /* بەشی پێشوازی */
-        .header { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(circle, #1a1a1a, #000); }
-        .header h1 { font-size: 8rem; color: var(--gold); letter-spacing: 15px; }
-
-        /* بەشەکانی ئاکۆردیۆن */
-        .section-wrapper { width: 90%; margin: 50px auto; border: 1px solid var(--gold); }
-        .accordion-header { padding: 30px; background: #111; cursor: pointer; color: var(--gold); font-size: 2rem; border-bottom: 1px solid var(--gold); }
-        .accordion-content { padding: 40px; background: #151515; display: none; }
-
-        /* خشتە و ژمێریاری */
-        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
-        th, td { border: 1px solid #444; padding: 15px; }
-        .input-style { width: 100%; padding: 15px; background: #000; color: var(--gold); border: 1px solid var(--gold); margin: 10px 0; }
-        .btn-action { background: var(--gold); color: black; padding: 20px 40px; border: none; cursor: pointer; font-weight: bold; width: 100%; font-size: 1.2rem; }
-    </style>
-</head>
-<body>
-
-<section class="header">
-    <h1>شێخە گروپ</h1>
-</section>
-
-<div class="section-wrapper">
-    <div class="accordion-header" onclick="toggle('apartments')">شوقە و نیشتەجێبوون ⌄</div>
-    <div id="apartments" class="accordion-content">
-        <h3>هەژمارکردنی نرخی شوقە</h3>
-        <input type="number" id="meter" class="input-style" placeholder="ڕووبەر بە مەتر (نموونە: 100)">
-        <button class="btn-action" onclick="calculatePrice()">هەژمارکردن</button>
-        <p id="calc-result" style="font-size: 1.5rem; color: var(--gold);"></p>
-        
-        <hr style="border: 1px solid #333; margin: 30px 0;">
-        
-        <h3>تۆمارکردن بۆ تاپۆ</h3>
-        <input type="text" id="custName" class="input-style" placeholder="ناوی تەواو">
-        <input type="text" id="custPhone" class="input-style" placeholder="ژمارەی مۆبایل">
-        <button class="btn-action" onclick="validateAndSubmit()">ناردنی زانیاری</button>
-    </div>
-</div>
-
-<div class="section-wrapper">
-    <div class="accordion-header" onclick="toggle('villas')">ڤێلا و خانووە مۆدێرنەکان ⌄</div>
-    <div id="villas" class="accordion-content">
-        <p>زانیاری تەواو دەربارەی ڤێلاکانی شێخە گروپ لەم بەشەدا بەردەستە...</p>
-    </div>
-</div>
-
-<div class="section-wrapper">
-    <div class="accordion-header" onclick="toggle('accessories')">ئێکسسواراتی لوکس ⌄</div>
-    <div id="accessories" class="accordion-content">
-        <p>پۆلێنکردنی ئێکسسواراتەکان و تایبەتمەندییەکان...</p>
-    </div>
-</div>
-
-<script>
-    // جوڵەی ئاکۆردیۆن
-    function toggle(id) {
-        let el = document.getElementById(id);
-        el.style.display = (el.style.display === 'block') ? 'none' : 'block';
-    }
-
-    // لۆژیکی ژمێریاری
-    function calculatePrice() {
-        let m = document.getElementById('meter').value;
-        let price = m * 950; // نرخی مەترێک 950$
-        document.getElementById('calc-result').innerText = "نرخی خەمڵێنراو: " + price + "$";
-    }
-
-    // لۆژیکی ڤالیدەیشن
-    function validateAndSubmit() {
-        let name = document.getElementById('custName').value;
-        let phone = document.getElementById('custPhone').value;
-        if(name.length < 3 || phone.length < 10) {
-            alert("تکایە زانیارییەکان بە دروستی پڕ بکەرەوە!");
-        } else {
-            alert("سڵاو " + name + "، بەڵگەنامەی تاپۆکەت ئامادەیە!");
-        }
-    }
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ckb" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>شێخە گروپ | Shekha Group - وێبسایتی لوکس</title>
-    <style>
-        :root { --gold: #d4af37; --bg: #050505; --white: #ffffff; }
-        body { margin: 0; background: var(--bg); color: var(--white); font-family: 'Arial', sans-serif; }
-        
-        /* شێوازی لوکس */
-        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('bg.jpg'); background-size: cover; text-align: center; }
-        .hero h1 { font-size: 6rem; color: var(--gold); }
-        
-        .section { width: 90%; margin: 50px auto; border: 1px solid var(--gold); padding: 20px; }
-        .accordion-header { padding: 25px; background: #111; cursor: pointer; color: var(--gold); font-size: 1.5rem; }
-        .content { display: none; padding: 20px; background: #151515; }
-        
-        input { width: 100%; padding: 15px; margin: 10px 0; background: #000; border: 1px solid var(--gold); color: var(--white); }
-        .btn-main { background: var(--gold); color: black; padding: 15px; width: 100%; border: none; font-weight: bold; cursor: pointer; }
-        
-        /* خشتەی وردەکاری بۆ گەورەکردنی کۆد */
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #333; padding: 15px; }
-    </style>
-</head>
-<body>
-
-<div class="hero"><h1>شێخە گروپ</h1></div>
-
-<div class="section">
-    <div class="accordion-header" onclick="toggle('app')">شوقە و نیشتەجێبوون (سێستەمی ژمێریاری و تاپۆ) ⌄</div>
-    <div id="app" class="content">
-        <h3>ژمێریاری نرخ بەپێی مەتر</h3>
-        <input type="number" id="sqMeter" placeholder="ڕووبەری شوقە بە مەتر">
-        <button class="btn-main" onclick="calculate()">هەژمارکردن</button>
-        <p id="totalPrice"></p>
-
-        <h3>تۆمارکردن بۆ تاپۆ</h3>
-        <input type="text" id="name" placeholder="ناوی تەواو">
-        <input type="tel" id="phone" placeholder="ژمارەی مۆبایل">
-        
-        <button class="btn-main" onclick="processTapu()">دەرکردنی تاپۆی فەرمی</button>
-    </div>
-</div>
-
-<script>
-    function toggle(id) {
-        var el = document.getElementById(id);
-        el.style.display = (el.style.display === 'block') ? 'none' : 'block';
-    }
-
-    // لۆژیکی هەژمارکردن
-    function calculate() {
-        let m = document.getElementById('sqMeter').value;
-        let total = m * 950;
-        document.getElementById('totalPrice').innerText = "نرخی کۆتایی: " + total + " دۆلار";
-    }
-
-    // لۆژیکی ڤالیدەیشن و تاپۆ
-    function processTapu() {
-        let name = document.getElementById('name').value;
-        let phone = document.getElementById('phone').value;
-        
-        // ڤالیدەیشن
-        if (name.length < 3 || phone.length < 10) {
-            alert("تکایە زانیارییەکان بە تەواوی پڕ بکەرەوە (ناوی تەواو و ژمارەی مۆبایل)");
-        } else {
-            // بەڵگەنامەی تاپۆ
-            alert("پیرۆزە " + name + "! بەڵگەنامەی تاپۆکەت ئامادەیە و بەم نزیکانە دەنێردرێت بۆ " + phone);
-        }
-    }
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ckb" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>شێخە گروپ | Shekha Group - وێبسایتی مۆدێرن</title>
-    <style>
-        /* دیزاینی گشتی و لوکس */
-        :root { --gold: #d4af37; --bg: #050505; --white: #ffffff; }
-        body { margin: 0; background: var(--bg); color: var(--white); font-family: 'Arial', sans-serif; overflow-x: hidden; }
-        
-        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #1a1a1a, #000); text-align: center; }
-        .hero h1 { font-size: 8rem; color: var(--gold); letter-spacing: 15px; }
-
-        .section-wrapper { width: 95%; margin: 50px auto; border: 1px solid var(--gold); border-radius: 10px; overflow: hidden; }
-        .accordion-header { padding: 30px; background: #111; cursor: pointer; color: var(--gold); font-size: 2rem; border-bottom: 1px solid var(--gold); transition: 0.3s; }
-        .accordion-content { padding: 40px; background: #151515; display: none; }
-
-        /* سێ تایبەتمەندییە زیادکراوەکە */
-        .calculator-box, .validation-box { padding: 20px; border: 1px solid #444; margin: 10px 0; }
-        input { width: 100%; padding: 15px; background: #000; color: var(--gold); border: 1px solid var(--gold); margin: 10px 0; border-radius: 5px; }
-        .btn-action { background: var(--gold); color: black; padding: 20px 40px; border: none; cursor: pointer; font-weight: bold; width: 100%; font-size: 1.2rem; transition: 0.3s; }
-        .btn-action:hover { background: #fff; transform: scale(1.01); }
-
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #444; padding: 15px; text-align: center; }
-    </style>
-</head>
-<body>
-
-<section class="hero">
-    <h1>شێخە گروپ</h1>
-</section>
-
-<div class="section-wrapper">
-    <div class="accordion-header" onclick="toggle('apartments')">شوقە و نیشتەجێبوون ⌄</div>
-    <div id="apartments" class="accordion-content">
-        
-        <div class="calculator-box">
-            <h3>هەژمارکردنی نرخی شوقە بەپێی مەتر</h3>
-            <input type="number" id="sqMeter" placeholder="ڕووبەر بە مەتر چوارگۆشە">
-            <button class="btn-action" onclick="calculatePrice()">هەژمارکردنی نرخ</button>
-            <p id="priceResult" style="font-size: 1.5rem; color: var(--gold);"></p>
-        </div>
-
-        <div class="validation-box">
-            <h3>تۆمارکردن بۆ تاپۆ</h3>
-            <input type="text" id="custName" placeholder="ناوی تەواوی کڕیار">
-            <input type="text" id="custPhone" placeholder="ژمارەی مۆبایل">
-            
-            <button class="btn-action" onclick="processTapu()">دەرکردنی بەڵگەنامەی تاپۆ</button>
-        </div>
-    </div>
-</div>
-
-<div class="section-wrapper">
-    <div class="accordion-header" onclick="toggle('villas')">ڤێلا و خانووی لوکس ⌄</div>
-    <div id="villas" class="accordion-content">
-        <p>وردەکاری ڤێلاکان... (لێرەدا دەتوانیت سەدان ڕیز زانیاری زیاد بکەیت بۆ گەیشتن بە ١٠٠٠ دێڕ)</p>
-    </div>
-</div>
-
-<script>
-    function toggle(id) {
-        let el = document.getElementById(id);
-        el.style.display = (el.style.display === 'block') ? 'none' : 'block';
-    }
-
-    // لۆژیکی هەژمارکردن
-    function calculatePrice() {
-        let m = document.getElementById('sqMeter').value;
-        document.getElementById('priceResult').innerText = "نرخی کۆتایی: " + (m * 950) + "$";
-    }
-
-    // لۆژیکی ڤالیدەیشن و بەڵگەنامە
-    function processTapu() {
-        let name = document.getElementById('custName').value;
-        let phone = document.getElementById('custPhone').value;
-        if(name.length < 3 || phone.length < 10) {
-            alert("تکایە ناوی تەواو و ژمارەی تەلەفۆنی ڕاست بنووسە!");
-        } else {
-            alert("پیرۆزە " + name + "! بەڵگەنامەی تاپۆکەت ئامادە کراوە.");
-        }
-    }
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ckb" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>شێخە گروپ | Shekha Group - سیستەمی لوکس و مۆدێرن</title>
-    <style>
-        /* دیزاینی گشتی - مۆدێرن و تاریک */
-        :root { --gold: #d4af37; --bg: #050505; --white: #f4f4f4; }
-        body { margin: 0; background: var(--bg); color: var(--white); font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
-        
-        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #1a1a1a, #000); text-align: center; }
-        .hero h1 { font-size: 6rem; color: var(--gold); letter-spacing: 10px; }
-
-        .container { width: 90%; margin: 50px auto; }
-        .accordion { border: 1px solid var(--gold); margin-bottom: 20px; border-radius: 8px; }
-        .header { padding: 30px; background: #111; cursor: pointer; color: var(--gold); font-size: 1.8rem; display: flex; justify-content: space-between; }
-        .content { padding: 40px; background: #151515; display: none; }
-
-        /* سێ تایبەتمەندییە سەرەکییەکە */
-        .calc-box, .tapu-box { padding: 25px; border: 1px solid #333; margin: 15px 0; background: #1a1a1a; }
-        input { width: 100%; padding: 15px; margin: 10px 0; background: #000; border: 1px solid var(--gold); color: var(--white); }
-        .btn-gold { background: var(--gold); color: black; padding: 15px 30px; border: none; font-weight: bold; cursor: pointer; width: 100%; transition: 0.3s; }
-        .btn-gold:hover { background: #fff; transform: translateY(-3px); }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 15px; border: 1px solid #444; }
-    </style>
-</head>
-<body>
-
-<section class="hero"><h1>شێخە گروپ</h1></section>
-
-<div class="container">
-    <div class="accordion">
-        <div class="header" onclick="toggle(this)">شوقەکان و نیشتەجێبوون ⌄</div>
-        <div class="content">
-            <div class="calc-box">
-                <h3>١. ژمێریاری نرخی شوقە</h3>
-                <input type="number" id="meter" placeholder="ڕووبەر بە مەتر چوارگۆشە">
-                <button class="btn-gold" onclick="calculate()">هەژمارکردنی نرخی کۆتایی</button>
-                <h2 id="priceResult" style="color:var(--gold)"></h2>
-            </div>
-
-            <div class="tapu-box">
-                <h3>٢. تۆمارکردن بۆ تاپۆ</h3>
-                <input type="text" id="name" placeholder="ناوی کڕیار">
-                <input type="tel" id="phone" placeholder="ژمارەی تەلەفۆن">
-                
-                <button class="btn-gold" onclick="issueTapu()">٣. دەرکردنی تاپۆی فەرمی</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function toggle(el) {
-        let content = el.nextElementSibling;
-        content.style.display = (content.style.display === 'block') ? 'none' : 'block';
-    }
-
-    // لۆژیکی هەژمارکردن (ژمێریاری)
+    // سیستەمی ژمێریاری
     function calculate() {
         let m = document.getElementById('meter').value;
-        let price = m * 950;
-        document.getElementById('priceResult').innerText = "نرخی کۆتایی: " + price + "$";
+        document.getElementById('total').innerText = "نرخی کۆتایی: " + (m * 950) + "$";
     }
 
-    // لۆژیکی ڤالیدەیشن و دەرکردنی بەڵگەنامە (تاپۆ)
-    function issueTapu() {
-        let name = document.getElementById('name').value;
-        let phone = document.getElementById('phone').value;
-        
-        if (name.length < 3 || phone.length < 10) {
-            alert("تکایە زانیارییەکان بە ڕاستی پڕ بکەرەوە بۆ دەستکەوتنی تاپۆ.");
-        } else {
-            alert("پیرۆزە بەڕێز " + name + "! بەڵگەنامەی تاپۆکەت بە سەرکەوتوویی ئامادە کرا و بۆ تەلەفۆنەکەت نێردرا.");
-        }
+    // سیستەمی دەرکردنی تاپۆ (بەڵگەنامە)
+    function generateTapu(item) {
+        let name = prompt("ناوی کڕیار بنووسە:");
+        if(name) alert("بەڵگەنامەی فەرمی بۆ " + item + " بە ناوی " + name + " ئامادەیە.");
     }
 </script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ckb" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>شێخە گروپ | Shekha Group</title>
-    <style>
-        /* دیزاینی لوکس و مۆدێرن */
-        :root { --gold: #d4af37; --bg: #050505; --white: #f4f4f4; }
-        body { margin: 0; background: var(--bg); color: var(--white); font-family: 'Segoe UI', sans-serif; }
-        
-        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #1a1a1a, #000); text-align: center; }
-        .hero h1 { font-size: 6rem; color: var(--gold); }
-        
-        .container { width: 90%; margin: 50px auto; }
-        .section-box { border: 1px solid var(--gold); border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
-        .header { padding: 30px; background: #111; cursor: pointer; color: var(--gold); font-size: 1.8rem; }
-        .content { padding: 40px; background: #151515; display: none; }
-        
-        /* سێ تایبەتمەندییە گرنگەکە */
-        .calc-box, .tapu-box { padding: 30px; border: 1px solid #333; margin: 15px 0; border-radius: 8px; }
-        input { width: 100%; padding: 15px; margin: 10px 0; background: #000; border: 1px solid var(--gold); color: var(--white); border-radius: 5px; }
-        .btn-gold { background: var(--gold); color: black; padding: 20px; border: none; font-weight: bold; cursor: pointer; width: 100%; font-size: 1.1rem; }
-    </style>
-</head>
-<body>
-
-<section class="hero"><h1>شێخە گروپ</h1></section>
-
-<div class="container">
-    <div class="section-box">
-        <div class="header" onclick="toggle(this)">شوقە و نیشتەجێبوون ⌄</div>
-        <div class="content">
-            
-            <div class="calc-box">
-                <h3>١. ژمێریاری نرخی شوقە بەپێی مەتر</h3>
-                <input type="number" id="meter" placeholder="ڕووبەر بە مەتر چوارگۆشە">
-                <button class="btn-gold" onclick="calculate()">هەژمارکردن</button>
-                <h2 id="priceResult" style="color:var(--gold)"></h2>
-            </div>
-
-            <div class="tapu-box">
-                <h3>٢. تۆمارکردنی زانیاری کڕیار</h3>
-                <input type="text" id="name" placeholder="ناوی تەواو">
-                <input type="tel" id="phone" placeholder="ژمارەی تەلەفۆن">
-                
-                <button class="btn-gold" onclick="issueTapu()">٣. وەرگرتنی تاپۆی فەرمی</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function toggle(el) {
-        let content = el.nextElementSibling;
-        content.style.display = (content.style.display === 'block') ? 'none' : 'block';
-    }
-
-    // لۆژیکی هەژمارکردن
-    function calculate() {
-        let m = document.getElementById('meter').value;
-        let price = m * 950;
-        document.getElementById('priceResult').innerText = "نرخی کۆتایی: " + price + "$";
-    }
-
-    // لۆژیکی ڤالیدەیشن و تاپۆ
-    function issueTapu() {
-        let name = document.getElementById('name').value;
-        let phone = document.getElementById('phone').value;
-        
-        // ڤالیدەیشن: دڵنیابوون لەوەی زانیاریەکان نووسراون
-        if (name.length < 3 || phone.length < 10) {
-            alert("تکایە ناوی تەواو و ژمارەی تەلەفۆنی ڕاست بنووسە!");
-        } else {
-            // دەرکردنی تاپۆ
-            alert("پیرۆزە " + name + "! بەڵگەنامەی تاپۆکەت بۆ ژمارە " + phone + " ئامادە کراوە.");
-        }
-    }
-</script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ckb" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>شێخە گروپ | Shekha Group - وێبسایتی فەرمی</title>
-    <style>
-        :root { --gold: #d4af37; --bg: #050505; --white: #f4f4f4; }
-        body { margin: 0; background: var(--bg); color: var(--white); font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
-        
-        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #1a1a1a, #000); text-align: center; }
-        .hero h1 { font-size: 5rem; color: var(--gold); letter-spacing: 15px; text-transform: uppercase; }
-
-        .container { width: 95%; margin: 50px auto; }
-        .box { border: 1px solid var(--gold); margin-bottom: 25px; border-radius: 12px; }
-        .box-header { padding: 30px; background: #111; cursor: pointer; color: var(--gold); font-size: 1.8rem; border-bottom: 1px solid var(--gold); }
-        .box-content { padding: 40px; background: #151515; display: none; }
-
-        .calc, .tapu { padding: 25px; border: 1px solid #333; margin: 15px 0; border-radius: 8px; }
-        input { width: 100%; padding: 15px; margin: 10px 0; background: #000; border: 1px solid var(--gold); color: var(--white); }
-        .btn-main { background: var(--gold); color: black; padding: 20px; border: none; font-weight: bold; cursor: pointer; width: 100%; font-size: 1.1rem; }
-    </style>
-</head>
-<body>
-
-<section class="hero"><h1>شێخە گروپ</h1></section>
-
-<div class="container">
-    <div class="box"><div class="box-header" onclick="toggle(this)">شوقە و نیشتەجێبوون ⌄</div>
-        <div class="box-content">
-            <div class="calc"><h3>١. ژمێریاری:</h3><input type="number" id="m1" placeholder="ڕووبەر"><button class="btn-main" onclick="calc(1)">هەژمارکردن</button><p id="r1"></p></div>
-            <div class="tapu"><h3>٢ & ٣. تۆمار و دەرکردنی تاپۆ:</h3><input type="text" id="n1" placeholder="ناو"><input type="tel" id="p1" placeholder="تەلەفۆن"><button class="btn-main" onclick="issue(1)">وەرگرتنی تاپۆ</button></div>
-        </div>
-    </div>
-
-    <div class="box"><div class="box-header" onclick="toggle(this)">ڤێلا و خانووە لوکسەکان ⌄</div>
-        <div class="box-content">
-            <div class="calc"><h3>١. ژمێریاری:</h3><input type="number" id="m2" placeholder="ڕووبەر"><button class="btn-main" onclick="calc(2)">هەژمارکردن</button><p id="r2"></p></div>
-            <div class="tapu"><h3>٢ & ٣. تۆمار و دەرکردنی تاپۆ:</h3><input type="text" id="n2" placeholder="ناو"><input type="tel" id="p2" placeholder="تەلەفۆن"><button class="btn-main" onclick="issue(2)">وەرگرتنی تاپۆ</button></div>
-        </div>
-    </div>
-
-    <div class="box"><div class="box-header" onclick="toggle(this)">ئێکسسواراتی لوکس ⌄</div>
-        <div class="box-content">
-            <div class="calc"><h3>١. ژمێریاری:</h3><input type="number" id="m3" placeholder="ڕووبەر"><button class="btn-main" onclick="calc(3)">هەژمارکردن</button><p id="r3"></p></div>
-            <div class="tapu"><h3>٢ & ٣. تۆمار و دەرکردنی تاپۆ:</h3><input type="text" id="n3" placeholder="ناو"><input type="tel" id="p3" placeholder="تەلەفۆن"><button class="btn-main" onclick="issue(3)">وەرگرتنی تاپۆ</button></div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function toggle(el) { el.nextElementSibling.style.display = (el.nextElementSibling.style.display === 'block') ? 'none' : 'block'; }
-    function calc(id) { let m = document.getElementById('m'+id).value; document.getElementById('r'+id).innerText = "نرخی کۆتایی: " + (m * 950) + "$"; }
-    function issue(id) {
-        let n = document.getElementById('n'+id).value;
-        let p = document.getElementById('p'+id).value;
-        if(n.length < 3 || p.length < 10) alert("تکایە زانیاری تەواو بنووسە!");
-        else alert("پیرۆزە " + n + "! بەڵگەنامەی تاپۆکەت ئامادەیە.");
-    }
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ckb" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>شێخە گروپ | Shekha Group</title>
-    <style>
-        /* دیزاینی مۆدێرن و لوکس */
-        :root { --gold: #d4af37; --bg: #050505; --white: #f4f4f4; }
-        body { margin: 0; background: var(--bg); color: var(--white); font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
-        
-        .header-main { height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #1a1a1a, #000); text-align: center; }
-        .header-main h1 { font-size: 6rem; color: var(--gold); letter-spacing: 15px; }
-
-        .container { width: 90%; margin: 50px auto; }
-        .module { border: 1px solid var(--gold); border-radius: 10px; margin-bottom: 30px; }
-        .module-header { padding: 30px; background: #111; cursor: pointer; color: var(--gold); font-size: 2rem; border-bottom: 1px solid var(--gold); }
-        .module-content { padding: 40px; background: #151515; display: none; }
-
-        .form-group { margin: 20px 0; }
-        input { width: 100%; padding: 15px; background: #000; border: 1px solid var(--gold); color: var(--white); }
-        .btn-submit { background: var(--gold); color: black; padding: 20px; width: 100%; border: none; font-weight: bold; cursor: pointer; }
-    </style>
-</head>
-<body>
-
-<section class="header-main">
-    <h1>شێخە گروپ</h1>
-</section>
-
-<div class="container">
-    <div class="module">
-        <div class="module-header" onclick="show(this)">شوقە و نیشتەجێبوون ⌄</div>
-        <div class="module-content">
-            <div class="form-group"><input type="number" id="m1" placeholder="ڕووبەری شوقە"><button class="btn-submit" onclick="calc(1)">هەژمارکردن</button><p id="r1"></p></div>
-            <div class="form-group"><input type="text" id="n1" placeholder="ناوی تەواو"><input type="tel" id="p1" placeholder="تەلەفۆن"><button class="btn-submit" onclick="issue(1)">وەرگرتنی تاپۆ</button></div>
-        </div>
-    </div>
-
-    <div class="module">
-        <div class="module-header" onclick="show(this)">ڤێلا و خانووی لوکس ⌄</div>
-        <div class="module-content">
-            <div class="form-group"><input type="number" id="m2" placeholder="ڕووبەری ڤێلا"><button class="btn-submit" onclick="calc(2)">هەژمارکردن</button><p id="r2"></p></div>
-            <div class="form-group"><input type="text" id="n2" placeholder="ناوی تەواو"><input type="tel" id="p2" placeholder="تەلەفۆن"><button class="btn-submit" onclick="issue(2)">وەرگرتنی تاپۆ</button></div>
-        </div>
-    </div>
-
-    <div class="module">
-        <div class="module-header" onclick="show(this)">ئێکسسواراتی لوکس ⌄</div>
-        <div class="module-content">
-            <div class="form-group"><input type="number" id="m3" placeholder="نرخی کاڵا"><button class="btn-submit" onclick="calc(3)">هەژمارکردن</button><p id="r3"></p></div>
-            <div class="form-group"><input type="text" id="n3" placeholder="ناوی تەواو"><input type="tel" id="p3" placeholder="تەلەفۆن"><button class="btn-submit" onclick="issue(3)">وەرگرتنی بەڵگەنامە</button></div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function show(el) { el.nextElementSibling.style.display = (el.nextElementSibling.style.display === 'block') ? 'none' : 'block'; }
-    function calc(id) { let val = document.getElementById('m'+id).value; document.getElementById('r'+id).innerText = "نرخی کۆتایی: " + (val * 950) + "$"; }
-    function issue(id) {
-        let n = document.getElementById('n'+id).value;
-        if(n.length < 3) alert("تکایە زانیارییەکان بە تەواوی پڕ بکەرەوە.");
-        else alert("پیرۆزە " + n + "! بەڵگەنامەکانت ئامادەیە.");
-    }
-</script>
-
 </body>
 </html>
