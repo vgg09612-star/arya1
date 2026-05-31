@@ -44,7 +44,79 @@
         <button onclick="toggleSize()" style="margin-top:20px; padding:10px 30px; background:var(--gold); border:none; cursor:pointer;">گەورەکردن بۆ نمایش</button>
     </div>
 
+    <div class="dashboard"><!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SHAHEN | ELITE UNIFIED LUXURY SYSTEM</title>
+    <style>
+        :root {
+            --gold: #C5A059;
+            --dark: #050505;
+            --panel: rgba(10, 10, 10, 0.95);
+            --white: #FFFFFF;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: var(--dark); color: var(--white); height: 100vh; overflow: hidden; display: flex; }
+
+        .app-container { display: flex; width: 100vw; height: 100vh; transition: 0.5s ease; }
+
+        /* Hologram Stage */
+        .stage { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; border-left: 1px solid var(--gold); }
+        .holo-body {
+            width: 300px; height: 600px; border: 2px solid var(--gold);
+            border-radius: 150px 150px 20px 20px; background: linear-gradient(to bottom, #111, #000);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative; overflow: hidden;
+        }
+        .dress { width: 100%; height: 60%; background: #000; position: absolute; bottom: 0; border-radius: 0 0 20px 20px; }
+
+        /* Dashboard */
+        .dashboard { width: 420px; background: var(--panel); padding: 25px; overflow-y: auto; border-right: 1px solid #333; }
+        .section-box { background: #151515; padding: 20px; margin-bottom: 20px; border-radius: 12px; border: 1px solid #333; }
+        h2 { color: var(--gold); margin-bottom: 15px; font-size: 1.1rem; }
+        .data-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
+        .price { color: #4CAF50; font-weight: bold; }
+        .btn-action { width: 100%; padding: 12px; background: var(--gold); color: #000; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
     <div class="dashboard">
+        <h2>بازاڕی دارایی</h2>
+        <div class="section-box">
+            <div class="data-row"><span>نرخی زێڕ (2 مسقاڵ)</span><span class="price">1,035,000 IQD</span></div>
+            <div class="data-row"><span>بیتکۆین (BTC)</span><span class="price">$67,200</span></div>
+        </div>
+
+        <h2>ڤێلا و شوقەکان</h2>
+        <div class="section-box">
+            <div class="data-row"><span>ڤێلای مۆدێرن</span><span class="price">$450,000</span></div>
+            <div class="data-row"><span>شوقەی لوکس</span><span class="price">$220,000</span></div>
+        </div>
+    </div>
+
+    <div class="stage">
+        <div class="holo-body" id="master-holo">
+            <div class="dress"></div>
+        </div>
+        <button class="btn-action" style="width: 200px;" onclick="maximizeHolo()">نمایشی تەواو</button>
+    </div>
+</div>
+
+<script>
+    function maximizeHolo() {
+        const h = document.getElementById('master-holo');
+        h.style.width = (h.style.width === '500px') ? '300px' : '500px';
+        h.style.height = (h.style.height === '900px') ? '600px' : '900px';
+    }
+</script>
+
+</body>
+</html>
+
         <h2>بازاڕی دراو</h2>
         <div class="card">
             <p>زێڕ (2 مسقاڵ): <span class="price">1,035,000 IQD</span></p>
