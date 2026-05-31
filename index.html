@@ -1,251 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ku" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>AI Hologram Assistant</title>
-
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
-body{
-background:#000;
-overflow:hidden;
-color:#00ffff;
-}
-
-#ui{
-position:absolute;
-top:20px;
-left:20px;
-width:350px;
-background:rgba(0,0,0,.6);
-backdrop-filter:blur(10px);
-padding:20px;
-border:1px solid #00ffff;
-border-radius:15px;
-z-index:100;
-}
-
-h1{
-margin-bottom:10px;
-}
-
-input{
-width:100%;
-padding:10px;
-margin-top:10px;
-background:#111;
-border:1px solid #00ffff;
-color:white;
-}
-
-button{
-margin-top:10px;
-padding:10px;
-width:100%;
-background:#00ffff;
-border:none;
-cursor:pointer;
-font-weight:bold;
-}
-
-#response{
-margin-top:15px;
-height:150px;
-overflow:auto;
-}
-
-canvas{
-display:block;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ماڵپەڕی هۆلۆگرامی پڕۆفیشناڵ</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #050505; /* باکگراوندێکی تاریک بۆ دەرکەوتنی هۆلۆگرامەکە */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        #ui-layer {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            color: #00ffcc;
+            z-index: 100;
+            pointer-events: none; /* بۆ ئەوەی ڕێگری نەکات لە دەستلێدانی شاشەکە */
+            text-shadow: 0 0 10px #00ffcc;
+        }
+        h1 { margin: 0; font-size: 24px; }
+        p { margin: 5px 0 0 0; font-size: 14px; color: #fff; }
+    </style>
 </head>
-
 <body>
 
-<div id="ui">
-<h1>AI Assistant</h1>
+    <div id="ui-layer">
+        <h1>سیستەمی هۆلۆگرامی زیرەک</h1>
+        <p>دوگمەی (START AR) دابگرە بۆ بینینی هۆلۆگرامەکە لە ژوورەکەتدا</p>
+    </div>
 
-<input id="userInput"
-placeholder="Ask me anything...">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
 
-<button onclick="talk()">Send</button>
+    <script type="module">
+        import * as THREE from 'three';
+        import { ARButton } from 'three/addons/webxr/ARButton.js';
 
-<div id="response">
-Ready...
-</div>
-</div>
+        let camera, scene, renderer;
+        let hologramObject;
 
-<script type="module">
+        init();
+        animate();
 
-import * as THREE from
-'https://unpkg.com/three@0.160.0/build/three.module.js';
+        function init() {
+            // ١. دروستکردنی دیمەن (Scene)
+            scene = new THREE.Scene();
 
-const scene=new THREE.Scene();
+            // ٢. دانانی کامێرا
+            camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 20);
 
-const camera=
-new THREE.PerspectiveCamera(
-75,
-window.innerWidth/window.innerHeight,
-0.1,
-1000
-);
+            // ٣. ڕووناکی (بۆ ئەوەی تەنەکە بە جوانی دەربکەوێت)
+            const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 3);
+            light.position.set(0.5, 1, 0.25);
+            scene.add(light);
 
-const renderer=
-new THREE.WebGLRenderer({
-antialias:true
-});
+            // ٤. دروستکردنی تەنە هۆلۆگرامییەکە (شێوەیەکی ئاڵۆزی ئەندازەیی دەدرەوشێتەوە)
+            const geometry = new THREE.TorusKnotGeometry(0.15, 0.04, 128, 32); // شێوەی گرێیەکی سێ ڕەهەندی
+            const material = new THREE.MeshStandardMaterial({
+                color: 0x00ffff, // ڕەنگی شینباوی هۆلۆگرامی
+                emissive: 0x0088aa, // درەوشانەوەی ناوەوە
+                wireframe: true, // پیشاندانی هێڵەکانی پێکهاتەکە
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            hologramObject = new THREE.Mesh(geometry, material);
+            hologramObject.position.set(0, 0, -0.6); // دانانی نیو مەتر لە پێش چاوی بەکارهێنەرەوە
+            scene.add(hologramObject);
 
-renderer.setSize(
-window.innerWidth,
-window.innerHeight
-);
+            // ٥. ڕێکخستنی ڕێندەرەر بۆ پشتگیریکردنی AR
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.xr.enabled = true; // کاراکردنی تایبەتمەندی ڕاستەقینەی زیادکراو (AR)
+            document.body.appendChild(renderer.domElement);
 
-document.body.appendChild(
-renderer.domElement
-);
+            // ٦. زیادکردنی دوگمەی AR بۆ سەر شاشەکە
+            document.body.appendChild(ARButton.createButton(renderer));
 
-camera.position.z=5;
+            // گونجاندنی شاشە کاتێک قەبارەی دەگۆڕێت
+            window.addEventListener('resize', onWindowResize);
+        }
 
-const geometry=
-new THREE.CapsuleGeometry(
-1,
-2,
-12,
-24
-);
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
 
-const material=
-new THREE.MeshBasicMaterial({
-color:0x00ffff,
-wireframe:true
-});
+        // ٧. جووڵەپێکردن و سووڕاندنەوەی هۆلۆگرامەکە
+        function animate() {
+            renderer.setAnimationLoop(render);
+        }
 
-const hologram=
-new THREE.Mesh(
-geometry,
-material
-);
-
-scene.add(hologram);
-
-const ring=
-new THREE.Mesh(
-new THREE.TorusGeometry(
-2,
-0.05,
-16,
-100
-),
-new THREE.MeshBasicMaterial({
-color:0x00ffff
-})
-);
-
-ring.rotation.x=Math.PI/2;
-
-scene.add(ring);
-
-function animate(){
-
-requestAnimationFrame(
-animate
-);
-
-hologram.rotation.y+=0.01;
-
-hologram.position.y=
-Math.sin(
-Date.now()*0.002
-)*0.2;
-
-ring.rotation.z+=0.01;
-
-renderer.render(
-scene,
-camera
-);
-
-}
-
-animate();
-
-window.addEventListener(
-'resize',
-()=>{
-camera.aspect=
-window.innerWidth/
-window.innerHeight;
-
-camera.updateProjectionMatrix();
-
-renderer.setSize(
-window.innerWidth,
-window.innerHeight
-);
-}
-);
-
-window.talk=()=>{
-
-let text=
-document.getElementById(
-"userInput"
-).value;
-
-let response=
-"AI Response: " + text;
-
-document.getElementById(
-"response"
-).innerHTML=response;
-
-if(
-"speechSynthesis"
-in window
-){
-
-let utter=
-new SpeechSynthesisUtterance(
-response
-);
-
-speechSynthesis.speak(
-utter
-);
-
-}
-
-};
-
-document.body.addEventListener(
-"click",
-()=>{
-
-hologram.scale.set(
-1.2,
-1.2,
-1.2
-);
-
-setTimeout(()=>{
-hologram.scale.set(
-1,
-1,
-1
-);
-},300);
-
-}
-);
-
-</script>
-
+        function render() {
+            if (hologramObject) {
+                hologramObject.rotation.x += 0.005;
+                hologramObject.rotation.y += 0.01;
+            }
+            renderer.render(scene, camera);
+        }
+    </script>
 </body>
 </html>
+
