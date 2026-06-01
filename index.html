@@ -619,63 +619,61 @@
     </script>
     
     </body>
-</html>
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHEX ARYA - Global Trading Terminal</title>
+    <title>SHEX ARYA - Advanced Terminal</title>
     <style>
-        body { background: #000; color: #fff; font-family: 'Tajawal', sans-serif; margin: 0; }
-        .hero-section { text-align: center; padding: 50px; background: linear-gradient(180deg, #050505 0%, #000 100%); }
-        .welcome-icon { font-size: 50px; margin-bottom: 20px; animation: bounce 2s infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        body { background: #000; color: #fff; font-family: 'Tajawal', sans-serif; }
+        /* بەشی ئاگادارکردنەوە لە سەرەوە */
+        #alert-bar { background: #2962ff; padding: 10px; text-align: center; font-weight: bold; }
         
-        .charts-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px; }
-        .chart-wrapper { background: #080808; border: 1px solid #333; height: 500px; padding: 10px; border-radius: 10px; }
+        /* چارت بە خواستی خۆت (Canvas) */
+        .my-chart { width: 100%; height: 400px; background: #050505; border: 1px solid #333; position: relative; }
         
-        .long-table { width: 95%; margin: 30px auto; border-collapse: collapse; background: #050505; }
-        .long-table th, .long-table td { padding: 15px; border: 1px solid #333; text-align: center; }
-        .long-table tr:hover { background: #111; }
+        /* بەشی نرخەکان بە گرام */
+        .gold-calc { display: flex; justify-content: space-around; padding: 20px; background: #111; margin: 10px; border-radius: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="hero-section">
-        <div class="welcome-icon">💎</div>
-        <h1>بەخێربێیت بۆ مەکۆی بازرگانی شێخ ئەریا</h1>
+    <div id="alert-bar">سەلام شێخ ئەریا: بازاڕ لە ئێستادا جێگیرە...</div>
+
+    <div class="gold-calc">
+        <div>زێڕ (گرام): <span id="gold-gram">...</span>$ / <span id="gold-iqd">...</span> IQD</div>
+        <div>زیو (گرام): <span id="silver-gram">...</span>$ / <span id="silver-iqd">...</span> IQD</div>
     </div>
 
-    <div class="charts-container">
-        <div class="chart-wrapper">
-            <h3>زێڕ (XAU/USD) - جیهانی</h3>
-            <div id="gold-chart" style="height: 400px;"></div>
-        </div>
-        <div class="chart-wrapper">
-            <h3>زیو (XAG/USD) - جیهانی</h3>
-            <div id="silver-chart" style="height: 400px;"></div>
-        </div>
+    <div class="my-chart" id="custom-chart">
+        <canvas id="priceCanvas"></canvas>
     </div>
 
-    <table class="long-table">
-        <thead>
-            <tr style="background: #1a1a1a;">
-                <th>کانزا</th><th>نرخی جیهانی (USD)</th><th>گۆڕانکاری</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr><td>زێڕ (Gold)</td><td><div class="tradingview-widget-container"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js">{"symbol": "OANDA:XAUUSD", "width": "100%", "colorTheme": "dark"}</script></div></td><td>بەردەوام نوێ دەبێتەوە</td></tr>
-            <tr><td>زیو (Silver)</td><td><div class="tradingview-widget-container"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js">{"symbol": "OANDA:XAGUSD", "width": "100%", "colorTheme": "dark"}</script></div></td><td>بەردەوام نوێ دەبێتەوە</td></tr>
-            <tr><td>نەوت (Crude Oil)</td><td><div class="tradingview-widget-container"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js">{"symbol": "OANDA:USOIL", "width": "100%", "colorTheme": "dark"}</script></div></td><td>بەردەوام نوێ دەبێتەوە</td></tr>
-        </tbody>
-    </table>
-
-    <script src="https://s3.tradingview.com/tv.js"></script>
     <script>
-        // چارتەکان بە شێوازی سەربەخۆ
-        new TradingView.widget({"container_id": "gold-chart", "symbol": "OANDA:XAUUSD", "theme": "dark", "autosize": true, "toolbar_bg": "#000"});
-        new TradingView.widget({"container_id": "silver-chart", "symbol": "OANDA:XAGUSD", "theme": "dark", "autosize": true, "toolbar_bg": "#000"});
+        // نرخی جیهانی بۆ گرام (بە گریمانەی نرخێک)
+        let goldPricePerGramUSD = 75.50;
+        let exchangeRate = 1500; // نرخی دۆلار بە دینار
+
+        function updatePrices() {
+            document.getElementById('gold-gram').innerText = goldPricePerGramUSD.toFixed(2);
+            document.getElementById('gold-iqd').innerText = (goldPricePerGramUSD * exchangeRate).toFixed(0);
+        }
+        updatePrices();
+
+        // ئاگادارکردنەوەی زیرەک
+        function sendAlert(msg) {
+            document.getElementById('alert-bar').innerText = "⚠️ " + msg;
+            document.getElementById('alert-bar').style.background = "#f23645";
+        }
+
+        // چارتی سەرەتایی بە Canvas (وەک بنەما)
+        const canvas = document.getElementById('priceCanvas');
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = "#2962ff";
+        ctx.fillRect(50, 200, 50, 100); // ئەمە بنەمای چارتەکەتە
+        
+        // جیمینای - دەتوانیت بە سڕینەوەی ئەم سکریپتە بەتەواوی لایبەریت
+        // تەنها ئەم بەشە بسڕەوە کە پەیوەندیدارە بە #geminiChat
     </script>
 </body>
 </html>
