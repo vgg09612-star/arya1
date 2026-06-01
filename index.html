@@ -762,24 +762,6 @@
     ];
     candleSeries.setData(data);
 </script>
-// ئەم کۆدە بۆ ئەوەیە سایتەکەت وەک 'ئەپ' کار بکات
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').then(reg => {
-            console.log('سایتەکەت ئێستا ئامادەیە بۆ کارکردنی خێرا (Offline Ready)');
-        });
-    });
-}
-
-// سیستەمی وەرگرتنی نرخ بە WebSocket
-const ws = new WebSocket('wss://stream.yourtradingdata.com');
-ws.onmessage = function(event) {
-    const data = JSON.parse(event.data);
-    updateChart(data.price); // چارتی lightweight نوێ دەکاتەوە
-    if(data.price > threshold) {
-        showGoogleNotification("نرخی زێڕ گەیشتە ئاستێکی نوێ!");
-    }
-};
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
