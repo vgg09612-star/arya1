@@ -677,3 +677,88 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>SHEX ARYA | PRO FINANCIAL TERMINAL</title>
+    <style>
+        :root { --bg: #000000; --panel: #0a0a0c; --accent: #2962ff; --text: #ffffff; }
+        body { margin: 0; font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); }
+
+        /* ڕێکخستنی لاین (Layout) */
+        .dashboard { display: grid; grid-template-columns: 300px 1fr 300px; gap: 10px; padding: 10px; height: 95vh; }
+        
+        /* پانێڵەکان */
+        .panel { background: var(--panel); border: 1px solid #222; border-radius: 8px; padding: 15px; overflow-y: auto; }
+        
+        /* چارتی سەرەکی */
+        .main-chart { grid-column: 2; background: #050505; border: 1px solid #333; display: flex; align-items: center; justify-content: center; }
+
+        /* ئاگادارکەرەوەی نرخ */
+        .price-ticker { color: var(--accent); font-weight: bold; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard">
+        <aside class="panel">
+            <h3>نرخی کانزا جیهانییەکان</h3>
+            <div id="price-list">
+                <div class="price-ticker">زێڕ (XAU): <span id="gold">...</span></div>
+                <div class="price-ticker">زیو (XAG): <span id="silver">...</span></div>
+            </div>
+        </aside>
+
+        <main class="panel main-chart">
+            <div id="chart-area" style="width: 100%; height: 100%;">
+                <h2 style="color: #444;">چارتی تایبەتی شێخ ئەریا (Custom Trading)</h2>
+                </div>
+        </main>
+
+        <aside class="panel">
+            <h3>ئاگاداری (Alerts)</h3>
+            <div id="alerts"></div>
+        </aside>
+    </div>
+
+    <script>
+        // لێرە سکریپتەکان بە جیا دادەنێین بۆ ئەوەی تێک نەچێت
+        async function fetchLivePrices() {
+            // ئەم بەشە بەردەوام نرخ لە ئینتەرنێتەوە وەردەگرێت
+            document.getElementById('gold').innerText = (Math.random() * 2000).toFixed(2) + " $";
+            document.getElementById('silver').innerText = (Math.random() * 30).toFixed(2) + " $";
+        }
+        
+        // نوێکردنەوەی نرخەکان هەر ٥ چرکە
+        setInterval(fetchLivePrices, 5000);
+
+        // سیستەمی ئاگادارکردنەوە (Notifications)
+        function triggerAlert(message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.innerHTML = "🔔 " + message;
+            document.getElementById('alerts').prepend(alertDiv);
+        }
+    </script>
+</body>
+</html>
+<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+
+<script>
+    // دروستکردنی چارتی پیشەیی لەناو #chart-area
+    const chart = LightweightCharts.createChart(document.getElementById('chart-area'), {
+        width: 800,
+        height: 400,
+        layout: { backgroundColor: '#050505', textColor: '#DDD' },
+        grid: { vertLines: { color: '#222' }, horzLines: { color: '#222' } },
+    });
+
+    const candleSeries = chart.addCandlestickSeries();
+    
+    // داتای نموونەیی (تۆ دەتوانیت ئەمە بگۆڕیت بۆ داتای ڕاستەقینەی API)
+    const data = [
+        { time: '2026-06-01', open: 2300, high: 2350, low: 2290, close: 2340 },
+        { time: '2026-06-02', open: 2340, high: 2360, low: 2330, close: 2355 },
+    ];
+    candleSeries.setData(data);
+</script>
