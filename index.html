@@ -3,552 +3,1079 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHEX ARYA - Pure Black Premium Terminal</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap');
+    <title>Gomll Trade | By Arya</title>
 
-        :root {
-            --bg-pure-black: #000000; /* ڕەشی قەترانی تەواو وەک داوات کردبوو */
-            --bg-card: #0a0a0c;
-            --bg-card-hover: #121214;
-            --tv-blue: #2962ff;
-            --tv-green: #089981;
-            --tv-red: #f23645;
-            --text-main: #b2b5be;
-            --text-white: #ffffff;
-            --border-color: #1f222b;
-            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
+    <link rel="stylesheet" href="style.css">
 
-        * {
-            box-sizing: border-box;
-            user-select: none;
-        }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Tajawal', sans-serif;
-            background-color: var(--bg-pure-black);
-            color: var(--text-main);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-pure-black); }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--tv-blue); }
-
-        /* Top Live Ticker */
-        .ticker-wrapper {
-            width: 100%;
-            background: #000000;
-            border-bottom: 1px solid var(--border-color);
-            height: 40px;
-            overflow: hidden;
-        }
-
-        header {
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: var(--bg-pure-black);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(20px);
-        }
-
-        .logo {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-white);
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 50px 20px;
-            text-align: center;
-            background: #000000;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .welcome-msg {
-            font-size: 2.5rem;
-            color: var(--text-white);
-            margin-bottom: 15px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-
-        .quran-box {
-            margin: 20px auto;
-            max-width: 750px;
-            padding: 25px;
-            border-radius: 8px;
-            background-color: #050505;
-            border: 1px solid #1a1a1a;
-            transition: var(--transition-smooth);
-        }
-        .quran-box:hover {
-            border-color: #333;
-        }
-
-        .quran-text {
-            font-family: 'Amiri', serif;
-            font-size: 2rem;
-            color: #ffd700;
-            line-height: 2;
-            text-align: center;
-        }
-
-        .quran-translation {
-            font-size: 1rem;
-            color: #848e9c;
-            margin-top: 12px;
-        }
-
-        .section-title {
-            padding-right: 5%;
-            margin: 60px 0 30px 0;
-            font-size: 1.6rem;
-            color: var(--text-white);
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .section-title::before {
-            content: '';
-            display: inline-block;
-            width: 4px;
-            height: 24px;
-            background: var(--tv-blue);
-            border-radius: 2px;
-        }
-
-        /* Main Workspace Layout */
-        .app-layout {
-            max-width: 95%;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 50px;
-        }
-
-        /* Charts Container */
-        .charts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
-            gap: 35px; /* بۆشایی زیاتر لە نێوان شتەکان */
-        }
-
-        @media (max-width: 768px) {
-            .charts-grid { grid-template-columns: 1fr; }
-        }
-
-        .chart-card {
-            background: var(--bg-card);
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            height: 650px;
-            transition: var(--transition-smooth);
-        }
-        .chart-card:hover {
-            border-color: #333641;
-            transform: translateY(-2px);
-        }
-
-        .chart-header {
-            padding: 16px 20px;
-            background: #08080a;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 1rem;
-            color: var(--text-white);
-            font-weight: 600;
-        }
-
-        /* Widgets & Live Lists Grid */
-        .data-management-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 35px; /* بۆشایی ڕێک و پڕۆفیشناڵ */
-            margin-bottom: 80px;
-        }
-        @media (max-width: 1024px) {
-            .data-management-grid { grid-template-columns: 1fr; }
-        }
-
-        .data-card {
-            background: var(--bg-card);
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            padding: 24px;
-            height: 520px; /* قەبارەی گەورەتر بۆ ئەوەی شتەکان جێگایان ببێتەوە */
-            display: flex;
-            flex-direction: column;
-            transition: var(--transition-smooth);
-        }
-        .data-card:hover { border-color: #333641; }
-
-        .card-title {
-            font-size: 1.1rem;
-            color: var(--text-white);
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        /* چاتەکە بە ستایلی تەواو ڕەش */
-        .chat-toggle {
-            position: fixed;
-            bottom: 35px;
-            right: 35px;
-            background: #111;
-            border: 1px solid #333;
-            color: white;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 22px;
-            cursor: pointer;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.8);
-            z-index: 1000;
-            transition: var(--transition-smooth);
-        }
-        .chat-toggle:hover { transform: scale(1.1); background: #1a1a1a; border-color: var(--tv-blue); }
-        
-        .chatbot-container {
-            position: fixed;
-            bottom: 110px;
-            right: 35px;
-            width: 380px;
-            background: var(--bg-card);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
-            display: none;
-            z-index: 999;
-        }
-
-        .chat-drag-handle {
-            background: #08080a;
-            color: var(--text-white);
-            padding: 16px 20px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: move;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .chat-body {
-            height: 300px;
-            padding: 20px;
-            overflow-y: auto;
-            font-size: 0.95rem;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            background: var(--bg-pure-black);
-            direction: rtl;
-        }
-
-        .chat-message {
-            padding: 12px 16px;
-            border-radius: 8px;
-            max-width: 85%;
-            line-height: 1.6;
-        }
-
-        .msg-ai {
-            background: #0a0a0c;
-            color: #d1d4dc;
-            align-self: flex-start;
-            border: 1px solid #222;
-        }
-
-        .msg-user {
-            background: #1f222b;
-            color: var(--text-white);
-            align-self: flex-end;
-        }
-
-        .chat-input {
-            display: flex;
-            border-top: 1px solid var(--border-color);
-            background: var(--bg-card);
-            padding: 12px;
-            direction: rtl;
-        }
-
-        .chat-input input {
-            flex: 1;
-            padding: 12px 16px;
-            background: var(--bg-pure-black);
-            border: 1px solid var(--border-color);
-            color: #fff;
-            outline: none;
-            font-family: 'Tajawal', sans-serif;
-            border-radius: 6px;
-        }
-        .chat-input input:focus { border-color: var(--tv-blue); }
-
-        .chat-input button {
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            color: var(--tv-blue);
-            font-weight: 700;
-            font-family: 'Tajawal', sans-serif;
-            padding: 0 16px;
-            font-size: 1rem;
-        }
-    </style>
+    <script src="https://s3.tradingview.com/tv.js"></script>
 </head>
 <body>
 
-    <!-- لێشاوی نرخە گشتییەکان لە سەرەوە -->
-    <div class="ticker-wrapper">
-        <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-tickers.js" async>
-            {
-            "symbols": [
-                { "proName": "OANDA:XAUUSD", "title": "GOLD / USD" },
-                { "proName": "OANDA:XAGUSD", "title": "SILVER / USD" },
-                { "proName": "BINANCE:BTCUSDT", "title": "BITCOIN" }
-            ],
-            "colorTheme": "dark",
-            "isTransparent": true,
-            "showSymbolLogo": true,
-            "locale": "en"
-            }
-            </script>
-        </div>
+<!-- Welcome Popup -->
+<div id="welcomePopup" class="popup">
+    <div class="popup-content">
+        <div class="welcome-icon">📈</div>
+        <h2>بەخێربێیت بۆ Gomll Trade</h2>
+        <p>Professional Trading Platform</p>
+        <button onclick="closeWelcome()">دەستپێکردن</button>
+    </div>
+</div>
+
+<!-- Advertisement Popup -->
+<div id="adPopup" class="popup hidden">
+    <div class="popup-content">
+        <h3>📢 Sponsor</h3>
+        <p>ئەم شوێنە بۆ ڕیکلامە.</p>
+        <button onclick="closeAd()">داخستن</button>
+    </div>
+</div>
+
+<!-- Header -->
+<header>
+
+    <div class="logo-box">
+        <h1>Gomll Trade</h1>
+        <span>By Arya</span>
     </div>
 
-    <header>
-        <div class="logo">SHEX ARYA TERMINAL</div>
-        <div style="color: #666; font-weight: 600; font-size: 0.85rem; letter-spacing: 2px;">PURE BLACK EDITION</div>
-    </header>
+    <div class="header-right">
 
-    <section class="hero">
-        <div class="welcome-msg">بەخێربێیت بۆ بۆڕسەی شێخ ئەریا</div>
-        <div class="quran-box">
-            <div class="quran-text">وَرَحْمَتِي وَسِعَتْ كُلَّ شَيْءٍ</div>
-            <div class="quran-translation">«و ڕەحمەت و بەزەیی من هەموو شتێکی گرتووەتەوە» (سورەت الأعراف - ١٥٦)</div>
-        </div>
-    </section>
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="گەڕان بە ناوی چارت..."
+        >
 
-    <main class="app-layout">
+        <button class="icon-btn" onclick="toggleSettings()">
+            ⚙️
+        </button>
 
-        <!-- بەشی چارتە جیهانییە گەورەکان -->
-        <h2 class="section-title">چارتە فەرمییەکانی بۆڕسەی جیهانی</h2>
-        <section class="charts-grid">
-            <div class="chart-card">
-                <div class="chart-header">🟡 مەکۆی سەرەکی شیکاری زێڕ (XAUUSD)</div>
-                <div id="tv_gold_pro" style="height: calc(100% - 54px); width:100%;"></div>
-            </div>
-
-            <div class="chart-card">
-                <div class="chart-header">⚪ مەکۆی سەرەکی شیکاری زیو (XAGUSD)</div>
-                <div id="tv_silver_pro" style="height: calc(100% - 54px); width:100%;"></div>
-            </div>
-        </section>
-
-        <!-- خشتە فەرمی و جیهانییەکان لەسەر باکگراوندی ڕەشی قەتران -->
-        <h2 class="section-title">خشتەی چاودێری بازاڕ و سیگناڵە جیهانییەکان</h2>
-        <section class="data-management-grid">
-
-            <!-- ١. خشتەی گشتی بۆڕسەی جیهانی (Global Market Watch) -->
-            <div class="data-card">
-                <div class="card-title" style="text-align: right;">🌍 چاودێری بازاڕی بۆڕسەی جیهانی (سەوز و سوور)</div>
-                <div class="tradingview-widget-container" style="height: calc(100% - 40px); direction: ltr;">
-                    <div class="tradingview-widget-container__widget"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-                    {
-                    "colorTheme": "dark",
-                    "dateRange": "12M",
-                    "showGridLines": false,
-                    "isTransparent": true,
-                    "locale": "en",
-                    "width": "100%",
-                    "height": "100%",
-                    "tabs": [
-                        {
-                        "title": "Metals & Crypto",
-                        "symbols": [
-                            { "s": "OANDA:XAUUSD", "d": "Gold Spot" },
-                            { "s": "OANDA:XAGUSD", "d": "Silver Spot" },
-                            { "s": "BINANCE:BTCUSDT", "d": "Bitcoin" }
-                        ]
-                        }
-                    ]
-                    }
-                    </script>
-                </div>
-            </div>
-
-            <!-- ٢. خشتەی سیگناڵی تەکنیکی جیهانی (BUY / SELL) -->
-            <div class="data-card">
-                <div class="card-title" style="text-align: right;">⚡ ئاڕاستەی تەکنیکی و بڕیاری بازاڕ (BUY / SELL)</div>
-                <div class="tradingview-widget-container" style="height: calc(100% - 40px); direction: ltr;">
-                    <div class="tradingview-widget-container__widget"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-                    {
-                    "interval": "1D",
-                    "width": "100%",
-                    "isTransparent": true,
-                    "height": "100%",
-                    "symbol": "OANDA:XAUUSD",
-                    "showIntervalTabs": true,
-                    "displayMode": "single",
-                    "locale": "en",
-                    "colorTheme": "dark"
-                    }
-                    </script>
-                </div>
-            </div>
-
-        </section>
-    </main>
-
-    <!-- بارکردنی سکریپتە جیهانییەکانی TradingView -->
-    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-    <script type="text/javascript">
-        new TradingView.widget({
-            "autosize": true,
-            "symbol": "OANDA:XAUUSD",
-            "interval": "D",
-            "timezone": "Asia/Baghdad",
-            "theme": "dark",
-            "style": "1",
-            "locale": "en",
-            "enable_publishing": false,
-            "backgroundColor": "#000000", /* ناوەوەی چارتەکەش کرا بە ڕەشی قەتران */
-            "gridColor": "#141414",
-            "container_id": "tv_gold_pro",
-            "withdateranges": true,
-            "allow_symbol_change": true,
-            "details": true,
-            "hotlist": true,
-            "studies": ["Volume@tv-basicstudies", "RSI@tv-basicstudies"]
-        });
-
-        new TradingView.widget({
-            "autosize": true,
-            "symbol": "OANDA:XAGUSD",
-            "interval": "D",
-            "timezone": "Asia/Baghdad",
-            "theme": "dark",
-            "style": "1",
-            "locale": "en",
-            "enable_publishing": false,
-            "backgroundColor": "#000000",
-            "gridColor": "#141414",
-            "container_id": "tv_silver_pro",
-            "withdateranges": true,
-            "allow_symbol_change": true,
-            "details": true,
-            "hotlist": true,
-            "studies": ["Volume@tv-basicstudies", "RSI@tv-basicstudies"]
-        });
-    </script>
-
-    <!-- جێگیرکردنی Google Gemini Chatbot (Draggable & Pure Black) -->
-    <div class="chat-toggle" onclick="toggleChat()">✦</div>
-    
-    <div class="chatbot-container" id="geminiChat">
-        <div class="chat-drag-handle" id="chatHeader">
-            <span>⚫ Gemini Pure Black Terminal</span>
-            <span style="cursor:pointer;" onclick="toggleChat()">✕</span>
-        </div>
-        <div class="chat-body" id="chatBody">
-            <div class="chat-message msg-ai">سڵاو شێخ ئەریا، پلاتفۆرمەکەت گەیشتە بەرزترین ئاستی سادەیی و پڕۆفیشناڵی جیهانی. ڕەنگی شین و نیلی گشتی سڕدرانەوە و بوو بە ڕەشی قەترانی تەواو. خشتەکانیش ڕاستەوخۆ بەستراونەتەوە بە بۆڕسەی فەرمی جیهانییەوە!</div>
-        </div>
-        <div class="chat-input">
-            <input type="text" placeholder="نامەیەک بنووسە..." id="userInput" onkeypress="handleKeyPress(event)">
-            <button onclick="sendMessage()">ناردن</button>
-        </div>
     </div>
 
-    <script>
-        function toggleChat() {
-            const chat = document.getElementById('geminiChat');
-            chat.style.display = chat.style.display === 'none' || chat.style.display === '' ? 'block' : 'none';
-        }
+</header>
 
-        function handleKeyPress(e) {
-            if(e.key === 'Enter') { sendMessage(); }
-        }
+<!-- Navigation -->
+<nav class="top-nav">
 
-        function sendMessage() {
-            const input = document.getElementById('userInput');
-            const chatBody = document.getElementById('chatBody');
-            const message = input.value.trim();
-            
-            if(message !== "") {
-                chatBody.innerHTML += `<div class="chat-message msg-user">${message}</div>`;
-                input.value = '';
-                chatBody.scrollTop = chatBody.scrollHeight;
+    <button onclick="showSection('home')">
+        🏠 Home
+    </button>
 
-                setTimeout(() => {
-                    chatBody.innerHTML += `<div class="chat-message msg-ai">هەموو گۆڕانکارییەکان جێبەجێ کران. سیستەمەکە ئێستا زۆر سووک و نەرم کاردەکات.</div>`;
-                    chatBody.scrollTop = chatBody.scrollHeight;
-                }, 1000);
-            }
-        }
+    <button onclick="showSection('charts')">
+        📈 Charts
+    </button>
 
-        // ڕاکێشان و جوڵاندنی چاتەکە
-        dragElement(document.getElementById("geminiChat"));
+    <button onclick="showSection('forex')">
+        💱 Forex
+    </button>
 
-        function dragElement(elmnt) {
-            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-            if (document.getElementById("chatHeader")) {
-                document.getElementById("chatHeader").onmousedown = dragMouseDown;
-            } else {
-                elmnt.onmousedown = dragMouseDown;
-            }
+    <button onclick="showSection('gold')">
+        🟡 Gold
+    </button>
 
-            function dragMouseDown(e) {
-                e = e || window.event;
-                e.preventDefault();
-                pos3 = e.clientX;
-                pos4 = e.clientY;
-                document.onmouseup = closeDragElement;
-                document.onmousemove = elementDrag;
-            }
+    <button onclick="showSection('silver')">
+        ⚪ Silver
+    </button>
 
-            function elementDrag(e) {
-                e = e || window.event;
-                e.preventDefault();
-                pos1 = pos3 - e.clientX;
-                pos2 = pos4 - e.clientY;
-                pos3 = e.clientX;
-                pos4 = e.clientY;
-                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-                elmnt.style.bottom = "auto";
-                elmnt.style.right = "auto";
-            }
+    <button onclick="showSection('settings')">
+        ⚙️ Settings
+    </button>
 
-            function closeDragElement() {
-                document.onmouseup = null;
-                document.onmousemove = null;
-            }
-        }
-    </script>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="page-section active">
+
+    <div class="hero">
+
+        <div class="hero-icon">
+            📊
+        </div>
+
+        <h2>
+            بەخێربێیت بۆ Gomll Trade
+        </h2>
+
+        <p>
+            Professional Trading Platform
+        </p>
+
+    </div>
+
+</section>
+
+<!-- CHARTS -->
+<section id="charts" class="page-section">
+
+    <div class="section-title">
+        Live Charts
+    </div>
+
+    <div class="chart-grid">
+
+        <div class="chart-card">
+            <h3>Gold (XAUUSD)</h3>
+            <div id="goldChart"></div>
+        </div>
+
+        <div class="chart-card">
+            <h3>Silver (XAGUSD)</h3>
+            <div id="silverChart"></div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOREX -->
+<section id="forex" class="page-section">
+
+    <div class="section-title">
+        Forex Market
+    </div>
+
+    <div class="forex-grid">
+
+        <div class="forex-card">EURUSD</div>
+        <div class="forex-card">GBPUSD</div>
+        <div class="forex-card">USDJPY</div>
+        <div class="forex-card">AUDUSD</div>
+        <div class="forex-card">NZDUSD</div>
+        <div class="forex-card">USDCHF</div>
+        <div class="forex-card">USDCAD</div>
+        <div class="forex-card">EURJPY</div>
+        <div class="forex-card">GBPJPY</div>
+        <div class="forex-card">EURGBP</div>
+
+    </div>
+
+    <div id="forexChart"></div>
+
+</section>
+
+<!-- GOLD -->
+<section id="gold" class="page-section">
+
+    <div class="section-title">
+        Gold Analysis
+    </div>
+
+    <div class="chart-card large">
+
+        <div id="goldFullChart"></div>
+
+    </div>
+
+</section>
+
+<!-- SILVER -->
+<section id="silver" class="page-section">
+
+    <div class="section-title">
+        Silver Analysis
+    </div>
+
+    <div class="chart-card large">
+
+        <div id="silverFullChart"></div>
+
+    </div>
+
+</section>
+
+<!-- SETTINGS -->
+<section id="settings" class="page-section">
+
+    <div class="section-title">
+        Settings
+    </div>
+
+    <div class="settings-box">
+
+        <div class="setting-item">
+
+            <span>Dark Mode</span>
+
+            <label class="switch">
+                <input type="checkbox" id="darkToggle">
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+        <div class="setting-item">
+
+            <span>ڕیکلام کوژێنەوە</span>
+
+            <label class="switch">
+                <input type="checkbox" id="adToggle">
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+        <div class="setting-item">
+
+            <span>Language</span>
+
+            <select id="languageSelect">
+
+                <option value="ku">Kurdish</option>
+                <option value="en">English</option>
+                <option value="ar">Arabic</option>
+
+            </select>
+
+        </div>
+
+        <div class="setting-item">
+
+            <span>Security Passcode</span>
+
+            <input
+                type="password"
+                id="passcode"
+                placeholder="Enter Passcode"
+            >
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Bottom Navigation -->
+<footer>
+
+    <button onclick="showSection('home')">
+        🏠
+    </button>
+
+    <button onclick="showSection('charts')">
+        📈
+    </button>
+
+    <button onclick="showSection('forex')">
+        💱
+    </button>
+
+    <button onclick="showSection('settings')">
+        ⚙️
+    </button>
+
+</footer>
+
+<script src="app.js"></script>
+
 </body>
-</html>
+</html>:root{
+    --red:#e53935;
+    --red-dark:#c62828;
+
+    --white:#ffffff;
+
+    --bg:#ffffff;
+    --card:#f5f5f5;
+    --text:#111111;
+    --border:#dddddd;
+
+    --radius:18px;
+    --shadow:0 10px 30px rgba(0,0,0,.12);
+
+    --transition:.35s ease;
+}
+
+.dark-mode{
+    --bg:#000000;
+    --card:#111111;
+    --text:#ffffff;
+    --border:#222222;
+
+    --shadow:0 10px 35px rgba(255,255,255,.05);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Tajawal',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    transition:var(--transition);
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* Header */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:16px;
+
+    background:var(--bg);
+
+    border-bottom:1px solid var(--border);
+
+    backdrop-filter:blur(18px);
+}
+
+.logo-box h1{
+    font-size:26px;
+    font-weight:800;
+    color:var(--red);
+}
+
+.logo-box span{
+    font-size:13px;
+    opacity:.8;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+#searchInput{
+    width:180px;
+
+    padding:12px;
+
+    border:none;
+    outline:none;
+
+    border-radius:999px;
+
+    background:var(--card);
+
+    color:var(--text);
+}
+
+.icon-btn{
+    border:none;
+
+    width:45px;
+    height:45px;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    background:var(--red);
+    color:white;
+
+    transition:var(--transition);
+}
+
+.icon-btn:hover{
+    transform:scale(1.08);
+}
+
+/* Navigation */
+
+.top-nav{
+    display:flex;
+    gap:10px;
+
+    overflow-x:auto;
+
+    padding:15px;
+}
+
+.top-nav button{
+    border:none;
+
+    white-space:nowrap;
+
+    padding:12px 20px;
+
+    border-radius:999px;
+
+    cursor:pointer;
+
+    background:var(--card);
+
+    color:var(--text);
+
+    transition:var(--transition);
+}
+
+.top-nav button:hover{
+    background:var(--red);
+    color:white;
+}
+
+/* Sections */
+
+.page-section{
+    display:none;
+
+    padding:20px;
+
+    animation:fadeUp .5s ease;
+}
+
+.page-section.active{
+    display:block;
+}
+
+/* Hero */
+
+.hero{
+    min-height:70vh;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+}
+
+.hero-icon{
+    font-size:80px;
+
+    animation:float 3s infinite ease-in-out;
+}
+
+.hero h2{
+    margin-top:15px;
+
+    font-size:34px;
+}
+
+.hero p{
+    margin-top:10px;
+
+    opacity:.8;
+}
+
+/* Titles */
+
+.section-title{
+    font-size:28px;
+    font-weight:800;
+
+    margin-bottom:20px;
+
+    color:var(--red);
+}
+
+/* Cards */
+
+.chart-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:20px;
+}
+
+.chart-card{
+    background:var(--card);
+
+    border-radius:var(--radius);
+
+    padding:15px;
+
+    box-shadow:var(--shadow);
+
+    transition:var(--transition);
+}
+
+.chart-card:hover{
+    transform:translateY(-5px);
+}
+
+.chart-card h3{
+    margin-bottom:10px;
+}
+
+.chart-card div[id]{
+    height:500px;
+    width:100%;
+}
+
+.large div[id]{
+    height:700px;
+}
+
+/* Forex */
+
+.forex-grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(120px,1fr));
+
+    gap:12px;
+
+    margin-bottom:20px;
+}
+
+.forex-card{
+    padding:18px;
+
+    text-align:center;
+
+    border-radius:14px;
+
+    background:var(--card);
+
+    cursor:pointer;
+
+    transition:var(--transition);
+}
+
+.forex-card:hover{
+    background:var(--red);
+    color:white;
+}
+
+/* Settings */
+
+.settings-box{
+    display:flex;
+    flex-direction:column;
+
+    gap:20px;
+}
+
+.setting-item{
+    background:var(--card);
+
+    padding:18px;
+
+    border-radius:16px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.setting-item input,
+.setting-item select{
+    padding:10px;
+
+    border:none;
+
+    border-radius:10px;
+}
+
+.switch{
+    position:relative;
+    width:60px;
+    height:30px;
+}
+
+.switch input{
+    display:none;
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+
+    background:#aaa;
+
+    border-radius:50px;
+
+    cursor:pointer;
+}
+
+.slider::before{
+    content:"";
+
+    position:absolute;
+
+    width:24px;
+    height:24px;
+
+    left:3px;
+    top:3px;
+
+    background:white;
+
+    border-radius:50%;
+
+    transition:.3s;
+}
+
+.switch input:checked + .slider{
+    background:var(--red);
+}
+
+.switch input:checked + .slider::before{
+    transform:translateX(30px);
+}
+
+/* Footer */
+
+footer{
+    position:fixed;
+    bottom:0;
+    left:0;
+
+    width:100%;
+
+    display:flex;
+    justify-content:space-around;
+
+    background:var(--bg);
+
+    border-top:1px solid var(--border);
+
+    padding:12px;
+}
+
+footer button{
+    border:none;
+
+    background:none;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+    color:var(--text);
+}
+
+/* Popup */
+
+.popup{
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.8);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    z-index:9999;
+}
+
+.hidden{
+    display:none;
+}
+
+.popup-content{
+    width:90%;
+    max-width:420px;
+
+    background:var(--card);
+
+    padding:30px;
+
+    border-radius:24px;
+
+    text-align:center;
+
+    animation:popupShow .4s ease;
+}
+
+.popup-content button{
+    margin-top:15px;
+
+    border:none;
+
+    padding:12px 25px;
+
+    border-radius:999px;
+
+    background:var(--red);
+
+    color:white;
+
+    cursor:pointer;
+}
+
+.welcome-icon{
+    font-size:60px;
+    margin-bottom:15px;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+    width:6px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:var(--red);
+    border-radius:999px;
+}
+
+/* Animations */
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes popupShow{
+    from{
+        transform:scale(.8);
+        opacity:0;
+    }
+
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+@keyframes float{
+    0%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-12px);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+    .logo-box h1{
+        font-size:20px;
+    }
+
+    #searchInput{
+        width:120px;
+    }
+
+    .hero h2{
+        font-size:26px;
+    }
+
+    .chart-card div[id]{
+        height:420px;
+    }
+
+    .large div[id]{
+        height:500px;
+    }
+
+    .setting-item{
+        flex-direction:column;
+        gap:12px;
+    }
+}// =========================
+// Gomle Trade By Arya
+// app.js
+// =========================
+
+// Navigation
+function showSection(sectionId) {
+
+    document.querySelectorAll(".page-section").forEach(section => {
+        section.classList.remove("active");
+    });
+
+    const target = document.getElementById(sectionId);
+
+    if (target) {
+        target.classList.add("active");
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+}
+
+// Settings Panel
+function toggleSettings() {
+    showSection("settings");
+}
+
+// Welcome Popup
+function closeWelcome() {
+    const popup = document.getElementById("welcomePopup");
+
+    if (popup) {
+        popup.style.display = "none";
+    }
+}
+
+// Advertisement Popup
+function closeAd() {
+    const ad = document.getElementById("adPopup");
+
+    if (ad) {
+        ad.classList.add("hidden");
+    }
+}
+
+// Show ad every 5 minutes
+function startAds() {
+
+    setInterval(() => {
+
+        const adsDisabled =
+            localStorage.getItem("gomle_ads_disabled");
+
+        if (adsDisabled === "true") return;
+
+        const ad = document.getElementById("adPopup");
+
+        if (ad) {
+            ad.classList.remove("hidden");
+        }
+
+    }, 300000); // 5 min
+}
+
+// Dark Mode
+function initDarkMode() {
+
+    const toggle =
+        document.getElementById("darkToggle");
+
+    const saved =
+        localStorage.getItem("gomle_dark_mode");
+
+    if (saved === "true") {
+        document.body.classList.add("dark-mode");
+
+        if (toggle) {
+            toggle.checked = true;
+        }
+    }
+
+    if (toggle) {
+
+        toggle.addEventListener("change", () => {
+
+            document.body.classList.toggle("dark-mode");
+
+            localStorage.setItem(
+                "gomle_dark_mode",
+                document.body.classList.contains("dark-mode")
+            );
+
+        });
+
+    }
+}
+
+// Ads Toggle
+function initAdsToggle() {
+
+    const toggle =
+        document.getElementById("adToggle");
+
+    const saved =
+        localStorage.getItem("gomle_ads_disabled");
+
+    if (saved === "true" && toggle) {
+        toggle.checked = true;
+    }
+
+    if (toggle) {
+
+        toggle.addEventListener("change", () => {
+
+            localStorage.setItem(
+                "gomle_ads_disabled",
+                toggle.checked
+            );
+
+        });
+
+    }
+}
+
+// Search
+function initSearch() {
+
+    const search =
+        document.getElementById("searchInput");
+
+    if (!search) return;
+
+    search.addEventListener("keyup", function () {
+
+        const value =
+            this.value.toLowerCase();
+
+        if (value.includes("gold")) {
+            showSection("gold");
+        }
+
+        else if (value.includes("silver")) {
+            showSection("silver");
+        }
+
+        else if (value.includes("forex")) {
+            showSection("forex");
+        }
+
+        else if (value.includes("chart")) {
+            showSection("charts");
+        }
+
+        else if (value.includes("home")) {
+            showSection("home");
+        }
+
+    });
+
+}
+
+// TradingView Gold
+function loadGoldChart() {
+
+    if (!document.getElementById("goldChart")) return;
+
+    new TradingView.widget({
+        autosize: true,
+        symbol: "OANDA:XAUUSD",
+        interval: "15",
+        timezone: "Asia/Baghdad",
+        theme: "dark",
+        style: "1",
+        locale: "en",
+        hide_side_toolbar: false,
+        allow_symbol_change: true,
+        container_id: "goldChart"
+    });
+
+}
+
+// TradingView Silver
+function loadSilverChart() {
+
+    if (!document.getElementById("silverChart")) return;
+
+    new TradingView.widget({
+        autosize: true,
+        symbol: "OANDA:XAGUSD",
+        interval: "15",
+        timezone: "Asia/Baghdad",
+        theme: "dark",
+        style: "1",
+        locale: "en",
+        hide_side_toolbar: false,
+        allow_symbol_change: true,
+        container_id: "silverChart"
+    });
+
+}
+
+// Full Gold Chart
+function loadGoldFullChart() {
+
+    if (!document.getElementById("goldFullChart")) return;
+
+    new TradingView.widget({
+        autosize: true,
+        symbol: "OANDA:XAUUSD",
+        interval: "5",
+        timezone: "Asia/Baghdad",
+        theme: "dark",
+        style: "1",
+        locale: "en",
+        allow_symbol_change: true,
+        container_id: "goldFullChart"
+    });
+
+}
+
+// Full Silver Chart
+function loadSilverFullChart() {
+
+    if (!document.getElementById("silverFullChart")) return;
+
+    new TradingView.widget({
+        autosize: true,
+        symbol: "OANDA:XAGUSD",
+        interval: "5",
+        timezone: "Asia/Baghdad",
+        theme: "dark",
+        style: "1",
+        locale: "en",
+        allow_symbol_change: true,
+        container_id: "silverFullChart"
+    });
+
+}
+
+// Forex Click
+function initForexCards() {
+
+    const cards =
+        document.querySelectorAll(".forex-card");
+
+    cards.forEach(card => {
+
+        card.addEventListener("click", () => {
+
+            const symbol =
+                card.textContent.trim();
+
+            alert(
+                "Forex Pair Selected: " +
+                symbol
+            );
+
+        });
+
+    });
+
+}
+
+// Start App
+window.addEventListener("load", () => {
+
+    initDarkMode();
+
+    initAdsToggle();
+
+    initSearch();
+
+    initForexCards();
+
+    startAds();
+
+    loadGoldChart();
+
+    loadSilverChart();
+
+    loadGoldFullChart();
+
+    loadSilverFullChart();
+
+    showSection("home");
+
+});
