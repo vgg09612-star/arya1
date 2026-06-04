@@ -552,3 +552,277 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gomll Trade | By Arya</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://s3.tradingview.com/tv.js"></script>
+</head>
+<body>
+
+<!-- Welcome Popup -->
+<div id="welcomePopup" class="popup">
+    <div class="popup-content">
+        <div class="welcome-icon">📈</div>
+        <h2>بەخێربێیت بۆ Gomll Trade</h2>
+        <p>Professional Trading Platform</p>
+        <button onclick="closeWelcome()">دەستپێکردن</button>
+    </div>
+</div>
+
+<!-- Advertisement Popup -->
+<div id="adPopup" class="popup hidden">
+    <div class="popup-content">
+        <h3>📢 Sponsor</h3>
+        <p>ئەم شوێنە بۆ ڕیکلامە.</p>
+        <button onclick="closeAd()">داخستن</button>
+    </div>
+</div>
+
+<!-- Header -->
+<header>
+
+    <div class="logo-box">
+        <h1>Gomll Trade</h1>
+        <span>By Arya</span>
+    </div>
+
+    <div class="header-right">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="گەڕان بە ناوی چارت..."
+        >
+
+        <button class="icon-btn" onclick="toggleSettings()">
+            ⚙️
+        </button>
+
+    </div>
+
+</header>
+
+<!-- Navigation -->
+<nav class="top-nav">
+
+    <button onclick="showSection('home')">
+        🏠 Home
+    </button>
+
+    <button onclick="showSection('charts')">
+        📈 Charts
+    </button>
+
+    <button onclick="showSection('forex')">
+        💱 Forex
+    </button>
+
+    <button onclick="showSection('gold')">
+        🟡 Gold
+    </button>
+
+    <button onclick="showSection('silver')">
+        ⚪ Silver
+    </button>
+
+    <button onclick="showSection('settings')">
+        ⚙️ Settings
+    </button>
+
+</nav>
+
+<!-- HOME -->
+<section id="home" class="page-section active">
+
+    <div class="hero">
+
+        <div class="hero-icon">
+            📊
+        </div>
+
+        <h2>
+            بەخێربێیت بۆ Gomll Trade
+        </h2>
+
+        <p>
+            Professional Trading Platform
+        </p>
+
+    </div>
+
+</section>
+
+<!-- CHARTS -->
+<section id="charts" class="page-section">
+
+    <div class="section-title">
+        Live Charts
+    </div>
+
+    <div class="chart-grid">
+
+        <div class="chart-card">
+            <h3>Gold (XAUUSD)</h3>
+            <div id="goldChart"></div>
+        </div>
+
+        <div class="chart-card">
+            <h3>Silver (XAGUSD)</h3>
+            <div id="silverChart"></div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOREX -->
+<section id="forex" class="page-section">
+
+    <div class="section-title">
+        Forex Market
+    </div>
+
+    <div class="forex-grid">
+
+        <div class="forex-card">EURUSD</div>
+        <div class="forex-card">GBPUSD</div>
+        <div class="forex-card">USDJPY</div>
+        <div class="forex-card">AUDUSD</div>
+        <div class="forex-card">NZDUSD</div>
+        <div class="forex-card">USDCHF</div>
+        <div class="forex-card">USDCAD</div>
+        <div class="forex-card">EURJPY</div>
+        <div class="forex-card">GBPJPY</div>
+        <div class="forex-card">EURGBP</div>
+
+    </div>
+
+    <div id="forexChart"></div>
+
+</section>
+
+<!-- GOLD -->
+<section id="gold" class="page-section">
+
+    <div class="section-title">
+        Gold Analysis
+    </div>
+
+    <div class="chart-card large">
+
+        <div id="goldFullChart"></div>
+
+    </div>
+
+</section>
+
+<!-- SILVER -->
+<section id="silver" class="page-section">
+
+    <div class="section-title">
+        Silver Analysis
+    </div>
+
+    <div class="chart-card large">
+
+        <div id="silverFullChart"></div>
+
+    </div>
+
+</section>
+
+<!-- SETTINGS -->
+<section id="settings" class="page-section">
+
+    <div class="section-title">
+        Settings
+    </div>
+
+    <div class="settings-box">
+
+        <div class="setting-item">
+
+            <span>Dark Mode</span>
+
+            <label class="switch">
+                <input type="checkbox" id="darkToggle">
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+        <div class="setting-item">
+
+            <span>ڕیکلام کوژێنەوە</span>
+
+            <label class="switch">
+                <input type="checkbox" id="adToggle">
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+        <div class="setting-item">
+
+            <span>Language</span>
+
+            <select id="languageSelect">
+
+                <option value="ku">Kurdish</option>
+                <option value="en">English</option>
+                <option value="ar">Arabic</option>
+
+            </select>
+
+        </div>
+
+        <div class="setting-item">
+
+            <span>Security Passcode</span>
+
+            <input
+                type="password"
+                id="passcode"
+                placeholder="Enter Passcode"
+            >
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Bottom Navigation -->
+<footer>
+
+    <button onclick="showSection('home')">
+        🏠
+    </button>
+
+    <button onclick="showSection('charts')">
+        📈
+    </button>
+
+    <button onclick="showSection('forex')">
+        💱
+    </button>
+
+    <button onclick="showSection('settings')">
+        ⚙️
+    </button>
+
+</footer>
+
+<script src="app.js"></script>
+
+</body>
+</html>
