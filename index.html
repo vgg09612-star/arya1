@@ -271,7 +271,294 @@
 <script src="app.js"></script>
 
 </body>
-</html>:root{
+      // =========================
+// Gomle Trade By Arya
+// app.js
+// =========================
+
+// Navigation
+function showSection(sectionId) {
+
+    document.querySelectorAll(".page-section").forEach(section => {
+        section.classList.remove("active");
+    });
+
+    const target = document.getElementById(sectionId);
+
+    if (target) {
+        target.classList.add("active");
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+}
+
+// Settings Panel
+function toggleSettings() {
+    showSection("settings");
+}
+
+// Welcome Popup
+function closeWelcome() {
+    const popup = document.getElementById("welcomePopup");
+
+    if (popup) {
+        popup.style.display = "none";
+    }
+}
+
+// Advertisement Popup
+function closeAd() {
+    const ad = document.getElementById("adPopup");
+
+    if (ad) {
+        ad.classList.add("hidden");
+    }
+}
+
+// Show ad every 5 minutes
+function startAds() {
+
+    setInterval(() => {
+
+        const adsDisabled =
+            localStorage.getItem("gomle_ads_disabled");
+
+        if (adsDisabled === "true") return;
+
+        const ad = document.getElementById("adPopup");
+
+        if (ad) {
+            ad.classList.remove("hidden");
+        }
+
+    }, 300000); // 5 min
+}
+
+// Dark Mode
+function initDarkMode() {
+
+    const toggle =
+        document.getElementById("darkToggle");
+
+    const saved =
+        localStorage.getItem("gomle_dark_mode");
+
+    if (saved === "true") {
+        document.body.classList.add("dark-mode");
+
+        if (toggle) {
+            toggle.checked = true;
+        }
+    }
+
+    if (toggle) {
+
+        toggle.addEventListener("change", () => {
+
+            document.body.classList.toggle("dark-mode");
+
+            localStorage.setItem(
+                "gomle_dark_mode",
+                document.body.classList.contains("dark-mode")
+            );
+
+        });
+
+    }
+}
+
+// Ads Toggle
+function initAdsToggle() {
+
+    const toggle =
+        document.getElementById("adToggle");
+
+    const saved =
+        localStorage.getItem("gomle_ads_disabled");
+
+    if (saved === "true" && toggle) {
+        toggle.checked = true;
+    }
+
+    if (toggle) {
+
+        toggle.addEventListener("change", () => {
+
+            localStorage.setItem(
+                "gomle_ads_disabled",
+                toggle.checked
+            );
+
+        });
+
+    }
+}
+
+// Search
+function initSearch() {
+
+    const search =
+        document.getElementById("searchInput");
+
+    if (!search) return;
+
+    search.addEventListener("keyup", function () {
+
+        const value =
+            this.value.toLowerCase();
+
+        if (value.includes("gold")) {
+            showSection("gold");
+        }
+
+        else if (value.includes("silver")) {
+            showSection("silver");
+        }
+
+        else if (value.includes("forex")) {
+            showSection("forex");
+        }
+
+        else if (value.includes("chart")) {
+            showSection("charts");
+        }
+
+        else if (value.includes("home")) {
+            showSection("home");
+        }
+
+    });
+
+}
+
+// TradingView Gold
+function loadGoldChart() {
+
+    if (!document.getElementById("goldChart")) return;
+
+    new TradingView.widget({
+        autosize: true,
+        symbol: "OANDA:XAUUSD",
+        interval: "15",
+        timezone: "Asia/Baghdad",
+        theme: "dark",
+        style: "1",
+        locale: "en",
+        hide_side_toolbar: false,
+        allow_symbol_change: true,
+        container_id: "goldChart"
+    });
+
+}
+
+// TradingView Silver
+function loadSilverChart() {
+
+    if (!document.getElementById("silverChart")) return;
+
+    new TradingView.widget({
+        autosize: true,
+        symbol: "OANDA:XAGUSD",
+        interval: "15",
+        timezone: "Asia/Baghdad",
+        theme: "dark",
+        style: "1",
+        locale: "en",
+        hide_side_toolbar: false,
+        allow_symbol_change: true,
+        container_id: "silverChart"
+    });
+
+}
+
+// Full Gold Chart
+function loadGoldFullChart() {
+
+    if (!document.getElementById("goldFullChart")) return;
+
+    new TradingView.widget({
+        autosize: true,
+        symbol: "OANDA:XAUUSD",
+        interval: "5",
+        timezone: "Asia/Baghdad",
+        theme: "dark",
+        style: "1",
+        locale: "en",
+        allow_symbol_change: true,
+        container_id: "goldFullChart"
+    });
+
+}
+
+// Full Silver Chart
+function loadSilverFullChart() {
+
+    if (!document.getElementById("silverFullChart")) return;
+
+    new TradingView.widget({
+        autosize: true,
+        symbol: "OANDA:XAGUSD",
+        interval: "5",
+        timezone: "Asia/Baghdad",
+        theme: "dark",
+        style: "1",
+        locale: "en",
+        allow_symbol_change: true,
+        container_id: "silverFullChart"
+    });
+
+}
+
+// Forex Click
+function initForexCards() {
+
+    const cards =
+        document.querySelectorAll(".forex-card");
+
+    cards.forEach(card => {
+
+        card.addEventListener("click", () => {
+
+            const symbol =
+                card.textContent.trim();
+
+            alert(
+                "Forex Pair Selected: " +
+                symbol
+            );
+
+        });
+
+    });
+
+}
+
+// Start App
+window.addEventListener("load", () => {
+
+    initDarkMode();
+
+    initAdsToggle();
+
+    initSearch();
+
+    initForexCards();
+
+    startAds();
+
+    loadGoldChart();
+
+    loadSilverChart();
+
+    loadGoldFullChart();
+
+    loadSilverFullChart();
+
+    showSection("home");
+
+});:root{
     --red:#e53935;
     --red-dark:#c62828;
 
@@ -791,291 +1078,4 @@ footer button{
         flex-direction:column;
         gap:12px;
     }
-}// =========================
-// Gomle Trade By Arya
-// app.js
-// =========================
-
-// Navigation
-function showSection(sectionId) {
-
-    document.querySelectorAll(".page-section").forEach(section => {
-        section.classList.remove("active");
-    });
-
-    const target = document.getElementById(sectionId);
-
-    if (target) {
-        target.classList.add("active");
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    }
 }
-
-// Settings Panel
-function toggleSettings() {
-    showSection("settings");
-}
-
-// Welcome Popup
-function closeWelcome() {
-    const popup = document.getElementById("welcomePopup");
-
-    if (popup) {
-        popup.style.display = "none";
-    }
-}
-
-// Advertisement Popup
-function closeAd() {
-    const ad = document.getElementById("adPopup");
-
-    if (ad) {
-        ad.classList.add("hidden");
-    }
-}
-
-// Show ad every 5 minutes
-function startAds() {
-
-    setInterval(() => {
-
-        const adsDisabled =
-            localStorage.getItem("gomle_ads_disabled");
-
-        if (adsDisabled === "true") return;
-
-        const ad = document.getElementById("adPopup");
-
-        if (ad) {
-            ad.classList.remove("hidden");
-        }
-
-    }, 300000); // 5 min
-}
-
-// Dark Mode
-function initDarkMode() {
-
-    const toggle =
-        document.getElementById("darkToggle");
-
-    const saved =
-        localStorage.getItem("gomle_dark_mode");
-
-    if (saved === "true") {
-        document.body.classList.add("dark-mode");
-
-        if (toggle) {
-            toggle.checked = true;
-        }
-    }
-
-    if (toggle) {
-
-        toggle.addEventListener("change", () => {
-
-            document.body.classList.toggle("dark-mode");
-
-            localStorage.setItem(
-                "gomle_dark_mode",
-                document.body.classList.contains("dark-mode")
-            );
-
-        });
-
-    }
-}
-
-// Ads Toggle
-function initAdsToggle() {
-
-    const toggle =
-        document.getElementById("adToggle");
-
-    const saved =
-        localStorage.getItem("gomle_ads_disabled");
-
-    if (saved === "true" && toggle) {
-        toggle.checked = true;
-    }
-
-    if (toggle) {
-
-        toggle.addEventListener("change", () => {
-
-            localStorage.setItem(
-                "gomle_ads_disabled",
-                toggle.checked
-            );
-
-        });
-
-    }
-}
-
-// Search
-function initSearch() {
-
-    const search =
-        document.getElementById("searchInput");
-
-    if (!search) return;
-
-    search.addEventListener("keyup", function () {
-
-        const value =
-            this.value.toLowerCase();
-
-        if (value.includes("gold")) {
-            showSection("gold");
-        }
-
-        else if (value.includes("silver")) {
-            showSection("silver");
-        }
-
-        else if (value.includes("forex")) {
-            showSection("forex");
-        }
-
-        else if (value.includes("chart")) {
-            showSection("charts");
-        }
-
-        else if (value.includes("home")) {
-            showSection("home");
-        }
-
-    });
-
-}
-
-// TradingView Gold
-function loadGoldChart() {
-
-    if (!document.getElementById("goldChart")) return;
-
-    new TradingView.widget({
-        autosize: true,
-        symbol: "OANDA:XAUUSD",
-        interval: "15",
-        timezone: "Asia/Baghdad",
-        theme: "dark",
-        style: "1",
-        locale: "en",
-        hide_side_toolbar: false,
-        allow_symbol_change: true,
-        container_id: "goldChart"
-    });
-
-}
-
-// TradingView Silver
-function loadSilverChart() {
-
-    if (!document.getElementById("silverChart")) return;
-
-    new TradingView.widget({
-        autosize: true,
-        symbol: "OANDA:XAGUSD",
-        interval: "15",
-        timezone: "Asia/Baghdad",
-        theme: "dark",
-        style: "1",
-        locale: "en",
-        hide_side_toolbar: false,
-        allow_symbol_change: true,
-        container_id: "silverChart"
-    });
-
-}
-
-// Full Gold Chart
-function loadGoldFullChart() {
-
-    if (!document.getElementById("goldFullChart")) return;
-
-    new TradingView.widget({
-        autosize: true,
-        symbol: "OANDA:XAUUSD",
-        interval: "5",
-        timezone: "Asia/Baghdad",
-        theme: "dark",
-        style: "1",
-        locale: "en",
-        allow_symbol_change: true,
-        container_id: "goldFullChart"
-    });
-
-}
-
-// Full Silver Chart
-function loadSilverFullChart() {
-
-    if (!document.getElementById("silverFullChart")) return;
-
-    new TradingView.widget({
-        autosize: true,
-        symbol: "OANDA:XAGUSD",
-        interval: "5",
-        timezone: "Asia/Baghdad",
-        theme: "dark",
-        style: "1",
-        locale: "en",
-        allow_symbol_change: true,
-        container_id: "silverFullChart"
-    });
-
-}
-
-// Forex Click
-function initForexCards() {
-
-    const cards =
-        document.querySelectorAll(".forex-card");
-
-    cards.forEach(card => {
-
-        card.addEventListener("click", () => {
-
-            const symbol =
-                card.textContent.trim();
-
-            alert(
-                "Forex Pair Selected: " +
-                symbol
-            );
-
-        });
-
-    });
-
-}
-
-// Start App
-window.addEventListener("load", () => {
-
-    initDarkMode();
-
-    initAdsToggle();
-
-    initSearch();
-
-    initForexCards();
-
-    startAds();
-
-    loadGoldChart();
-
-    loadSilverChart();
-
-    loadGoldFullChart();
-
-    loadSilverFullChart();
-
-    showSection("home");
-
-});
