@@ -2,661 +2,419 @@
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHEX ARYA - Pure Black Premium Terminal</title>
+    <!-- ڕێگریکردن لە زووم و تێکچوونی شاشە بە تەواوی -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SHEX ARYA - Premium Full-Screen Terminal</title>
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght=400;700&family=Tajawal:wght=400;500;700&display=swap');
 
         :root {
-            --bg-pure-black: #000000; /* ڕەشی قەترانی تەواو وەک داوات کردبوو */
-            --bg-card: #0a0a0c;
-            --bg-card-hover: #121214;
+            --bg-pure-black: #000000;
+            --bg-card: #08080a;
+            --bg-panel: #0d0d11;
             --tv-blue: #2962ff;
             --tv-green: #089981;
             --tv-red: #f23645;
             --text-main: #b2b5be;
             --text-white: #ffffff;
-            --border-color: #1f222b;
-            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --border-color: #16181e;
         }
 
+        /* قەدەغەکردنی زووم و ڕاگرتنی سکرۆڵی گشتی بۆ پڕکردنی تەواوی شاشەکە */
         * {
             box-sizing: border-box;
             user-select: none;
+            -webkit-user-select: none;
+            touch-action: pan-x pan-y;
         }
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Tajawal', sans-serif;
+        body, html {
+            margin: 0; padding: 0;
+            width: 100%; height: 100vh;
             background-color: var(--bg-pure-black);
             color: var(--text-main);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-pure-black); }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--tv-blue); }
-
-        /* Top Live Ticker */
-        .ticker-wrapper {
-            width: 100%;
-            background: #000000;
-            border-bottom: 1px solid var(--border-color);
-            height: 40px;
+            font-family: 'Tajawal', sans-serif;
             overflow: hidden;
         }
 
-        header {
-            padding: 20px 40px;
+        /* پێکهاتەی سەرەکی تێرمیناڵ */
+        .terminal-container {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            width: 100%;
+        }
+
+        /* هێڵی نرخەکان لە سەرەوە */
+        .ticker-wrapper {
+            width: 100%; height: 38px;
+            background: #000; border-bottom: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        /* هێدەر و سیستمە نوێیەکەی جیاکردنەوەی بەشەکان (Tabs) */
+        header {
+            height: 60px; padding: 0 24px;
+            display: flex; justify-content: space-between; align-items: center;
             background-color: var(--bg-pure-black);
             border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(20px);
         }
 
-        .logo {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-white);
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
+        .logo-area { display: flex; align-items: center; gap: 15px; }
+        .logo { font-size: 18px; font-weight: 700; color: var(--text-white); letter-spacing: 1px; }
+        .tag { font-size: 10px; color: #555; border: 1px solid #222; padding: 2px 6px; border-radius: 4px; }
+
+        /* بەشی تابەکان لە سەرەوە */
+        .nav-tabs {
+            display: flex; gap: 5px; height: 100%; align-items: flex-end;
         }
 
-        /* Hero Section */
-        .hero {
-            padding: 50px 20px;
-            text-align: center;
-            background: #000000;
+        .tab-btn {
+            background: transparent; border: none; color: var(--text-main);
+            padding: 12px 20px; font-family: 'Tajawal'; font-size: 0.95rem;
+            font-weight: 500; cursor: pointer; transition: all 0.2s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .tab-btn:hover { color: var(--text-white); }
+        .tab-btn.active {
+            color: var(--tv-blue); font-weight: 700;
+            border-bottom: 2px solid var(--tv-blue);
+        }
+
+        /* بەشی ناوەڕۆکی سەرەکی پڕ بە شاشە */
+        .main-content {
+            flex: 1; width: 100%;
+            position: relative; background: var(--bg-pure-black);
+        }
+
+        .tab-panel {
+            position: absolute; width: 100%; height: 100%;
+            top: 0; left: 0; display: none; padding: 20px;
+        }
+        .tab-panel.active { display: block; }
+
+        /* تابلۆی ڕێکخستنی گریدی بەشەکان */
+        .grid-dashboard {
+            display: grid; grid-template-columns: 1fr 320px; gap: 20px; height: 100%;
+        }
+
+        .split-charts {
+            display: grid; grid-template-rows: 1fr 1fr; gap: 20px; height: 100%;
+        }
+
+        .panel-box {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 8px; display: flex; flex-direction: column; overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 12px 16px; background: #0c0c10;
             border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem; color: var(--text-white); font-weight: 600;
+            display: flex; justify-content: space-between; align-items: center;
         }
 
-        .welcome-msg {
-            font-size: 2.5rem;
-            color: var(--text-white);
-            margin-bottom: 15px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
+        .panel-body { flex: 1; padding: 15px; overflow-y: auto; position: relative; }
 
-        .quran-box {
-            margin: 20px auto;
-            max-width: 750px;
-            padding: 25px;
-            border-radius: 8px;
-            background-color: #050505;
-            border: 1px solid #1a1a1a;
-            transition: var(--transition-smooth);
-        }
-        .quran-box:hover {
-            border-color: #333;
-        }
+        /* بەشی هێڵکارییە سەربەخۆکە */
+        #independentChart { width: 100%; height: 100%; direction: ltr; }
 
-        .quran-text {
-            font-family: 'Amiri', serif;
-            font-size: 2rem;
-            color: #ffd700;
-            line-height: 2;
-            text-align: center;
+        /* ستایلی ناردنی فەرمان و حیسابکاری قازانج */
+        .input-row { margin-bottom: 12px; }
+        .input-row label { font-size: 0.8rem; color: #666; display: block; margin-bottom: 4px; }
+        .input-row input, .input-row select {
+            width: 100%; padding: 10px; background: #000; border: 1px solid var(--border-color);
+            color: #fff; border-radius: 4px; font-family: 'Tajawal'; outline: none; font-size: 0.9rem;
         }
+        .input-row input:focus { border-color: var(--tv-blue); }
 
-        .quran-translation {
-            font-size: 1rem;
-            color: #848e9c;
-            margin-top: 12px;
+        /* سیستمی ڕاداری هەواڵی کاتی */
+        .news-item {
+            padding: 10px 0; border-bottom: 1px solid #111; font-size: 0.85rem; line-height: 1.5;
         }
+        .news-time { color: var(--tv-blue); font-size: 0.75rem; margin-left: 5px; }
 
-        .section-title {
-            padding-right: 5%;
-            margin: 60px 0 30px 0;
-            font-size: 1.6rem;
-            color: var(--text-white);
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        /* لایڤ لیستی نرخەکان */
+        .list-row {
+            display: flex; justify-content: space-between; padding: 12px 8px;
+            border-bottom: 1px solid #111; font-size: 0.9rem; cursor: pointer;
         }
-        .section-title::before {
-            content: '';
-            display: inline-block;
-            width: 4px;
-            height: 24px;
-            background: var(--tv-blue);
-            border-radius: 2px;
-        }
+        .list-row:hover { background: #0c0c10; }
 
-        /* Main Workspace Layout */
-        .app-layout {
-            max-width: 95%;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 50px;
-        }
+        /* چاتی نوێی جێگیرکراو */
+        .chat-area { display: flex; flex-direction: column; height: 100%; }
+        .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-bottom: 50px; }
+        .msg { padding: 10px 14px; border-radius: 6px; max-width: 85%; font-size: 0.9rem; line-height: 1.5; }
+        .msg.bot { background: #0e1118; color: #d1d4dc; align-self: flex-start; border: 1px solid #1c2030; }
+        .msg.user { background: #1f222b; color: #fff; align-self: flex-end; }
+        .chat-form { display: flex; gap: 8px; position: absolute; bottom: 0; width: 100%; background: var(--bg-card); padding-top: 10px; }
 
-        /* Charts Container */
-        .charts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
-            gap: 35px; /* بۆشایی زیاتر لە نێوان شتەکان */
+        /* کوڕئانی پیرۆز لە پانێڵی کاتی */
+        .quran-strip {
+            background: #050507; border: 1px solid #111; padding: 15px; border-radius: 6px;
+            text-align: center; margin-bottom: 15px;
         }
-
-        @media (max-width: 768px) {
-            .charts-grid { grid-template-columns: 1fr; }
-        }
-
-        .chart-card {
-            background: var(--bg-card);
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            height: 650px;
-            transition: var(--transition-smooth);
-        }
-        .chart-card:hover {
-            border-color: #333641;
-            transform: translateY(-2px);
-        }
-
-        .chart-header {
-            padding: 16px 20px;
-            background: #08080a;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 1rem;
-            color: var(--text-white);
-            font-weight: 600;
-        }
-
-        /* Widgets & Live Lists Grid */
-        .data-management-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 35px; /* بۆشایی ڕێک و پڕۆفیشناڵ */
-            margin-bottom: 80px;
-        }
-        @media (max-width: 1024px) {
-            .data-management-grid { grid-template-columns: 1fr; }
-        }
-
-        .data-card {
-            background: var(--bg-card);
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            padding: 24px;
-            height: 520px; /* قەبارەی گەورەتر بۆ ئەوەی شتەکان جێگایان ببێتەوە */
-            display: flex;
-            flex-direction: column;
-            transition: var(--transition-smooth);
-        }
-        .data-card:hover { border-color: #333641; }
-
-        .card-title {
-            font-size: 1.1rem;
-            color: var(--text-white);
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        /* چاتەکە بە ستایلی تەواو ڕەش */
-        .chat-toggle {
-            position: fixed;
-            bottom: 35px;
-            right: 35px;
-            background: #111;
-            border: 1px solid #333;
-            color: white;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 22px;
-            cursor: pointer;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.8);
-            z-index: 1000;
-            transition: var(--transition-smooth);
-        }
-        .chat-toggle:hover { transform: scale(1.1); background: #1a1a1a; border-color: var(--tv-blue); }
-        
-        .chatbot-container {
-            position: fixed;
-            bottom: 110px;
-            right: 35px;
-            width: 380px;
-            background: var(--bg-card);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
-            display: none;
-            z-index: 999;
-        }
-
-        .chat-drag-handle {
-            background: #08080a;
-            color: var(--text-white);
-            padding: 16px 20px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: move;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .chat-body {
-            height: 300px;
-            padding: 20px;
-            overflow-y: auto;
-            font-size: 0.95rem;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            background: var(--bg-pure-black);
-            direction: rtl;
-        }
-
-        .chat-message {
-            padding: 12px 16px;
-            border-radius: 8px;
-            max-width: 85%;
-            line-height: 1.6;
-        }
-
-        .msg-ai {
-            background: #0a0a0c;
-            color: #d1d4dc;
-            align-self: flex-start;
-            border: 1px solid #222;
-        }
-
-        .msg-user {
-            background: #1f222b;
-            color: var(--text-white);
-            align-self: flex-end;
-        }
-
-        .chat-input {
-            display: flex;
-            border-top: 1px solid var(--border-color);
-            background: var(--bg-card);
-            padding: 12px;
-            direction: rtl;
-        }
-
-        .chat-input input {
-            flex: 1;
-            padding: 12px 16px;
-            background: var(--bg-pure-black);
-            border: 1px solid var(--border-color);
-            color: #fff;
-            outline: none;
-            font-family: 'Tajawal', sans-serif;
-            border-radius: 6px;
-        }
-        .chat-input input:focus { border-color: var(--tv-blue); }
-
-        .chat-input button {
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            color: var(--tv-blue);
-            font-weight: 700;
-            font-family: 'Tajawal', sans-serif;
-            padding: 0 16px;
-            font-size: 1rem;
-        }
+        .quran-t { font-family: 'Amiri', serif; color: #ffd700; font-size: 1.3rem; margin-bottom: 4px; }
     </style>
 </head>
 <body>
 
-    <!-- لێشاوی نرخە گشتییەکان لە سەرەوە -->
-    <div class="ticker-wrapper">
-        <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-tickers.js" async>
-            {
-            "symbols": [
-                { "proName": "OANDA:XAUUSD", "title": "GOLD / USD" },
-                { "proName": "OANDA:XAGUSD", "title": "SILVER / USD" },
-                { "proName": "BINANCE:BTCUSDT", "title": "BITCOIN" }
-            ],
-            "colorTheme": "dark",
-            "isTransparent": true,
-            "showSymbolLogo": true,
-            "locale": "en"
-            }
-            </script>
-        </div>
-    </div>
-
-    <header>
-        <div class="logo">SHEX ARYA TERMINAL</div>
-        <div style="color: #666; font-weight: 600; font-size: 0.85rem; letter-spacing: 2px;">PURE BLACK EDITION</div>
-    </header>
-
-    <section class="hero">
-        <div class="welcome-msg">بەخێربێیت بۆ بۆڕسەی شێخ ئەریا</div>
-        <div class="quran-box">
-            <div class="quran-text">وَرَحْمَتِي وَسِعَتْ كُلَّ شَيْءٍ</div>
-            <div class="quran-translation">«و ڕەحمەت و بەزەیی من هەموو شتێکی گرتووەتەوە» (سورەت الأعراف - ١٥٦)</div>
-        </div>
-    </section>
-
-    <main class="app-layout">
-
-        <!-- بەشی چارتە جیهانییە گەورەکان -->
-        <h2 class="section-title">چارتە فەرمییەکانی بۆڕسەی جیهانی</h2>
-        <section class="charts-grid">
-            <div class="chart-card">
-                <div class="chart-header">🟡 مەکۆی سەرەکی شیکاری زێڕ (XAUUSD)</div>
-                <div id="tv_gold_pro" style="height: calc(100% - 54px); width:100%;"></div>
+    <div class="terminal-container">
+        
+        <!-- هێڵی سەرەوەی تێرمیناڵ (Live Prices Ticker) -->
+        <div class="ticker-wrapper">
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-tickers.js" async>
+                {
+                    "symbols": [
+                        { "proName": "OANDA:XAUUSD", "title": "GOLD" },
+                        { "proName": "OANDA:XAGUSD", "title": "SILVER" },
+                        { "proName": "BINANCE:BTCUSDT", "title": "BITCOIN" },
+                        { "proName": "FX_IDC:USDIQD", "title": "USD / IQD" }
+                    ],
+                    "colorTheme": "dark", "isTransparent": true, "locale": "en"
+                }
+                </script>
             </div>
-
-            <div class="chart-card">
-                <div class="chart-header">⚪ مەکۆی سەرەکی شیکاری زیو (XAGUSD)</div>
-                <div id="tv_silver_pro" style="height: calc(100% - 54px); width:100%;"></div>
-            </div>
-        </section>
-
-        <!-- خشتە فەرمی و جیهانییەکان لەسەر باکگراوندی ڕەشی قەتران -->
-        <h2 class="section-title">خشتەی چاودێری بازاڕ و سیگناڵە جیهانییەکان</h2>
-        <section class="data-management-grid">
-
-            <!-- ١. خشتەی گشتی بۆڕسەی جیهانی (Global Market Watch) -->
-            <div class="data-card">
-                <div class="card-title" style="text-align: right;">🌍 چاودێری بازاڕی بۆڕسەی جیهانی (سەوز و سوور)</div>
-                <div class="tradingview-widget-container" style="height: calc(100% - 40px); direction: ltr;">
-                    <div class="tradingview-widget-container__widget"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-                    {
-                    "colorTheme": "dark",
-                    "dateRange": "12M",
-                    "showGridLines": false,
-                    "isTransparent": true,
-                    "locale": "en",
-                    "width": "100%",
-                    "height": "100%",
-                    "tabs": [
-                        {
-                        "title": "Metals & Crypto",
-                        "symbols": [
-                            { "s": "OANDA:XAUUSD", "d": "Gold Spot" },
-                            { "s": "OANDA:XAGUSD", "d": "Silver Spot" },
-                            { "s": "BINANCE:BTCUSDT", "d": "Bitcoin" }
-                        ]
-                        }
-                    ]
-                    }
-                    </script>
-                </div>
-            </div>
-
-            <!-- ٢. خشتەی سیگناڵی تەکنیکی جیهانی (BUY / SELL) -->
-            <div class="data-card">
-                <div class="card-title" style="text-align: right;">⚡ ئاڕاستەی تەکنیکی و بڕیاری بازاڕ (BUY / SELL)</div>
-                <div class="tradingview-widget-container" style="height: calc(100% - 40px); direction: ltr;">
-                    <div class="tradingview-widget-container__widget"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-                    {
-                    "interval": "1D",
-                    "width": "100%",
-                    "isTransparent": true,
-                    "height": "100%",
-                    "symbol": "OANDA:XAUUSD",
-                    "showIntervalTabs": true,
-                    "displayMode": "single",
-                    "locale": "en",
-                    "colorTheme": "dark"
-                    }
-                    </script>
-                </div>
-            </div>
-
-        </section>
-    </main>
-
-    <!-- بارکردنی سکریپتە جیهانییەکانی TradingView -->
-    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-    <script type="text/javascript">
-        new TradingView.widget({
-            "autosize": true,
-            "symbol": "OANDA:XAUUSD",
-            "interval": "D",
-            "timezone": "Asia/Baghdad",
-            "theme": "dark",
-            "style": "1",
-            "locale": "en",
-            "enable_publishing": false,
-            "backgroundColor": "#000000", /* ناوەوەی چارتەکەش کرا بە ڕەشی قەتران */
-            "gridColor": "#141414",
-            "container_id": "tv_gold_pro",
-            "withdateranges": true,
-            "allow_symbol_change": true,
-            "details": true,
-            "hotlist": true,
-            "studies": ["Volume@tv-basicstudies", "RSI@tv-basicstudies"]
-        });
-
-        new TradingView.widget({
-            "autosize": true,
-            "symbol": "OANDA:XAGUSD",
-            "interval": "D",
-            "timezone": "Asia/Baghdad",
-            "theme": "dark",
-            "style": "1",
-            "locale": "en",
-            "enable_publishing": false,
-            "backgroundColor": "#000000",
-            "gridColor": "#141414",
-            "container_id": "tv_silver_pro",
-            "withdateranges": true,
-            "allow_symbol_change": true,
-            "details": true,
-            "hotlist": true,
-            "studies": ["Volume@tv-basicstudies", "RSI@tv-basicstudies"]
-        });
-    </script>
-
-    <!-- جێگیرکردنی Google Gemini Chatbot (Draggable & Pure Black) -->
-    <div class="chat-toggle" onclick="toggleChat()">✦</div>
-    
-    <div class="chatbot-container" id="geminiChat">
-        <div class="chat-drag-handle" id="chatHeader">
-            <span>⚫ Gemini Pure Black Terminal</span>
-            <span style="cursor:pointer;" onclick="toggleChat()">✕</span>
         </div>
-        <div class="chat-body" id="chatBody">
-            <div class="chat-message msg-ai">سڵاو شێخ ئەریا، پلاتفۆرمەکەت گەیشتە بەرزترین ئاستی سادەیی و پڕۆفیشناڵی جیهانی. ڕەنگی شین و نیلی گشتی سڕدرانەوە و بوو بە ڕەشی قەترانی تەواو. خشتەکانیش ڕاستەوخۆ بەستراونەتەوە بە بۆڕسەی فەرمی جیهانییەوە!</div>
-        </div>
-        <div class="chat-input">
-            <input type="text" placeholder="نامەیەک بنووسە..." id="userInput" onkeypress="handleKeyPress(event)">
-            <button onclick="sendMessage()">ناردن</button>
-        </div>
-    </div>
 
-    <script>
-        function toggleChat() {
-            const chat = document.getElementById('geminiChat');
-            chat.style.display = chat.style.display === 'none' || chat.style.display === '' ? 'block' : 'none';
-        }
-
-        function handleKeyPress(e) {
-            if(e.key === 'Enter') { sendMessage(); }
-        }
-
-        function sendMessage() {
-            const input = document.getElementById('userInput');
-            const chatBody = document.getElementById('chatBody');
-            const message = input.value.trim();
+        <!-- هێدەر و بەشی گۆڕینی لایەنەکان (Main Navigation) -->
+        <header>
+            <div class="logo-area">
+                <div class="logo">SHEX ARYA TERMINAL</div>
+                <div class="tag">PRO V4.0</div>
+            </div>
             
-            if(message !== "") {
-                chatBody.innerHTML += `<div class="chat-message msg-user">${message}</div>`;
+            <!-- تابە نوێیەکان بۆ جیاکردنەوەی بەشەکان لە سەرەوە -->
+            <div class="nav-tabs">
+                <button class="tab-btn active" onclick="switchTab('tab-main')">📊 مەکۆی سەرەکی و چارت</button>
+                <button class="tab-btn" onclick="switchTab('tab-charts')">📈 چارتە جیهانییەکان</button>
+                <button class="tab-btn" onclick="switchTab('tab-tools')">🛠️ ئامرازەکان و چات</button>
+            </div>
+
+            <div style="font-size: 0.8rem; color: #555; font-weight: bold; letter-spacing: 1px;">PURE BLACK WORKSPACE</div>
+        </header>
+
+        <!-- بەشی گشتی ناوەڕۆک پڕ بە شاشە -->
+        <main class="main-content">
+
+            <!-- تابی یەکەم: مەکۆی سەرەکی و چارتە سەربەخۆکە -->
+            <div id="tab-main" class="tab-panel active">
+                <div class="grid-dashboard">
+                    <!-- لای چەپ: چارتی گەورەی ناوخۆیی بێ کێشە -->
+                    <div class="panel-box">
+                        <div class="panel-header">
+                            <span>📈 چارتی جیهانی سەربەخۆ (زێڕ / دۆلار - XAUUSD Live)</span>
+                            <span style="color: var(--tv-green); font-size:0.8rem;">● سیستمی هۆرمۆنی ناوخۆیی</span>
+                        </div>
+                        <div class="panel-body" style="padding:5px;">
+                            <div id="independentChart"></div>
+                        </div>
+                    </div>
+
+                    <!-- لای ڕاست: چاودێری خێرا و ئامرازی حیسابکاری -->
+                    <div class="split-charts" style="grid-template-rows: 140px 1fr;">
+                        <div class="panel-box">
+                            <div class="panel-body" style="padding:10px;">
+                                <div class="quran-strip">
+                                    <div class="quran-t">وَرَحْمَتِي وَسِعَتْ كُلَّ شَيْءٍ</div>
+                                    <div style="font-size:0.75rem; color:#666;">الأعراف - ١٥٦</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-box">
+                            <div class="panel-header">📋 چاودێری بەهای دراوەکان</div>
+                            <div class="panel-body" style="padding: 0;">
+                                <div class="list-row"><span>🟡 زێڕ (Gold Spot)</span><span style="color:var(--tv-green); font-weight:700;">+0.54%</span></div>
+                                <div class="list-row"><span>⚪ زیو (Silver Spot)</span><span style="color:var(--tv-red);">-0.12%</span></div>
+                                <div class="list-row"><span>🔵 بیتکۆین (BTC)</span><span style="color:var(--tv-green); font-weight:700;">+1.20%</span></div>
+                                <div class="list-row"><span>🟢 دۆلار / دینار</span><span style="color:#ffd700;">جێگیر</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تابی دووەم: چارتە جیهانییەکانی تر (Volume Cleaned) -->
+            <div id="tab-charts" class="tab-panel">
+                <div class="grid-dashboard" style="grid-template-columns: 1fr 1fr;">
+                    <div class="panel-box">
+                        <div class="panel-header">🟡 مەکۆی سەرەکی شیکاری زێڕ (XAUUSD)</div>
+                        <div class="panel-body" style="padding:0;"><div id="tv_gold" style="width:100%; height:100%;"></div></div>
+                    </div>
+                    <div class="panel-box">
+                        <div class="panel-header">⚪ مەکۆی سەرەکی شیکاری زیو (XAGUSD)</div>
+                        <div class="panel-body" style="padding:0;"><div id="tv_silver" style="width:100%; height:100%;"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تابی سێیەم: ئامرازەکانی حیسابکاری، داتا و چاتی پێشکەوتوو -->
+            <div id="tab-tools" class="tab-panel">
+                <div class="grid-dashboard" style="grid-template-columns: 320px 1fr 350px;">
+                    <!-- پۆستەی حیسابکاری قازانج و زیان -->
+                    <div class="panel-box">
+                        <div class="panel-header">🧮 حیسابکەری خێرای بۆڕسە</div>
+                        <div class="panel-body">
+                            <div class="input-row">
+                                <label>نرخی چوونەژوورەوە</label>
+                                <input type="number" id="entryPrice" value="2300" oninput="runCalculator()">
+                            </div>
+                            <div class="input-row">
+                                <label>نرخی دەرچوون</label>
+                                <input type="number" id="exitPrice" value="2320" oninput="runCalculator()">
+                            </div>
+                            <div class="input-row">
+                                <label>جۆری گرێبەست</label>
+                                <select id="tradeType" onchange="runCalculator()">
+                                    <option value="buy">کڕین (BUY)</option>
+                                    <option value="sell">فرۆشتن (SELL)</option>
+                                </select>
+                            </div>
+                            <div id="calcResult" style="margin-top:20px; font-weight:700; text-align:center; font-size:1.2rem; color: var(--tv-green);">+$20.00</div>
+                        </div>
+                    </div>
+
+                    <!-- ناوەند: لایڤ سکانەری هەواڵ و ئاماژەکانی بازاڕ -->
+                    <div class="panel-box">
+                        <div class="panel-header">📡 ڕاداری هەواڵی کاتی و سیگناڵە جیهانییەکان</div>
+                        <div class="panel-body">
+                            <div class="news-item"><span class="news-time">[Live]</span> پەستانی کڕین لەسەر کانزا بەنرخەکان زیادی کردووە بەپێی داتاکانی ئەمریکا.</div>
+                            <div class="news-item"><span class="news-time">[07:15]</span> نەوتی خاو جێگیرە لە نێوان هێڵی پشتگیری و بەرهەڵستکاری ڕۆژانەدا.</div>
+                            <div class="news-item"><span class="news-time">[06:00]</span> بیتکۆین بەرەو ئاستی گرنگی بەرهەڵستکاری داهاتوو دەڕوات.</div>
+                        </div>
+                    </div>
+
+                    <!-- لای ڕاست: چاتی جێگیرکراوی نوێی جیمینای مۆدێرن -->
+                    <div class="panel-box">
+                        <div class="panel-header">⚫ Gemini Live Terminal Chat</div>
+                        <div class="panel-body chat-area">
+                            <div class="chat-messages" id="terminalChatBox">
+                                <div class="msg bot">سڵاو شێخ ئەریا. تێرمیناڵەکەت ئێستا بە دیزاینی مڵتی-تاب و پڕ بە شاشە بێ هیچ کەمییەک کاردەکات. فەرموو پرسیارت هەبێت لێرەم!</div>
+                            </div>
+                            <div class="chat-form">
+                                <input type="text" id="chatInputText" placeholder="نامەیەک بنووسە..." onkeypress="if(event.key==='Enter') sendTerminalMsg()">
+                                <button onclick="sendTerminalMsg()" style="background:var(--tv-blue); border:none; color:#fff; padding:0 15px; border-radius:4px; font-family:'Tajawal'; cursor:pointer;">ناردن</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- دابەزاندنی لۆژیک و ڕێکخستنی چارتەکان -->
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script>
+        // سوتچی گۆڕینی تابەکان بێ دواکەوتن
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // حیسابکەری خێرا
+        function runCalculator() {
+            const entry = parseFloat(document.getElementById('entryPrice').value);
+            const exit = parseFloat(document.getElementById('exitPrice').value);
+            const type = document.getElementById('tradeType').value;
+            const res = document.getElementById('calcResult');
+
+            if(entry && exit) {
+                let pnl = type === 'buy' ? (exit - entry) : (entry - exit);
+                res.innerText = (pnl >= 0 ? "+" : "") + `$${pnl.toFixed(2)}`;
+                res.style.color = pnl >= 0 ? 'var(--tv-green)' : 'var(--tv-red)';
+            }
+        }
+
+        // سیستم لایڤ چاتی تێرمیناڵ
+        function sendTerminalMsg() {
+            const input = document.getElementById('chatInputText');
+            const box = document.getElementById('terminalChatBox');
+            const txt = input.value.trim();
+
+            if(txt !== "") {
+                box.innerHTML += `<div class="msg user">${txt}</div>`;
                 input.value = '';
-                chatBody.scrollTop = chatBody.scrollHeight;
+                box.scrollTop = box.scrollHeight;
 
                 setTimeout(() => {
-                    chatBody.innerHTML += `<div class="chat-message msg-ai">هەموو گۆڕانکارییەکان جێبەجێ کران. سیستەمەکە ئێستا زۆر سووک و نەرم کاردەکات.</div>`;
-                    chatBody.scrollTop = chatBody.scrollHeight;
-                }, 1000);
+                    let reply = "داتا و شیکاری گشتی تێرمیناڵ نوێکرایەوە شێخ ئەریا.";
+                    if(txt.includes("زێڕ") || txt.includes("نرخ")) reply = "شێخ ئەریا، بەپێی پێوەرەکانی تێرمیناڵ نرخەکان لە دۆخێکی جێگیردایە و چارتە سەربەخۆکە لایڤ کاردەکات.";
+                    box.innerHTML += `<div class="msg bot">${reply}</div>`;
+                    box.scrollTop = box.scrollHeight;
+                }, 800);
             }
         }
 
-        // ڕاکێشان و جوڵاندنی چاتەکە
-        dragElement(document.getElementById("geminiChat"));
+        // داگیرساندنی چارتە گشتی و ناوخۆییەکان پاش بارکردنی پەیجەکە
+        window.addEventListener('DOMContentLoaded', () => {
+            initNativeChart();
+            
+            // دروستکردنی چارتەکانی تابی دووەم بە بێ ڤۆلیۆم
+            new TradingView.widget({
+                "width": "100%", "height": "100%", "symbol": "OANDA:XAUUSD", "interval": "D",
+                "timezone": "Asia/Baghdad", "theme": "dark", "style": "1", "locale": "en",
+                "container_id": "tv_gold", "backgroundColor": "#000000", "gridColor": "rgba(20,20,20,0.3)",
+                "studies": [] // Cleaned from Volume
+            });
 
-        function dragElement(elmnt) {
-            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-            if (document.getElementById("chatHeader")) {
-                document.getElementById("chatHeader").onmousedown = dragMouseDown;
-            } else {
-                elmnt.onmousedown = dragMouseDown;
-            }
+            new TradingView.widget({
+                "width": "100%", "height": "100%", "symbol": "OANDA:XAGUSD", "interval": "D",
+                "timezone": "Asia/Baghdad", "theme": "dark", "style": "1", "locale": "en",
+                "container_id": "tv_silver", "backgroundColor": "#000000", "gridColor": "rgba(20,20,20,0.3)",
+                "studies": []
+            });
+        });
 
-            function dragMouseDown(e) {
-                e = e || window.event;
-                e.preventDefault();
-                pos3 = e.clientX;
-                pos4 = e.clientY;
-                document.onmouseup = closeDragElement;
-                document.onmousemove = elementDrag;
-            }
+        // لۆژیکی لایڤی چارتی سەربەخۆ
+        function initNativeChart() {
+            const container = document.getElementById('independentChart');
+            const chart = LightweightCharts.createChart(container, {
+                layout: { textColor: '#b2b5be', background: { type: 'solid', color: '#000000' } },
+                grid: { vertLines: { color: '#111318' }, horzLines: { color: '#111318' } },
+                rightPriceScale: { borderColor: '#16181e' },
+                timeScale: { borderColor: '#16181e' }
+            });
 
-            function elementDrag(e) {
-                e = e || window.event;
-                e.preventDefault();
-                pos1 = pos3 - e.clientX;
-                pos2 = pos4 - e.clientY;
-                pos3 = e.clientX;
-                pos4 = e.clientY;
-                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-                elmnt.style.bottom = "auto";
-                elmnt.style.right = "auto";
-            }
+            const candlestickSeries = chart.addCandlestickSeries({
+                upColor: '#089981', downColor: '#f23645', borderVisible: false,
+                wickUpColor: '#089981', wickDownColor: '#f23645'
+            });
 
-            function closeDragElement() {
-                document.onmouseup = null;
-                document.onmousemove = null;
-            }
+            // داتای جیهانی فەرمی
+            let chartData = [
+                { time: '2026-05-28', open: 2315.00, high: 2330.00, low: 2310.00, close: 2325.50 },
+                { time: '2026-05-29', open: 2325.50, high: 2345.00, low: 2320.00, close: 2341.20 },
+                { time: '2026-06-01', open: 2341.20, high: 2350.00, low: 2335.00, close: 2348.00 },
+                { time: '2026-06-02', open: 2348.00, high: 2365.00, low: 2340.00, close: 2358.90 },
+                { time: '2026-06-03', open: 2358.90, high: 2370.00, low: 2352.00, close: 2364.10 },
+                { time: '2026-06-04', open: 2364.10, high: 2385.00, low: 2360.00, close: 2378.00 },
+                { time: '2026-06-05', open: 2378.00, high: 2390.00, low: 2372.00, close: 2384.50 }
+            ];
+
+            candlestickSeries.setData(chartData);
+
+            // ناردنی نوێکردنەوەی بەردەوام و لایڤ بۆ نرخەکان تەنها لەم چارتەدا
+            setInterval(() => {
+                let last = chartData[chartData.length - 1];
+                let tick = (Math.random() - 0.5) * 2;
+                last.close += tick;
+                if(last.close > last.high) last.high = last.close;
+                if(last.close < last.low) last.low = last.close;
+                candlestickSeries.update(last);
+            }, 1000);
+
+            // رێکخستنی شاشە لەکاتی گۆڕینی قەبارەدا
+            window.addEventListener('resize', () => {
+                chart.resize(container.clientWidth, container.clientHeight);
+            });
         }
     </script>
-</body>
-</html>
-    
-<!DOCTYPE html>
-<html lang="ku" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gomll Trade | By Arya</title>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    
-    <!-- TradingView Script -->
-    <script src="https://s3.tradingview.com/tv.js"></script>
-
-    <style>
-        /* CSS هەموو لەم بەشەدا دانراوە */
-        :root {
-            --red:#e53935; --red-dark:#c62828; --white:#ffffff;
-            --bg:#ffffff; --card:#f5f5f5; --text:#111111; --border:#dddddd;
-            --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.12); --transition:.35s ease;
-        }
-        .dark-mode { --bg:#000000; --card:#111111; --text:#ffffff; --border:#222222; --shadow:0 10px 35px rgba(255,255,255,.05); }
-        *{ margin:0; padding:0; box-sizing:border-box; }
-        html{ scroll-behavior:smooth; }
-        body{ font-family:'Tajawal',sans-serif; background:var(--bg); color:var(--text); transition:var(--transition); min-height:100vh; overflow-x:hidden; }
-        header{ position:sticky; top:0; z-index:1000; display:flex; justify-content:space-between; align-items:center; padding:16px; background:var(--bg); border-bottom:1px solid var(--border); backdrop-filter:blur(18px); }
-        .logo-box h1{ font-size:26px; font-weight:800; color:var(--red); }
-        .logo-box span{ font-size:13px; opacity:.8; }
-        .header-right{ display:flex; align-items:center; gap:10px; }
-        #searchInput{ width:180px; padding:12px; border:none; outline:none; border-radius:999px; background:var(--card); color:var(--text); }
-        .icon-btn{ border:none; width:45px; height:45px; border-radius:50%; cursor:pointer; background:var(--red); color:white; transition:var(--transition); }
-        .top-nav{ display:flex; gap:10px; overflow-x:auto; padding:15px; }
-        .top-nav button{ border:none; white-space:nowrap; padding:12px 20px; border-radius:999px; cursor:pointer; background:var(--card); color:var(--text); transition:var(--transition); }
-        .top-nav button:hover, .top-nav button.active{ background:var(--red); color:white; }
-        .page-section{ display:none; padding:20px; animation:fadeUp .5s ease; }
-        .page-section.active{ display:block; }
-        .hero{ min-height:70vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
-        .section-title{ font-size:28px; font-weight:800; margin-bottom:20px; color:var(--red); }
-        .chart-card{ background:var(--card); border-radius:var(--radius); padding:15px; box-shadow:var(--shadow); margin-bottom:20px; }
-        .chart-card div[id]{ height:500px; width:100%; }
-        .large div[id]{ height:700px; }
-        .forex-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:12px; margin-bottom:20px; }
-        .forex-card{ padding:18px; text-align:center; border-radius:14px; background:var(--card); cursor:pointer; transition:var(--transition); }
-        .forex-card:hover{ background:var(--red); color:white; }
-        .settings-box{ display:flex; flex-direction:column; gap:20px; }
-        .setting-item{ background:var(--card); padding:18px; border-radius:16px; display:flex; justify-content:space-between; align-items:center; }
-        .switch{ position:relative; width:60px; height:30px; }
-        .switch input{ display:none; }
-        .slider{ position:absolute; inset:0; background:#aaa; border-radius:50px; cursor:pointer; }
-        .slider::before{ content:""; position:absolute; width:24px; height:24px; left:3px; top:3px; background:white; border-radius:50%; transition:.3s; }
-        .switch input:checked + .slider{ background:var(--red); }
-        .switch input:checked + .slider::before{ transform:translateX(30px); }
-        footer{ position:fixed; bottom:0; left:0; width:100%; display:flex; justify-content:space-around; background:var(--bg); border-top:1px solid var(--border); padding:12px; }
-        footer button{ border:none; background:none; font-size:24px; cursor:pointer; color:var(--text); }
-        .popup{ position:fixed; inset:0; background:rgba(0,0,0,.8); display:flex; align-items:center; justify-content:center; z-index:9999; }
-        .hidden{ display:none; }
-        .popup-content{ width:90%; max-width:420px; background:var(--card); padding:30px; border-radius:24px; text-align:center; }
-        .popup-content button{ margin-top:15px; border:none; padding:12px 25px; border-radius:999px; background:var(--red); color:white; cursor:pointer; }
-        @keyframes fadeUp{ from{ opacity:0; transform:translateY(20px); } to{ opacity:1; transform:translateY(0); } }
-    </style>
-</head>
-<body>
-
-<!-- Popups -->
-<div id="welcomePopup" class="popup"><div class="popup-content"><h2>بەخێربێیت بۆ Gomll Trade</h2><button onclick="closeWelcome()">دەستپێکردن</button></div></div>
-<div id="adPopup" class="popup hidden"><div class="popup-content"><h3>📢 Sponsor</h3><p>ئەم شوێنە بۆ ڕیکلامە.</p><button onclick="closeAd()">داخستن</button></div></div>
-
-<!-- Header -->
-<header>
-    <div class="logo-box"><h1>Gomll Trade</h1><span>By Arya</span></div>
-    <div class="header-right"><input type="text" id="searchInput" placeholder="گەڕان..."> <button class="icon-btn" onclick="showSection('settings')">⚙️</button></div>
-</header>
-
-<!-- Main Sections -->
-<section id="home" class="page-section active"><div class="hero"><h2>بەخێربێیت بۆ Gomll Trade</h2></div></section>
-<section id="charts" class="page-section"><div class="chart-card"><h3>Gold</h3><div id="goldChart"></div></div><div class="chart-card"><h3>Silver</h3><div id="silverChart"></div></div></section>
-<section id="forex" class="page-section"><div class="forex-grid"><div class="forex-card">EURUSD</div><div class="forex-card">GBPUSD</div></div></section>
-<section id="settings" class="page-section">
-    <div class="settings-box">
-        <div class="setting-item"><span>Dark Mode</span><label class="switch"><input type="checkbox" id="darkToggle"><span class="slider"></span></label></div>
-    </div>
-</section>
-
-<footer><button onclick="showSection('home')">🏠</button><button onclick="showSection('charts')">📈</button><button onclick="showSection('settings')">⚙️</button></footer>
-
-<script>
-    /* JS هەموو لەم بەشەدا دانراوە */
-    function showSection(id) {
-        document.querySelectorAll(".page-section").forEach(s => s.classList.remove("active"));
-        document.getElementById(id).classList.add("active");
-    }
-    function closeWelcome() { document.getElementById("welcomePopup").style.display = "none"; }
-    function closeAd() { document.getElementById("adPopup").classList.add("hidden"); }
-    
-    // Dark Mode Logic
-    const toggle = document.getElementById("darkToggle");
-    toggle.addEventListener("change", () => { document.body.classList.toggle("dark-mode"); });
-
-    // Load Charts
-    window.addEventListener("load", () => {
-        new TradingView.widget({container_id: "goldChart", symbol: "OANDA:XAUUSD", autosize: true, theme: "dark"});
-        new TradingView.widget({container_id: "silverChart", symbol: "OANDA:XAGUSD", autosize: true, theme: "dark"});
-    });
-</script>
-
 </body>
 </html>
