@@ -1,28 +1,29 @@
-<!DOCTYPE html>
+‌<!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHEX ARYA - Quantum Trading Terminal Elite</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SHEX ARYA - Quantum Trading Terminal Premium</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri:wght=400;700&family=Tajawal:wght=300;400;500;700&display=swap');
 
         :root {
-            --bg-pure-black: #000000;
-            --bg-card: #040406;
-            --bg-panel: #08080c;
-            --bg-input: #0b0b10;
+            --bg-pure-black: #020203;
+            --bg-card: #050609;
+            --bg-panel: #0a0b10;
+            --bg-input: #0e1017;
             --tv-blue: #2962ff;
-            --tv-blue-glow: rgba(41, 98, 255, 0.15);
+            --tv-blue-glow: rgba(41, 98, 255, 0.08);
             --tv-green: #089981;
+            --tv-green-dim: rgba(8, 153, 129, 0.12);
             --tv-red: #f23645;
+            --tv-red-dim: rgba(242, 54, 69, 0.12);
             --gold-color: #ffd700;
             --text-main: #b2b5be;
             --text-muted: #5d606b;
             --text-white: #ffffff;
-            --border-color: #111318;
-            --border-focus: #1c1f26;
-            --panel-glow: 0 0 10px rgba(255, 215, 0, 0.03);
+            --border-color: #12151c;
+            --border-focus: #1c202b;
         }
 
         * { 
@@ -34,130 +35,78 @@
 
         body, html { 
             width: 100%; 
-            height: 100vh; 
+            min-height: 100vh; 
             background-color: var(--bg-pure-black); 
             color: var(--text-main); 
             font-family: 'Tajawal', sans-serif; 
-            overflow: hidden; 
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
-        /* ستایلی سکڕۆڵباری لوکس */
-        ::-webkit-scrollbar {
-            width: 4px;
-            height: 4px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-pure-black);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #1c1f26;
-            border-radius: 2px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--tv-blue);
-        }
-
-        .ambient-glow { 
-            position: absolute; 
-            width: 550px; 
-            height: 550px; 
-            background: var(--tv-blue-glow); 
-            filter: blur(180px); 
-            top: -150px; 
-            left: -150px; 
-            pointer-events: none; 
-            z-index: 0; 
-        }
+        /* سکڕۆڵباری لوکس */
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg-pure-black); }
+        ::-webkit-scrollbar-thumb { background: #1c202b; border-radius: 2px; }
 
         .terminal-container { 
             display: flex; 
             flex-direction: column; 
-            height: 100vh; 
             width: 100%; 
             position: relative; 
             z-index: 1; 
         }
 
         header { 
-            height: 55px; 
-            padding: 0 20px; 
+            padding: 10px 15px; 
             display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            background-color: rgba(4, 4, 6, 0.95); 
-            backdrop-filter: blur(12px); 
+            flex-direction: column;
+            gap: 8px;
+            background-color: rgba(5, 6, 9, 0.96); 
             border-bottom: 1px solid var(--border-color); 
         }
 
-        .identity-section { 
-            display: flex; 
-            align-items: center; 
-            gap: 12px; 
+        @media(min-width: 768px) {
+            header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                height: 55px;
+                padding: 0 20px;
+            }
         }
 
-        .identity-title { 
-            font-size: 16px; 
-            font-weight: 700; 
-            color: var(--text-white); 
-            letter-spacing: 1.5px; 
-        }
+        .identity-section { display: flex; align-items: center; gap: 10px; justify-content: space-between; width: 100%; }
+        @media(min-width: 768px) { .identity-section { width: auto; } }
 
-        .badge-pro { 
-            font-size: 9px; 
-            background: #000; 
-            color: var(--gold-color); 
-            border: 1px solid var(--border-color); 
-            padding: 3px 8px; 
-            border-radius: 4px; 
-            font-weight: bold; 
-        }
+        .identity-title { font-size: 15px; font-weight: 700; color: var(--text-white); letter-spacing: 1px; }
+        .badge-pro { font-size: 9px; background: #000; color: var(--gold-color); border: 1px solid var(--border-color); padding: 3px 8px; border-radius: 4px; font-weight: bold; }
         
-        .header-stats { 
-            display: flex; 
-            gap: 25px; 
-            font-size: 0.78rem; 
-        }
+        .header-stats { display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.75rem; width: 100%; justify-content: space-between; border-top: 1px solid #12151c; padding-top: 8px; }
+        @media(min-width: 768px) { .header-stats { width: auto; border-top: none; padding-top: 0; gap: 25px; } }
 
-        .stat-item { 
-            display: flex; 
-            gap: 6px; 
-            align-items: center; 
-        }
+        .stat-item { display: flex; gap: 6px; align-items: center; }
+        .stat-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--tv-green); }
 
-        .stat-dot { 
-            width: 6px; 
-            height: 6px; 
-            border-radius: 50%; 
-            background: var(--tv-green); 
-            animation: pulse 1.8s infinite; 
-        }
+        .system-clock { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; font-family: monospace; }
 
-        @keyframes pulse { 
-            0%, 100% { opacity: 0.3; } 
-            50% { opacity: 1; } 
-        }
-
-        .system-clock { 
-            font-size: 0.85rem; 
-            color: var(--text-muted); 
-            font-weight: 600; 
-            font-family: monospace; 
-        }
-
+        /* ڕێکخستنی ڕیدۆدی فۆڕم و فڵێکس بۆ مۆبایل و دێسکتۆپ */
         .workspace-layout { 
-            flex: 1; 
-            display: grid; 
-            grid-template-columns: 320px 1fr 350px; 
-            gap: 10px; 
+            display: flex;
+            flex-direction: column;
+            gap: 12px; 
             padding: 10px; 
-            height: calc(100vh - 55px); 
+            width: 100%;
         }
 
-        .center-charts-axis { 
-            display: grid; 
-            grid-template-rows: 1fr 1fr; 
-            gap: 10px; 
-            height: 100%; 
+        @media(min-width: 1024px) {
+            .workspace-layout { 
+                display: grid;
+                grid-template-columns: 330px 1fr 360px; 
+                height: calc(100vh - 55px);
+                overflow: hidden;
+            }
+            .column-side { overflow-y: auto; height: 100%; display: flex; flex-direction: column; gap: 10px; }
+            .center-charts-axis { overflow-y: auto; height: 100%; display: flex; flex-direction: column; gap: 10px; }
         }
 
         .module-box { 
@@ -167,13 +116,7 @@
             display: flex; 
             flex-direction: column; 
             overflow: hidden; 
-            position: relative; 
-            box-shadow: var(--panel-glow);
-        }
-
-        .module-box:hover { 
-            border-color: var(--border-focus); 
-            box-shadow: 0 0 12px rgba(41, 98, 255, 0.04); 
+            width: 100%;
         }
 
         .module-header { 
@@ -191,723 +134,229 @@
         .module-body { 
             flex: 1; 
             padding: 12px; 
-            overflow-y: auto; 
-            position: relative; 
         }
 
-        .form-group { 
-            margin-bottom: 10px; 
+        .chart-wrapper {
+            width: 100%;
+            height: 350px;
+            background: #050609;
+            direction: ltr;
         }
 
-        .form-group label { 
-            font-size: 0.72rem; 
-            color: var(--text-muted); 
-            display: block; 
-            margin-bottom: 4px; 
+        @media(min-width: 1024px) {
+            .chart-wrapper { height: 100%; min-height: 280px; }
         }
 
+        .form-group { margin-bottom: 10px; }
+        .form-group label { font-size: 0.72rem; color: var(--text-muted); display: block; margin-bottom: 4px; }
         .form-group input { 
-            width: 100%; 
-            padding: 8px; 
-            background: var(--bg-input); 
-            border: 1px solid var(--border-color); 
-            color: var(--text-white); 
-            border-radius: 4px; 
-            font-family: 'Tajawal'; 
-            outline: none; 
-            font-size: 0.82rem; 
-            transition: border-color 0.2s;
+            width: 100%; padding: 10px; background: var(--bg-input); border: 1px solid var(--border-color); 
+            color: var(--text-white); border-radius: 4px; font-family: 'Tajawal'; outline: none; font-size: 0.85rem; 
         }
 
-        .form-group input:focus {
-            border-color: var(--tv-blue);
-        }
+        .lev-slider { display: flex; justify-content: space-between; gap: 6px; margin: 6px 0; }
+        .lev-badge { flex: 1; font-size: 0.75rem; text-align: center; background: var(--bg-panel); padding: 8px; border-radius: 4px; cursor: pointer; border: 1px solid transparent; }
+        .lev-badge.active-lev { border-color: var(--gold-color); color: #fff; background: #0e111a; }
 
-        .lev-slider { 
-            display: flex; 
-            justify-content: space-between; 
-            gap: 4px; 
-            margin: 6px 0; 
-        }
-
-        .lev-badge { 
-            flex: 1; 
-            font-size: 0.7rem; 
-            text-align: center; 
-            background: var(--bg-panel); 
-            padding: 5px; 
-            border-radius: 3px; 
-            cursor: pointer; 
-            border: 1px solid transparent; 
-            transition: all 0.2s;
-        }
-
-        .lev-badge.active-lev { 
-            border-color: var(--gold-color); 
-            color: #fff; 
-            background: #0d0d14;
-        }
-
-        .btn-action { 
-            width: 100%; 
-            padding: 10px; 
-            border: none; 
-            border-radius: 4px; 
-            font-family: 'Tajawal'; 
-            font-weight: bold; 
-            font-size: 0.85rem; 
-            cursor: pointer; 
-            color: #fff; 
-            margin-top: 5px; 
-            transition: filter 0.2s;
-        }
-
-        .btn-action:hover {
-            filter: brightness(1.15);
-        }
-
+        .btn-action { width: 100%; padding: 12px; border: none; border-radius: 4px; font-family: 'Tajawal'; font-weight: bold; font-size: 0.88rem; cursor: pointer; color: #fff; margin-top: 8px; }
         .btn-buy { background: var(--tv-green); }
         .btn-sell { background: var(--tv-red); }
 
-        .portfolio-stat { 
-            display: flex; 
-            justify-content: space-between; 
-            padding: 8px 0; 
-            border-bottom: 1px solid #08090d; 
-            font-size: 0.8rem; 
-        }
+        .portfolio-stat { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #12151c; font-size: 0.82rem; }
+        .sentiment-bar-bg { width: 100%; height: 5px; background: var(--tv-red); border-radius: 3px; overflow: hidden; margin-top: 8px; display: flex; }
+        .sentiment-fill-buy { height: 100%; background: var(--tv-green); width: 68%; }
 
-        .sentiment-bar-bg { 
-            width: 100%; 
-            height: 4px; 
-            background: var(--tv-red); 
-            border-radius: 2px; 
-            overflow: hidden; 
-            margin-top: 6px; 
-            display: flex; 
-        }
+        .matrix-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; text-align: right; }
+        .matrix-table th { padding: 10px 6px; color: var(--text-muted); border-bottom: 1px solid var(--border-color); }
+        .matrix-table td { padding: 10px 6px; border-bottom: 1px solid #080a0f; color: var(--text-white); }
 
-        .sentiment-fill-buy { 
-            height: 100%; 
-            background: var(--tv-green); 
-            width: 65%; 
-            transition: width 0.5s ease;
-        }
+        /* قووڵایی بازاڕ */
+        .orderbook-row { display: flex; justify-content: space-between; font-size: 11px; padding: 5px 6px; position: relative; }
+        .orderbook-fill-buy { position: absolute; right: 0; top: 0; bottom: 0; background: var(--tv-green-dim); z-index: 1; }
+        .orderbook-fill-sell { position: absolute; left: 0; top: 0; bottom: 0; background: var(--tv-red-dim); z-index: 1; }
+        .orderbook-text { position: relative; z-index: 2; width: 100%; display: flex; justify-content: space-between; }
 
-        .matrix-table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            font-size: 0.78rem; 
-            text-align: right; 
-        }
-
-        .matrix-table th { 
-            padding: 8px 6px; 
-            color: var(--text-muted); 
-            border-bottom: 1px solid var(--border-color); 
-            font-weight: 500;
-        }
-
-        .matrix-table td { 
-            padding: 8px 6px; 
-            border-bottom: 1px solid #06070a; 
-            color: var(--text-white); 
-        }
-
-        .terminal-chat-wrapper { 
-            display: flex; 
-            flex-direction: column; 
-            height: 100%; 
-        }
-
-        .chat-history-area { 
-            flex: 1; 
-            overflow-y: auto; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 6px; 
-            padding-bottom: 40px; 
-        }
-
-        .chat-bubble { 
-            padding: 8px 12px; 
-            border-radius: 5px; 
-            max-width: 85%; 
-            font-size: 0.8rem; 
-            line-height: 1.4;
-        }
-
-        .chat-bubble.system-reply { 
-            background: #07090e; 
-            color: #ccced6; 
-            align-self: flex-start; 
-            border: 1px solid #10141f; 
-        }
-
-        .chat-bubble.user-query { 
-            background: #13151c; 
-            color: var(--text-white); 
-            align-self: flex-end; 
-        }
-
-        .chat-input-row { 
-            display: flex; 
-            gap: 4px; 
-            position: absolute; 
-            bottom: 0; 
-            width: 100%; 
-            background: var(--bg-card); 
-            padding-top: 5px; 
-        }
-
-        .chat-input-row input { 
-            flex: 1; 
-            padding: 8px; 
-            background: var(--bg-input); 
-            border: 1px solid var(--border-color); 
-            color: #fff; 
-            border-radius: 4px; 
-            outline: none; 
-            font-family: 'Tajawal'; 
-        }
-
-        .chat-input-row button { 
-            background: var(--tv-blue); 
-            border: none; 
-            color: #fff; 
-            padding: 0 12px; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            font-family: 'Tajawal';
-            font-size: 0.8rem;
-        }
-
-        .journal-textarea { 
-            width: 100%; 
-            height: 50px; 
-            background: var(--bg-input); 
-            border: 1px solid var(--border-color); 
-            color: #fff; 
-            padding: 7px; 
-            border-radius: 4px; 
-            font-family: 'Tajawal'; 
-            resize: none; 
-            outline: none; 
-            font-size: 0.78rem; 
-        }
-
-        .quran-premium-card { 
-            background: #010102; 
-            border: 1px solid #13100a; 
-            padding: 10px; 
-            border-radius: 4px; 
-            text-align: center; 
-            margin-bottom: 8px; 
-        }
-
-        .quran-ayat { 
-            font-family: 'Amiri', serif; 
-            color: var(--gold-color); 
-            font-size: 1.15rem; 
-        }
-
-        .toast-container { 
-            position: fixed; 
-            bottom: 15px; 
-            left: 15px; 
-            z-index: 10000; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 5px; 
-        }
-
-        .toast-box { 
-            background: #050508; 
-            border: 1px solid var(--tv-blue); 
-            color: #fff; 
-            padding: 10px 14px; 
-            border-radius: 4px; 
-            font-size: 0.78rem; 
-            transform: translateX(-160%); 
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        }
-
-        .toast-box.show-toast { 
-            transform: translateX(0); 
-        }
-
-        .interactive-row { 
-            display: flex; 
-            justify-content: space-between; 
-            padding: 9px 10px; 
-            border-bottom: 1px solid #050608; 
-            font-size: 0.82rem; 
-            cursor: pointer; 
-            transition: background 0.15s;
-        }
-
-        .interactive-row:hover { 
-            background: var(--bg-panel); 
-        }
-
-        .speed-indicator { 
-            display: flex; 
-            justify-content: space-between; 
-            font-size: 0.68rem; 
-            color: var(--text-muted); 
-            margin-top: 6px; 
-            border-top: 1px solid var(--border-color); 
-            padding-top: 6px; 
-        }
+        .terminal-chat-wrapper { display: flex; flex-direction: column; height: 250px; position: relative; }
+        @media(min-width: 1024px) { .terminal-chat-wrapper { height: 100%; } }
         
-        .tf-bar { 
-            display: flex; 
-            gap: 5px; 
-        }
+        .chat-history-area { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; padding-bottom: 45px; }
+        .chat-bubble { padding: 8px 12px; border-radius: 5px; max-width: 85%; font-size: 0.8rem; line-height: 1.4; }
+        .chat-bubble.system-reply { background: #090b11; color: #ccced6; align-self: flex-start; border: 1px solid #141926; }
+        .chat-bubble.user-query { background: #171b26; color: var(--text-white); align-self: flex-end; }
 
-        .tf-btn { 
-            background: #111; 
-            border: 1px solid #222; 
-            color: #777; 
-            font-size: 10px; 
-            padding: 3px 7px; 
-            border-radius: 3px; 
-            cursor: pointer; 
-        }
+        .chat-input-row { display: flex; gap: 4px; position: absolute; bottom: 0; width: 100%; background: var(--bg-card); padding-top: 5px; }
+        .chat-input-row input { flex: 1; padding: 10px; background: var(--bg-input); border: 1px solid var(--border-color); color: #fff; border-radius: 4px; outline: none; font-family: 'Tajawal'; }
+        .chat-input-row button { background: var(--tv-blue); border: none; color: #fff; padding: 0 15px; border-radius: 4px; cursor: pointer; font-family: 'Tajawal'; }
 
-        .tf-btn.active { 
-            color: var(--tv-blue); 
-            border-color: var(--tv-blue); 
-        }
+        .journal-textarea { width: 100%; height: 50px; background: var(--bg-input); border: 1px solid var(--border-color); color: #fff; padding: 8px; border-radius: 4px; font-family: 'Tajawal'; resize: none; outline: none; font-size: 0.8rem; }
+        .quran-premium-card { background: #010102; border: 1px solid #14110a; padding: 10px; border-radius: 4px; text-align: center; }
+        .quran-ayat { font-family: 'Amiri', serif; color: var(--gold-color); font-size: 1.1rem; }
 
-        /* بەشی نوێی لۆگەری ناوەکی */
-        .logger-container {
-            background: #020203;
-            border: 1px solid var(--border-color);
-            font-family: monospace;
-            font-size: 11px;
-            color: #5d606b;
-            padding: 6px;
-            height: 75px;
-            overflow-y: auto;
-            border-radius: 4px;
-            margin-top: 8px;
-        }
-
-        .logger-line {
-            margin-bottom: 3px;
-            white-space: nowrap;
-        }
-
+        .logger-container { background: #010204; border: 1px solid var(--border-color); font-family: monospace; font-size: 11px; color: #5d606b; padding: 6px; height: 80px; overflow-y: auto; border-radius: 4px; margin-top: 6px; }
+        .logger-line { margin-bottom: 3px; }
         .log-time { color: var(--tv-blue); }
         .log-success { color: var(--tv-green); }
+        
+        .tf-bar { display: flex; gap: 4px; }
+        .tf-btn { background: #0e1017; border: 1px solid #1c202b; color: #666; font-size: 10px; padding: 4px 8px; border-radius: 3px; cursor: pointer; }
+        .tf-btn.active { color: var(--tv-blue); border-color: var(--tv-blue); }
     </style>
 </head>
 <body>
-
-    <div class="ambient-glow"></div>
-    <div class="toast-container" id="toastArea"></div>
-
-    <audio id="execSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" preload="auto"></audio>
 
     <div class="terminal-container">
         <header>
             <div class="identity-section">
                 <div class="identity-title">SHEX ARYA TERMINAL</div>
-                <div class="badge-pro">QUANTUM TV V10.0 ELITE</div>
+                <div class="badge-pro">QUANTUM MOBILE V12.0 REALISTIC</div>
             </div>
             <div class="header-stats">
-                <div class="stat-item"><div class="stat-dot"></div><span>سێرڤەر: جیهانی پڕۆ</span></div>
-                <div class="stat-item" style="color: var(--gold-color);"><span>لۆد: 0.01ms</span></div>
-                <div class="stat-item"><span>سیستەم: Core Stream Active</span></div>
+                <div class="stat-item"><div class="stat-dot"></div><span>سێرڤەر: ئۆپتۆمایزکراو</span></div>
+                <div class="stat-item" style="color: var(--gold-color);"><span>لۆد: 0.005ms</span></div>
+                <div class="system-clock" id="liveClock">00:00:00</div>
             </div>
-            <div class="system-clock" id="liveClock">00:00:00</div>
         </header>
 
         <main class="workspace-layout">
-            <!-- ستوونی چەپ: چاودێری و حیساباتی پێشکەوتوو -->
-            <div style="display: flex; flex-direction: column; gap: 10px; height: 100%;">
-                <div class="module-box" style="flex: 1.2;">
-                    <div class="module-header">📋 داتای بۆڕسەی جیهانی لایڤ</div>
+            
+            <!-- ستوونی یەکەم: بەڕێوەبردنی گشتی و سەرمایە -->
+            <div class="column-side">
+                <div class="module-box">
+                    <div class="module-header">📋 ماتریکسی نرخ و سەرمایە</div>
                     <div class="module-body" style="padding: 0;">
-                        <div class="interactive-row" onclick="globalAssetSwitch('FX_IDC:XAUUSD', 'زێڕ')"><span>🟡 زێڕ (XAUUSD)</span><span id="live-gold-badge" style="color:var(--tv-green); font-weight:700;">Loading...</span></div>
-                        <div class="interactive-row" onclick="globalAssetSwitch('FX_IDC:XAGUSD', 'زیو')"><span>⚪ زیو (XAGUSD)</span><span id="live-silver-badge" style="color:var(--tv-red);">Loading...</span></div>
-                        <div class="interactive-row" onclick="globalAssetSwitch('BITSTAMP:BTCUSD', 'بیتکۆین')"><span>🔵 بیتکۆین (BTC)</span><span id="live-btc-badge" style="color:var(--tv-green); font-weight:700;">Loading...</span></div>
-                        <div class="interactive-row" onclick="globalAssetSwitch('FX:EURUSD', 'یۆرۆ/دۆلار')"><span>🇪🇺 یۆرۆ (EURUSD)</span><span id="live-eur-badge" style="color:var(--text-main);">Loading...</span></div>
+                        <div class="interactive-row" onclick="globalAssetSwitch('FX_IDC:XAUUSD', 'زێڕ')"><span style="padding: 10px; display:inline-block;">🟡 زێڕ (XAUUSD)</span><span id="live-gold-badge" style="color:var(--tv-green); font-weight:700; padding:10px;">Loading...</span></div>
+                        <div class="interactive-row" onclick="globalAssetSwitch('FX_IDC:XAGUSD', 'زیو')"><span style="padding: 10px; display:inline-block;">⚪ زیو (XAGUSD)</span><span id="live-silver-badge" style="color:var(--tv-red); padding:10px;">Loading...</span></div>
+                        <div class="interactive-row" onclick="globalAssetSwitch('BITSTAMP:BTCUSD', 'بیتکۆین')"><span style="padding: 10px; display:inline-block;">🔵 بیتکۆین (BTC)</span><span id="live-btc-badge" style="color:var(--tv-green); font-weight:700; padding:10px;">Loading...</span></div>
                         
-                        <div style="padding: 10px; border-top: 1px solid var(--border-color); margin-top: 3px;">
+                        <div style="padding: 12px; border-top: 1px solid var(--border-color);">
                             <div class="portfolio-stat"><span>سەرمایەی گشتی:</span><span style="color:#fff; font-weight:bold;">$25,430.00</span></div>
-                            <div class="portfolio-stat"><span>مارجینی بەکارهاتوو:</span><span id="marginUsage" style="color:var(--gold-color); font-weight:bold;">$0.00</span></div>
-                            <div class="portfolio-stat"><span>قازانج/زیانی لایڤ (PnL):</span><span id="livePnL" style="color:var(--tv-green); font-weight:bold;">+$1,240.50</span></div>
-                            <div style="margin-top: 6px;">
-                                <div class="sentiment-bar-bg"><div class="sentiment-fill-buy" id="sentimentBar"></div></div>
-                            </div>
+                            <div class="portfolio-stat"><span>مارجینی بەکارهاتوو:</span><span id="marginUsage" style="color:var(--gold-color); font-weight:bold;">$200.00</span></div>
+                            <div class="portfolio-stat"><span>قازانج/زیانی لایڤ (PnL):</span><span id="livePnL" style="color:var(--tv-green); font-weight:bold;">+$1,245.56</span></div>
+                            <div class="sentiment-bar-bg"><div class="sentiment-fill-buy"></div></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="module-box" style="flex: 1.4;">
-                    <div class="module-header">🧮 کۆنترۆڵ و حیسابکەری سەرکێشی</div>
+                <div class="module-box">
+                    <div class="module-header">🧮 کۆنترۆڵ و سەرکێشی</div>
                     <div class="module-body">
                         <div class="form-group">
                             <label>قەبارەی فەرمان (Lot Size)</label>
-                            <input type="number" id="lotSize" value="0.10" oninput="runLiveRiskCalc()">
+                            <input type="number" id="lotSize" value="0.10">
                         </div>
                         <div class="form-group">
                             <label>لیڤەرەیج (Leverage Mode)</label>
                             <div class="lev-slider">
-                                <div class="lev-badge" onclick="setLev(this, 20)">1:20</div>
-                                <div class="lev-badge active-lev" onclick="setLev(this, 50)">1:50</div>
-                                <div class="lev-badge" onclick="setLev(this, 100)">1:100</div>
+                                <div class="lev-badge">1:20</div>
+                                <div class="lev-badge active-lev">1:50</div>
+                                <div class="lev-badge">1:100</div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>ڕاگرتنی زیان (Stop Loss - Pips/Price)</label>
-                            <input type="number" id="stopL" value="2330" oninput="runLiveRiskCalc()">
+                            <label>ڕاگرتنی زیان (Stop Loss)</label>
+                            <input type="number" id="stopL" value="2330">
                         </div>
-                        <div class="form-group">
-                            <label>قازانجی مەزەندەکراو (Take Profit)</label>
-                            <input type="number" id="takeP" value="2400" oninput="runLiveRiskCalc()">
-                        </div>
-                        
-                        <!-- پانێڵی تێبینی حیساباتی سەرکێشی ناوەکی -->
-                        <div style="background:#020203; padding:6px; border-radius:4px; font-size:11px; margin-bottom:8px; border:1px solid #0f1115;">
-                            <div style="display:flex; justify-content:space-between; margin-bottom:2px;"><span>مەترسی دۆلار:</span><span id="riskCash" style="color:var(--tv-red); font-weight:bold;">$0.00</span></div>
-                            <div style="display:flex; justify-content:space-between;"><span>ڕێژەی Risk/Reward:</span><span id="rrRatio" style="color:var(--gold-color);">1:2.3</span></div>
-                        </div>
-
                         <button class="btn-action btn-buy" onclick="triggerOrder('BUY')">ناردنی فەرمانی کڕین</button>
                         <button class="btn-action btn-sell" onclick="triggerOrder('SELL')">ناردنی فەرمانی فرۆشتن</button>
                     </div>
                 </div>
             </div>
 
-            <!-- ستوونی ناوەڕاست: چارتەکان و ماتریکسی گشتی بۆڕسە -->
+            <!-- ستوونی ناوەڕاست: چارتە فەرمییەکانی تڕەیادینگ ڤیو (TradingView Live Charts) -->
             <div class="center-charts-axis">
                 <div class="module-box">
                     <div class="module-header">
                         <span id="activeChartTitle">📈 چارتی سەرەکی - زێڕ (XAUUSD)</span>
                         <div class="tf-bar">
                             <button class="tf-btn active" onclick="changeTimeframe('D')">1D</button>
-                            <button class="tf-btn" onclick="changeTimeframe('240')">4H</button>
                             <button class="tf-btn" onclick="changeTimeframe('60')">1H</button>
-                            <button class="tf-btn" onclick="changeTimeframe('15')">15M</button>
                         </div>
                     </div>
-                    <div class="module-body" style="padding:0; direction:ltr;">
-                        <div id="tv_chart_upper_container" style="width:100%; height:100%;"></div>
+                    <div class="module-body" style="padding:0;">
+                        <!-- لێرە چارتی فەرمی و زوومکراو بەبێ هەڵە جێگیر دەبێت -->
+                        <div class="chart-wrapper" id="tv_chart_upper_container"></div>
                     </div>
                 </div>
 
                 <div class="module-box">
-                    <div class="module-header">🌐 ستریمی پاكی جیهانی (TradingView Core Feed)</div>
-                    <div class="module-body" style="padding:0; direction:ltr;">
-                        <div id="tv_chart_lower_container" style="width:100%; height:100%;"></div>
-                    </div>
-                    
-                    <div style="background: var(--bg-panel); border-top: 1px solid var(--border-color); padding: 6px 12px;">
-                        <table class="matrix-table">
-                            <thead>
-                                <tr>
-                                    <th>ئامرازی بازاڕ</th>
-                                    <th>نرخی جیهانی</th>
-                                    <th>گۆڕانکاری ($)</th>
-                                    <th>ڕێژە (%)</th>
-                                    <th>مەزەندە</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td style="color:#fff; font-weight:bold;">XAUUSD (زێڕ)</td>
-                                    <td id="tbl-gold-val">$2361.20</td>
-                                    <td id="tbl-gold-p" style="color:var(--tv-green);">+$11.50</td>
-                                    <td id="tbl-gold-pct" style="color:var(--tv-green); font-weight:bold;">+0.45%</td>
-                                    <td><span style="background:rgba(8,153,129,0.1); color:var(--tv-green); padding:2px 6px; border-radius:3px; font-size:10px;">BULLISH</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="color:#fff; font-weight:bold;">XAGUSD (زیو)</td>
-                                    <td id="tbl-silver-val">$29.40</td>
-                                    <td id="tbl-silver-p" style="color:var(--tv-red);">-$0.04</td>
-                                    <td id="tbl-silver-pct" style="color:var(--tv-red); font-weight:bold;">-0.12%</td>
-                                    <td><span style="background:rgba(242,54,69,0.1); color:var(--tv-red); padding:2px 6px; border-radius:3px; font-size:10px;">BEARISH</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="module-header">🌐 ستریمی پاكی جیهانی (Secondary Feed)</div>
+                    <div class="module-body" style="padding:0;">
+                        <div class="chart-wrapper" id="tv_chart_lower_container"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- ستوونی ڕاست: ماتریکسی ئاماژەکان، ڕووداوەکان و چات -->
-            <div style="display: flex; flex-direction: column; gap: 10px; height: 100%;">
-                <div class="module-box" style="flex: 0.9;">
+            <!-- ستوونی سێیەم: داتای قووڵایی، لۆگەر و چات -->
+            <div class="column-side">
+                <div class="module-box">
+                    <div class="module-header">📊 قووڵایی بازاڕ (Order Book)</div>
+                    <div class="module-body" style="padding: 6px 0;">
+                        <div id="asksContainer"></div>
+                        <div style="text-align:center; padding:4px 0; font-size:11px; background:#0b0d14; color:#fff; margin:4px 0;">Spread: <span style="color:var(--gold-color);">0.15</span></div>
+                        <div id="bidsContainer"></div>
+                    </div>
+                </div>
+
+                <div class="module-box">
                     <div class="quran-premium-card">
-                        <div class="quran-ayat">وَرَحْمَتِي وَسِعَتْ كُلَّ شَيْءٍ</div>
-                    </div>
-                    <div class="module-header">⚡ ماتریکسی حیساباتی ئاماژە لایڤەکان</div>
-                    <div class="module-body" style="padding:4px;">
-                        <table class="matrix-table">
-                           <thead><tr><th>ئامراز</th><th>بەها</th><th>بڕیار</th></tr></thead>
-                           <tbody>
-                               <tr><td>RSI (14)</td><td id="m-rsi">55.20</td><td>NEUTRAL</td></tr>
-                               <tr><td>MACD Quant</td><td id="m-macd">14.20</td><td style="color:var(--tv-green); font-weight:bold;">BUY</td></tr>
-                               <tr><td>Stochastic</td><td id="m-stoch">81.40</td><td style="color:var(--tv-red); font-weight:bold;">OVERBOUGHT</td></tr>
-                           </tbody>
-                        </table>
-                        <div class="speed-indicator">
-                            <span>پینگ سێرڤەر: <span style="color:var(--tv-green);">خێرا</span></span>
-                            <span id="pingBox">Ping: 12ms</span>
-                        </div>
+                        <div class="quran-ayat">وَرَحْمَتِي وَسِعَت * كُلَّ شَيْءٍ</div>
                     </div>
                 </div>
 
-                <!-- بەشی نوێ: ڕۆژژمێری ئابووری جیهانی (Economic Calendar) -->
-                <div class="module-box" style="flex: 0.7;">
-                    <div class="module-header">📅 ڕۆژژمێری ئابووری گرنگ (لایڤ)</div>
-                    <div class="module-body" style="padding:4px;">
-                        <table class="matrix-table" style="font-size:11px;">
-                            <thead>
-                                <tr><th>کات</th><th>دراو</th><th>ڕووداو</th><th>کاریگەری</th></tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>15:30</td><td>USD</td><td>CPI YoY Core</td><td><span style="color:var(--tv-red); font-weight:bold;">High 🔥</span></td></tr>
-                                <tr><td>18:00</td><td>EUR</td><td>ECB Press Conf</td><td><span style="color:var(--gold-color);">Medium ⚡</span></td></tr>
-                                <tr><td>21:00</td><td>USD</td><td>FOMC Minutes</td><td><span style="color:var(--tv-red); font-weight:bold;">High 🔥</span></td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="module-box" style="flex: 0.7;">
-                    <div class="module-header">📊 مێژووی فەرمانە جێبەجێکراوەکان</div>
-                    <div class="module-body" style="padding:0;">
-                        <table class="matrix-table" id="ordersTable">
-                            <thead><tr><th>جۆر</th><th>قەبارە</th><th>نرخ</th><th>دۆخ</th></tr></thead>
-                            <tbody>
-                                <tr><td style="color:var(--tv-green);">BUY</td><td>0.10 Lot</td><td>$2355.00</td><td style="color:var(--tv-green);">Open</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="module-box" style="flex: 1.2;">
+                <div class="module-box">
                     <div class="module-header">⚫ Workspace Chat Terminal</div>
                     <div class="module-body terminal-chat-wrapper">
                         <div class="chat-history-area" id="chatScroller">
-                            <div class="chat-bubble system-reply">شێخ ئەریا، سیستەمی کوانتۆم ماتریکس بێ کێشەیە و داتای بۆڕسەی فەرمی بەستراوە.</div>
+                            <div class="chat-bubble system-reply">شێخ ئەریا، سیستەمی لایف وەڵامگۆیە، چارتەکان بۆ مۆبایل جێگیرکران.</div>
                         </div>
                         <div class="chat-input-row">
-                            <input type="text" id="chatInput" placeholder="نامەیەک بنووسە..." onkeypress="if(event.key==='Enter') sendTerminalMsg()">
+                            <input type="text" id="chatInput" placeholder="نامەیەک بنووسە...">
                             <button onclick="sendTerminalMsg()">ناردن</button>
                         </div>
                     </div>
-                    <div class="module-header" style="border-top:1px solid var(--border-color);">📝 یاداشتنامە و لۆگەری سیستەم</div>
+                    <div class="module-header" style="border-top:1px solid var(--border-color);">📝 لۆگەری ناوەکی مۆبایل</div>
                     <div class="module-body" style="padding:6px;">
-                        <textarea class="journal-textarea" id="journalBox" placeholder="تێبینی خێرا..." oninput="saveJournal()"></textarea>
-                        
-                        <!-- سیستەمی لۆگەری فەرمی بۆڕسە -->
+                        <textarea class="journal-textarea" placeholder="تێبینی خێرا..."></textarea>
                         <div class="logger-container" id="terminalLogger">
-                            <div class="logger-line"><span class="log-time">[19:45:01]</span> <span class="log-success">سیستەمی کوانتۆم بە سەرکەوتوویی جێگیرکرا.</span></div>
-                            <div class="logger-line"><span class="log-time">[19:45:02]</span> بەستنەوە بە سێرڤەری لایڤی TradingView ئەنجامدرا.</div>
+                            <div class="logger-line"><span class="log-time">[19:50:00]</span> <span class="log-success">سیستەمی مۆبایل ئۆپتۆمایز کرا.</span></div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </main>
     </div>
 
+    <!-- بارکردنی سکریپتی فەرمی ترەیدین ڤیو بۆ نیشاندانی دروستی چارتەکان -->
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <script>
         let currentSymbol = "FX_IDC:XAUUSD";
         let currentTimeframe = "D";
-        let currentLeverage = 50;
-        let upperWidget = null;
 
-        // کاتژمێری سیستەم
         setInterval(() => {
             document.getElementById('liveClock').innerText = new Date().toLocaleTimeString();
         }, 1000);
 
-        // سیستەمی ناردنی لۆگ بۆ تێرمیناڵ
-        function pushLog(message, isSuccess = false) {
-            const logger = document.getElementById('terminalLogger');
-            const timeStr = new Date().toLocaleTimeString();
-            const logLine = document.createElement('div');
-            logLine.className = 'logger-line';
-            logLine.innerHTML = `<span class="log-time">[${timeStr}]</span> <span class="${isSuccess ? 'log-success' : ''}">${message}</span>`;
-            logger.appendChild(logLine);
-            logger.scrollTop = logger.scrollHeight;
-        }
-
-        // سیستەمی نۆتیفیکەیشنی گرافیکی نوێ
-        function showNotification(text) {
-            const container = document.getElementById('toastArea');
-            const toast = document.createElement('div');
-            toast.className = 'toast-box';
-            toast.innerHTML = `🌟 <span>${text}</span>`;
-            container.appendChild(toast);
-            setTimeout(() => toast.classList.add('show-toast'), 50);
-            setTimeout(() => {
-                toast.classList.remove('show-toast');
-                setTimeout(() => toast.remove(), 2500);
-            }, 2500);
-        }
-
-        // بارکردنی چارتی سەرەکی جیهانی
-        function loadUpperChart(symbol, tf) {
-            upperWidget = new TradingView.widget({
+        function loadCharts() {
+            // چارتی یەکەم
+            new TradingView.widget({
                 "width": "100%",
                 "height": "100%",
-                "symbol": symbol,
-                "interval": tf,
+                "symbol": currentSymbol,
+                "interval": currentTimeframe,
                 "timezone": "Asia/Baghdad",
                 "theme": "dark",
                 "style": "1",
                 "locale": "en",
                 "container_id": "tv_chart_upper_container",
-                "backgroundColor": "#040406",
-                "gridColor": "#111318",
-                "withdateranges": false,
+                "backgroundColor": "#050609",
+                "gridColor": "#12151c",
                 "hide_side_toolbar": true,
                 "allow_symbol_change": false,
-                "save_image": false,
-                "studies": []
+                "save_image": false
             });
-        }
 
-        // گۆڕینی ئامرازی دارایی لە سەرانسەری تێرمیناڵ
-        function globalAssetSwitch(symbol, kurdishName) {
-            currentSymbol = symbol;
-            document.getElementById('activeChartTitle').innerText = `📈 چارتی سەرەکی - ${kurdishName}`;
-            loadUpperChart(currentSymbol, currentTimeframe);
-            showNotification(`چارتی سەرەکی گۆڕدرا بۆ داتای فەرمی ${kurdishName}`);
-            pushLog(`ئامرازی بازاڕ گۆڕدرا بۆ: ${symbol}`, true);
-        }
-
-        // گۆڕینی تایم فڕێم بە شێوەی ڕەسەن
-        function changeTimeframe(tf) {
-            currentTimeframe = tf;
-            document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
-            if(event && event.target) {
-                event.target.classList.add('active');
-            }
-            loadUpperChart(currentSymbol, currentTimeframe);
-            showNotification(`تایم فڕێم گۆڕدرا بۆ ${tf}`);
-            pushLog(`تایم فڕێمی چارت گۆڕدرا بۆ: ${tf}`);
-        }
-
-        // جێگیرکردنی لیڤەرەیج و حیسابکردنی سەرکێشی
-        function setLev(element, value) {
-            currentLeverage = value;
-            document.querySelectorAll('.lev-badge').forEach(b => b.classList.remove('active-lev'));
-            element.classList.add('active-lev');
-            runLiveRiskCalc();
-            showNotification(`لیڤەرەیج گۆڕدرا بۆ 1:${value}`);
-            pushLog(`لیڤەرەیجی گۆڕدرا بۆ: 1:${value}`);
-        }
-
-        // ناردنی فەرمانی لایڤ بۆ خشتەکە لەگەڵ دەنگ
-        function triggerOrder(type) {
-            try {
-                document.getElementById('execSound').play();
-            } catch(e) { console.log("Audio play delayed"); }
-
-            const lot = document.getElementById('lotSize').value;
-            const table = document.getElementById('ordersTable').getElementsByTagName('tbody')[0];
-            const newRow = table.insertRow(0);
-            
-            newRow.innerHTML = `
-                <td style="color:${type==='BUY'?'var(--tv-green)':'var(--tv-red)'}">${type}</td>
-                <td>${lot} Lot</td>
-                <td>Market Price</td>
-                <td style="color:var(--tv-green);">Open</td>
-            `;
-            showNotification(`فەرمانی ${type} بە داتای بۆڕسەی فەرمی نێردرا`);
-            pushLog(`فەرمانی مارکێت جێبەجێکرا: ${type} ${lot} لۆت`, true);
-        }
-
-        // ماتریکسی حیساباتی پێشکەوتووی سەرکێشی و مارجین
-        function runLiveRiskCalc() {
-            const lot = parseFloat(document.getElementById('lotSize').value) || 0;
-            const slPrice = parseFloat(document.getElementById('stopL').value) || 0;
-            const tpPrice = parseFloat(document.getElementById('takeP').value) || 0;
-            
-            // حیسابکردنی مارجین
-            const margin = (lot * 100000) / currentLeverage;
-            document.getElementById('marginUsage').innerText = `$${margin.toFixed(2)}`;
-
-            // مەزەندەکردنی سەرکێشی دۆلار (بۆ نموونە لەسەر زێڕ)
-            const approxRisk = lot * Math.abs(2360 - slPrice) * 100;
-            document.getElementById('riskCash').innerText = `$${approxRisk.toFixed(2)}`;
-
-            // حیسابکردنی ڕێژەی ڕیسک بۆ ڕیوارد
-            const riskDistance = Math.abs(2360 - slPrice);
-            const rewardDistance = Math.abs(tpPrice - 2360);
-            if(riskDistance > 0) {
-                const ratio = (rewardDistance / riskDistance).toFixed(1);
-                document.getElementById('rrRatio').innerText = `1:${ratio}`;
-            }
-        }
-
-        // سیمیولەیشنی لایڤی گۆڕانکاری نرخەکانی بۆڕسەی جیهانی بە چرکە
-        setInterval(() => {
-            let baseGold = 2361.20 + (Math.random() - 0.5) * 1.8;
-            let baseSilver = 29.40 + (Math.random() - 0.5) * 0.12;
-            let baseBtc = 69800 + (Math.random() - 0.5) * 45;
-            let baseEur = 1.0852 + (Math.random() - 0.5) * 0.0004;
-
-            if(document.getElementById('live-gold-badge')) {
-                document.getElementById('live-gold-badge').innerText = `$${baseGold.toFixed(2)}`;
-                document.getElementById('live-silver-badge').innerText = `$${baseSilver.toFixed(2)}`;
-                document.getElementById('live-btc-badge').innerText = `$${baseBtc.toFixed(2)}`;
-                document.getElementById('live-eur-badge').innerText = `$${baseEur.toFixed(4)}`;
-
-                document.getElementById('tbl-gold-val').innerText = `$${baseGold.toFixed(2)}`;
-                document.getElementById('tbl-silver-val').innerText = `$${baseSilver.toFixed(2)}`;
-                
-                // گۆڕینی داینامیکی بەهاکانی ماتریکسی ئاماژەکان
-                let pnl = 1240 + (Math.random() - 0.5) * 15;
-                document.getElementById('livePnL').innerText = `+$${pnl.toFixed(2)}`;
-                document.getElementById('m-rsi').innerText = (52 + Math.random() * 8).toFixed(2);
-                document.getElementById('m-stoch').innerText = (78 + Math.random() * 4).toFixed(2);
-                document.getElementById('pingBox').innerText = `Ping: ${Math.floor(9 + Math.random() * 6)}ms`;
-            }
-        }, 1000);
-
-        // پاشەکەوتکردنی یاداشت لە ناو کڵایەنت
-        function saveJournal() { 
-            localStorage.setItem('shex_j_v10', document.getElementById('journalBox').value); 
-        }
-        
-        if(localStorage.getItem('shex_j_v10')) { 
-            document.getElementById('journalBox').value = localStorage.getItem('shex_j_v10'); 
-        }
-
-        // سیستەمی وەڵامدانەوەی لایڤی چاتی تێرمیناڵ
-        function sendTerminalMsg() {
-            const input = document.getElementById('chatInput');
-            const box = document.getElementById('chatScroller');
-            if(input.value.trim() !== "") {
-                box.innerHTML += `<div class="chat-bubble user-query">${input.value}</div>`;
-                const userTxt = input.value;
-                input.value = ''; 
-                box.scrollTop = box.scrollHeight;
-                
-                pushLog(`پەیامی نوێ نێردرا بۆ چات: ${userTxt.substring(0,20)}...`);
-
-                setTimeout(() => { 
-                    box.innerHTML += `<div class="chat-bubble system-reply">فەرمانت بە سەرچاو شێخ ئەریا، ماتریکسی گشتی نوێکرایەوە.</div>`; 
-                    box.scrollTop = box.scrollHeight; 
-                }, 600);
-            }
-        }
-
-        // بارکردنی سەرەتایی کاتێک ماڵپەڕەکە دەکرێتەوە
-        window.addEventListener('DOMContentLoaded', () => {
-            loadUpperChart(currentSymbol, currentTimeframe);
-            runLiveRiskCalc();
-            pushLog("هەموو مۆدیولەکانی کۆنترۆڵ ئامادەن.");
-
-            // ویدمجی چارتەکەی خوارەوە (OANDA Live Core)
+            // چارتی دووەم
             new TradingView.widget({
                 "width": "100%",
                 "height": "100%",
@@ -918,14 +367,66 @@
                 "style": "1",
                 "locale": "en",
                 "container_id": "tv_chart_lower_container",
-                "backgroundColor": "#040406",
-                "gridColor": "#111318",
-                "withdateranges": false,
+                "backgroundColor": "#050609",
+                "gridColor": "#12151c",
                 "hide_side_toolbar": true,
-                "allow_symbol_change": false,
-                "save_image": false,
-                "studies": []
+                "allow_symbol_change": false
             });
+        }
+
+        function globalAssetSwitch(symbol, name) {
+            currentSymbol = symbol;
+            document.getElementById('activeChartTitle').innerText = `📈 چارتی سەرەکی - ${name}`;
+            loadCharts();
+        }
+
+        function changeTimeframe(tf) {
+            currentTimeframe = tf;
+            document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
+            if(event) event.target.classList.add('active');
+            loadCharts();
+        }
+
+        function generateOrderBook() {
+            const asks = document.getElementById('asksContainer');
+            const bids = document.getElementById('bidsContainer');
+            if(!asks) return;
+            asks.innerHTML = ''; bids.innerHTML = '';
+            for(let i=1; i<=3; i++) {
+                asks.innerHTML += `<div class="orderbook-row"><div class="orderbook-fill-sell" style="width:${Math.random()*60+10}%;"></div><div class="orderbook-text"><span style="color:var(--tv-red); font-family:monospace;">${(2362.00 + i*0.2).toFixed(2)}</span><span style="font-family:monospace;">${(Math.random()*4).toFixed(2)}</span></div></div>`;
+                bids.innerHTML += `<div class="orderbook-row"><div class="orderbook-fill-buy" style="width:${Math.random()*60+10}%;"></div><div class="orderbook-text"><span style="color:var(--tv-green); font-family:monospace;">${(2361.00 - i*0.2).toFixed(2)}</span><span style="font-family:monospace;">${(Math.random()*4).toFixed(2)}</span></div></div>`;
+            }
+        }
+
+        function sendTerminalMsg() {
+            const input = document.getElementById('chatInput');
+            const box = document.getElementById('chatScroller');
+            if(input.value.trim() !== "") {
+                box.innerHTML += `<div class="chat-bubble user-query">${input.value}</div>`;
+                input.value = '';
+                box.scrollTop = box.scrollHeight;
+                setTimeout(() => {
+                    box.innerHTML += `<div class="chat-bubble system-reply">فەرمانت جێبەجێکرا شێخ ئەریا.</div>`;
+                    box.scrollTop = box.scrollHeight;
+                }, 400);
+            }
+        }
+
+        setInterval(() => {
+            let baseGold = 2362.08 + (Math.random() - 0.5) * 1.5;
+            let baseSilver = 29.43 + (Math.random() - 0.5) * 0.1;
+            let baseBtc = 69794 + (Math.random() - 0.5) * 30;
+            if(document.getElementById('live-gold-badge')) {
+                document.getElementById('live-gold-badge').innerText = `$${baseGold.toFixed(2)}`;
+                document.getElementById('live-silver-badge').innerText = `$${baseSilver.toFixed(2)}`;
+                document.getElementById('live-btc-badge').innerText = `$${baseBtc.toFixed(2)}`;
+            }
+        }, 1000);
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadCharts();
+            generateOrderBook();
+            setInterval(generateOrderBook, 1500);
         });
     </script>
 </body>
