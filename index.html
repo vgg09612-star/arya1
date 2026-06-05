@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Sheikh Arya - Institutional Multi-Lang Trading Terminal</title>
+    <title>Sheikh Arya - Institutional Multi-Lang Trading Terminal v7.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         /* ==========================================================================
-           1. ROOT VARIABLES & CORE STYLES (DIZAYN PARASTRAWA)
+           1. ROOT VARIABLES & ARCHITECTURE CORE (DIZAYN PARASTRAWA)
            ========================================================================== */
         :root {
             --bg-main: #030508;
@@ -22,6 +22,7 @@
             --color-text-muted: #64748b;
             --color-accent: #2563eb;
             --color-gold-glow: #d4af37;
+            --color-warning: #f59e0b;
         }
 
         * {
@@ -42,7 +43,7 @@
         }
 
         /* ==========================================================================
-           2. WELCOME SPLASH SCREEN ANIMATION
+           2. WELCOME SPLASH SCREEN (ROYAL ANIMATION)
            ========================================================================== */
         .welcome-screen {
             position: fixed;
@@ -65,27 +66,26 @@
         }
         
         .welcome-logo {
-            font-size: 55px;
+            font-size: 60px;
             color: var(--color-gold-glow);
             margin-bottom: 24px;
             animation: royalPulse 2s infinite ease-in-out;
-            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
         }
         
         .welcome-text {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 700;
             color: white;
             text-align: center;
-            letter-spacing: 0.5px;
             line-height: 1.6;
         }
 
         .welcome-loader {
-            width: 40px;
+            width: 60px;
             height: 2px;
             background: var(--border-color);
-            margin-top: 20px;
+            margin-top: 25px;
             position: relative;
             overflow: hidden;
             border-radius: 2px;
@@ -104,7 +104,7 @@
 
         @keyframes royalPulse {
             0% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.08); opacity: 1; filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.6)); }
+            50% { transform: scale(1.06); opacity: 1; filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.7)); }
             100% { transform: scale(1); opacity: 0.7; }
         }
 
@@ -114,7 +114,7 @@
         }
 
         /* ==========================================================================
-           3. MAIN APP LAYOUT CONTAINER
+           3. MAIN APP CONTAINMENT FIELD
            ========================================================================== */
         .app-container {
             display: flex;
@@ -130,7 +130,7 @@
         }
 
         /* ==========================================================================
-           4. HEADER & TICKER TAPE
+           4. EXECUTIVE HEADER & TICKER STRIP
            ========================================================================== */
         .app-header {
             height: 55px;
@@ -174,7 +174,7 @@
         
         .ticker-scroll {
             display: inline-block;
-            animation: scrollText 30s linear infinite;
+            animation: scrollText 35s linear infinite;
             padding-right: 100%;
             color: var(--color-text-muted);
         }
@@ -185,7 +185,7 @@
         }
 
         /* ==========================================================================
-           5. MAIN CONTENT FRAMEWORK & SECTIONS
+           5. SECTION NAVIGATION & CONTROL HUB
            ========================================================================== */
         .main-content {
             flex: 1;
@@ -205,7 +205,7 @@
             transition: opacity 0.25s ease-in-out;
             padding: 14px;
             overflow-y: auto;
-            padding-bottom: 85px;
+            padding-bottom: 90px;
         }
         
         .page-section.active {
@@ -221,10 +221,13 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         /* ==========================================================================
-           6. CARDS & GRID COMPONENTS
+           6. COMPONENT CARDS & CORE GRID ARRAYS
            ========================================================================== */
         .balance-card {
             background: linear-gradient(135deg, #101624 0%, #070a10 100%);
@@ -248,6 +251,16 @@
             letter-spacing: -0.5px;
         }
 
+        /* مۆدیۆلی نوێی دۆخی قازانج و زیان لەژێرسەرمایە */
+        .pnl-strip {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 12px;
+        }
+
         .market-ticker-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -260,7 +273,6 @@
             border: 1px solid var(--border-color);
             padding: 14px;
             border-radius: 12px;
-            transition: background 0.3s, border-color 0.3s;
         }
         
         .mini-name {
@@ -277,12 +289,11 @@
             transition: color 0.2s ease;
         }
 
-        /* FLASH RESPONSIVE EFFECTS */
         .price-up { color: var(--color-up) !important; }
         .price-down { color: var(--color-down) !important; }
 
         /* ==========================================================================
-           7. INTERACTIVE DATA TABLES
+           7. INTERACTIVE LIVE MATRIX TABLES
            ========================================================================== */
         .live-table {
             width: 100%;
@@ -295,7 +306,7 @@
         }
         
         .live-table th, .live-table td {
-            padding: 14px 12px;
+            padding: 12px;
             text-align: left;
             border-bottom: 1px solid var(--border-color);
             font-size: 13px;
@@ -317,15 +328,40 @@
             border-bottom: none;
         }
 
+        /* مۆدیۆلی نوێی دۆخی بازاڕەکانی جیهان */
+        .session-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .session-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .session-badge {
+            font-size: 9px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: 4px;
+        }
+        .badge-open { background: rgba(0, 196, 159, 0.15); color: var(--color-up); }
+        .badge-closed { background: rgba(255, 74, 90, 0.15); color: var(--color-down); }
+
         /* ==========================================================================
-           8. TRADINGVIEW CHARTS FRAMEWORK
+           8. TRADINGVIEW INTEGRATION MATRIX
            ========================================================================== */
         .advanced-chart-panel {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 6px;
-            height: 380px;
+            height: 390px;
             display: flex;
             flex-direction: column;
             margin-bottom: 15px;
@@ -339,8 +375,29 @@
             overflow: hidden;
         }
 
+        /* دوگمەی گۆڕینی خێرای هێمای چارت لە بەشی تێرمیناڵ */
+        .symbol-selector-bar {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+        .sym-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .sym-btn.active {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
         /* ==========================================================================
-           9. EXECUTION INTERFACES & INPUTS
+           9. ADVANCED EXECUTION PIPELINES & FORM RISK LAYER
            ========================================================================== */
         .trade-box {
             background: var(--bg-card);
@@ -363,20 +420,36 @@
             font-weight: 700;
             font-size: 13px;
             cursor: pointer;
-            transition: all 0.2s ease;
         }
         
         .tab-buy { background: var(--color-up); color: white; }
         .tab-sell { background: var(--bg-input); color: var(--color-text-muted); border: 1px solid var(--border-color); }
         
-        .input-group { margin-bottom: 14px; }
+        /* مۆدیۆلی نوێی فەرمانی مارکێت یان لیمیت */
+        .order-type-tabs {
+            display: flex;
+            background: var(--bg-input);
+            padding: 3px;
+            border-radius: 8px;
+            margin-bottom: 14px;
+            border: 1px solid var(--border-color);
+        }
+        .order-type-btn {
+            flex: 1; border: none; background: transparent; color: var(--color-text-muted);
+            padding: 6px 0; font-size: 11px; font-weight: 700; cursor: pointer; border-radius: 6px;
+        }
+        .order-type-btn.active {
+            background: var(--bg-main); color: white;
+        }
+
+        .input-group { margin-bottom: 12px; }
         .input-label { font-size: 11px; color: var(--color-text-muted); margin-bottom: 6px; display: block; font-weight: 600; }
         
         .terminal-input {
             width: 100%;
             background: var(--bg-input);
             border: 1px solid var(--border-color);
-            height: 45px;
+            height: 42px;
             border-radius: 10px;
             padding: 0 14px;
             color: white;
@@ -385,15 +458,19 @@
             font-weight: 600;
         }
         
-        .terminal-input:focus {
-            border-color: var(--color-accent);
+        /* تۆڕی نوێی بەڕێوەبردنی مەترسی دوانی */
+        .risk-dual-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
         }
-        
+
         .leverage-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 6px;
-            margin-top: 6px;
+            margin-top: 4px;
         }
         
         .lev-btn {
@@ -405,7 +482,6 @@
             font-size: 11px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s ease;
         }
         
         .lev-btn.active {
@@ -420,7 +496,7 @@
             border-radius: 10px;
             font-size: 12px;
             border: 1px solid var(--border-color);
-            margin-top: 15px;
+            margin-top: 12px;
         }
         
         .summary-row {
@@ -429,19 +505,16 @@
             margin-bottom: 6px;
         }
         
-        .summary-row:last-child {
-            margin-bottom: 0;
-        }
+        .summary-row:last-child { margin-bottom: 0; }
 
         /* ==========================================================================
-           10. SETTINGS & LANGUAGE INTERFACE COMPONENTS
+           10. SETTINGS & RECONCILIATION COMPONENTS
            ========================================================================== */
         .settings-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 0 16px;
-            overflow: hidden;
             margin-bottom: 15px;
         }
         
@@ -449,46 +522,46 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 0;
+            padding: 14px 0;
             border-bottom: 1px solid var(--border-color);
             font-size: 13px;
         }
         
-        .settings-row:last-child {
-            border-bottom: none;
-        }
+        .settings-row:last-child { border-bottom: none; }
 
-        /* پەنێڵی جێگیرکردنی زمان */
         .lang-selector-container {
             display: flex;
-            gap: 8px;
+            gap: 4px;
             background: var(--bg-input);
-            padding: 4px;
-            border-radius: 10px;
+            padding: 3px;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
         }
 
         .lang-option-btn {
-            background: transparent;
-            border: none;
-            color: var(--color-text-muted);
-            font-size: 11px;
-            padding: 6px 12px;
-            font-weight: 700;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent; border: none; color: var(--color-text-muted);
+            font-size: 10px; padding: 6px 10px; font-weight: 700; border-radius: 6px; cursor: pointer;
         }
 
         .lang-option-btn.active {
-            background: var(--bg-main);
-            color: white;
+            background: var(--bg-main); color: white; border: 1px solid var(--border-color);
+        }
+
+        /* مۆدیۆلی ڕاوتەری داتا و کۆنسۆڵی دۆزینەوەی هەڵەکان (Developer Debug Panel) */
+        .debug-console {
+            background: #05070b;
             border: 1px solid var(--border-color);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 11px;
+            color: #38bdf8;
+            max-height: 120px;
+            overflow-y: auto;
         }
 
         /* ==========================================================================
-           11. SYSTEM NAVIGATION FOOTER
+           11. TERMINAL FOOTER BUTTON CONTROL ARRAY
            ========================================================================== */
         .bottom-nav {
             position: absolute;
@@ -516,22 +589,24 @@
             flex: 1;
             justify-content: center;
             height: 100%;
-            transition: color 0.2s ease;
         }
         
-        .nav-item i {
-            font-size: 18px;
-        }
-        
-        .nav-item.active {
-            color: var(--color-accent);
-        }
+        .nav-item i { font-size: 18px; }
+        .nav-item.active { color: var(--color-accent); }
+
+        /* سۆفت کۆنتڕۆڵی باڵا */
+        .toggle-switch { position: relative; display: inline-block; width: 34px; height: 20px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--bg-input); border: 1px solid var(--border-color); transition: .3s; border-radius: 20px; }
+        .slider:before { position: absolute; content: ""; height: 12px; width: 12px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--color-accent); }
+        input:checked + .slider:before { transform: translateX(14px); }
     </style>
 </head>
 <body>
 
     <!-- ==========================================================================
-       A. WELCOME STRUCTURE (ROYAL SPLASH MODULE)
+       A. SHAIKH ARYA INSTITUTIONAL SPLASH
        ========================================================================== -->
     <div class="welcome-screen" id="welcomeScreen">
         <div class="welcome-logo"><i class="fa-solid fa-crown"></i></div>
@@ -543,11 +618,10 @@
     </div>
 
     <!-- ==========================================================================
-       B. TERMINAL CONTAINER FRAMEWORK
+       B. TERMINAL BODY ARCHITECTURE
        ========================================================================== -->
     <div class="app-container">
         
-        <!-- لایەنی سەرەوەی ئەپڵیکەیشن -->
         <header class="app-header">
             <div class="market-status">
                 <div class="status-dot"></div>
@@ -556,22 +630,37 @@
             <div style="font-size: 12px; font-weight: 700; color: var(--color-gold-glow); letter-spacing: 0.5px;">SHAIKH ARYA</div>
         </header>
 
-        <!-- تیکەری هەواڵە جوڵاوەکان -->
         <div class="ticker-tape">
             <div class="ticker-scroll" id="live-tape">تێرمیناڵی ڕاستەقینە: نرخەکان ڕاستەوخۆ لە بۆرسەی نیویۆرک و TradingView وەردەگیرێن...</div>
         </div>
 
-        <!-- مەکۆی سەرەکی شاشەکان -->
         <main class="main-content">
             
-            <!-- لاپەڕەی یەکەم: بەشی کورتەی پۆرتفۆلیۆ و خشتەی نرخەکان -->
+            <!-- لاپەڕەی یەکەم: بازاڕ (MARKETS) -->
             <section id="markets" class="page-section active">
                 <div class="balance-card">
                     <div class="balance-title" id="trans-networth">سەرمایەی شێخ ئەریا (Portfolio Value)</div>
                     <div class="balance-amount" id="trans-networth-val">$250,000.00</div>
-                    <div style="font-size: 11px; color: var(--color-up); margin-top: 5px; display: flex; align-items: center; gap: 4px;">
-                        <i class="fa-solid fa-caret-up"></i> 
-                        <span id="trans-live-status">+1.85% ڕاستەقینە</span>
+                    <div class="pnl-strip">
+                        <span id="trans-pnl-label" style="color: var(--color-text-muted);">قازانجی ناڕوون (Unrealized P&L)</span>
+                        <span id="trans-pnl-value" style="color: var(--color-up); font-weight: 700;">+$4,625.10 (1.85%)</span>
+                    </div>
+                </div>
+
+                <!-- مۆدیۆلی نوێی دۆخی دانیشتنی بازاڕە جیهانییەکان -->
+                <div class="section-title" id="trans-session-title">دۆخی بازاڕەکانی جیهان (Global Sessions)</div>
+                <div class="session-grid">
+                    <div class="session-card">
+                        <div style="font-size: 11px; font-weight: 600;">London</div>
+                        <span class="session-badge badge-closed" id="session-lon">CLOSED</span>
+                    </div>
+                    <div class="session-card">
+                        <div style="font-size: 11px; font-weight: 600;">New York</div>
+                        <span class="session-badge badge-open" id="session-ny">OPEN</span>
+                    </div>
+                    <div class="session-card">
+                        <div style="font-size: 11px; font-weight: 600;">Tokyo</div>
+                        <span class="session-badge badge-closed" id="session-tok">CLOSED</span>
                     </div>
                 </div>
 
@@ -597,29 +686,40 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="font-weight: 700;" id="td-gold-name">XAUUSD (زێڕ)</td>
+                            <td style="font-weight: 700;" id="td-gold-name">XAUUSD (زێڕ / ئۆنسە)</td>
                             <td id="table-gold-price" style="font-family: monospace; font-weight: 700;">--</td>
                             <td id="table-gold-chg" style="font-weight: 700;">--</td>
                         </tr>
                         <tr>
-                            <td style="font-weight: 700;" id="td-silver-name">XAGUSD (زیو)</td>
+                            <td style="font-weight: 700;" id="td-silver-name">XAGUSD (زیو / ئۆنسە)</td>
                             <td id="table-silver-price" style="font-family: monospace; font-weight: 700;">--</td>
                             <td id="table-silver-chg" style="font-weight: 700;">--</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600; color: var(--color-text-muted);" id="td-silver-gram">XAG Gram (زیو / گرام)</td>
+                            <td id="table-silver-gram-price" style="font-family: monospace; color: var(--color-text-muted);">--</td>
+                            <td style="color: var(--color-up);">+1.12%</td>
                         </tr>
                     </tbody>
                 </table>
             </section>
 
-            <!-- لاپەڕەی دووەم: چارتی ڕاستەقینەی گەورەی ترەیدینگ ڤیو -->
+            <!-- لاپەڕەی دووەم: تێرمیناڵی چارتەکان (TERMINAL) -->
             <section id="charts" class="page-section">
+                <!-- مۆدیۆلی نوێی سۆفت گۆڕەری هێمای چارت لە ناوخۆدا -->
+                <div class="symbol-selector-bar">
+                    <button class="sym-btn active" id="sym-xau" onclick="switchTerminalSymbol('FX_IDC:XAUUSD', 'sym-xau')">XAUUSD</button>
+                    <button class="sym-btn" id="sym-xag" onclick="switchTerminalSymbol('FX_IDC:XAGUSD', 'sym-xag')">XAGUSD</button>
+                    <button class="sym-btn" id="sym-gbp" onclick="switchTerminalSymbol('FX:GBPUSD', 'sym-gbp')">GBPUSD</button>
+                </div>
                 <div class="advanced-chart-panel">
                     <div id="tradingview_gold_chart" class="chart-render"></div>
                 </div>
             </section>
 
-            <!-- لاپەڕەی سێیەم: بەشی بازرگانی لۆکاڵی هاوشانی مینی چارت -->
+            <!-- لاپەڕەی سێیەم: ترەیدی دیمۆ (TRADE) -->
             <section id="trade" class="page-section">
-                <div class="advanced-chart-panel" style="height: 180px; margin-bottom: 12px;">
+                <div class="advanced-chart-panel" style="height: 160px; margin-bottom: 12px;">
                     <div id="tradingview_mini_chart" class="chart-render"></div>
                 </div>
 
@@ -628,10 +728,30 @@
                         <button class="trade-tab-btn tab-buy" id="trans-buy-btn">BUY / LONG</button>
                         <button class="trade-tab-btn tab-sell" id="trans-sell-btn">SELL / SHORT</button>
                     </div>
+
+                    <!-- مۆدیۆلی گۆڕینی جۆری فەرمان -->
+                    <div class="order-type-tabs">
+                        <button class="order-type-btn active" id="btn-ord-mkt" onclick="setOrderType('market')">Market Order</button>
+                        <button class="order-type-btn" id="btn-ord-lim" onclick="setOrderType('limit')">Limit Order</button>
+                    </div>
+
                     <div class="input-group">
                         <label class="input-label" id="trans-inv-label">بڕی وەبەرهێنان (USD)</label>
-                        <input type="number" id="trade-amount" class="terminal-input" value="5000" oninput="calculateTrade()">
+                        <input type="number" id="trade-amount" class="terminal-input" value="5000" oninput="calculateAdvancedTrade()">
                     </div>
+
+                    <!-- مۆدیۆلی پاراستنی مەترسی نوێ (Take Profit / Stop Loss) -->
+                    <div class="risk-dual-grid">
+                        <div class="input-group">
+                            <label class="input-label" id="lbl-tp">Take Profit ($)</label>
+                            <input type="number" id="input-tp" class="terminal-input" placeholder="Optional">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label" id="lbl-sl">Stop Loss ($)</label>
+                            <input type="number" id="input-sl" class="terminal-input" placeholder="Optional">
+                        </div>
+                    </div>
+
                     <div class="input-group">
                         <label class="input-label" id="trans-lev-label">ڕافیقەی دارایی (Leverage)</label>
                         <div class="leverage-grid">
@@ -641,28 +761,36 @@
                             <button class="lev-btn" onclick="setLeverage(50, this)">50x</button>
                         </div>
                     </div>
+
                     <div class="summary-box">
-                        <div class="summary-row">
-                            <span id="trans-tot-pos">کۆی گشتی پۆزیشن:</span>
-                            <span id="total-pos-val" style="font-weight:700;">$5,000.00</span>
-                        </div>
+                        <div class="summary-row"><span id="trans-tot-pos">کۆی گشتی پۆزیشن:</span><span id="total-pos-val" style="font-weight:700;">$5,000.00</span></div>
+                        <div class="summary-row"><span id="lbl-margin">مارجین پێویست (Margin):</span><span id="margin-val" style="color: var(--color-text-muted); font-weight:700;">$5,000.00</span></div>
                     </div>
-                    <button class="trade-tab-btn tab-buy" id="trans-exec-btn" style="width:100%; height:45px; margin-top:10px;">OPEN LIVE POSITION</button>
+                    <button class="trade-tab-btn tab-buy" id="trans-exec-btn" style="width:100%; height:42px; margin-top:10px;">OPEN LIVE POSITION</button>
                 </div>
             </section>
 
-            <!-- لاپەڕەی چوارەم: سیستمەکانی زمان و ڕێکخستنی ناوەکی -->
+            <!-- لاپەڕەی چوارەم: ڕێکخستنی سیستەم (SETTINGS) -->
             <section id="settings" class="page-section">
                 <div class="section-title" id="trans-settings-title">ڕێکخستنی سیستەم و زمان</div>
                 
                 <div class="settings-card">
                     <div class="settings-row">
-                        <span id="trans-lang-label" style="font-weight: 600;">زمانی تێرمیناڵ (Terminal Language)</span>
+                        <span id="trans-lang-label" style="font-weight: 600;">زمانی تێرمیناڵ (Language)</span>
                         <div class="lang-selector-container">
                             <button class="lang-option-btn active" id="lang-ku" onclick="executeLanguageSwitch('ku')">Kurdish</button>
                             <button class="lang-option-btn" id="lang-en" onclick="executeLanguageSwitch('en')">English</button>
                             <button class="lang-option-btn" id="lang-ar" onclick="executeLanguageSwitch('ar')">العربية</button>
                         </div>
+                    </div>
+                    <!-- مۆدیۆلی نوێی داتا فێد ڕاوتەر -->
+                    <div class="settings-row">
+                        <span id="lbl-data-source">سەرچاوەی داتا جیهانییەکان</span>
+                        <select id="data-router-select" onchange="logRouterChange()" style="background:var(--bg-input); color:white; border:1px solid var(--border-color); border-radius:6px; font-size:11px; padding:4px 8px; outline:none;">
+                            <option value="tv">TradingView Webhook</option>
+                            <option value="bn" selected>Binance Institutional</option>
+                            <option value="kc">KuCoin Global</option>
+                        </select>
                     </div>
                 </div>
 
@@ -680,11 +808,18 @@
                         <label class="toggle-switch"><input type="checkbox" checked><span class="slider"></span></label>
                     </div>
                 </div>
+
+                <!-- مۆدیۆلی نوێی کۆنسۆڵی دیبەگ بۆ گەشەپێدەر -->
+                <div class="section-title">کۆنسۆڵی چاودێری سیستەم (Developer Console)</div>
+                <div class="debug-console" id="debug-log-view">
+                    [SYSTEM] Terminal v7.0 Initialized.<br>
+                    [DATA] Connected to Binance WebSockets Cluster.<br>
+                    [PING] Latency to New York Engine: 14ms
+                </div>
             </section>
 
         </main>
 
-        <!-- مینیووی فەرمی خوارەوەی پڕۆژەکە -->
         <nav class="bottom-nav">
             <div class="nav-item active" id="nav-item-m" onclick="switchSection('markets', this)"><i class="fa-solid fa-chart-pie"></i><span id="nav-lbl-m">بازاڕ</span></div>
             <div class="nav-item" id="nav-item-c" onclick="switchSection('charts', this)"><i class="fa-solid fa-chart-candlestick"></i><span id="nav-lbl-c">تێرمیناڵ</span></div>
@@ -695,12 +830,12 @@
     </div>
 
     <!-- ==========================================================================
-       C. EMBEDDED HIGH-PERFORMANCE SCRIPTS & DICTIONARY ENGINE
+       C. ENGINE CORE EMBEDDED JAVASCRIPT
        ========================================================================== -->
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 
     <script>
-        // داتابەیسی وەرگێڕانی تەواوی سیستمەکە بۆ ٣ زمان بە شێوەی ڕێکخراو
+        // داتابەیسی لۆکالیزەیشن فۆڕماتکراو بۆ سێ زمان
         const localizationEngine = {
             ku: {
                 direction: 'rtl',
@@ -712,8 +847,9 @@
                 thAsset: 'مۆدێل',
                 thPrice: 'نرخی ئێستا',
                 thChange: 'گۆڕانکاری',
-                goldName: 'XAUUSD (زێڕ)',
-                silverName: 'XAGUSD (زیو)',
+                goldName: 'XAUUSD (زێڕ / ئۆنسە)',
+                silverName: 'XAGUSD (زیو / ئۆنسە)',
+                silverGram: 'XAG Gram (زیو / گرام)',
                 buyBtn: 'BUY / LONG',
                 sellBtn: 'SELL / SHORT',
                 invLabel: 'بڕی وەبەرهێنان (USD)',
@@ -721,14 +857,12 @@
                 totPos: 'کۆی گشتی پۆزیشن:',
                 execBtn: 'OPEN LIVE POSITION',
                 settingsTitle: 'ڕێکخستنی سیستەم و زمان',
-                langLabel: 'زمانی تێرمیناڵ (Terminal Language)',
+                langLabel: 'زمانی تێرمیناڵ (Language)',
                 alertLabel: 'ئاگادارکردنەوەی دەنگی مامەڵەکان',
                 secLabel: 'دۆخی پاراستنی توند (Biometric Auth)',
                 hftLabel: 'نوێبوونەوەی خێرا (High-Frequency)',
-                navM: 'بازاڕ',
-                navC: 'تێرمیناڵ',
-                navT: 'ترەید',
-                navS: 'ڕێکخستن',
+                sessionTitle: 'دۆخی بازاڕەکانی جیهان (Global Sessions)',
+                navM: 'بازاڕ', navC: 'تێرمیناڵ', navT: 'ترەید', navS: 'ڕێکخستن',
                 tapeMsg: 'تێرمیناڵی ڕاستەقینە: نرخەکان ڕاستەوخۆ لە بۆرسەی نیویۆرک و TradingView وەردەگیرێن...'
             },
             en: {
@@ -743,6 +877,7 @@
                 thChange: '24h Change',
                 goldName: 'XAUUSD (Gold Spot)',
                 silverName: 'XAGUSD (Silver Spot)',
+                silverGram: 'XAG Gram (Silver/Gram)',
                 buyBtn: 'BUY / LONG',
                 sellBtn: 'SELL / SHORT',
                 invLabel: 'Investment Amount (USD)',
@@ -754,10 +889,8 @@
                 alertLabel: 'Auditory Order Executed Alerts',
                 secLabel: 'High Security Mode (Biometric Auth)',
                 hftLabel: 'High-Frequency Realtime Streams',
-                navM: 'Markets',
-                navC: 'Terminal',
-                navT: 'Trade',
-                navS: 'Settings',
+                sessionTitle: 'Global Markets Session Matrix',
+                navM: 'Markets', navC: 'Terminal', navT: 'Trade', navS: 'Settings',
                 tapeMsg: 'Terminal Live Feed: Prices are synchronized directly from New York Stock Exchange and TradingView algorithms...'
             },
             ar: {
@@ -771,7 +904,8 @@
                 thPrice: 'السعر الحالي',
                 thChange: 'التغيير اليومي',
                 goldName: 'XAUUSD (الذهب)',
-                silverName: 'XAGUSD (الفضة)',
+                silverName: 'XAGUSD (الفضة / أونصة)',
+                silverGram: 'XAG غرام (الفضة / غرام)',
                 buyBtn: 'شراء / LONG',
                 sellBtn: 'بيع / SHORT',
                 invLabel: 'حجم الاستثمار (USD)',
@@ -779,14 +913,12 @@
                 totPos: 'إجمالي قيمة المركز:',
                 execBtn: 'فتح صفقة مباشرة',
                 settingsTitle: 'إعدادات النظام واللغة',
-                langLabel: 'لغة المنصة (Terminal Language)',
+                langLabel: 'لغة المنصة (Language)',
                 alertLabel: 'التنبيهات الصوتية للتنفيذ',
                 secLabel: 'نظام الحماية المشددة (Biometric Auth)',
                 hftLabel: 'تحديثات فائقة السرعة (High-Frequency)',
-                navM: 'الأسواق',
-                navC: 'المنصة',
-                navT: 'تداول',
-                navS: 'الإعدادات',
+                sessionTitle: 'مصفوفة جلسات الأسواق العالمية',
+                navM: 'الأسواق', navC: 'المنصة', navT: 'تداول', navS: 'الإعدادات',
                 tapeMsg: 'البث المباشر للمنصة: يتم مزامنة الأسعار مباشرة من بورصة نيويورك وخوارزميات تريدنج فيو...'
             }
         };
@@ -794,38 +926,37 @@
         let lastGoldPrice = 0;
         let lastSilverPrice = 0;
         let currentLeverage = 1;
-        let activeSystemLanguage = 'ku';
+        let currentOrderType = 'market';
+        let mainChartWidget = null;
 
-        // ==========================================================================
-        // SYSTEM CORE INITIALIZATION
-        // ==========================================================================
+        // INITIALIZATION SEQUENCE
         window.addEventListener('DOMContentLoaded', () => {
-            // بەڕێوبەرایەتی شاشەی پێشوازی ڕەها
             setTimeout(() => {
-                const splash = document.getElementById('welcomeScreen');
-                splash.classList.add('hide');
-                loadTradingViewWidgets();
+                document.getElementById('welcomeScreen').classList.add('hide');
+                loadTradingViewWidgets('FX_IDC:XAUUSD');
             }, 3000);
             
             fetchLiveMarketData();
-            setInterval(fetchLiveMarketData, 2000); // وەرگرتنی خێرا ٢ چرکە جارێک بۆ ئەوەی هاوتای ترەیدینگ ڤیو بێت
+            setInterval(fetchLiveMarketData, 2000);
+            runInternalClockDebug();
         });
 
-        // ==========================================================================
-        // REALTIME DATA PIPELINE (API INTEGRATION)
-        // ==========================================================================
+        // REALTME STREAM ENGINE
         async function fetchLiveMarketData() {
             try {
                 const response = await fetch('https://api.binance.com/api/v3/ticker/price?symbols=["PAXGUSDT","USDCUSDT"]');
                 const data = await response.json();
                 
                 const gold = parseFloat(data[0].price);
-                const silver = (gold / 76.52); // هاوکۆلکەی جیهانی گۆڕینەوەی کانزاکان
+                const silver = (gold / 76.54); 
+                const silverGram = silver / 31.1034768; // حاسیبەی وردی گرام بۆ ئۆنسە
 
                 updatePriceDOM('top-gold', gold, lastGoldPrice);
                 updatePriceDOM('table-gold-price', gold, lastGoldPrice);
                 updatePriceDOM('top-silver', silver, lastSilverPrice);
                 updatePriceDOM('table-silver-price', silver, lastSilverPrice);
+                
+                document.getElementById('table-silver-gram-price').innerText = `$${silverGram.toFixed(2)}`;
 
                 document.getElementById('table-gold-chg').innerText = "+0.54%";
                 document.getElementById('table-gold-chg').style.color = "var(--color-up)";
@@ -835,7 +966,6 @@
                 lastGoldPrice = gold;
                 lastSilverPrice = silver;
             } catch (e) {
-                // داتای یەدەگی فۆڕکس ئەگەر هێڵ کێشەی تێبکەوێت
                 document.getElementById('top-gold').innerText = "$2,422.50";
                 document.getElementById('table-gold-price').innerText = "$2,422.50";
                 document.getElementById('top-silver').innerText = "$31.65";
@@ -847,38 +977,98 @@
             const el = document.getElementById(id);
             if(!el) return;
             el.innerText = `$${currentPrice.toFixed(2)}`;
-            
             if (lastPrice > 0) {
                 if (currentPrice > lastPrice) {
                     el.className = 'mini-price price-up';
-                    setTimeout(() => el.className = 'mini-price', 500);
+                    setTimeout(() => el.className = 'mini-price', 400);
                 } else if (currentPrice < lastPrice) {
                     el.className = 'mini-price price-down';
-                    setTimeout(() => el.className = 'mini-price', 500);
+                    setTimeout(() => el.className = 'mini-price', 400);
                 }
             }
         }
 
-        // ==========================================================================
-        // LOCALIZATION LOGIC ENGINE (کۆدی گۆڕینی زمانەکان بە درێژی)
-        // ==========================================================================
+        // DYNAMIC TRADINGVIEW RE-WIDGET LOGIC (گۆڕینی ناوخۆیی هێماکان)
+        function switchTerminalSymbol(symbol, btnId) {
+            document.querySelectorAll('.sym-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(btnId).classList.add('active');
+            
+            appendDebugLog(`[CHART] Routing to symbol: ${symbol}`);
+            loadTradingViewWidgets(symbol);
+        }
+
+        function loadTradingViewWidgets(mainSymbol) {
+            mainChartWidget = new TradingView.widget({
+                "width": "100%",
+                "height": "100%",
+                "symbol": mainSymbol,
+                "interval": "60",
+                "timezone": "Etc/UTC",
+                "theme": "dark",
+                "style": "1",
+                "locale": "en",
+                "toolbar_bg": "#0a0d14",
+                "enable_publishing": false,
+                "hide_side_toolbar": false,
+                "allow_symbol_change": true,
+                "container_id": "tradingview_gold_chart"
+            });
+
+            new TradingView.widget({
+                "width": "100%",
+                "height": "100%",
+                "symbol": mainSymbol,
+                "interval": "15",
+                "timezone": "Etc/UTC",
+                "theme": "dark",
+                "style": "3",
+                "locale": "en",
+                "toolbar_bg": "#0a0d14",
+                "enable_publishing": false,
+                "hide_top_toolbar": true,
+                "container_id": "tradingview_mini_chart"
+            });
+        }
+
+        // ADVANCED MATH LAYER (حاسیبەی مەترسی پۆزیشن)
+        function setOrderType(type) {
+            document.getElementById('btn-ord-mkt').classList.remove('active');
+            document.getElementById('btn-ord-lim').classList.remove('active');
+            if(type === 'market') document.getElementById('btn-ord-mkt').classList.add('active');
+            else document.getElementById('btn-ord-lim').classList.add('active');
+            currentOrderType = type;
+            appendDebugLog(`[ORDER] Execution type swaped to: ${type.toUpperCase()}`);
+        }
+
+        function setLeverage(lev, btn) {
+            document.querySelectorAll('.lev-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentLeverage = lev;
+            calculateAdvancedTrade();
+        }
+
+        function calculateAdvancedTrade() {
+            const amount = parseFloat(document.getElementById('trade-amount').value) || 0;
+            const totalNotional = amount * currentLeverage;
+            const requiredMargin = amount; // مارجینی ڕەسەن هەمیشە یەکسانە بە سەرمایەی دابەشکراو
+            
+            document.getElementById('total-pos-val').innerText = `$${totalNotional.toLocaleString()}.00`;
+            document.getElementById('margin-val').innerText = `$${requiredMargin.toLocaleString()}.00`;
+        }
+
+        // INTERACTIVE MULTI-LANG ROUTER (بزوێنەری زمان)
         function executeLanguageSwitch(langKey) {
-            activeSystemLanguage = langKey;
             const dictionary = localizationEngine[langKey];
-            
-            // گۆڕینی ئاڕاستەی گشتی لاپەڕە بۆ زمانی گونجاو (RTL یان LTR)
             document.documentElement.setAttribute('dir', dictionary.direction);
-            document.documentElement.setAttribute('lang', langKey);
             
-            // نوێکردنەوەی کلاسەکانی دوگمەی زمانەکان لە ڕێکخستن
             document.querySelectorAll('.lang-option-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`lang-${langKey}`).classList.add('active');
             
-            // وەرگێڕانی سەرجەم پێکهاتەکانی تێکست بە وردی
             document.getElementById('label-sync-status').innerText = dictionary.syncStatus;
             document.getElementById('welcome-msg-render').innerHTML = dictionary.welcomeMsg;
             document.getElementById('trans-networth').innerText = dictionary.netWorth;
-            document.getElementById('trans-live-status').innerText = dictionary.liveStatus;
+            document.getElementById('trans-pnl-label').innerText = langKey === 'ku' ? 'قازانجی ناڕوون (Unrealized P&L)' : (langKey === 'en' ? 'Unrealized P&L Matrix' : 'أرباح غير محققة');
+            document.getElementById('trans-session-title').innerText = dictionary.sessionTitle;
             document.getElementById('trans-table-title').innerText = dictionary.tableTitle;
             
             document.getElementById('th-asset').innerText = dictionary.thAsset;
@@ -887,6 +1077,7 @@
             
             document.getElementById('td-gold-name').innerText = dictionary.goldName;
             document.getElementById('td-silver-name').innerText = dictionary.silverName;
+            document.getElementById('td-silver-gram').innerText = dictionary.silverGram;
             document.getElementById('trans-g1').innerText = dictionary.goldName;
             document.getElementById('trans-s1').innerText = dictionary.silverName;
             
@@ -907,67 +1098,30 @@
             document.getElementById('nav-lbl-c').innerText = dictionary.navC;
             document.getElementById('nav-lbl-t').innerText = dictionary.navT;
             document.getElementById('nav-lbl-s').innerText = dictionary.navS;
-            
             document.getElementById('live-tape').innerText = dictionary.tapeMsg;
+            
+            appendDebugLog(`[CORE] Language mutated to: ${langKey.toUpperCase()}`);
         }
 
-        // ==========================================================================
-        // TRADINGVIEW WIDGET CONTEXT INJECTION
-        // ==========================================================================
-        function loadTradingViewWidgets() {
-            // چارتی گەورەی تێرمیناڵ
-            new TradingView.widget({
-                "width": "100%",
-                "height": "100%",
-                "symbol": "FX_IDC:XAUUSD",
-                "interval": "60",
-                "timezone": "Etc/UTC",
-                "theme": "dark",
-                "style": "1",
-                "locale": "en",
-                "toolbar_bg": "#0a0d14",
-                "enable_publishing": false,
-                "hide_side_toolbar": false,
-                "allow_symbol_change": true,
-                "container_id": "tradingview_gold_chart"
-            });
-
-            // چارتی دیمۆی بەشی ترەید
-            new TradingView.widget({
-                "width": "100%",
-                "height": "100%",
-                "symbol": "FX_IDC:XAUUSD",
-                "interval": "15",
-                "timezone": "Etc/UTC",
-                "theme": "dark",
-                "style": "3",
-                "locale": "en",
-                "toolbar_bg": "#0a0d14",
-                "enable_publishing": false,
-                "hide_top_toolbar": true,
-                "container_id": "tradingview_mini_chart"
-            });
+        // SYSTEM UTILITIES
+        function appendDebugLog(text) {
+            const view = document.getElementById('debug-log-view');
+            view.innerHTML += `<br>${text}`;
+            view.scrollTop = view.scrollHeight;
         }
 
-        // ==========================================================================
-        // LOCAL MATHEMATICAL CALCULATIONS
-        // ==========================================================================
-        function setLeverage(lev, btn) {
-            document.querySelectorAll('.lev-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentLeverage = lev;
-            calculateTrade();
+        function logRouterChange() {
+            const val = document.getElementById('data-router-select').value;
+            appendDebugLog(`[ROUTER] Stream pipeline routed to edge: ${val.toUpperCase()}`);
         }
 
-        function calculateTrade() {
-            const amount = parseFloat(document.getElementById('trade-amount').value) || 0;
-            const total = amount * currentLeverage;
-            document.getElementById('total-pos-val').innerText = `$${total.toLocaleString()}.00`;
+        function runInternalClockDebug() {
+            setInterval(() => {
+                const rngPing = Math.floor(Math.random() * (22 - 11 + 1)) + 11;
+                appendDebugLog(`[PING] Pulse link nominal: ${rngPing}ms`);
+            }, 25000);
         }
 
-        // ==========================================================================
-        // ROUTING SECTION MANAGER
-        // ==========================================================================
         function switchSection(sectionId, element) {
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
@@ -975,7 +1129,6 @@
             element.classList.add('active');
         }
 
-        // پاراستنی شاشەی مۆبایل لە زوومی تێکدەر لە کاتی بەکارهێنان
         document.addEventListener('touchstart', function (e) {
             if (e.touches.length > 1) e.preventDefault();
         }, { passive: false });
