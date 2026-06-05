@@ -3,93 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پۆڕتاڵی گشتگیر و پێشکەوتووی بازرگانی زیو | TradingView Pro Dashboard</title>
+    <title>پۆڕتاڵی مەرکەزی و پێشکەوتووی بازرگانی زیو | Global Market Live Dashboard</title>
     <style>
         /* ==========================================================================
-           1. پێناسەکردنی ڕەنگەکان و گۆڕاوە سەرەکییەکان (CSS Variables & Themes)
+           1. سیستەمی ڕەنگەکان و گۆڕاوە بنەڕەتییەکان (Enterprise CSS Variables)
            ========================================================================== */
         :root {
-            --bg-main: #090d16;
-            --bg-card: #111726;
-            --bg-input: #1a2236;
-            --border-color: #222f47;
+            --bg-base: #070a13;
+            --bg-surface: #0f1423;
+            --bg-element: #171f35;
+            --bg-input: #1e2946;
+            --border-main: #253356;
+            --border-focus: #38bdf8;
             --text-main: #ffffff;
             --text-muted: #64748b;
             --text-silver: #cbd5e1;
-            --primary-accent: #38bdf8;
-            --success-color: #22c55e;
-            --danger-color: #ef4444;
-            --warning-color: #eab308;
-            --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.5);
-            --transition-speed: 0.3s;
+            --color-primary: #38bdf8;
+            --color-success: #22c55e;
+            --color-danger: #ef4444;
+            --color-warning: #eab308;
+            --color-purple: #a855f7;
+            --shadow-lux: 0 10px 25px -5px rgba(0, 0, 0, 0.7);
+            --transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         [data-theme="light"] {
-            --bg-main: #f8fafc;
-            --bg-card: #ffffff;
-            --bg-input: #f1f5f9;
-            --border-color: #cbd5e1;
+            --bg-base: #f1f5f9;
+            --bg-surface: #ffffff;
+            --bg-element: #e2e8f0;
+            --bg-input: #f8fafc;
+            --border-main: #cbd5e1;
+            --border-focus: #0284c7;
             --text-main: #0f172a;
             --text-muted: #64748b;
             --text-silver: #334155;
-            --primary-accent: #0284c7;
-            --success-color: #16a34a;
-            --danger-color: #dc2626;
-            --warning-color: #ca8a04;
-            --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+            --color-primary: #0284c7;
+            --color-success: #16a34a;
+            --color-danger: #dc2626;
+            --color-warning: #ca8a04;
+            --color-purple: #7e22ce;
+            --shadow-lux: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
         }
 
         /* ==========================================================================
-           2. ڕێکخستنی گشتی بنەڕەتی لاپەڕە (Global Styles & Reset)
+           2. ڕێکخستنی بنەڕەتی هێڵکاری و سکرۆڵ (Global Reset & Typography)
            ========================================================================== */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            transition: background-color var(--transition-speed), border-color var(--transition-speed);
+            transition: background-color var(--transition-smooth), border-color var(--transition-smooth), color var(--transition-smooth);
         }
 
         body {
-            background-color: var(--bg-main);
+            background-color: var(--bg-base);
             color: var(--text-main);
             padding: 0;
             margin: 0;
-            overflow-x: hidden;
+            font-size: 16px;
+            line-height: 1.5;
         }
 
-        /* سکرۆڵباری تایبەت و مۆدێرن */
         ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
         }
         ::-webkit-scrollbar-track {
-            background: var(--bg-main);
+            background: var(--bg-base);
         }
         ::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 4px;
+            background: var(--border-main);
+            border-radius: 5px;
         }
         ::-webkit-scrollbar-thumb:hover {
             background: var(--text-muted);
         }
 
-        .container {
-            max-width: 1600px;
+        .wrapper {
+            max-width: 1750px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 25px;
         }
 
         /* ==========================================================================
-           3. بەشی سەرەوە و ناڤبار (Header & Navigation)
+           3. بەشی ناڤبار و ناسنامەی بڕاند (Premium Header Layout)
            ========================================================================== */
-        header {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 25px;
-            box-shadow: var(--card-shadow);
+        .portal-header {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-main);
+            border-radius: 14px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-lux);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -97,285 +103,282 @@
             gap: 20px;
         }
 
-        .brand-section h1 {
-            font-size: 1.8rem;
-            color: var(--primary-accent);
+        .portal-brand h1 {
+            font-size: 2rem;
             font-weight: 800;
+            color: var(--color-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .portal-brand p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 6px;
+        }
+
+        .theme-switch {
+            background-color: var(--bg-element);
+            border: 1px solid var(--border-main);
+            color: var(--text-main);
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .brand-section p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-
-        .header-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .theme-toggle-btn {
-            background-color: var(--bg-input);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 10px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .theme-toggle-btn:hover {
-            border-color: var(--primary-accent);
+        .theme-switch:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-1px);
         }
 
         /* ==========================================================================
-           4. پانێڵی بەڕێوەبردن و ڕێکخستنی نرخەکان (Live Management Panel)
+           4. پانێڵی ناوەندی هاوتەریبکردنی نرخەکان (Centralized Master Feed Panel)
            ========================================================================== */
-        .management-panel {
-            background: linear-gradient(135deg, var(--bg-card), #162238);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: var(--card-shadow);
+        .master-feed-panel {
+            background: linear-gradient(145deg, var(--bg-surface), #131c33);
+            border: 1px solid var(--border-main);
+            border-radius: 14px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-lux);
         }
 
-        [data-theme="light"] .management-panel {
-            background: linear-gradient(135deg, var(--bg-card), #f1f5f9);
+        [data-theme="light"] .master-feed-panel {
+            background: linear-gradient(145deg, var(--bg-surface), #f8fafc);
         }
 
-        .panel-grid {
+        .feed-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .form-group label {
-            color: var(--text-silver);
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .form-group input, .form-group select {
-            background-color: var(--bg-input);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 1rem;
-            outline: none;
-            width: 100%;
-            font-family: monospace;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
-        }
-
-        /* ==========================================================================
-           5. دابەشکاری سەرەکی لاپەڕە (Main Dashboard Layout Grid)
-           ========================================================================== */
-        .dashboard-layout {
-            display: grid;
-            grid-template-columns: 2.8fr 1.2fr;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 25px;
         }
 
-        @media (max-width: 1200px) {
-            .dashboard-layout {
+        .feed-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .feed-group label {
+            color: var(--text-silver);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .feed-group input, .feed-group select {
+            background-color: var(--bg-input);
+            border: 1px solid var(--border-main);
+            color: var(--text-main);
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            outline: none;
+            font-family: monospace;
+            width: 100%;
+        }
+
+        .feed-group input:focus, .feed-group select:focus {
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+        }
+
+        /* ==========================================================================
+           5. تەلارسازی دابەشکاری پانێڵەکان (Dashboard Responsive Grid Layout)
+           ========================================================================== */
+        .portal-grid {
+            display: grid;
+            grid-template-columns: 2.7fr 1.3fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 1300px) {
+            .portal-grid {
                 grid-template-columns: 1fr;
             }
         }
 
-        /* سندوقە بنەڕەتییەکان */
-        .dashboard-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: var(--card-shadow);
+        .block-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-main);
+            border-radius: 14px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-lux);
         }
 
-        .card-header {
+        .block-title {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 12px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border-main);
+            padding-bottom: 15px;
         }
 
-        .card-header h2 {
-            font-size: 1.3rem;
-            color: var(--primary-accent);
+        .block-title h2 {
+            font-size: 1.4rem;
+            color: var(--color-primary);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-weight: 700;
         }
 
         /* ==========================================================================
-           6. خشتەی نرخە داینامیکییەکان (Dynamic Enterprise Silver Table)
+           6. خشتە مۆدێرن و گشتگیرەکان (Enterprise Table Architecture)
            ========================================================================== */
-        .table-responsive {
+        .table-container {
             width: 100%;
             overflow-x: auto;
         }
 
-        .enterprise-table {
+        .custom-table {
             width: 100%;
             border-collapse: collapse;
             text-align: right;
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
 
-        .enterprise-table th {
-            background-color: var(--bg-input);
+        .custom-table th {
+            background-color: var(--bg-element);
             color: var(--text-muted);
-            padding: 16px;
+            padding: 18px;
             font-weight: 700;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            border-bottom: 2px solid var(--border-color);
+            font-size: 0.9rem;
+            border-bottom: 2px solid var(--border-main);
         }
 
-        .enterprise-table td {
-            padding: 16px;
-            border-bottom: 1px solid var(--border-color);
+        .custom-table td {
+            padding: 18px;
+            border-bottom: 1px solid var(--border-main);
             color: var(--text-main);
         }
 
-        .enterprise-table tbody tr:hover {
-            background-color: var(--bg-input);
+        .custom-table tbody tr:hover {
+            background-color: var(--bg-element);
         }
 
-        .badge {
-            padding: 4px 8px;
+        .mono-text {
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .pill {
+            padding: 5px 10px;
             border-radius: 6px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: bold;
         }
 
-        .badge-pure { background-color: rgba(56, 189, 248, 0.15); color: var(--primary-accent); }
-        .badge-sterling { background-color: rgba(234, 179, 8, 0.15); color: var(--warning-color); }
-        .badge-coin { background-color: rgba(34, 197, 94, 0.15); color: var(--success-color); }
+        .pill-pure { background-color: rgba(56, 189, 248, 0.15); color: var(--color-primary); }
+        .pill-sterling { background-color: rgba(234, 179, 8, 0.15); color: var(--color-warning); }
+        .pill-coin { background-color: rgba(34, 197, 94, 0.15); color: var(--color-success); }
 
         /* ==========================================================================
-           7. سیستەمی کۆنتڕۆڵی بازرگانی و تۆمارکردنی گرێبەستەکان (Journal & Log)
+           7. دوگمەکان و فۆڕمە پێشکەوتووەکان (Buttons & Input Layout Modules)
            ========================================================================== */
-        .journal-form {
+        .grid-inputs-2 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
             margin-bottom: 20px;
         }
 
-        .action-btn {
-            background-color: var(--primary-accent);
+        .btn-submit {
+            background-color: var(--color-primary);
             color: #000000;
             border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
+            padding: 15px 25px;
+            border-radius: 10px;
             font-weight: 700;
-            cursor: pointer;
             font-size: 1rem;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             width: 100%;
         }
 
-        .action-btn:hover {
+        .btn-submit:hover {
             opacity: 0.9;
+            transform: translateY(-1px);
         }
 
-        .action-btn.btn-danger {
-            background-color: var(--danger-color);
+        .btn-danger {
+            background-color: var(--color-danger);
             color: white;
         }
 
-        .log-list {
-            list-style: none;
-            max-height: 250px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .log-item {
-            background-color: var(--bg-input);
-            border: 1px solid var(--border-color);
-            padding: 12px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9rem;
-        }
-
         /* ==========================================================================
-           8. ئامرازەکانی لای ڕاست: کاڵکۆلێکتەری پێشکەوتوو و سیستمەکان (Sidebar Tools)
+           8. پانێڵی نیشاندانی ئەنجامە داراییەکان (Financial Output Displays)
            ========================================================================== */
-        .sidebar-box {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        .output-box {
+            background-color: var(--bg-base);
+            border: 1px dashed var(--border-main);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
         }
 
-        .result-panel {
-            background-color: var(--bg-main);
-            border: 1px dashed var(--border-color);
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 10px;
-        }
-
-        .result-item {
+        .output-row {
             display: flex;
             justify-content: space-between;
-            padding: 8px 0;
-            font-size: 0.9rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 10px 0;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .result-item:last-child {
+        .output-row:last-child {
             border-bottom: none;
         }
 
-        .result-item.highlight {
+        .output-row.bold-total {
             font-weight: bold;
-            font-size: 1.1rem;
-            color: var(--success-color);
+            font-size: 1.2rem;
+            color: var(--color-success);
+            border-top: 1px solid var(--border-main);
+            padding-top: 15px;
         }
 
         /* ==========================================================================
-           9. بەشی پەروەردەیی و ئەکادیمی (Educational Accordion System)
+           9. پێکهاتەی ویجێتەکانی چارتی TradingView (Iframe Containers)
            ========================================================================== */
-        .accordion-item {
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            margin-bottom: 10px;
+        .iframe-container {
+            width: 100%;
+            height: 550px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border-main);
+        }
+
+        .mini-iframe-container {
+            width: 100%;
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border-main);
+        }
+
+        /* ==========================================================================
+           10. سیستەمی ئەکۆردیۆنی پەروەردەیی (Interactive Educational Accordions)
+           ========================================================================== */
+        .acc-item {
+            border: 1px solid var(--border-main);
+            border-radius: 10px;
+            margin-bottom: 15px;
             overflow: hidden;
         }
 
-        .accordion-header {
-            background-color: var(--bg-input);
-            padding: 15px;
-            font-weight: bold;
+        .acc-trigger {
+            background-color: var(--bg-element);
+            padding: 18px;
+            font-weight: 700;
             cursor: pointer;
             user-select: none;
             display: flex;
@@ -383,526 +386,735 @@
             align-items: center;
         }
 
-        .accordion-content {
-            padding: 15px;
-            background-color: var(--bg-card);
+        .acc-content {
+            padding: 20px;
+            background-color: var(--bg-surface);
             display: none;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            font-size: 1rem;
+            line-height: 1.7;
             color: var(--text-silver);
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid var(--border-main);
         }
 
         /* ==========================================================================
-           10. ستایلی ویجێتەکانی تڕەیدینگ ڤیو (TradingView Iframe Layouts)
+           11. مۆدیۆلی کۆنترۆڵکردنی تۆماری گرێبەستەکان (Journal Interface)
            ========================================================================== */
-        .tv-wrapper {
-            width: 100%;
-            height: 500px;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
+        .journal-container {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
         }
 
-        .tv-mini-wrapper {
-            width: 100%;
-            height: 220px;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
+        .journal-item {
+            background-color: var(--bg-element);
+            border: 1px solid var(--border-main);
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
         }
 
-        /* ئۆتۆماتیک ڕێکخستنی مۆبایل */
+        .stat-badge-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-mini-card {
+            background-color: var(--bg-base);
+            border: 1px solid var(--border-main);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-mini-card .val {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        /* تێکچوونی ڕیزبەندییەکان لە مۆبایلدا */
         @media (max-width: 768px) {
-            body { padding: 10px; }
-            .container { padding: 5px; }
-            .panel-grid { grid-template-columns: 1fr; }
-            .enterprise-table th, .enterprise-table td { padding: 10px; font-size: 0.85rem; }
+            .portal-header { padding: 15px; text-align: center; justify-content: center; }
+            .feed-grid { grid-template-columns: 1fr; }
+            .grid-inputs-2 { grid-template-columns: 1fr; }
+            .custom-table th, .custom-table td { padding: 12px 10px; font-size: 0.85rem; }
+            .stat-badge-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<div style="width: 100%; height: 40px; background-color: var(--bg-card); border-bottom: 1px solid var(--border-color);">
-    <iframe src="https://s.tradingview.com/embed-widget/ticker-tape/?theme=dark&symbols=FX_IDC%3AXAGUSD%7C0%2CFX%3AXAUUSD%7C0%2CFX_IDC%3AUSDIQD%7C0&locale=en" style="width: 100%; height: 100%; border: none; margin: 0; padding: 0;"></iframe>
+<!-- تیکەری جوڵاوی فەرمی نرخەکان لەسەر بۆرسەی TradingView -->
+<div style="width: 100%; height: 40px; background-color: var(--bg-surface); border-bottom: 1px solid var(--border-main);">
+    <iframe src="https://s.tradingview.com/embed-widget/ticker-tape/?theme=dark&symbols=FX_IDC%3AXAGUSD%7C0%2CFX%3AXAUUSD%7C0%2CFX_IDC%3AUSDIQD%7C0%2CFX_IDC%3AUSDTRY%7C0&locale=en" style="width: 100%; height: 100%; border: none; margin: 0; padding: 0;"></iframe>
 </div>
 
-<div class="container">
+<div class="wrapper">
 
-    <header>
-        <div class="brand-section">
-            <h1>📊 پانێڵی پڕۆفیشناڵی شیکاری و ڕێبەری لۆژیکی زیو</h1>
-            <p>سەکۆیەکی دەوڵەمەند بۆ چاودێریکردنی داتاکانی XAG/USD، ئەنجامدانی حیساباتی فیزیکی، و بەڕێوەبردن</p>
+    <!-- ==========================================
+         سەردێڕی سەرەکی پۆڕتاڵەکە (Portal Header)
+         ========================================== -->
+    <header class="portal-header">
+        <div class="portal-brand">
+            <h1>🏛️ پۆڕتاڵ و کۆمەڵگەی پێشکەوتووی بازرگانی زیو</h1>
+            <p>سەکۆیەکی تەکامولی بۆ گۆڕینەوەی داتا، محاسەبەی فیزیکی، شیکاری فیبۆناچی، پیڤۆت، و مۆدێلکردنی ڕیسک</p>
         </div>
         <div class="header-controls">
-            <button class="theme-toggle-btn" onclick="toggleTheme()">🌓 گۆڕینی ڕوومەت (Theme)</button>
+            <button class="theme-switch" onclick="switchThemeMode()">🌓 گۆڕینی دۆخی ڕووناکی</button>
         </div>
     </header>
 
-    <div class="management-panel">
-        <h3 style="margin-bottom: 15px; color: var(--primary-accent);">🎛️ بەشی کۆنتڕۆڵی ناوەندی داتاکان (سەرچاوە: TradingView Feed)</h3>
-        <div class="panel-grid">
-            <div class="form-group">
-                <label>نرخی سپۆتی جیهانی ($ / Ounce)</label>
-                <input type="number" id="globalSpotPrice" value="30.50" step="0.01" oninput="masterCalculatorEngine()">
+    <!-- ==========================================
+         پانێڵی مەرکەزی هاوتەریبکردنی نرخەکان (Central Master Panel)
+         ========================================== -->
+    <section class="master-feed-panel">
+        <h3 style="margin-bottom: 20px; color: var(--color-primary); font-size: 1.2rem;">⚡ بەڕێوەبەرایەتی نرخە جیهانییەکان (هاوتەریب لەگەڵ بانکە ناوەندییەکان و TradingView)</h3>
+        <div class="feed-grid">
+            <div class="feed-group">
+                <label>نرخی سپۆتی جیهانی زیو (XAG/USD) بۆ ئۆنسە</label>
+                <input type="number" id="masterSpotPrice" value="30.50" step="0.01" oninput="executeMasterRebalancing()">
             </div>
-            <div class="form-group">
-                <label>نرخی حەواڵەی دۆلار (بۆ $100 - IQD)</label>
-                <input type="number" id="usdToIqdRate" value="150000" step="100" oninput="masterCalculatorEngine()">
+            <div class="feed-group">
+                <label>نرخی حەواڵەی فەرمی دۆلار (بۆ ١٠٠ دۆلار - IQD)</label>
+                <input type="number" id="masterIqdRate" value="150000" step="100" oninput="executeMasterRebalancing()">
             </div>
-            <div class="form-group">
-                <label>نرخی لیرەی تورکی (بۆ $1 - TRY)</label>
-                <input type="number" id="usdToTryRate" value="32.50" step="0.1" oninput="masterCalculatorEngine()">
+            <div class="feed-group">
+                <label>نرخی فەرمی لیرەی تورکی (بۆ ١ دۆلار - TRY)</label>
+                <input type="number" id="masterTryRate" value="32.50" step="0.05" oninput="executeMasterRebalancing()">
             </div>
-            <div class="form-group">
-                <label>نرخی تمەنی ئێرانی (بۆ $1 - TOMAN)</label>
-                <input type="number" id="usdToTomanRate" value="61000" step="500" oninput="masterCalculatorEngine()">
+            <div class="feed-group">
+                <label>نرخی فەرمی تمەنی ئێرانی (بۆ ١ دۆلار - TOMAN)</label>
+                <input type="number" id="masterTomanRate" value="61000" step="250" oninput="executeMasterRebalancing()">
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="dashboard-layout">
+    <!-- ==========================================
+         تەلارسازی دابەشکاری سەرەکی (Dashboard Main Layout Grid)
+         ========================================== -->
+    <div class="portal-grid">
         
-        <div class="left-column">
+        <!-- لای چەپ: خشتەکان، چارتەکان و مۆدیۆلە سەرەکییەکان -->
+        <main class="left-aside">
             
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <h2>📋 لیستی نوێکراوەی نرخە جیهانی و ناوخۆییەکان</h2>
-                    <span id="updateTimestamp" style="font-size: 0.85rem; color: var(--text-muted);">سەرجەم نرخەکان داینامیکین</span>
+            <!-- ١. خشتەی گشتگیر و پێشکەوتووی نرخەکان -->
+            <div class="block-card">
+                <div class="block-title">
+                    <h2>📋 لیستی نرخە حەقیقییەکان لەسەر بنەمای بۆرسەی جیهانی</h2>
+                    <span style="font-size: 0.85rem; color: var(--text-muted);">هەموو هاوکێشەکان داینامیکین</span>
                 </div>
-                <div class="table-responsive">
-                    <table class="enterprise-table">
+                <div class="table-container">
+                    <table class="custom-table">
                         <thead>
                             <tr>
-                                <th>ناوی یەکە / جۆر</th>
+                                <th>جۆری یەکە / پارچە</th>
                                 <th>کێشی فیزیکی</th>
-                                <th>عەیار</th>
+                                <th>جۆری عەیار</th>
                                 <th>نرخی دۆلار ($)</th>
                                 <th>نرخی دینار (د.ع)</th>
                                 <th>نرخی لیرە (TRY)</th>
+                                <th>نرخی تمەن (TOMAN)</th>
                             </tr>
                         </thead>
-                        <tbody id="masterTableBody">
-                            </tbody>
+                        <tbody id="globalPricesTableBody">
+                            <!-- داتاکان بە جاڤاسکڕێپت لێرە لۆد دەبن -->
+                        </tbody>
                     </table>
                 </div>
             </div>
 
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <h2>📈 چارت و ڕەوتی جووڵەی نرخی زیو (Advanced Interactive Chart)</h2>
+            <!-- ٢. لایڤ چارتی پێشکەوتووی تڕەیدینگ ڤیو -->
+            <div class="block-card">
+                <div class="block-title">
+                    <h2>📈 چارتی کارلێکەری ساتوەختی زیو (Advanced TradingView Engine)</h2>
                 </div>
-                <div class="tv-wrapper">
+                <div class="iframe-container">
                     <iframe src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_chart&symbol=FX_IDC%3AXAGUSD&interval=D&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=%5B%5D&theme=dark&style=1&timezone=Etc%2FUTC&studies_overrides=%7B%7D&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&locale=en" style="width: 100%; height: 100%; border: none;"></iframe>
                 </div>
             </div>
 
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <h2>📓 تۆماری گرێبەستەکان و چاودێری پۆرتفۆلیۆ (Mock Journal)</h2>
+            <!-- ٣. مۆدیۆلی نوێ: حیسابکەری هێڵەکانی فیبۆناچی (Fibonacci Retracement Calculator) -->
+            <div class="block-card">
+                <div class="block-title">
+                    <h2>📐 حیسابکەری ئاستەکانی فیبۆناچی (Fibonacci Retracement Grid)</h2>
                 </div>
-                <div class="journal-form">
-                    <div class="form-group">
-                        <label>جۆری پۆزیشن</label>
-                        <select id="journalType">
-                            <option value="BUY">کڕین (LONG)</option>
-                            <option value="SELL">فرۆشتن (SHORT)</option>
-                        </select>
+                <div class="grid-inputs-2">
+                    <div class="feed-group">
+                        <label>بەرزترین نرخی شەپۆل (Swing High - $)</label>
+                        <input type="number" id="fiboHigh" value="32.50" step="0.01">
                     </div>
-                    <div class="form-group">
-                        <label>نرخی چوونەژوورەوە ($)</label>
-                        <input type="number" id="journalEntry" value="30.50" step="0.01">
-                    </div>
-                    <div class="form-group">
-                        <label>قەبارە (ئۆنسە)</label>
-                        <input type="number" id="journalVolume" value="50">
-                    </div>
-                    <div class="form-group" style="justify-content: flex-end;">
-                        <button class="action-btn" onclick="addJournalEntry()">➕ زیادکردن بۆ لیستی پۆرتفۆلیۆ</button>
+                    <div class="feed-group">
+                        <label>نزمترین نرخی شەپۆل (Swing Low - $)</label>
+                        <input type="number" id="fiboLow" value="28.00" step="0.01">
                     </div>
                 </div>
-
-                <ul class="log-list" id="journalList">
-                    </ul>
+                <button class="btn-submit" onclick="generateFibonacciLevels()">📊 حیسابکردنی هێڵەکانی فیبۆناچی</button>
+                
+                <div class="output-box" id="fiboOutputBlock" style="display: none;">
+                    <!-- ئاستەکانی فیبۆناچی لێرە دروست دەبن -->
+                </div>
             </div>
 
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <h2>🎓 ئەکادیمیای ڕێبەری تەکنیکی و جیاوازییەکانی بازاڕی زیو</h2>
+            <!-- ٤. مۆدیۆلی نوێ: حیسابکەری خاڵەکانی پیڤۆت (Pivot Points Matrix) -->
+            <div class="block-card">
+                <div class="block-title">
+                    <h2>🎯 حیسابکەری خاڵەکانی بەرگری و پشتگیری ناوەندی (Pivot Points)</h2>
+                </div>
+                <div class="feed-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-bottom: 20px;">
+                    <div class="feed-group">
+                        <label>بەرزترین نرخی دوێنێ (High)</label>
+                        <input type="number" id="pivotHigh" value="31.20" step="0.01">
+                    </div>
+                    <div class="feed-group">
+                        <label>نزمترین نرخی دوێنێ (Low)</label>
+                        <input type="number" id="pivotLow" value="29.80" step="0.01">
+                    </div>
+                    <div class="feed-group">
+                        <label>نرخی داخستنی دوێنێ (Close)</label>
+                        <input type="number" id="pivotClose" value="30.50" step="0.01">
+                    </div>
+                </div>
+                <button class="btn-submit" style="background-color: var(--color-purple); color: white;" onclick="generatePivotPoints()">⚙️ دۆزینەوەی خاڵەکانی پیڤۆت</button>
+                
+                <div class="output-box" id="pivotOutputBlock" style="display: none;">
+                    <!-- خشتەی پیڤۆت لێرە دروست دەبێت -->
+                </div>
+            </div>
+
+            <!-- ٥. پۆرتفۆلیۆ و تۆماری پێشکەوتووی گرێبەستەکان (Advanced Journal with Statistics) -->
+            <div class="block-card">
+                <div class="block-title">
+                    <h2>📓 تۆماری فەرمی تڕەیدەکان و ئاماری سەرکەوتن (Trading Journal)</h2>
                 </div>
                 
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <span>١. بۆچی زیو جووڵەی خێراتر و بەهێزترە (Volatility) لە زێڕ؟</span>
-                        <span>▼</span>
+                <div class="stat-badge-grid">
+                    <div class="stat-mini-card">
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">کۆی گرێبەستەکان</div>
+                        <div class="val" id="statTotalTrades">0</div>
                     </div>
-                    <div class="accordion-content">
-                        مارکێت کاپی بازاڕی زیو زۆر بچووکترە لە زێڕ. ئەمەش وای لێدەکات کە بە پارەیەکی کەمتر لەلایەن بانکەکان و دامەزراوە گەورەکانەوە (Whales) نرخەکەی بجوڵێنرێت. هۆکاری دووەم ئەوەیە کە زیو هەم کاڵایەکی وەبەرهێنانی پاراستنی سەرمایەیە و هەم کەرەستەیەکی پیشەسازی ستراتیژییە (لە دروستکردنی پاتری، تەختەی وزەی خۆر، و ئامێرە ئەلیکترۆنییەکان).
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <span>٢. چۆن بەکارهێنانی مۆڤینگ ئەڤرێجەکان (EMA) ئاڕاستەی زیو دیاری دەکەن؟</span>
-                        <span>▼</span>
-                    </div>
-                    <div class="accordion-content">
-                        لە تڕەیدینگ ڤیو، تڕەیدەرە پرۆفیشناڵەکان هێڵەکانی EMA 50 و SMA 200 بەکاردەهێنن. کاتێک هێڵی 50 ڕۆژە هێڵی 200 ڕۆژە بەرەو سەرەوە دەبڕێت، ڕووداوێکی مێژوویی ڕوودەدات کە پێی دەوترێت (Golden Cross) کە ئاماژەیە بۆ دەستپێکردنی بازاڕێکی بەهێزی سەرکەوتوو (Bullish Market). دابەزینی بەپێچەوانەش پێی دەوترێت (Death Cross).
+                    <div class="stat-mini-card">
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">ڕێژەی سەرکەوتن (Win Rate)</div>
+                        <div class="val text-green" id="statWinRate">0%</div>
                     </div>
                 </div>
 
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <span>٣. حیسابکردنی "پۆستە" یان عەیاری ٩٢٥ بە چ شێوازێکە؟</span>
+                <div class="feed-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); margin-bottom: 20px;">
+                    <div class="feed-group">
+                        <label>جۆری پۆزیشن</label>
+                        <select id="journalAction">
+                            <option value="LONG">کڕین (LONG)</option>
+                            <option value="SHORT">فرۆشتن (SHORT)</option>
+                        </select>
+                    </div>
+                    <div class="feed-group">
+                        <label>نرخی چوونەژوورەوە ($)</label>
+                        <input type="number" id="journalPrice" value="30.50" step="0.01">
+                    </div>
+                    <div class="feed-group">
+                        <label>نرخی چوونەدەرەوە ($)</label>
+                        <input type="number" id="journalExitPrice" value="31.50" step="0.01">
+                    </div>
+                    <div class="feed-group">
+                        <label>قەبارە (ئۆنسە)</label>
+                        <input type="number" id="journalSize" value="100">
+                    </div>
+                </div>
+                <button class="btn-submit" onclick="addTradeToJournal()">➕ تۆمارکردنی گرێبەست لە داتابەیس</button>
+
+                <div class="journal-container" id="journalItemsWrapper">
+                    <!-- لۆگی پۆزیشنەکان -->
+                </div>
+            </div>
+
+            <!-- ٦. ئەکادیمیای قووڵی فێربوون و زاراوە داراییەکان (Accordions) -->
+            <div class="block-card">
+                <div class="block-title">
+                    <h2>📖 ئەکادیمیای ڕێبەری گشتگیری بازاڕ و زاراوە نێودەوڵەتییەکان</h2>
+                </div>
+                
+                <div class="acc-item">
+                    <div class="acc-trigger" onclick="handleAccordionToggle(this)">
+                        <span>١. چۆن بەکارهێنانی "داواکاری پیشەسازی" نرخی زیو دەتەقێنێتەوە؟</span>
                         <span>▼</span>
                     </div>
-                    <div class="accordion-content">
-                        زیوی عەیار 925 پێکهاتووە لە 92.5% زیوی خاو و 7.5% کانزای تر (وەک مس) بۆ ئەوەی ڕەق بێت و بۆ دروستکردنی خشڵ بشێت. کاتێک تۆ نرخەکەی حیساب دەکەیت، دەبێت کێشی گشتی پارچەکە لێبدرێت لە هاوکێشەی (0.925) پاشان بەپێی نرخی بۆرسە کڕین و فرۆشتنی پێوە بکرێت بۆ ئەوەی کڵاوت نەچێتە سەر.
+                    <div class="acc-content">
+                        بە پێچەوانەی زێڕ، زیو کەرەستەیەکی پیشەسازی سەرەکییە. زیاتر لە 55%ی بەکارهێنانی زیوی جیهان دەچێتە ناو پیشەسازییە تەکنەلۆژییەکان وەک دروستکردنی پانێڵەکانی کۆکردنەوەی وزەی خۆر، سیستەمی کارەبایی ئۆتۆمبێلە مۆدێرنەکان، و پاترییە پێشکەوتووەکان. هەر بۆیە لە کاتی بوژانەوەی پیشەسازی جیهانیدا، داواکاری لەسەر زیو بە خێرایی بەرز دەبێتەوە و دەبێتە هۆی دروستبوونی بازاڕێکی بەهێز (Bull Run).
+                    </div>
+                </div>
+
+                <div class="acc-item">
+                    <div class="acc-trigger" onclick="handleAccordionToggle(this)">
+                        <span>٢. تێگەیشتن لە چەمکی Spread و Premium لە بازاڕی فیزیکیدا</span>
+                        <span>▼</span>
+                    </div>
+                    <div class="acc-content">
+                        کاتێک زیوی فیزیکی (کوتلە، شلوق یان لیرە) دەکڕیت، فرۆشیارەکە بڕێک پارە دەخاتە سەر نرخی خاوی بۆرسە کە پێی دەوترێت (Premium). ئەم پریمیۆمە تێچووی شوانکارە، گواستنەوە، بیمە و قازانجی دوکانەکە دەگرێتەوە. لە کاتی فرۆشتنەوەشدا، جیاوازییەک لە نێوان نرخی کڕین و فرۆشتن دروست دەبێت کە پێی دەوترێت (Spread). بۆ وەبەرهێنانی سەرکەوتوو، هەمیشە شلوقی گەورە (١ کیلۆیی یان ١٠٠ ئۆنسەیی) بکڕە چونکە پریمیۆمەکەی کەمترە نیسبەت بە لیرە و خشڵ.
+                    </div>
+                </div>
+
+                <div class="acc-item">
+                    <div class="acc-trigger" onclick="handleAccordionToggle(this)">
+                        <span>٣. سیستەمی لێبڕینی "پۆستە" یان عەیاری ٩٢٥ لە لایەن زێڕەنگەرەکانەوە</span>
+                        <span>▼</span>
+                    </div>
+                    <div class="acc-content">
+                        زیوی عەیار 925 (Sterling Silver) پێکهاتووە لە 92.5% زیوی ساف و 7.5% مس یان کانزاکانی تر بۆ ئەوەی ڕەق بێت و بۆ دروستکردنی خشڵ گونجاو بێت. کاتێک دەتەوێت خشڵێکی عەیار 925 بفۆشیتەوە، زێڕەنگەرەکە کێشی گشتی لێدەدات لە فاکتەری (0.925) بۆ ئەوەی تەنها کێشی زیوە خاوەکەت بۆ حیساب بکات، پاشان پارەکەت پێدەدات.
                     </div>
                 </div>
             </div>
 
-        </div>
+        </main>
 
-        <div class="sidebar">
+        <!-- لای ڕاست: کەرەستەکانی محاسەبەی فیزیکی، ڕیسک و ویجێتە کورتەکان -->
+        <aside class="sidebar-aside">
             
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <h2>🧮 حیسابکەری پریمیۆم و کرێی کارگە</h2>
+            <!-- ١. محاسەبەکاری وردی لیرە و شلوقی فیزیکی (Dynamic Workshop Modeler) -->
+            <div class="block-card">
+                <div class="block-title">
+                    <h2>🧮 حیسابکەری فیزیکی و کرێی کارگە</h2>
                 </div>
-                <div class="sidebar-box">
-                    <div class="form-group">
-                        <label>کێشی کاڵا (بۆ گرام)</label>
-                        <input type="number" id="calcWeight" value="250">
+                <div class="sidebar-box" style="display: flex; flex-direction: column; gap: 15px;">
+                    <div class="feed-group">
+                        <label>کێشی پارچەکە (گرام)</label>
+                        <input type="number" id="physWeight" value="500">
                     </div>
-                    <div class="form-group">
-                        <label>عەیاری فیزیکی</label>
-                        <select id="calcPurity" onchange="autoPremiumAdjuster()">
+                    <div class="feed-group">
+                        <label>عەیاری فیزیکی پارچەکە</label>
+                        <select id="physPurity" onchange="autoAdjustWorkmanshipFee()">
                             <option value="999">عەیار 999 (Pure Silver)</option>
                             <option value="925">عەیار 925 (Sterling)</option>
+                            <option value="800">عەیار 800 (Scrap Silver)</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label>کرێی دەست و پریمیۆم (بۆ هەر گرامێک - $)</label>
-                        <input type="number" id="calcWorkmanship" value="0.15" step="0.01">
+                    <div class="feed-group">
+                        <label>کرێی دەستی و قازانجی دوکان (بۆ هەر گرامێک - $)</label>
+                        <input type="number" id="physWorkmanship" value="0.12" step="0.01">
                     </div>
-                    <button class="action-btn" onclick="executePhysicalCalculation()">📊 حیسابکردنی کۆتایی</button>
+                    <button class="btn-submit" onclick="executePhysicalSilverCalculation()">📊 ئەنجامدانی حیساباتی فیزیکی</button>
                     
-                    <div class="result-panel" id="physicalResultBlock" style="display: none;">
-                        </div>
+                    <div class="output-box" id="physResultBlock" style="display: none;">
+                        <!-- ئەنجامەکان بە جاڤاسکڕێپت لێرە دادەنرێن -->
+                    </div>
                 </div>
             </div>
 
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <h2>⚡ حیسابکەری لێڤەرەیج (بروکر داتا)</h2>
+            <!-- ٢. مۆدیۆلی نوێ: حیسابکەری بەڕێوەبردنی ڕیسک و قەبارەی پۆزیشن (Risk & Position Sizing Modeler) -->
+            <div class="block-card">
+                <div class="block-title">
+                    <h2>🛡️ بەڕێوەبردن و مۆدێلکردنی ڕیسکی سەرمایە</h2>
                 </div>
-                <div class="sidebar-box">
-                    <div class="form-group">
-                        <label>قەبارەی گرێبەست (Lot Size)</label>
-                        <input type="number" id="levLots" value="1" step="0.1">
+                <div class="sidebar-box" style="display: flex; flex-direction: column; gap: 15px;">
+                    <div class="feed-group">
+                        <label>تەواوی سەرمایەی ئەکاونت ($)</label>
+                        <input type="number" id="riskBalance" value="10000">
                     </div>
-                    <div class="form-group">
-                        <label>ڕافیقەی دارایی (Leverage)</label>
-                        <select id="levValue">
-                            <option value="1">1:1 (بێ لێڤەرەیج)</option>
-                            <option value="10">1:10</option>
-                            <option value="50">1:50</option>
-                            <option value="100" selected>1:100</option>
-                            <option value="500">1:500</option>
-                        </select>
+                    <div class="feed-group">
+                        <label>ڕێژەی ڕیسکی ڕێگەپێدراو (%)</label>
+                        <input type="number" id="riskPercent" value="2" step="0.5">
                     </div>
-                    <button class="action-btn" style="background-color: var(--warning-color);" onclick="executeLeverageCalculation()">⚙️ دۆزینەوەی مارژینی پێویست</button>
+                    <div class="feed-group">
+                        <label>بڕی ستۆپ لۆس بە سەنت (Stop Loss Cents)</label>
+                        <input type="number" id="riskSlCents" value="50">
+                    </div>
+                    <button class="btn-submit" style="background-color: var(--color-warning); color: black;" onclick="executeRiskManagementModeler()">📐 دۆزینەوەی قەبارەی لۆتی سەلامەت</button>
                     
-                    <div class="result-panel" id="leverageResultBlock" style="display: none;">
-                        </div>
+                    <div class="output-box" id="riskResultBlock" style="display: none;">
+                        <!-- ئەنجامەکان لێرە لۆد دەبن -->
+                    </div>
                 </div>
             </div>
 
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <h2>🎯 گێچی ئاڕاستەی تەکنیکی (XAGUSD)</h2>
+            <!-- ٣. ویجیتی گێچی تەکنیکی ساتوەختی TradingView (Technical Analysis Gauge) -->
+            <div class="block-card">
+                <div class="block-title">
+                    <h2>🎯 گێچی ئاڕاستەی بازاڕ (XAGUSD 4H Frame)</h2>
                 </div>
-                <div class="tv-mini-wrapper">
+                <div class="mini-iframe-container">
                     <iframe src="https://s.tradingview.com/embed-widget/technical-analysis/?theme=dark&symbol=FX_IDC%3AXAGUSD&interval=4h&locale=en" style="width: 100%; height: 100%; border: none;"></iframe>
                 </div>
             </div>
 
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <h2>🔔 ئاگادارکەرەوەی دەستکردی نرخ (Alerts)</h2>
+            <!-- ٤. سیستەمی جێگیرکردنی ئاگادارکەرەوەی نرخ (Dynamic Alert Module) -->
+            <div class="block-card">
+                <div class="block-title">
+                    <h2>🔔 سیستەمی زەنگی ئاگادارکردنەوەی نرخ</h2>
                 </div>
-                <div class="sidebar-box">
-                    <div class="form-group">
-                        <label>ئەگەر نرخ گەیشتە ئەم ئاستە ($)</label>
-                        <input type="number" id="alertTarget" value="31.00" step="0.1">
+                <div class="sidebar-box" style="display: flex; flex-direction: column; gap: 15px;">
+                    <div class="feed-group">
+                        <label>ئامانجی بەرزبوونەوە یان دابەزین ($)</label>
+                        <input type="number" id="alertTargetValue" value="31.50" step="0.05">
                     </div>
-                    <button class="action-btn" style="background-color: #a855f7; color: white;" onclick="setPriceAlert()">📌 جێگیرکردنی ئاگادارکەرەوە</button>
-                    <div id="alertStatusContainer" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 5px; text-align: center;">
-                        هیچ ئاگادارکەرەوەیەک چالاک نییە
+                    <button class="btn-submit" style="background-color: var(--color-purple); color: white;" onclick="registerPriceAlert()">📌 جێگیرکردنی سیگنال</button>
+                    <div id="alertFeedbackBox" style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-top: 5px;">
+                        هیچ زەنگێک چالاک نییە لەم ساتەدا
                     </div>
                 </div>
             </div>
 
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <h2>📅 ڕۆژژمێری ڕووداوە ئابوورییەکان</h2>
+            <!-- ٥. ویجیتی ڕۆژژمێری ئابووری جیهانی (Economic Calendar) -->
+            <div class="block-card">
+                <div class="block-title">
+                    <h2>📅 ڕۆژژمێری ئابووری فەرمی بۆڕسە</h2>
                 </div>
-                <div class="tv-mini-wrapper" style="height: 300px;">
+                <div class="mini-iframe-container" style="height: 320px;">
                     <iframe src="https://s.tradingview.com/embed-widget/events/?theme=dark&locale=en" style="width: 100%; height: 100%; border: none;"></iframe>
                 </div>
             </div>
 
-        </div>
+        </aside>
 
     </div>
 
 </div>
 
+<!-- ==========================================================================
+     12. بەشی لۆژیک و کۆدەکانی جاڤاسکڕێپت (Comprehensive JS Engine Core)
+     ========================================================================== -->
 <script>
-    // پیکهاتەی سەرەکی داتابەیسی ناوخۆیی بۆ جۆرەکانی زیو
-    const catalogData = [
-        { id: "spot_oz", name: "یەک ئۆنسەی ستانداردی جیهانی", weight: 31.1035, purity: 999, category: "pure" },
-        { id: "pure_gram", name: "یەک گرام زیوی خاوی بۆرسە", weight: 1.0000, purity: 999, category: "pure" },
-        { id: "sterling_gram", name: "یەک گرام زیوی عەیار 925", weight: 1.0000, purity: 925, category: "sterling" },
-        { id: "lira_999", name: "لیرەی زیوی شاهانە (Pure Lira)", weight: 7.2000, purity: 999, category: "coin" },
-        { id: "lira_925", name: "لیرەی زیوی بازاڕی عەیار 925", weight: 7.2000, purity: 925, category: "sterling" },
-        { id: "bar_10oz", name: "کوتلەی بچووک (10 Ounce Bar)", weight: 311.035, purity: 999, category: "pure" },
-        { id: "bar_100oz", name: "شلوقی ستاندارد (100 Ounce Bar)", weight: 3110.35, purity: 999, category: "pure" },
-        { id: "bar_1kg", name: "شلوقی گەورەی وەبەرهێنان (1 KG)", weight: 1000.00, purity: 999, category: "pure" },
-        { id: "coin_vienna", name: "سیکەی فیلهارمۆنیکی ڤیەننا", weight: 31.1035, purity: 999, category: "coin" },
-        { id: "coin_eagle", name: "سیکەی عقابی ئەمریکی (Silver Eagle)", weight: 31.1035, purity: 999, category: "coin" },
-        { id: "scrap_silver", name: "زیوی شکاوی کۆن (بۆ توانەوە)", weight: 1.0000, purity: 800, category: "sterling" },
-        { id: "industrial_grain", name: "حەبۆکەی زیوی پیشەسازی (Grains)", weight: 1000.00, purity: 999, category: "pure" }
+    // داتابەیسی جێگیرکراوی سەرجەم یەکەکانی ناو وێبسایتەکە بۆ حیساباتی داینامیکی
+    const internalSilverCatalog = [
+        { id: "spot_ounce", title: "یەک ئۆنسەی جیهانی (Ounce)", weight: 31.1035, purity: 999, tag: "pure" },
+        { id: "pure_g", title: "یەک گرام زیوی خاوی بۆرسە", weight: 1.0000, purity: 999, tag: "pure" },
+        { id: "sterling_g", title: "یەک گرام زیوی خشڵ (عەیار ٩٢٥)", weight: 1.0000, purity: 925, tag: "sterling" },
+        { id: "lira_royal", title: "لیرەی زیوی شاهانە (عەیار ٩٩٩)", weight: 7.2000, purity: 999, tag: "coin" },
+        { id: "lira_standard", title: "لیرەی زیوی بازاڕی (عەیار ٩٢٥)", weight: 7.2000, purity: 925, tag: "sterling" },
+        { id: "bar_10oz_block", title: "کوتلەی بچووک (10 Ounce Bar)", weight: 311.035, purity: 999, tag: "pure" },
+        { id: "bar_100oz_shloq", title: "شلوقی ستاندارد (100 Ounce Bar)", weight: 3110.35, purity: 999, tag: "pure" },
+        { id: "bar_1kg_lux", title: "شلوقی گەورەی وەبەرهێنان (1 KG)", weight: 1000.00, purity: 999, tag: "pure" },
+        { id: "coin_vienna_phil", title: "سیکەی فەرمی فیلهارمۆنیکی ڤیەننا", weight: 31.1035, purity: 999, tag: "coin" },
+        { id: "coin_maple_leaf", title: "سیکەی مەیپڵ لیفی کەنەدی", weight: 31.1035, purity: 999, tag: "coin" },
+        { id: "scrap_junk_silver", title: "زیوی شکاوی کۆن عەیار ٨٠٠", weight: 1.0000, purity: 800, tag: "sterling" },
+        { id: "industrial_granules", title: "حەبۆکەی زیوی پیشەسازی", weight: 1000.00, purity: 999, tag: "pure" }
     ];
 
-    let activeAlert = null;
+    let globalActiveAlertTarget = null;
 
     // --------------------------------------------------------------------------
-    // مەکینەی سەرەکی حیساباتی ماتماتیکی نرخەکان (Master Engine)
+    // ١. مەکینەی سەرەکی حیسابکردن و هاوڕێککردنی گشتی نرخەکان (Rebalancing Engine)
     // --------------------------------------------------------------------------
-    function masterCalculatorEngine() {
-        const spotUSD = parseFloat(document.getElementById('globalSpotPrice').value) || 0;
-        const rateIQD = parseFloat(document.getElementById('usdToIqdRate').value) || 0;
-        const rateTRY = parseFloat(document.getElementById('usdToTryRate').value) || 0;
-        const rateTOMAN = parseFloat(document.getElementById('usdToTomanRate').value) || 0;
+    function executeMasterRebalancing() {
+        const currentSpotUSD = parseFloat(document.getElementById('masterSpotPrice').value) || 0;
+        const currentIqdRate = parseFloat(document.getElementById('masterIqdRate').value) || 0;
+        const currentTryRate = parseFloat(document.getElementById('masterTryRate').value) || 0;
+        const currentTomanRate = parseFloat(document.getElementById('masterTomanRate').value) || 0;
 
-        const pricePerGramPureUSD = spotUSD / 31.1035;
-        const tableBody = document.getElementById('masterTableBody');
+        const pricePerGramPureUSD = currentSpotUSD / 31.1035;
+        const tableBody = document.getElementById('globalPricesTableBody');
         tableBody.innerHTML = ''; 
 
-        catalogData.forEach(item => {
-            // دیاریکردنی فاکتەری پاکی عەیارەکە
+        internalSilverCatalog.forEach(item => {
+            // فاکتەری عەیار بەپێی بۆرسە
             let purityFactor = item.purity / 999;
             
-            // حیسابکردنی نرخی بنەڕەتی خاو بە دۆلار
-            let basePriceUSD = pricePerGramPureUSD * item.weight * purityFactor;
+            // حیسابکردنی نرخی خاوی دۆلار
+            let finalPriceUSD = pricePerGramPureUSD * item.weight * purityFactor;
             
-            // گۆڕینەوە بۆ دراوە جیاوازەکان بەپێی نرخەکانی بەڕێوبەر
-            let priceIQD = (basePriceUSD / 100) * rateIQD;
-            let priceTRY = basePriceUSD * rateTRY;
-            
-            // دروستکردنی ستایلی باجەکان
-            let badgeClass = "badge-pure";
-            if (item.category === "sterling") badgeClass = "badge-sterling";
-            if (item.category === "coin") badgeClass = "badge-coin";
+            // گۆڕینەوە بۆ دراوەکانی تر بە شێوازی داینامیکی سەد لە سەد ڕاست
+            let finalPriceIQD = (finalPriceUSD / 100) * currentIqdRate;
+            let finalPriceTRY = finalPriceUSD * currentTryRate;
+            let finalPriceTOMAN = finalPriceUSD * currentTomanRate;
 
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td style="font-weight: 700; color: var(--text-main);">${item.name}</td>
-                <td style="font-family: monospace;">${item.weight.toFixed(2)} گرام</td>
-                <td><span class="badge ${badgeClass}">عەیار ${item.purity}</span></td>
-                <td style="font-family: monospace; font-weight: bold;" class="text-green">$${basePriceUSD.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
-                <td style="font-family: monospace; font-weight: bold; color: var(--primary-accent);">${Math.round(priceIQD).toLocaleString('en-US')} د.ع</td>
-                <td style="font-family: monospace; color: var(--text-silver);">${priceTRY.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} ₺</td>
+            let pillStyleClass = "pill-pure";
+            if (item.tag === "sterling") pillStyleClass = "pill-sterling";
+            if (item.tag === "coin") pillStyleClass = "pill-coin";
+
+            const rowElement = document.createElement('tr');
+            rowElement.innerHTML = `
+                <td style="font-weight: 700; color: var(--text-main);">${item.title}</td>
+                <td class="mono-text">${item.weight.toFixed(2)} گرام</td>
+                <td><span class="pill ${pillStyleClass}">عەیار ${item.purity}</span></td>
+                <td class="mono-text text-green">$${finalPriceUSD.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                <td class="mono-text" style="color: var(--color-primary);">${Math.round(finalPriceIQD).toLocaleString('en-US')} د.ع</td>
+                <td class="mono-text" style="color: var(--text-silver);">${finalPriceTRY.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} ₺</td>
+                <td class="mono-text" style="color: var(--color-warning);">${Math.round(finalPriceTOMAN).toLocaleString('en-US')} T</td>
             `;
-            tableBody.appendChild(tr);
+            tableBody.appendChild(rowElement);
         });
 
-        checkPriceAlertEngine(spotUSD);
+        // چاودێریکردنی زەنگی ئاگادارکردنەوە لە کاتی جوڵانی نرخدا
+        evaluateActiveAlertStatus(currentSpotUSD);
     }
 
     // --------------------------------------------------------------------------
-    // حیسابکردنی مۆدێلی پارچەی فیزیکی لەگەڵ کرێی کار و قازانج
+    // ٢. حیسابکردنی مۆدێلی پارچەی فیزیکی لەگەڵ کرێی دەست و کارگە
     // --------------------------------------------------------------------------
-    function executePhysicalCalculation() {
-        const spotUSD = parseFloat(document.getElementById('globalSpotPrice').value) || 0;
-        const rateIQD = parseFloat(document.getElementById('usdToIqdRate').value) || 0;
-        const weight = parseFloat(document.getElementById('calcWeight').value) || 0;
-        const purity = parseInt(document.getElementById('calcPurity').value) || 999;
-        const workmanship = parseFloat(document.getElementById('calcWorkmanship').value) || 0;
+    function executePhysicalSilverCalculation() {
+        const spotUSD = parseFloat(document.getElementById('masterSpotPrice').value) || 0;
+        const rateIQD = parseFloat(document.getElementById('masterIqdRate').value) || 0;
+        const weightGram = parseFloat(document.getElementById('physWeight').value) || 0;
+        const purityValue = parseInt(document.getElementById('physPurity').value) || 999;
+        const workmanshipFeeUSD = parseFloat(document.getElementById('physWorkmanship').value) || 0;
 
-        if (weight <= 0) {
-            alert("تکایە کێشەکە ڕاست بنووسە!");
+        if (weightGram <= 0) {
+            alert("تکایە کێشێکی ڕاستەقینە بنووسە!");
             return;
         }
 
         const pricePerGramPureUSD = spotUSD / 31.1035;
-        let purityFactor = purity === 925 ? 0.925 : 1.0;
+        let purityPercentageFactor = purityValue / 999;
 
-        let rawValueUSD = pricePerGramPureUSD * weight * purityFactor;
-        let totalWorkmanshipUSD = workmanship * weight;
-        let finalUSD = rawValueUSD + totalWorkmanshipUSD;
-        let finalIQD = (finalUSD / 100) * rateIQD;
+        let baseSilverValueUSD = pricePerGramPureUSD * weightGram * purityPercentageFactor;
+        let totalWorkmanshipCostUSD = workmanshipFeeUSD * weightGram;
+        let aggregateCostUSD = baseSilverValueUSD + totalWorkmanshipCostUSD;
+        let aggregateCostIQD = (aggregateCostUSD / 100) * rateIQD;
 
-        const resultBlock = document.getElementById('physicalResultBlock');
+        const resultBlock = document.getElementById('physResultBlock');
         resultBlock.style.display = 'block';
         resultBlock.innerHTML = `
-            <div class="result-item"><span>بەهای خاوی بۆرسە:</span><span style="font-family: monospace;">$${rawValueUSD.toFixed(2)}</span></div>
-            <div class="result-item"><span>کۆی کرێی دەست:</span><span style="font-family: monospace;">$${totalWorkmanshipUSD.toFixed(2)}</span></div>
-            <div class="result-item highlight"><span>کۆتایی بە دۆلار:</span><span style="font-family: monospace;">$${finalUSD.toFixed(2)}</span></div>
-            <div class="result-item highlight" style="color: var(--primary-accent);"><span>کۆتایی بە دینار:</span><span style="font-family: monospace;">${Math.round(finalIQD).toLocaleString('en-US')} د.ع</span></div>
+            <div class="output-row"><span>بەهای خاوی بۆرسەی جیهانی:</span><span class="mono-text">$${baseSilverValueUSD.toFixed(2)}</span></div>
+            <div class="output-row"><span>کۆی گشتی کرێی دەست و کارگە:</span><span class="mono-text">$${totalWorkmanshipCostUSD.toFixed(2)}</span></div>
+            <div class="output-row bold-total"><span>کۆتایی بە دۆلار:</span><span class="mono-text">$${aggregateCostUSD.toFixed(2)}</span></div>
+            <div class="output-row bold-total" style="color: var(--color-primary);"><span>کۆتایی بە دیناری عێراقی:</span><span class="mono-text">${Math.round(aggregateCostIQD).toLocaleString('en-US')} د.ع</span></div>
         `;
     }
 
-    // ڕێکخستنی ئۆتۆماتیکی پریمیۆمی سەرەتایی بەپێی جۆری عەیارەکە
-    function autoPremiumAdjuster() {
-        const purity = document.getElementById('calcPurity').value;
-        const workmanshipInput = document.getElementById('calcWorkmanship');
-        if (purity === "925") {
-            workmanshipInput.value = "0.25"; // کرێی خشڵ بەرزترە
-        } else {
-            workmanshipInput.value = "0.10"; // شلوقی خاو کرێی کەمترە
-        }
+    function autoAdjustWorkmanshipFee() {
+        const purity = document.getElementById('physPurity').value;
+        const workmanshipInput = document.getElementById('physWorkmanship');
+        if (purity === "925") workmanshipInput.value = "0.22";
+        else if (purity === "800") workmanshipInput.value = "0.30";
+        else workmanshipInput.value = "0.10";
     }
 
     // --------------------------------------------------------------------------
-    // حیسابکەری لێڤەرەیج و مارژینی پێویست (Leverage Engine)
+    // ٣. حیسابکەری هێڵەکانی فیبۆناچی (Fibonacci Retracement Logic Module)
     // --------------------------------------------------------------------------
-    function executeLeverageCalculation() {
-        const spotUSD = parseFloat(document.getElementById('globalSpotPrice').value) || 0;
-        const lots = parseFloat(document.getElementById('levLots').value) || 0;
-        const leverage = parseInt(document.getElementById('levValue').value) || 100;
+    function generateFibonacciLevels() {
+        const highPrice = parseFloat(document.getElementById('fiboHigh').value) || 0;
+        const lowPrice = parseFloat(document.getElementById('fiboLow').value) || 0;
 
-        if (lots <= 0) {
-            alert("تکایە قەبارەی لۆت بە دروستی بنووسە!");
+        if (highPrice <= lowPrice) {
+            alert("دەبێت نرخی بەرز (High) گەورەتر بێت لە نرخی نزم (Low)!");
             return;
         }
 
-        // لە گرێبەستە ستانداردییەکانی زیو یەک لۆت یەکسانە بە 5000 ئۆنسە
-        const contractSize = 5000;
-        let totalNotionalValue = spotUSD * contractSize * lots;
-        let requiredMargin = totalNotionalValue / leverage;
+        let priceDifference = highPrice - lowPrice;
+        
+        // ڕێژە سەرەکییەکانی فیبۆناچی
+        let fib236 = highPrice - (priceDifference * 0.236);
+        let fib382 = highPrice - (priceDifference * 0.382);
+        let fib500 = highPrice - (priceDifference * 0.500);
+        let fib618 = highPrice - (priceDifference * 0.618);
+        let fib786 = highPrice - (priceDifference * 0.786);
 
-        const marginBlock = document.getElementById('leverageResultBlock');
-        marginBlock.style.display = 'block';
-        marginBlock.innerHTML = `
-            <div class="result-item"><span>قەبارەی گشتی گرێبەست:</span><span style="font-family: monospace;">${(contractSize * lots).toLocaleString()} ئۆنسە</span></div>
-            <div class="result-item"><span>بەهای گشتی بەبێ ڕافیقە:</span><span style="font-family: monospace;">$${totalNotionalValue.toLocaleString('en-US', {maximumFractionDigits: 2})}</span></div>
-            <div class="result-item highlight" style="color: var(--warning-color);"><span>مارژینی داواکراو (Margin):</span><span style="font-family: monospace;">$${requiredMargin.toLocaleString('en-US', {maximumFractionDigits: 2})}</span></div>
+        const fiboBlock = document.getElementById('fiboOutputBlock');
+        fiboBlock.style.display = 'block';
+        fiboBlock.innerHTML = `
+            <h4 style="margin-bottom: 10px; color: var(--color-primary);">ئاستەکانی کڕین و فرۆشتنی فیبۆناچی:</h4>
+            <div class="output-row"><span>0.0% (Swing High)</span><span class="mono-text">$${highPrice.toFixed(2)}</span></div>
+            <div class="output-row"><span>23.6% Level</span><span class="mono-text">$${fib236.toFixed(2)}</span></div>
+            <div class="output-row"><span>38.2% Level (ناوچەی گرنگ)</span><span class="mono-text">$${fib382.toFixed(2)}</span></div>
+            <div class="output-row" style="font-weight: bold; color: var(--color-warning);"><span>50.0% Equilibrium</span><span class="mono-text">$${fib500.toFixed(2)}</span></div>
+            <div class="output-row" style="font-weight: bold; color: var(--color-success);"><span>61.8% Golden Ratio (ڕێژەی زێڕین)</span><span class="mono-text">$${fib618.toFixed(2)}</span></div>
+            <div class="output-row"><span>78.6% Level</span><span class="mono-text">$${fib786.toFixed(2)}</span></div>
+            <div class="output-row"><span>100.0% (Swing Low)</span><span class="mono-text">$${lowPrice.toFixed(2)}</span></div>
         `;
     }
 
     // --------------------------------------------------------------------------
-    // تۆمارکەری گرێبەستەکان (Trading Journal Engine)
+    // ٤. حیسابکەری خاڵەکانی پیڤۆت (Pivot Points Calculation Module)
     // --------------------------------------------------------------------------
-    function loadJournalEntries() {
-        const stored = localStorage.getItem('silver_journal_trades');
-        const list = document.getElementById('journalList');
-        list.innerHTML = '';
+    function generatePivotPoints() {
+        const high = parseFloat(document.getElementById('pivotHigh').value) || 0;
+        const low = parseFloat(document.getElementById('pivotLow').value) || 0;
+        const close = parseFloat(document.getElementById('pivotClose').value) || 0;
+
+        if (high < low || close > high || close < low) {
+            alert("تکایە زانیارییەکانی نرخ بە لۆژیکی بنووسە!");
+            return;
+        }
+
+        // هاوکێشەی کلاسیکی فەرمی بۆ دۆزینەوەی پیڤۆت پۆینت
+        let pivotPoint = (high + low + close) / 3;
         
-        if (stored) {
-            const trades = JSON.parse(stored);
-            trades.forEach((trade, index) => {
-                const li = document.createElement('li');
-                li.className = 'log-item';
-                li.innerHTML = `
+        let resistance1 = (2 * pivotPoint) - low;
+        let support1 = (2 * pivotPoint) - high;
+        
+        let resistance2 = pivotPoint + (high - low);
+        let support2 = pivotPoint - (high - low);
+        
+        let resistance3 = high + 2 * (pivotPoint - low);
+        let support3 = low - 2 * (high - pivotPoint);
+
+        const pivotBlock = document.getElementById('pivotOutputBlock');
+        pivotBlock.style.display = 'block';
+        pivotBlock.innerHTML = `
+            <h4 style="margin-bottom: 10px; color: var(--color-purple);">خاڵەکانی وەرچەرخانی کلاسیکی دوێنێ:</h4>
+            <div class="output-row" style="color: var(--color-danger);"><span>بەرگری سێیەم (R3)</span><span class="mono-text">$${resistance3.toFixed(2)}</span></div>
+            <div class="output-row" style="color: var(--color-danger);"><span>بەرگری دووەم (R2)</span><span class="mono-text">$${resistance2.toFixed(2)}</span></div>
+            <div class="output-row" style="color: var(--color-danger);"><span>بەرگری یەکەم (R1)</span><span class="mono-text">$${resistance1.toFixed(2)}</span></div>
+            <div class="output-row" style="font-weight: bold; color: var(--color-primary);"><span>خاڵی سەرەکی پیڤۆت (PP)</span><span class="mono-text">$${pivotPoint.toFixed(2)}</span></div>
+            <div class="output-row" style="color: var(--color-success);"><span>پشتگیری یەکەم (S1)</span><span class="mono-text">$${support1.toFixed(2)}</span></div>
+            <div class="output-row" style="color: var(--color-success);"><span>پشتگیری دووەم (S2)</span><span class="mono-text">$${support2.toFixed(2)}</span></div>
+            <div class="output-row" style="color: var(--color-success);"><span>پشتگیری سێیەم (S3)</span><span class="mono-text">$${support3.toFixed(2)}</span></div>
+        `;
+    }
+
+    // --------------------------------------------------------------------------
+    // ٥. بەڕێوەبردن و مۆدێلکردنی ڕیسکی سەرمایە (Position Sizing Logic)
+    // --------------------------------------------------------------------------
+    function executeRiskManagementModeler() {
+        const balance = parseFloat(document.getElementById('riskBalance').value) || 0;
+        const riskPercent = parseFloat(document.getElementById('riskPercent').value) || 0;
+        const slCents = parseFloat(document.getElementById('riskSlCents').value) || 0;
+
+        if (balance <= 0 || riskPercent <= 0 || slCents <= 0) {
+            alert("تکایە زانیارییەکان بە دروستی پڕبکەرەوە!");
+            return;
+        }
+
+        // بڕی پارەی ڕیسککراو بە دۆلار
+        let maxRiskAmountUSD = balance * (riskPercent / 100);
+        
+        // لە بۆڕسەدا، هەر ١ سەنت جوڵەی زیو لە یەک لۆتی ستاندارددا یەکسانە بە ٥٠ دۆلار
+        // لۆژیکی قەبارەی لۆت: کۆی پارەی ڕیسککراو دابەشی (بڕی ستۆپ لۆس بە سەنت * ٥٠)
+        let totalOuncesToTrade = maxRiskAmountUSD / (slCents / 100);
+        let standardLots = totalOuncesToTrade / 5000; // ١ لۆت یەکسانە بە ٥٠٠٠ ئۆنسە
+
+        const riskBlock = document.getElementById('riskResultBlock');
+        riskBlock.style.display = 'block';
+        riskBlock.innerHTML = `
+            <div class="output-row"><span>زۆربەی پارەی ڕیسککراو:</span><span class="mono-text" style="color: var(--color-danger);">$${maxRiskAmountUSD.toFixed(2)}</span></div>
+            <div class="output-row"><span>کۆی کێشی ڕێگەپێدراو بۆ بازرگانی:</span><span class="mono-text">${Math.round(totalOuncesToTrade).toLocaleString()} ئۆنسە</span></div>
+            <div class="output-row bold-total" style="color: var(--color-success);"><span>قەبارەی لۆتی پێشنیارکراو (Lots):</span><span class="mono-text">${standardLots.toFixed(2)} Lots</span></div>
+        `;
+    }
+
+    // --------------------------------------------------------------------------
+    // ٦. تۆماری فەرمی گرێبەستەکان (LocalStorage Integrated Journal Modeler)
+    // --------------------------------------------------------------------------
+    function loadJournalDatabase() {
+        const storedData = localStorage.getItem('premium_silver_journal');
+        const itemsWrapper = document.getElementById('journalItemsWrapper');
+        itemsWrapper.innerHTML = '';
+
+        if (storedData) {
+            const list = JSON.parse(storedData);
+            document.getElementById('statTotalTrades').innerText = list.length;
+            
+            let winningTradesCount = 0;
+
+            list.forEach((trade, index) => {
+                let pnlPerOunce = trade.action === "LONG" ? (trade.exit - trade.price) : (trade.price - trade.exit);
+                let totalTradePnL = pnlPerOunce * trade.size;
+                
+                if (totalTradePnL > 0) winningTradesCount++;
+
+                const itemRow = document.createElement('div');
+                itemRow.className = 'journal-item';
+                itemRow.innerHTML = `
                     <div>
-                        <strong style="color: ${trade.type === 'BUY' ? 'var(--success-color)' : 'var(--danger-color)'};">[${trade.type}]</strong> 
-                        <span>${trade.volume} ئۆنسە لە نرخی $${trade.entry}</span>
+                        <strong style="color: ${trade.action === 'LONG' ? 'var(--color-success)' : 'var(--color-danger)'};">[${trade.action}]</strong>
+                        <span>${trade.size} ئۆنسە لە $${trade.price} ➔ $${trade.exit}</span>
                     </div>
-                    <button class="theme-toggle-btn" style="padding: 4px 8px; background-color: var(--danger-color); color: white; border: none;" onclick="deleteJournalEntry(${index})">سڕینەوە</button>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <span class="mono-text ${totalTradePnL >= 0 ? 'text-green' : 'text-red'}">
+                            ${totalTradePnL >= 0 ? '+' : ''}$${totalTradePnL.toFixed(2)}
+                        </span>
+                        <button class="theme-switch" style="padding: 5px 10px; background-color: var(--color-danger); color: white; border: none;" onclick="deleteTradeFromJournal(${index})">X</button>
+                    </div>
                 `;
-                list.appendChild(li);
+                itemsWrapper.appendChild(itemRow);
             });
+
+            let finalWinRatePercent = list.length > 0 ? (winningTradesCount / list.length) * 100 : 0;
+            document.getElementById('statWinRate').innerText = `${finalWinRatePercent.toFixed(1)}%`;
         } else {
-            list.innerHTML = '<li style="text-align: center; color: var(--text-muted); font-size: 0.85rem;">هیچ گرێبەستێک تۆمار نەکراوە</li>';
+            document.getElementById('statTotalTrades').innerText = '0';
+            document.getElementById('statWinRate').innerText = '0%';
+            itemsWrapper.innerHTML = '<p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; padding: 15px;">هیچ داتایەک لە داتابەیسی لۆکاڵدا پاشەکەوت نەکراوە.</p>';
         }
     }
 
-    function addJournalEntry() {
-        const type = document.getElementById('journalType').value;
-        const entry = parseFloat(document.getElementById('journalEntry').value) || 0;
-        const volume = parseFloat(document.getElementById('journalVolume').value) || 0;
+    function addTradeToJournal() {
+        const action = document.getElementById('journalAction').value;
+        const price = parseFloat(document.getElementById('journalPrice').value) || 0;
+        const exit = parseFloat(document.getElementById('journalExitPrice').value) || 0;
+        const size = parseFloat(document.getElementById('journalSize').value) || 0;
 
-        if (entry <= 0 || volume <= 0) {
-            alert("زانیارییەکان تەواو نین!");
+        if (price <= 0 || exit <= 0 || size <= 0) {
+            alert("تکایە سەرجەم خانەکانی تۆمارەکە بە دروستی پڕبکەرەوە!");
             return;
         }
 
-        const newTrade = { type, entry, volume, date: new Date().toLocaleDateString() };
-        let trades = [];
-        const stored = localStorage.getItem('silver_journal_trades');
-        if (stored) trades = JSON.parse(stored);
-        
-        trades.push(newTrade);
-        localStorage.setItem('silver_journal_trades', JSON.stringify(trades));
-        loadJournalEntries();
+        const newRecord = { action, price, exit, size, timestamp: new Date().getTime() };
+        let historyList = [];
+        const storedData = localStorage.getItem('premium_silver_journal');
+        if (storedData) historyList = JSON.parse(storedData);
+
+        historyList.push(newRecord);
+        localStorage.setItem('premium_silver_journal', JSON.stringify(historyList));
+        loadJournalDatabase();
     }
 
-    function deleteJournalEntry(index) {
-        let trades = JSON.parse(localStorage.getItem('silver_journal_trades'));
-        trades.splice(index, 1);
-        if (trades.length === 0) {
-            localStorage.removeItem('silver_journal_trades');
+    function deleteTradeFromJournal(index) {
+        let historyList = JSON.parse(localStorage.getItem('premium_silver_journal'));
+        historyList.splice(index, 1);
+        if (historyList.length === 0) {
+            localStorage.removeItem('premium_silver_journal');
         } else {
-            localStorage.setItem('silver_journal_trades', JSON.stringify(trades));
+            localStorage.setItem('premium_silver_journal', JSON.stringify(historyList));
         }
-        loadJournalEntries();
+        loadJournalDatabase();
     }
 
     // --------------------------------------------------------------------------
-    // سیستەمی سیگناڵ و ئاگادارکردنەوەی نرخ (Alert Engine)
+    // ٧. سیستەمی ئۆتۆماتیکی زەنگی ئاگادارکردنەوەی نرخ (Alert Evaluator Engine)
     // --------------------------------------------------------------------------
-    function setPriceAlert() {
-        const target = parseFloat(document.getElementById('alertTarget').value) || 0;
-        if (target <= 0) {
-            alert("تکایە نرخێکی دروست دابنێ!");
+    function registerPriceAlert() {
+        const value = parseFloat(document.getElementById('alertTargetValue').value) || 0;
+        if (value <= 0) {
+            alert("تکایە نرخێکی گونجاو بنووسە!");
             return;
         }
-        activeAlert = target;
-        document.getElementById('alertStatusContainer').innerHTML = `<span style="color: var(--warning-color); font-weight: bold;">🔔 زەنگ چالاکە بۆ ئاستی $${target.toFixed(2)}</span>`;
+        globalActiveAlertTarget = value;
+        document.getElementById('alertFeedbackBox').innerHTML = `<span style="color: var(--color-warning); font-weight: bold;">🔔 سیگنال چالاکە بۆ ئاستی $${value.toFixed(2)}</span>`;
     }
 
-    function checkPriceAlertEngine(currentPrice) {
-        if (activeAlert !== null) {
-            if (currentPrice >= activeAlert) {
-                alert(`⚠️ زەنگی ئاگادارکردنەوە! نرخی زیو گەیشتە ئاستی دیاریکراوی تۆ یان تێپەڕی کرد: $${currentPrice}`);
-                activeAlert = null;
-                document.getElementById('alertStatusContainer').innerText = "هیچ ئاگادارکەرەوەیەک چالاک نییە";
+    function evaluateActiveAlertStatus(currentMarketPrice) {
+        if (globalActiveAlertTarget !== null) {
+            if (currentMarketPrice >= globalActiveAlertTarget) {
+                alert(`⚠️ زەنگی هۆشداری TradingView! نرخی ساتوەختی گەیشتە ئاستی دیاریکراوی تۆ: $${currentMarketPrice}`);
+                globalActiveAlertTarget = null;
+                document.getElementById('alertFeedbackBox').innerText = "هیچ زەنگێک چالاک نییە لەم ساتەدا";
             }
         }
     }
 
     // --------------------------------------------------------------------------
-    // بەشەکانی ڕووکار و ئەکۆردیۆن (UI Component Toggles)
+    // ٨. بەشەکانی ڕووکار و ئەکۆردیۆن (UI Interactivity Components)
     // --------------------------------------------------------------------------
-    function toggleAccordion(header) {
-        const content = header.nextElementSibling;
-        const arrow = header.querySelector('span:last-child');
+    function handleAccordionToggle(triggerElement) {
+        const targetContent = triggerElement.nextElementSibling;
+        const arrowIcon = triggerElement.querySelector('span:last-child');
         
-        if (content.style.display === "block") {
-            content.style.display = "none";
-            arrow.innerText = "▼";
+        if (targetContent.style.display === "block") {
+            targetContent.style.display = "none";
+            arrowIcon.innerText = "▼";
         } else {
-            content.style.display = "block";
-            arrow.innerText = "▲";
+            targetContent.style.display = "block";
+            arrowIcon.innerText = "▲";
         }
     }
 
-    function toggleTheme() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        if (currentTheme === 'light') {
+    function switchThemeMode() {
+        const rootAttr = document.documentElement.getAttribute('data-theme');
+        if (rootAttr === 'light') {
             document.documentElement.setAttribute('data-theme', 'dark');
         } else {
             document.documentElement.setAttribute('data-theme', 'light');
         }
     }
 
-    // یەکەم دەستپێکردنی مەکینەکان لەکاتی لۆدبوونی پەیج
+    // چالاککردنی سەرجەم سیستەمەکان کاتێک پەڕەکە بە تەواوی لۆد دەبێت
     window.onload = function() {
-        masterCalculatorEngine();
-        loadJournalEntries();
+        executeMasterRebalancing();
+        loadJournalDatabase();
     };
 </script>
 
