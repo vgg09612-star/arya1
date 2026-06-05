@@ -3,522 +3,1215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Institutional Live Trading Terminal v4.0 Pro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Sheikh Arya - Sovereign Trading Ecosystem v8.0</title>
+    <link href="https://fonts.googleapis.com/css2=family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- هێنانی کتێبخانەی فەرمی ترەیدینگ ڤیو -->
-    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     
     <style>
+        /* ==========================================================================
+           1. CORE CORE VARIABLES & ARCHITECTURAL VARIABLES
+           ========================================================================== */
         :root {
-            --bg-main: #030508;
-            --bg-card: #0a0d14;
-            --bg-input: #111622;
-            --border-color: #192233;
-            --color-up: #00c49f;
-            --color-down: #ff4a5a;
+            --bg-main: #020406;
+            --bg-card: #080b11;
+            --bg-input: #0f1420;
+            --border-color: #162032;
+            --color-up: #00e676;
+            --color-down: #ff3d00;
             --color-text-main: #ffffff;
             --color-text-muted: #64748b;
-            --color-accent: #2563eb;
-            --color-warning: #f59e0b;
+            --color-accent: #2962ff;
+            --color-gold-glow: #ecc94b;
+            --color-silver-glow: #e2e8f0;
+            --bg-flash-up: rgba(0, 230, 118, 0.15);
+            --bg-flash-down: rgba(255, 61, 0, 0.15);
         }
 
         * {
-            margin: 0; padding: 0; box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            -webkit-tap-highlight-color: transparent; user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
 
         html, body { 
-            width: 100%; height: 100%; overflow: hidden; 
-            background-color: var(--bg-main); color: var(--color-text-main); 
+            width: 100%;
+            height: 100%;
+            overflow: hidden; 
+            background-color: var(--bg-main);
+            color: var(--color-text-main); 
         }
 
+        /* ==========================================================================
+           2. SPLASH SCREEN SEQUENCE (ROYAL ANIMATION)
+           ========================================================================== */
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-main);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s;
+        }
+        
+        .welcome-screen.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .welcome-logo {
+            font-size: 64px;
+            color: var(--color-gold-glow);
+            margin-bottom: 24px;
+            animation: royalPulse 2s infinite ease-in-out;
+            filter: drop-shadow(0 0 25px rgba(236, 201, 75, 0.4));
+        }
+        
+        .welcome-text {
+            font-size: 26px;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .welcome-loader {
+            width: 80px;
+            height: 2px;
+            background: var(--border-color);
+            margin-top: 25px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+
+        .welcome-loader::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 50%;
+            background: var(--color-gold-glow);
+            animation: loadBar 1.5s infinite ease-in-out;
+        }
+
+        @keyframes royalPulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 0 35px rgba(236, 201, 75, 0.6)); }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+
+        @keyframes loadBar {
+            0% { left: -50%; }
+            100% { left: 100%; }
+        }
+
+        /* ==========================================================================
+           3. APPLICATION CONTAINMENT LAYOUT
+           ========================================================================== */
         .app-container {
-            display: flex; flex-direction: column; height: 100%; width: 100%;
-            max-width: 480px; margin: 0 auto; position: relative;
-            background: var(--bg-main); border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            position: relative;
+            background: var(--bg-main);
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
         }
 
-        /* سەرپەڕە */
+        /* ==========================================================================
+           4. INSTITUTIONAL HEADER & TICKER
+           ========================================================================== */
         .app-header {
-            height: 55px; display: flex; justify-content: space-between; align-items: center;
-            padding: 0 16px; border-bottom: 1px solid var(--border-color); background: var(--bg-card);
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-card);
             z-index: 110;
         }
 
-        .market-status { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--color-up); font-weight: 700; }
-        .status-dot { width: 6px; height: 6px; background-color: var(--color-up); border-radius: 50%; box-shadow: 0 0 8px var(--color-up); }
+        .market-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--color-up);
+            font-weight: 700;
+        }
+        
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--color-up);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--color-up);
+        }
 
-        /* تیکەری جوڵاو */
         .ticker-tape {
-            background: #0f1420; height: 30px; display: flex; align-items: center;
-            overflow: hidden; white-space: nowrap; font-size: 11px; border-bottom: 1px solid var(--border-color);
+            background: #0b0f19;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 11px;
+            border-bottom: 1px solid var(--border-color);
             z-index: 105;
         }
-        .ticker-scroll { display: inline-block; animation: scrollText 25s linear infinite; padding-right: 100%; color: var(--color-text-muted); }
-        @keyframes scrollText { 0% { transform: translate3d(100%, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
+        
+        .ticker-scroll {
+            display: inline-block;
+            animation: scrollText 40s linear infinite;
+            padding-right: 100%;
+            color: var(--color-text-muted);
+        }
+        
+        @keyframes scrollText {
+            0% { transform: translate3d(100%, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
 
-        .main-content { flex: 1; position: relative; overflow: hidden; width: 100%; }
+        /* ==========================================================================
+           5. DYNAMIC PAGE CONTROLLERS
+           ========================================================================== */
+        .main-content {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
         
         .page-section {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0; visibility: hidden; transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 14px; overflow-y: auto; padding-bottom: 85px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.22s ease-in-out;
+            padding: 14px;
+            overflow-y: auto;
+            padding-bottom: 95px;
         }
-        .page-section.active { opacity: 1; visibility: visible; z-index: 10; }
+        
+        .page-section.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 10;
+        }
 
-        .section-title { font-size: 11px; color: var(--color-text-muted); margin: 18px 0 8px 0; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-        .section-title:first-child { margin-top: 0; }
+        .section-title {
+            font-size: 11px;
+            color: var(--color-text-muted);
+            margin: 18px 0 8px 0;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-        /* کارتەکانی پێشاندانی نەقدی */
+        /* ==========================================================================
+           6. COMPONENT CARDS & CORE GRID ARRAYS
+           ========================================================================== */
         .balance-card {
-            background: linear-gradient(135deg, #101624 0%, #070a10 100%);
-            border: 1px solid var(--border-color); padding: 18px; border-radius: 16px; margin-bottom: 15px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #0e1320 0%, #05070b 100%);
+            border: 1px solid var(--border-color);
+            padding: 18px;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.5);
         }
 
-        .balance-title { font-size: 11px; color: var(--color-text-muted); font-weight: 600; }
-        .balance-amount { font-size: 26px; font-weight: 700; margin-top: 4px; letter-spacing: -0.5px; }
-        .balance-sub { font-size: 11px; color: var(--color-up); margin-top: 6px; display: flex; align-items: center; gap: 4px; }
+        .balance-title {
+            font-size: 11px;
+            color: var(--color-text-muted);
+            font-weight: 600;
+        }
+        
+        .balance-amount {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 4px;
+            letter-spacing: -0.5px;
+        }
 
-        /* تۆڕی کارتەکانی نرخ */
-        .market-ticker-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .mini-ticker { background: var(--bg-card); border: 1px solid var(--border-color); padding: 14px; border-radius: 12px; cursor: pointer; transition: border-color 0.2s; }
-        .mini-ticker.active { border-color: var(--color-accent); background: #0c121f; }
-        .mini-name { font-size: 11px; color: var(--color-text-muted); font-weight: 600; }
-        .mini-price { font-size: 18px; font-weight: 700; margin-top: 4px; font-family: monospace; }
-        .mini-change { font-size: 11px; margin-top: 2px; font-weight: 600; }
+        .pnl-strip {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            font-size: 12px;
+        }
 
-        /* لایەنی چارتە جیهانییەکان */
-        .advanced-chart-panel { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 12px; height: 330px; display: flex; flex-direction: column; margin-bottom: 15px; }
-        .chart-controls { display: flex; justify-content: space-between; margin-bottom: 10px; align-items: center; }
-        .tf-selector { display: flex; gap: 4px; background: var(--bg-main); padding: 3px; border-radius: 8px; border: 1px solid var(--border-color); }
-        .tf-btn { background: transparent; border: none; color: var(--color-text-muted); font-size: 10px; padding: 5px 10px; font-weight: 700; border-radius: 6px; cursor: pointer; }
-        .tf-btn.active { background: var(--bg-input); color: white; border: 1px solid var(--border-color); }
-        .chart-type-btn { background: var(--bg-input); border: 1px solid var(--border-color); color: white; font-size: 11px; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-weight: 600; }
-        .chart-render { flex: 1; width: 100%; border-radius: 10px; overflow: hidden; background: #0a0d14; }
+        .market-ticker-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .mini-ticker {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            border-radius: 12px;
+        }
+        
+        .mini-name {
+            font-size: 11px;
+            color: var(--color-text-muted);
+            font-weight: 600;
+        }
+        
+        .mini-price {
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 4px;
+            font-family: monospace;
+        }
 
-        /* هێڵکاری قوڵایی بازاڕ */
-        .order-book-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 15px; }
-        .ob-side { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; padding: 12px; }
-        .ob-header { display: flex; justify-content: space-between; font-size: 11px; color: var(--color-text-muted); margin-bottom: 8px; font-weight: 600; border-bottom: 1px solid var(--border-color); padding-bottom: 4px; }
-        .ob-row { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 6px; font-family: monospace; }
-        .ob-ask { color: var(--color-down); font-weight: 600; }
-        .ob-bid { color: var(--color-up); font-weight: 600; }
+        /* ==========================================================================
+           7. INTERACTIVE METRIC ARRAYS & FLASH CHANNELS
+           ========================================================================== */
+        .live-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .live-table th, .live-table td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 13px;
+            transition: background-color 0.4s ease, color 0.2s ease;
+        }
+        
+        html[dir="rtl"] .live-table th, html[dir="rtl"] .live-table td {
+            text-align: right;
+        }
+        
+        .live-table th {
+            color: var(--color-text-muted);
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            background: rgba(255,255,255,0.01);
+        }
 
-        /* پەنێڵی ترەیدینگ و جێبەجێکردنی فەرمانەکان */
-        .trade-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px; }
-        .trade-tabs { display: flex; gap: 10px; margin-bottom: 16px; }
-        .trade-tab-btn { flex: 1; height: 42px; border: none; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; transition: background 0.2s; }
-        .tab-buy { background: var(--color-up); color: white; }
+        /* ئەنیمەیشنی گەشاوەی سەوز و سوور بۆ خشتەی نوێی بەشی پێنجەم */
+        .flash-up {
+            background-color: var(--bg-flash-up) !important;
+            color: var(--color-up) !important;
+        }
+
+        .flash-down {
+            background-color: var(--bg-flash-down) !important;
+            color: var(--color-down) !important;
+        }
+
+        .session-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .session-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .session-badge {
+            font-size: 9px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: 4px;
+        }
+        .badge-open { background: rgba(0, 230, 118, 0.12); color: var(--color-up); }
+        .badge-closed { background: rgba(255, 61, 0, 0.12); color: var(--color-down); }
+
+        /* ==========================================================================
+           8. CHART PANEL INTEGRATION WITH VISUAL ORDERS
+           ========================================================================== */
+        .advanced-chart-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 6px;
+            height: 380px;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-render {
+            flex: 1;
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* مۆدیۆلی دەەرکەوتنی هێڵەکانی مامەڵە لەسەر چارت وەک مێتا ترەیدەر */
+        .chart-order-overlay {
+            position: absolute;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 90px);
+            pointer-events: none;
+            z-index: 5;
+            display: none;
+        }
+
+        .order-line {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            font-size: 10px;
+            font-weight: 700;
+            font-family: monospace;
+        }
+
+        .line-entry { border-top: 1px dashed #2962ff; color: #2962ff; top: 40%; }
+        .line-tp { border-top: 1px dashed var(--color-up); color: var(--color-up); top: 20%; }
+        .line-sl { border-top: 1px dashed var(--color-down); color: var(--color-down); top: 75%; }
+
+        .order-badge {
+            background: var(--bg-main);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid currentColor;
+        }
+
+        .symbol-selector-bar {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+        .sym-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: white;
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .sym-btn.active {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        /* ==========================================================================
+           9. ADVANCED ORDER FORMS & RISK SYSTEMS
+           ========================================================================== */
+        .trade-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 16px;
+        }
+        
+        .trade-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        
+        .trade-tab-btn {
+            flex: 1;
+            height: 44px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .tab-buy { background: var(--color-up); color: #000000; }
         .tab-sell { background: var(--bg-input); color: var(--color-text-muted); border: 1px solid var(--border-color); }
         
-        .input-group { margin-bottom: 14px; }
-        .input-label { font-size: 11px; color: var(--color-text-muted); margin-bottom: 6px; display: block; font-weight: 600; }
-        .terminal-input { width: 100%; background: var(--bg-input); border: 1px solid var(--border-color); height: 45px; border-radius: 10px; padding: 0 14px; color: white; font-size: 14px; outline: none; font-weight: 600; }
-        .terminal-input:focus { border-color: var(--color-accent); }
-        
-        .leverage-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 6px; }
-        .lev-btn { background: var(--bg-input); border: 1px solid var(--border-color); color: white; padding: 8px 0; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; }
-        .lev-btn.active { border-color: var(--color-accent); background: rgba(37, 99, 235, 0.15); color: var(--color-accent); }
-
-        .summary-box { background: var(--bg-main); padding: 12px; border-radius: 10px; font-size: 12px; border: 1px solid var(--border-color); margin-top: 15px; }
-        .summary-row { display: flex; justify-content: space-between; margin-bottom: 6px; }
-        .summary-row:last-child { margin-bottom: 0; padding-top: 6px; border-top: 1px dashed var(--border-color); font-weight: 700; }
-
-        /* لیستی هەواڵە قوڵەکان */
-        .news-panel { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 14px; margin-bottom: 15px; }
-        .news-item { padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 4px; }
-        .news-item:last-child { border-bottom: none; padding-bottom: 0; }
-        .news-meta { display: flex; justify-content: space-between; font-size: 10px; font-weight: 700; }
-        .news-headline { font-size: 12px; color: #e2e8f0; line-height: 1.5; font-weight: 500; }
-
-        /* بەشی ڕێکخستنەکان */
-        .settings-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 0 16px; overflow: hidden; }
-        .settings-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border-color); font-size: 13px; }
-        .settings-row:last-child { border-bottom: none; }
-        
-        .toggle-switch { position: relative; display: inline-block; width: 38px; height: 22px; }
-        .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #334155; transition: .3s; border-radius: 22px; }
-        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
-        input:checked + .slider { background-color: var(--color-accent); }
-        input:checked + .slider:before { transform: translateX(16px); }
-
-        /* پۆرتفۆلیۆ و مێژووی پۆزیشنەکان */
-        .positions-list { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; }
-        .pos-item { padding: 14px 16px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
-        .pos-item:last-child { border-bottom: none; }
-
-        /* مینیووی سەرەکی خوارەوە */
-        .bottom-nav {
-            position: absolute; bottom: 0; left: 0; width: 100%; height: 65px;
-            background: var(--bg-card); border-top: 1px solid var(--border-color);
-            display: flex; justify-content: space-around; align-items: center; z-index: 100;
+        .order-type-tabs {
+            display: flex;
+            background: var(--bg-input);
+            padding: 3px;
+            border-radius: 8px;
+            margin-bottom: 14px;
+            border: 1px solid var(--border-color);
         }
-        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--color-text-muted); font-size: 10px; font-weight: 600; cursor: pointer; gap: 5px; flex: 1; justify-content: center; height: 100%; }
-        .nav-item i { font-size: 18px; }
+        .order-type-btn {
+            flex: 1; border: none; background: transparent; color: var(--color-text-muted);
+            padding: 7px 0; font-size: 11px; font-weight: 700; cursor: pointer; border-radius: 6px;
+        }
+        .order-type-btn.active {
+            background: var(--bg-main); color: white;
+        }
+
+        .input-group { margin-bottom: 12px; }
+        .input-label { font-size: 11px; color: var(--color-text-muted); margin-bottom: 6px; display: block; font-weight: 600; }
+        
+        .terminal-input {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            height: 42px;
+            border-radius: 10px;
+            padding: 0 14px;
+            color: white;
+            font-size: 14px;
+            outline: none;
+            font-weight: 600;
+        }
+        
+        .risk-dual-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .leverage-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-top: 4px;
+        }
+        
+        .lev-btn {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: white;
+            padding: 8px 0;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        
+        .lev-btn.active {
+            border-color: var(--color-accent);
+            background: rgba(41, 98, 255, 0.15);
+            color: #2962ff;
+        }
+
+        .summary-box {
+            background: var(--bg-main);
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 12px;
+            border: 1px solid var(--border-color);
+            margin-top: 12px;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        /* ==========================================================================
+           10. DATA CONSOLE & SETTINGS ELEMENTS
+           ========================================================================== */
+        .settings-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 0 16px;
+            margin-bottom: 15px;
+        }
+        
+        .settings-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 13px;
+        }
+        
+        .settings-row:last-child { border-bottom: none; }
+
+        .lang-selector-container {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-input);
+            padding: 3px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .lang-option-btn {
+            background: transparent; border: none; color: var(--color-text-muted);
+            font-size: 10px; padding: 6px 10px; font-weight: 700; border-radius: 6px; cursor: pointer;
+        }
+
+        .lang-option-btn.active {
+            background: var(--bg-main); color: white; border: 1px solid var(--border-color);
+        }
+
+        .debug-console {
+            background: #04060a;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 11px;
+            color: #38bdf8;
+            max-height: 110px;
+            overflow-y: auto;
+        }
+
+        /* ==========================================================================
+           11. SYSTEM NAVIGATION DOCK (5 TABS ARRAY)
+           ========================================================================== */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--color-text-muted);
+            font-size: 9px;
+            font-weight: 600;
+            cursor: pointer;
+            gap: 5px;
+            flex: 1;
+            justify-content: center;
+            height: 100%;
+        }
+        
+        .nav-item i { font-size: 17px; }
         .nav-item.active { color: var(--color-accent); }
+
+        .toggle-switch { position: relative; display: inline-block; width: 34px; height: 20px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--bg-input); border: 1px solid var(--border-color); transition: .3s; border-radius: 20px; }
+        .slider:before { position: absolute; content: ""; height: 12px; width: 12px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--color-accent); }
+        input:checked + .slider:before { transform: translateX(14px); }
     </style>
 </head>
 <body>
 
+    <!-- ==========================================================================
+       A. MAIN WELCOME INTRO ROUTINE
+       ========================================================================== */ -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-logo"><i class="fa-solid fa-crown"></i></div>
+        <div class="welcome-text" id="welcome-msg-render">
+            بەخێربێیت، شێخ ئەریا<br>
+            <span style="font-size:12px; color:var(--color-text-muted); font-weight:400; margin-top:10px; display:block;">تێرمیناڵی نێودەوڵەتی جێگیرکراوە</span>
+        </div>
+        <div class="welcome-loader"></div>
+    </div>
+
+    <!-- ==========================================================================
+       B. TERMINAL CORE APPARATUS
+       ========================================================================== */ -->
     <div class="app-container">
         
-        <!-- سەرپەڕەی جیهانی -->
         <header class="app-header">
             <div class="market-status">
                 <div class="status-dot"></div>
-                <span id="sync-status">TRADINGVIEW WEBSOCKET CONNECTED</span>
+                <span id="label-sync-status">LIVE QUANT MATRIX</span>
             </div>
-            <div><i class="fa-solid fa-cloud-arrow-down" style="color: var(--color-accent); font-size: 14px;"></i></div>
+            <div style="font-size: 12px; font-weight: 700; color: var(--color-gold-glow); letter-spacing: 0.5px;">SHAIKH ARYA</div>
         </header>
 
-        <!-- تیکەری داینامیکی بەردەوام -->
         <div class="ticker-tape">
-            <div class="ticker-scroll" id="live-tape">سیستەمی فەرمی گواستنەوەی زانیارییەکانی بۆرسەی نیویۆرک (NYSE) و لەندەن (LBMA) کارایە...</div>
+            <div class="ticker-scroll" id="live-tape">سیستەمی هۆشمەند: سەرجەم نرخەکانی زێڕ و زیوی جیهانی و ناوخۆیی ڕاستەوخۆ لە ڕاوتەری لکێنراو نوێ دەبنەوە...</div>
         </div>
 
         <main class="main-content">
             
-            <!-- بەشی ١: تابلۆی سەرەکی بازاڕ -->
+            <!-- پەنێڵی یەکەم: سەرەکی (MARKETS) -->
             <section id="markets" class="page-section active">
                 <div class="balance-card">
-                    <div class="balance-title">سەرمایەی گشتی پۆرتفۆلیۆ (Net Liquidity)</div>
-                    <div class="balance-amount" id="net-liquidity">$12,450.80</div>
-                    <div class="balance-sub">
-                        <i class="fa-solid fa-arrow-trend-up"></i>
-                        <span id="pnl-day">+2.45% (+$298.10 ئەمڕۆ)</span>
+                    <div class="balance-title" id="trans-networth">سەرمایەی گشتی شێخ ئەریا (Net Worth)</div>
+                    <div class="balance-amount" id="trans-networth-val">$250,000.00</div>
+                    <div class="pnl-strip">
+                        <span id="trans-pnl-label" style="color: var(--color-text-muted);">قازانجی کراوە (Open P&L)</span>
+                        <span id="trans-pnl-value" style="color: var(--color-up); font-weight: 700;">+$4,625.10 (1.85%)</span>
                     </div>
                 </div>
 
-                <div class="section-title">نرخە زیندووەکانی بۆرسەی جیهانی (Spot Live)</div>
+                <div class="section-title" id="trans-session-title">کاتی بۆرسەکانی جیهان (Global Sessions)</div>
+                <div class="session-grid">
+                    <div class="session-card">
+                        <div style="font-size: 11px; font-weight: 600;">London</div>
+                        <span class="session-badge badge-closed" id="session-lon">CLOSED</span>
+                    </div>
+                    <div class="session-card">
+                        <div style="font-size: 11px; font-weight: 600;">New York</div>
+                        <span class="session-badge badge-open" id="session-ny">OPEN</span>
+                    </div>
+                    <div class="session-card">
+                        <div style="font-size: 11px; font-weight: 600;">Tokyo</div>
+                        <span class="session-badge badge-closed" id="session-tok">CLOSED</span>
+                    </div>
+                </div>
+
                 <div class="market-ticker-grid">
-                    <div id="card-gold" class="mini-ticker active" onclick="selectAsset('gold')">
-                        <div class="mini-name">XAU/USD (زێڕ)</div>
-                        <div class="mini-price" id="price-gold">--</div>
-                        <div class="mini-change" id="chg-gold">--</div>
+                    <div class="mini-ticker">
+                        <div class="mini-name">XAU/USD Spot</div>
+                        <div class="mini-price" id="top-gold">--</div>
                     </div>
-                    <div id="card-silver" class="mini-ticker" onclick="selectAsset('silver')">
-                        <div class="mini-name">XAG/USD (زیو)</div>
-                        <div class="mini-price" id="price-silver">--</div>
-                        <div class="mini-change" id="chg-silver">--</div>
-                    </div>
-                </div>
-
-                <div class="section-title">ڕووداوە جیهانییە پێشەنگەکان (Market Flash)</div>
-                <div class="news-panel">
-                    <div class="news-item">
-                        <div class="news-meta"><span style="color:var(--color-accent);">FED CHAIR</span><span>٢ خولەک پێش ئێستا</span></div>
-                        <div class="news-headline">جێرۆم پاوڵ: هێشتا کاتی زیاتر پێویستە بۆ بڕیاردان لەسەر کەمکردنەوەی ڕێژەی سوو.</div>
-                    </div>
-                    <div class="news-item">
-                        <div class="news-meta"><span style="color:var(--color-warning);">COMEX</span><span>١٥ خولەک پێش ئێستا</span></div>
-                        <div class="news-headline">قەباری کۆگاکانی زیوی نیویۆرک بە ڕێژەی %١.٨ دابەزینی بەخۆوە بینی بەهۆی داواکاری پیشەسازی.</div>
+                    <div class="mini-ticker">
+                        <div class="mini-name">XAG/USD Spot</div>
+                        <div class="mini-price" id="top-silver">--</div>
                     </div>
                 </div>
             </section>
 
-            <!-- بەشی ٢: تێرمیناڵی چارت و داتای قوڵایی (Order Book) -->
+            <!-- پەنێڵی دووەم: چارتەکان (CHARTS) -->
             <section id="charts" class="page-section">
-                <div class="advanced-chart-panel">
-                    <div class="chart-controls">
-                        <div class="tf-selector">
-                            <button id="tf-1h" class="tf-btn active" onclick="changeTimeframe('1H')">1H</button>
-                            <button id="tf-4h" class="tf-btn" onclick="changeTimeframe('4H')">4H</button>
-                            <button id="tf-1d" class="tf-btn" onclick="changeTimeframe('1D')">1D</button>
-                        </div>
-                        <button class="chart-type-btn" onclick="switchChartMode()"><i class="fa-solid fa-wave-square"></i> گۆڕینی مۆد</button>
-                    </div>
-                    <div id="tv-chart-container" class="chart-render"></div>
+                <div class="symbol-selector-bar">
+                    <button class="sym-btn active" id="sym-xau" onclick="switchTerminalSymbol('FX_IDC:XAUUSD', 'sym-xau')">XAUUSD</button>
+                    <button class="sym-btn" id="sym-xag" onclick="switchTerminalSymbol('FX_IDC:XAGUSD', 'sym-xag')">XAGUSD</button>
+                    <button class="sym-btn" id="sym-gbp" onclick="switchTerminalSymbol('FX:GBPUSD', 'sym-gbp')">GBPUSD</button>
                 </div>
-
-                <div class="section-title">قوڵایی دەفتەری فەرمانەکان (Real-time Order Book)</div>
-                <div class="order-book-grid">
-                    <div class="ob-side">
-                        <div class="ob-header"><span>نرخی کڕین</span><span>قەبارە (Qty)</span></div>
-                        <div class="ob-row"><span class="ob-bid" id="bid-0">--</span><span id="vol-b0">1.24K</span></div>
-                        <div class="ob-row"><span class="ob-bid" id="bid-1">--</span><span id="vol-b1">2.91K</span></div>
-                        <div class="ob-row"><span class="ob-bid" id="bid-2">--</span><span id="vol-b2">3.40K</span></div>
-                    </div>
-                    <div class="ob-side">
-                        <div class="ob-header"><span>نرخی فرۆشتن</span><span>قەبارە (Qty)</span></div>
-                        <div class="ob-row"><span class="ob-ask" id="ask-0">--</span><span id="vol-a0">0.85K</span></div>
-                        <div class="ob-row"><span class="ob-ask" id="ask-1">--</span><span id="vol-a1">1.12K</span></div>
-                        <div class="ob-row"><span class="ob-ask" id="ask-2">--</span><span id="vol-a2">4.19K</span></div>
-                    </div>
+                <div class="advanced-chart-panel">
+                    <div id="tradingview_gold_chart" class="chart-render"></div>
                 </div>
             </section>
 
-            <!-- بەشی ٣: پەنێڵی جێبەجێکردنی مامەڵەی بەهێز -->
+            <!-- پەنێڵی سێیەم: ترەید (TRADE) -->
             <section id="trade" class="page-section">
+                <div class="advanced-chart-panel" style="height: 180px; margin-bottom: 12px;">
+                    <!-- مۆدیۆلی دەەرکەوتنی هێڵەکانی فەرمان لەسەر چارتەکە کاتێک کڕین دەکرێت -->
+                    <div class="chart-order-overlay" id="visual-order-lines">
+                        <div class="order-line line-tp"><span>Take Profit (TP)</span><span class="order-badge" id="v-tp-val">--</span></div>
+                        <div class="order-line line-entry"><span>Buy Entry Line</span><span class="order-badge" id="v-entry-val">--</span></div>
+                        <div class="order-line line-sl"><span>Stop Loss (SL)</span><span class="order-badge" id="v-sl-val">--</span></div>
+                    </div>
+                    <div id="tradingview_mini_chart" class="chart-render"></div>
+                </div>
+
                 <div class="trade-box">
                     <div class="trade-tabs">
-                        <button id="btn-buy-side" class="trade-tab-btn tab-buy" onclick="setSide('buy')">BUY / LONG</button>
-                        <button id="btn-sell-side" class="trade-tab-btn tab-sell" onclick="setSide('sell')">SELL / SHORT</button>
+                        <button class="trade-tab-btn tab-buy" id="trans-buy-btn" onclick="toggleTradeSide('buy')">BUY / LONG</button>
+                        <button class="trade-tab-btn tab-sell" id="trans-sell-btn" onclick="toggleTradeSide('sell')">SELL / SHORT</button>
+                    </div>
+
+                    <div class="order-type-tabs">
+                        <button class="order-type-btn active" id="btn-ord-mkt" onclick="setOrderType('market')">Market Order</button>
+                        <button class="order-type-btn" id="btn-ord-lim" onclick="setOrderType('limit')">Limit Order</button>
                     </div>
 
                     <div class="input-group">
-                        <label class="input-label">جۆری فەرمان (Execution Type)</label>
-                        <select class="terminal-input" style="color:white; font-weight:700;">
-                            <option>MARKET ORDER (دەستبەجێ)</option>
-                            <option>LIMIT ORDER (دیاریکراو)</option>
-                        </select>
+                        <label class="input-label" id="trans-inv-label">بڕی وەبەرهێنان (USD)</label>
+                        <input type="number" id="trade-amount" class="terminal-input" value="5000" oninput="calculateAdvancedTrade()">
+                    </div>
+
+                    <div class="risk-dual-grid">
+                        <div class="input-group">
+                            <label class="input-label">Take Profit ($)</label>
+                            <input type="number" id="input-tp" class="terminal-input" placeholder="یاساغ" oninput="calculateAdvancedTrade()">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Stop Loss ($)</label>
+                            <input type="number" id="input-sl" class="terminal-input" placeholder="یاساغ" oninput="calculateAdvancedTrade()">
+                        </div>
                     </div>
 
                     <div class="input-group">
-                        <label class="input-label">بڕی تەرخانکراو (Margin USD)</label>
-                        <input type="number" id="input-margin" class="terminal-input" value="1000" oninput="runCalculations()">
-                    </div>
-
-                    <div class="input-group">
-                        <label class="input-label">ڕافیقەی دارایی (Institutional Leverage)</label>
+                        <label class="input-label" id="trans-lev-label">ڕافیقەی دارایی (Leverage)</label>
                         <div class="leverage-grid">
-                            <button class="lev-btn active" onclick="updateLev(1, this)">1x</button>
-                            <button class="lev-btn" onclick="updateLev(10, this)">10x</button>
-                            <button class="lev-btn" onclick="updateLev(20, this)">20x</button>
-                            <button class="lev-btn" onclick="updateLev(50, this)">50x</button>
+                            <button class="lev-btn active" onclick="setLeverage(1, this)">1x</button>
+                            <button class="lev-btn" onclick="setLeverage(10, this)">10x</button>
+                            <button class="lev-btn" onclick="setLeverage(20, this)">20x</button>
+                            <button class="lev-btn" onclick="setLeverage(50, this)">50x</button>
                         </div>
                     </div>
 
                     <div class="summary-box">
-                        <div class="summary-row"><span>قەبارەی پۆزیشن (Notional Value):</span><span id="calc-volume" style="font-weight:700; color:white;">$1,000.00</span></div>
-                        <div class="summary-row"><span>نرخی جێبەجێکردن (Est. Price):</span><span id="calc-entry" style="font-family:monospace; font-weight:700;">--</span></div>
-                        <div class="summary-row"><span>کێشی هاوتا (Est. Weight):</span><span id="calc-weight" style="color:var(--color-warning); font-weight:700;">--</span></div>
+                        <div class="summary-row"><span id="trans-tot-pos">قەبارەی پۆزیشن:</span><span id="total-pos-val" style="font-weight:700; color:var(--color-accent);">$5,000.00</span></div>
+                        <div class="summary-row"><span id="lbl-margin">مارجین (Margin Required):</span><span id="margin-val" style="font-weight:700;">$5,000.00</span></div>
                     </div>
-
-                    <button class="trade-tab-btn tab-buy" style="width:100%; height:48px; margin-top:16px; font-size:14px; box-shadow: 0 4px 12px rgba(0,196,159,0.2);" onclick="submitInstitutionalOrder()">EXECUTE TRADE SYSTEM</button>
+                    <button class="trade-tab-btn tab-buy" id="trans-exec-btn" style="width:100%; height:44px; margin-top:12px; font-weight:700;" onclick="executeVisualTradeOnChart()">EXECUTE INSTITUTIONAL POSITION</button>
                 </div>
             </section>
 
-            <!-- بەشی ٤: پۆرتفۆلیۆ و پۆزیشنە چالاکەکان -->
-            <section id="history" class="page-section">
-                <div class="section-title">پۆزیشنە کراوەکان (Open Positions)</div>
-                <div class="positions-list" id="active-positions-container">
-                    <!-- لێرەدا پۆزیشنەکان بە داینامیکی زیاد دەبن -->
-                    <div class="pos-item">
-                        <div>
-                            <div style="font-weight:700; font-size:13px;"><span style="color:var(--color-up)">LONG</span> XAUUSD 20x</div>
-                            <div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">Entry: $2,410.50</div>
-                        </div>
-                        <div style="text-align:left;">
-                            <div style="font-weight:700; font-size:13px; color:var(--color-up);">+$45.20</div>
-                            <div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">P&L Live</div>
-                        </div>
-                    </div>
+            <!-- پەنێڵی چوارەم: خشتەی نوێی پێنجەم - نرخی گشتگیری ئەنیمەیشنی (LIVE DATA GRID) -->
+            <section id="datagrid" class="page-section">
+                <div class="section-title" id="trans-grid-title">ماتریسی گشتگیری نرخە زیندووەکان (Glow Flash Array)</div>
+                <table class="live-table">
+                    <thead>
+                        <tr>
+                            <th id="th-g-asset">ماددە یان پێوەر</th>
+                            <th id="th-g-price">نرخی ئێستا</th>
+                            <th id="th-g-chg">گۆڕانکاری کاتی</th>
+                        </tr>
+                    </thead>
+                    <tbody id="animation-matrix-body">
+                        <tr id="row-xau">
+                            <td style="font-weight:700;">XAUUSD (زێڕی جیهانی)</td>
+                            <td id="grid-xau-price" style="font-family:monospace; font-weight:700;">--</td>
+                            <td id="grid-xau-chg" style="color:var(--color-up); font-weight:700;">+0.45%</td>
+                        </tr>
+                        <tr id="row-xag">
+                            <td style="font-weight:700;">XAGUSD (زیوی جیهانی)</td>
+                            <td id="grid-xag-price" style="font-family:monospace; font-weight:700;">--</td>
+                            <td id="grid-xag-chg" style="color:var(--color-up); font-weight:700;">+1.12%</td>
+                        </tr>
+                        <tr id="row-xag-lira">
+                            <td style="font-weight:600;">Silver Lira (لیرەی زیو)</td>
+                            <td id="grid-lira-price" style="font-family:monospace;">--</td>
+                            <td style="color:var(--color-up);">+0.95%</td>
+                        </tr>
+                        <tr id="row-xag-gram">
+                            <td style="font-weight:600; color:var(--color-text-muted);">Silver Gram (گرام زیو)</td>
+                            <td id="grid-gram-price" style="font-family:monospace; color:var(--color-text-muted);">--</td>
+                            <td style="color:var(--color-up);">+1.10%</td>
+                        </tr>
+                        <tr id="row-gbp">
+                            <td style="font-weight:700;">GBPUSD (پاوەند / دۆلار)</td>
+                            <td id="grid-gbp-price" style="font-family:monospace; font-weight:700;">--</td>
+                            <td id="grid-gbp-chg" style="color:var(--color-down);">--</td>
+                        </tr>
+                        <tr id="row-eur">
+                            <td style="font-weight:700;">EURUSD (یۆرۆ / دۆلار)</td>
+                            <td id="grid-eur-price" style="font-family:monospace; font-weight:700;">--</td>
+                            <td id="grid-eur-chg" style="color:var(--color-up);">--</td>
+                        </tr>
+                        <tr id="row-usdt">
+                            <td style="font-weight:600; color:var(--color-text-muted);">USDT / USDC (تەتەر)</td>
+                            <td id="grid-usdt-price" style="font-family:monospace;">$1.0001</td>
+                            <td style="color:var(--color-down); font-size:11px;">-0.01%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="section-title" style="margin-top:20px;">لۆگی کڕین و فرۆشتنی خێرا (HFT Matcher System)</div>
+                <div class="debug-console" id="hft-log-view" style="color: #00e676; max-height: 90px;">
+                    [MATCHED] institutional Block Buy 50,000 XAG at $31.42<br>
+                    [MATCHED] Sovereign Fund Liquidity Absorbed 12,000 XAU
                 </div>
             </section>
 
-            <!-- بەشی ٥: ڕێکخستنی سیستەم و ئاسایش -->
+            <!-- پەنێڵی پێنجەم: ڕێکخستن (SETTINGS) -->
             <section id="settings" class="page-section">
-                <div class="section-title">ڕێکخستنی تێرمیناڵ</div>
+                <div class="section-title" id="trans-settings-title">ڕێکخستنی سەکۆ و زمانەکان</div>
+                
                 <div class="settings-card">
-                    <div class="settings-row"><span>ئاگادارکردنەوەی دەنگی مامەڵەکان</span><label class="toggle-switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-                    <div class="settings-row"><span>دۆخی پاراستنی توند (Biometric Auth)</span><label class="toggle-switch"><input type="checkbox"><span class="slider"></span></label></div>
-                    <div class="settings-row"><span>نوێبوونەوەی خێرا (High-Frequency)</span><label class="toggle-switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+                    <div class="settings-row">
+                        <span id="trans-lang-label" style="font-weight: 600;">زمانی سیستەم (Language)</span>
+                        <div class="lang-selector-container">
+                            <button class="lang-option-btn active" id="lang-ku" onclick="executeLanguageSwitch('ku')">Kurdish</button>
+                            <button class="lang-option-btn" id="lang-en" onclick="executeLanguageSwitch('en')">English</button>
+                            <button class="lang-option-btn" id="lang-ar" onclick="executeLanguageSwitch('ar')">العربية</button>
+                        </div>
+                    </div>
+                    <div class="settings-row">
+                        <span id="lbl-data-source">مایکرۆ لۆجیک ڕاوتەر</span>
+                        <select id="data-router-select" onchange="logRouterChange()" style="background:var(--bg-input); color:white; border:1px solid var(--border-color); border-radius:6px; font-size:11px; padding:4px 8px; outline:none;">
+                            <option value="tv">TradingView Edge</option>
+                            <option value="bn" selected>Binance Core Cloud</option>
+                            <option value="kc">KuCoin Global API</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <div class="settings-row">
+                        <span id="trans-alert-label">ئۆدیۆ سیگنالینگی فەرمانەکان</span>
+                        <label class="toggle-switch"><input type="checkbox" checked><span class="slider"></span></label>
+                    </div>
+                    <div class="settings-row">
+                        <span id="trans-sec-label">پاراستنی بایۆمەتری شێخ</span>
+                        <label class="toggle-switch"><input type="checkbox"><span class="slider"></span></label>
+                    </div>
+                    <div class="settings-row">
+                        <span id="trans-hft-label">شەپۆلی خێرایی فرێکوێنسی بەرز</span>
+                        <label class="toggle-switch"><input type="checkbox" checked><span class="slider"></span></label>
+                    </div>
+                </div>
+
+                <div class="section-title">کۆنسۆڵی سەرەکی دەستکاریکردن (Core Kernel Debug)</div>
+                <div class="debug-console" id="debug-log-view">
+                    [SYSTEM] Kernel Engine initialized on core thread.<br>
+                    [DATA] Flash animation listeners attached successfully.<br>
+                    [PING] Terminal Node Latency: 12ms
                 </div>
             </section>
 
         </main>
 
-        <!-- مینیووی خوارەوەی پارتکراو -->
+        <!-- سیستەمی مینیۆی پێنج بەشی نوێ -->
         <nav class="bottom-nav">
-            <div class="nav-item active" onclick="switchSection('markets', this)"><i class="fa-solid fa-chart-pie"></i><span>بازاڕ</span></div>
-            <div class="nav-item" onclick="switchSection('charts', this)"><i class="fa-solid fa-chart-candlestick"></i><span>تێرمیناڵ</span></div>
-            <div class="nav-item" onclick="switchSection('trade', this)"><i class="fa-solid fa-wallet"></i><span>ترەید</span></div>
-            <div class="nav-item" onclick="switchSection('history', this)"><i class="fa-solid fa-layer-group"></i><span>پۆرتفۆلیۆ</span></div>
-            <div class="nav-item" onclick="switchSection('settings', this)"><i class="fa-solid fa-gears"></i><span>ڕێکخستن</span></div>
+            <div class="nav-item active" id="nav-item-m" onclick="switchSection('markets', this)"><i class="fa-solid fa-chart-pie"></i><span id="nav-lbl-m">بازاڕ</span></div>
+            <div class="nav-item" id="nav-item-c" onclick="switchSection('charts', this)"><i class="fa-solid fa-chart-candlestick"></i><span id="nav-lbl-c">تێرمیناڵ</span></div>
+            <div class="nav-item" id="nav-item-t" onclick="switchSection('trade', this)"><i class="fa-solid fa-wallet"></i><span id="nav-lbl-t">ترەید</span></div>
+            <div class="nav-item" id="nav-item-d" onclick="switchSection('datagrid', this)"><i class="fa-solid fa-table-list"></i><span id="nav-lbl-d">لیست</span></div>
+            <div class="nav-item" id="nav-item-s" onclick="switchSection('settings', this)"><i class="fa-solid fa-gears"></i><span id="nav-lbl-s">ڕێکخستن</span></div>
         </nav>
 
     </div>
 
-    <script>
-        let selectedSymbol = 'gold';
-        let leverage = 1;
-        let side = 'buy';
-        let chart, candleSeries;
+    <!-- ==========================================================================
+       C. COMPUTATIONAL JAVASCRIPT RECONCILIATION CORNER
+       ========================================================================== */ -->
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 
-        // داتای درێژ و دەقیقی مۆمەکان بۆ هەردوو کانزاکە لە کاتی جیاوازدا
-        const historicalDatabase = {
-            gold: {
-                '1H': [
-                    { time: '2026-06-05T15:00:00Z', open: 2402.10, high: 2408.50, low: 2401.00, close: 2406.40 },
-                    { time: '2026-06-05T16:00:00Z', open: 2406.40, high: 2412.00, low: 2405.10, close: 2410.80 },
-                    { time: '2026-06-05T17:00:00Z', open: 2410.80, high: 2415.90, low: 2409.00, close: 2414.20 },
-                    { time: '2026-06-05T18:00:00Z', open: 2414.20, high: 2419.00, low: 2411.50, close: 2416.70 },
-                    { time: '2026-06-05T19:00:00Z', open: 2416.70, high: 2422.50, low: 2415.00, close: 2420.30 }
-                ],
-                '4H': [
-                    { time: '2026-06-04T12:00:00Z', open: 2385.00, high: 2402.00, low: 2381.00, close: 2398.50 },
-                    { time: '2026-06-04T16:00:00Z', open: 2398.50, high: 2415.00, low: 2395.00, close: 2412.00 },
-                    { time: '2026-06-05T00:00:00Z', open: 2412.00, high: 2418.00, low: 2405.00, close: 2408.20 },
-                    { time: '2026-06-05T04:00:00Z', open: 2408.20, high: 2425.00, low: 2406.00, close: 2420.30 }
-                ],
-                '1D': [
-                    { time: '2026-06-02', open: 2365.00, high: 2388.00, low: 2360.00, close: 2382.10 },
-                    { time: '2026-06-03', open: 2382.10, high: 2405.00, low: 2378.00, close: 2399.40 },
-                    { time: '2026-06-04', open: 2399.40, high: 2418.00, low: 2392.00, close: 2412.00 },
-                    { time: '2026-06-05', open: 2412.00, high: 2428.00, low: 2405.00, close: 2420.30 }
-                ]
+    <script>
+        const localizationEngine = {
+            ku: {
+                direction: 'rtl',
+                syncStatus: 'LIVE QUANT MATRIX',
+                welcomeMsg: 'بەخێربێیت، شێخ ئەریا<br><span style="font-size:12px; color:var(--color-text-muted); font-weight:400; margin-top:10px; display:block;">تێرمیناڵی نێودەوڵەتی جێگیرکراوە</span>',
+                netWorth: 'سەرمایەی گشتی شێخ ئەریا (Net Worth)',
+                sessionTitle: 'کاتی بۆرسەکانی جیهان (Global Sessions)',
+                buyBtn: 'BUY / LONG',
+                sellBtn: 'SELL / SHORT',
+                invLabel: 'بڕی وەبەرهێنان (USD)',
+                levLabel: 'ڕافیقەی دارایی (Leverage)',
+                totPos: 'قەبارەی پۆزیشن:',
+                execBtn: 'EXECUTE INSTITUTIONAL POSITION',
+                gridTitle: 'ماتریسی گشتگیری نرخە زیندووەکان (Glow Flash Array)',
+                thGAsset: 'ماددە یان پێوەر',
+                thGPrice: 'نرخی ئێستا',
+                thGChg: 'گۆڕانکاری کاتی',
+                settingsTitle: 'ڕێکخستنی سەکۆ و زمانەکان',
+                langLabel: 'زمانی سیستەم (Language)',
+                alertLabel: 'ئۆدیۆ سیگنالینگی فەرمانەکان',
+                secLabel: 'پاراستنی بایۆمەتری شێخ',
+                hftLabel: 'شەپۆلی خێرایی فرێکوێنسی بەرز',
+                navM: 'بازاڕ', navC: 'تێرمیناڵ', navT: 'ترەید', navD: 'لیست', navS: 'ڕێکخستن',
+                tapeMsg: 'سیستەمی هۆشمەند: سەرجەم نرخەکانی زێڕ و زیوی جیهانی و ناوخۆیی ڕاستەوخۆ لە ڕاوتەری لکێنراو نوێ دەبنەوە...'
             },
-            silver: {
-                '1H': [
-                    { time: '2026-06-05T15:00:00Z', open: 30.95, high: 31.15, low: 30.90, close: 31.08 },
-                    { time: '2026-06-05T16:00:00Z', open: 31.08, high: 31.28, low: 31.02, close: 31.22 },
-                    { time: '2026-06-05T17:00:00Z', open: 31.22, high: 31.40, low: 31.18, close: 31.35 },
-                    { time: '2026-06-05T18:00:00Z', open: 31.35, high: 31.52, low: 31.30, close: 31.44 },
-                    { time: '2026-06-05T19:00:00Z', open: 31.44, high: 31.68, low: 31.40, close: 31.61 }
-                ],
-                '4H': [
-                    { time: '2026-06-04T12:00:00Z', open: 30.20, high: 30.75, low: 30.15, close: 30.60 },
-                    { time: '2026-06-04T16:00:00Z', open: 30.60, high: 31.10, low: 30.50, close: 30.95 },
-                    { time: '2026-06-05T00:00:00Z', open: 30.95, high: 31.30, low: 30.80, close: 31.15 },
-                    { time: '2026-06-05T04:00:00Z', open: 31.15, high: 31.75, low: 31.10, close: 31.61 }
-                ],
-                '1D': [
-                    { time: '2026-06-02', open: 29.70, high: 30.30, low: 29.55, close: 30.15 },
-                    { time: '2026-06-03', open: 30.15, high: 30.80, low: 30.05, close: 30.68 },
-                    { time: '2026-06-04', open: 30.68, high: 31.20, low: 30.50, close: 31.02 },
-                    { time: '2026-06-05', open: 31.02, high: 31.85, low: 30.90, close: 31.61 }
-                ]
+            en: {
+                direction: 'ltr',
+                syncStatus: 'LIVE QUANT MATRIX',
+                welcomeMsg: 'Welcome, Sheikh Arya<br><span style="font-size:12px; color:var(--color-text-muted); font-weight:400; margin-top:10px; display:block;">Sovereign Institutional Port is Armed</span>',
+                netWorth: "Sheikh Arya's Sovereign Wealth Ledger",
+                sessionTitle: 'Global Exchange Operational Status',
+                buyBtn: 'BUY / LONG',
+                sellBtn: 'SELL / SHORT',
+                invLabel: 'Allocation Capital (USD)',
+                levLabel: 'Risk Margin Multiplier',
+                totPos: 'Notional Aggregated Position:',
+                execBtn: 'EXECUTE INSTITUTIONAL POSITION',
+                gridTitle: 'Omni-Asset Animation Matrix (Glow Flash)',
+                thGAsset: 'Asset Index',
+                thGPrice: 'Spot Price',
+                thGChg: 'Realtime Deltas',
+                settingsTitle: 'Kernel Configuration & Modules',
+                langLabel: 'Terminal Core Dialect',
+                alertLabel: 'Auditory Order Execution Synthesis',
+                secLabel: 'Sovereign Biometric Access Ring',
+                hftLabel: 'High-Frequency Low Latency Pipes',
+                navM: 'Markets', navC: 'Terminal', navT: 'Trade', navD: 'Grid', navS: 'Settings',
+                tapeMsg: 'Smart Core Matrix: Global metals, localized Lira tokens, and fiat indexes are rendering in real-time streams...'
+            },
+            ar: {
+                direction: 'rtl',
+                syncStatus: 'مصفوفة البيانات الفورية',
+                welcomeMsg: 'أهلاً بك، الشيخ آريا<br><span style="font-size:12px; color:var(--color-text-muted); font-weight:400; margin-top:10px; display:block;">البوابة السيادية للتداول المؤسسي نشطة</span>',
+                netWorth: 'المحفظة الاستثمارية للشيخ آريا (Net Worth)',
+                sessionTitle: 'جلسات التداول العالمية المفتوحة',
+                buyBtn: 'شراء / LONG',
+                sellBtn: 'بيع / SHORT',
+                invLabel: 'رأس المال المخصص (USD)',
+                levLabel: 'مضاعف الرافعة المالية المتقدمة',
+                totPos: 'القيمة الإجمالية للمركز:',
+                execBtn: 'تنفيذ الصفقة الفورية للمؤسسات',
+                gridTitle: 'مصفوفة الأسعار الشاملة والوميض الحركي',
+                thGAsset: 'الأصل / المؤشر',
+                thGPrice: 'السعر الفوري',
+                thGChg: 'التغير اللحظي',
+                settingsTitle: 'إعدادات النواة والترجمة',
+                langLabel: 'لغة الواجهة الرئيسية',
+                alertLabel: 'الإشارات الصوتية الفورية للتنفيذ',
+                secLabel: 'نظام الحماية الحيوية للشيخ',
+                hftLabel: 'تدفقات البيانات عالية التردد',
+                navM: 'الأسواق', navC: 'المنصة', navT: 'تداول', navD: 'المصفوفة', navS: 'الإعدادات',
+                tapeMsg: 'النواة الذكية: أسعار الذهب والفضة والليرة المحلية تتدفق مباشرة وبدون تأخير...'
             }
         };
 
-        // بەستنەوەی ڕاستەوخۆ بە API جیهانی فەرمی بۆ نوێکردنەوەی نرخەکان هاوشێوەی TradingView
-        async function fetchLiveFeed() {
+        // الذاكرة التخزينية الممتدة للأسعار الحالية
+        let priceState = {
+            xau: 0, xag: 0, lira: 0, gram: 0, gbp: 1.2720, eur: 1.0850
+        };
+        let tradeSide = 'buy';
+        let currentLeverage = 1;
+        let currentOrderType = 'market';
+
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.getElementById('welcomeScreen').classList.add('hide');
+                loadTradingViewWidgets('FX_IDC:XAUUSD');
+            }, 3000);
+            
+            initStreamRouter();
+            setInterval(initStreamRouter, 2000);
+            simulateHFTMatchingEngine();
+        });
+
+        // بزوێنەری سەرەکی وەبەرگرتنی نرخەکان لە سێرڤەرەوە لەگەڵ پەرەپێدانی فڵاشی ئەنیمەیشن
+        async function initStreamRouter() {
             try {
                 const response = await fetch('https://api.binance.com/api/v3/ticker/price?symbols=["PAXGUSDT","USDCUSDT"]');
                 const data = await response.json();
                 
-                const liveGoldPrice = parseFloat(data[0].price).toFixed(2);
-                // بەکارهێنانی هاوکۆلکەی جیهانی گۆڕینەوەی کێشی زیو بۆ زێڕ
-                const liveSilverPrice = (liveGoldPrice / 76.55).toFixed(2);
+                const rawGold = parseFloat(data[0].price);
+                const rawSilver = (rawGold / 76.40);
+                const rawLira = rawSilver * 7.20; // حاسیبەی بەهای لیرەی زیو بەپێی کێشەکەی
+                const rawGram = rawSilver / 31.1034768;
 
-                document.getElementById('price-gold').innerText = `$${liveGoldPrice}`;
-                document.getElementById('price-silver').innerText = `$${liveSilverPrice}`;
-                
-                document.getElementById('chg-gold').innerText = "+0.64%";
-                document.getElementById('chg-gold').style.color = "var(--color-up)";
-                document.getElementById('chg-silver').innerText = "+1.42%";
-                document.getElementById('chg-silver').style.color = "var(--color-up)";
+                // دروستکردنی فاتی هەڕەمەکی کەمێک بۆ پاوەند و یۆرۆ بۆ دەرکەوتنی ئەنیمەیشنەکە
+                const devGbp = priceState.gbp + (Math.random() - 0.5) * 0.002;
+                const devEur = priceState.eur + (Math.random() - 0.5) * 0.001;
 
-                // نوێکردنەوەی دەفتەری فەرمانەکان (Order Book) بە دەقیقی
-                updateOrderBook(liveGoldPrice, liveSilverPrice);
-                runCalculations();
-            } catch (error) {
-                // داتای یەدەگی کاتی ئەگەر ئینتەرنێت پچڕا
-                document.getElementById('price-gold').innerText = "$2,420.30";
-                document.getElementById('price-silver').innerText = "$31.61";
+                // جێبەجێکردنی ئەنیمەیشنی فلاشینگ بەپێی گۆڕانکاری نرخ
+                triggerGlowFlash('grid-xau-price', 'row-xau', rawGold, priceState.xau);
+                triggerGlowFlash('grid-xag-price', 'row-xag', rawSilver, priceState.xag);
+                triggerGlowFlash('grid-lira-price', 'row-xag-lira', rawLira, priceState.lira);
+                triggerGlowFlash('grid-gram-price', 'row-xag-gram', rawGram, priceState.gram);
+                triggerGlowFlash('grid-gbp-price', 'row-gbp', devGbp, priceState.gbp);
+                triggerGlowFlash('grid-eur-price', 'row-eur', devEur, priceState.eur);
+
+                // ئەپدێتی ناوخۆیی پەنێڵەکان
+                document.getElementById('top-gold').innerText = `$${rawGold.toFixed(2)}`;
+                document.getElementById('top-silver').innerText = `$${rawSilver.toFixed(2)}`;
+
+                document.getElementById('grid-gbp-chg').innerText = devGbp >= priceState.gbp ? "+0.18%" : "-0.12%";
+                document.getElementById('grid-gbp-chg').style.color = devGbp >= priceState.gbp ? "var(--color-up)" : "var(--color-down)";
+                document.getElementById('grid-eur-chg').innerText = devEur >= priceState.eur ? "+0.09%" : "-0.05%";
+                document.getElementById('grid-eur-chg').style.color = devEur >= priceState.eur ? "var(--color-up)" : "var(--color-down)";
+
+                // پاشەکەوتکردنی نرخە کۆنەکان بۆ بەراوردکاری چرکەی داهاتوو
+                priceState.xau = rawGold;
+                priceState.xag = rawSilver;
+                priceState.lira = rawLira;
+                priceState.gram = rawGram;
+                priceState.gbp = devGbp;
+                priceState.eur = devEur;
+
+            } catch (e) {
+                // داتای جێگرەوە کاتێک هێڵەکە دەبڕێت
+                document.getElementById('top-gold').innerText = "$2,430.20";
+                document.getElementById('top-silver').innerText = "$31.85";
+                document.getElementById('grid-xau-price').innerText = "$2,430.20";
+                document.getElementById('grid-xag-price').innerText = "$31.85";
+                document.getElementById('grid-lira-price').innerText = "$229.30";
+                document.getElementById('grid-gram-price').innerText = "$1.02";
+                document.getElementById('grid-gbp-price').innerText = "$1.2745";
+                document.getElementById('grid-eur-price').innerText = "$1.0862";
             }
         }
 
-        function updateOrderBook(g, s) {
-            const activePrice = selectedSymbol === 'gold' ? parseFloat(g) : parseFloat(s);
-            
-            document.getElementById('bid-0').innerText = (activePrice - 0.15).toFixed(2);
-            document.getElementById('bid-1').innerText = (activePrice - 0.45).toFixed(2);
-            document.getElementById('bid-2').innerText = (activePrice - 0.80).toFixed(2);
+        // بزوێنەری ئەنیمەیشنی فلاشینی خانەکانی خشتەی بەشی چوارەم (Glow Flash Array)
+        function triggerGlowFlash(textId, rowId, current, previous) {
+            const textEl = document.getElementById(textId);
+            const rowEl = document.getElementById(rowId);
+            if (!textEl || !rowEl) return;
 
-            document.getElementById('ask-0').innerText = (activePrice + 0.20).toFixed(2);
-            document.getElementById('ask-1').innerText = (activePrice + 0.55).toFixed(2);
-            document.getElementById('ask-2').innerText = (activePrice + 0.95).toFixed(2);
-        }
+            textEl.innerText = `$${current.toFixed(4)}`;
 
-        function initTradingViewChart() {
-            const container = document.getElementById('tv-chart-container');
-            chart = LightweightCharts.createChart(container, {
-                layout: { backgroundColor: '#0a0d14', textColor: '#64748b', fontSize: 11 },
-                grid: { vertLines: { color: '#111622' }, horzLines: { color: '#111622' } },
-                timeScale: { borderColor: '#192233', timeVisible: true },
-                rightPriceScale: { borderColor: '#192233' },
-                crosshair: { mode: LightweightCharts.CrosshairMode.Normal }
-            });
-
-            candleSeries = chart.addCandlestickSeries({
-                upColor: '#00c49f', downColor: '#ff4a5a', borderVisible: false,
-                wickUpColor: '#00c49f', wickDownColor: '#ff4a5a'
-            });
-
-            candleSeries.setData(historicalDatabase[selectedSymbol]['1H']);
-        }
-
-        function changeTimeframe(tf) {
-            document.querySelectorAll('.tf-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`tf-${tf.toLowerCase()}`).classList.add('active');
-            if(candleSeries) {
-                candleSeries.setData(historicalDatabase[selectedSymbol][tf]);
+            if (previous > 0) {
+                if (current > previous) {
+                    rowEl.classList.add('flash-up');
+                    setTimeout(() => rowEl.classList.remove('flash-up'), 500);
+                } else if (current < previous) {
+                    rowEl.classList.add('flash-down');
+                    setTimeout(() => rowEl.classList.remove('flash-down'), 500);
+                }
             }
         }
 
-        function selectAsset(asset) {
-            selectedSymbol = asset;
-            document.querySelectorAll('.mini-ticker').forEach(t => t.classList.remove('active'));
-            document.getElementById(`card-${asset}`).classList.add('active');
-            if(candleSeries) {
-                candleSeries.setData(historicalDatabase[selectedSymbol]['1H']);
-            }
-            runCalculations();
-        }
-
-        function setSide(currentSide) {
-            side = currentSide;
-            const buyBtn = document.getElementById('btn-buy-side');
-            const sellBtn = document.getElementById('btn-sell-side');
-            
-            if(side === 'buy') {
-                buyBtn.style.background = "var(--color-up)";
-                buyBtn.style.color = "white";
-                sellBtn.style.background = "var(--bg-input)";
-                sellBtn.style.color = "var(--color-text-muted)";
+        // مۆدیۆلی بەشی ترەید: دەرکەوتنی داینامیکی هێڵەکان لەسەر چارتی کاتی
+        function toggleTradeSide(side) {
+            tradeSide = side;
+            document.getElementById('trans-buy-btn').className = side === 'buy' ? 'trade-tab-btn tab-buy' : 'trade-tab-btn tab-sell';
+            document.getElementById('trans-sell-btn').className = side === 'sell' ? 'trade-tab-btn tab-buy' : 'trade-tab-btn tab-sell';
+            if(side === 'sell') {
+                document.getElementById('trans-sell-btn').style.backgroundColor = 'var(--color-down)';
+                document.getElementById('trans-sell-btn').style.color = '#white';
             } else {
-                sellBtn.style.background = "var(--color-down)";
-                sellBtn.style.color = "white";
-                buyBtn.style.background = "var(--bg-input)";
-                buyBtn.style.color = "var(--color-text-muted)";
+                document.getElementById('trans-sell-btn').style.backgroundColor = 'var(--bg-input)';
+                document.getElementById('trans-sell-btn').style.color = 'var(--color-text-muted)';
             }
         }
 
-        function updateLev(val, element) {
+        function executeVisualTradeOnChart() {
+            const basePrice = priceState.xau > 0 ? priceState.xau : 2430.20;
+            const tpInput = parseFloat(document.getElementById('input-tp').value) || (tradeSide === 'buy' ? basePrice + 35 : basePrice - 35);
+            const slInput = parseFloat(document.getElementById('input-sl').value) || (tradeSide === 'buy' ? basePrice - 25 : basePrice + 25);
+
+            document.getElementById('v-entry-val').innerText = `$${basePrice.toFixed(2)}`;
+            document.getElementById('v-tp-val').innerText = `$${tpInput.toFixed(2)}`;
+            document.getElementById('v-sl-val').innerText = `$${slInput.toFixed(2)}`;
+
+            // نیشاندانی چاوەڕوانکراوی هێڵەکانی مامەڵەکە لەسەر چارتی بچووککراوە وەک مێتا ترەیدەر
+            const overlay = document.getElementById('visual-order-lines');
+            overlay.style.display = 'block';
+
+            appendDebugLog(`[EXECUTION] Order visual nodes mapped to viewport: ${tradeSide.toUpperCase()} at $${basePrice}`);
+            
+            alert(tradeSide === 'buy' ? 'Institutional Long Position Drawn on Chart Engine!' : 'Short Order Transmitted to Visual Grid!');
+        }
+
+        function switchTerminalSymbol(symbol, btnId) {
+            document.querySelectorAll('.sym-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(btnId).classList.add('active');
+            loadTradingViewWidgets(symbol);
+            appendDebugLog(`[CORE] Symbol routed: ${symbol}`);
+        }
+
+        function loadTradingViewWidgets(mainSymbol) {
+            new TradingView.widget({
+                "width": "100%",
+                "height": "100%",
+                "symbol": mainSymbol,
+                "interval": "60",
+                "timezone": "Etc/UTC",
+                "theme": "dark",
+                "style": "1",
+                "locale": "en",
+                "container_id": "tradingview_gold_chart"
+            });
+
+            new TradingView.widget({
+                "width": "100%",
+                "height": "100%",
+                "symbol": mainSymbol,
+                "interval": "15",
+                "timezone": "Etc/UTC",
+                "theme": "dark",
+                "style": "1",
+                "locale": "en",
+                "hide_top_toolbar": true,
+                "container_id": "tradingview_mini_chart"
+            });
+        }
+
+        function setOrderType(type) {
+            document.getElementById('btn-ord-mkt').classList.remove('active');
+            document.getElementById('btn-ord-lim').classList.remove('active');
+            document.getElementById(type === 'market' ? 'btn-ord-mkt' : 'btn-ord-lim').classList.add('active');
+            currentOrderType = type;
+        }
+
+        function setLeverage(lev, btn) {
             document.querySelectorAll('.lev-btn').forEach(b => b.classList.remove('active'));
-            element.classList.add('active');
-            leverage = val;
-            runCalculations();
+            btn.classList.add('active');
+            currentLeverage = lev;
+            calculateAdvancedTrade();
         }
 
-        function runCalculations() {
-            const margin = parseFloat(document.getElementById('input-margin').value) || 0;
-            const volume = margin * leverage;
-            document.getElementById('calc-volume').innerText = `$${volume.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
-
-            const currentPriceText = document.getElementById(`price-${selectedSymbol}`).innerText.replace('$', '');
-            const currentPrice = parseFloat(currentPriceText) || (selectedSymbol === 'gold' ? 2420.30 : 31.61);
-            
-            document.getElementById('calc-entry').innerText = `$${currentPrice.toFixed(2)}`;
-            
-            const weight = volume / currentPrice;
-            document.getElementById('calc-weight').innerText = `${weight.toFixed(3)} Oz (ئۆنسە)`;
+        function calculateAdvancedTrade() {
+            const amt = parseFloat(document.getElementById('trade-amount').value) || 0;
+            document.getElementById('total-pos-val').innerText = `$${(amt * currentLeverage).toLocaleString()}.00`;
+            document.getElementById('margin-val').innerText = `$${amt.toLocaleString()}.00`;
         }
 
-        function submitInstitutionalOrder() {
-            const margin = document.getElementById('input-margin').value;
-            const totalVol = margin * leverage;
-            const container = document.getElementById('active-positions-container');
+        function executeLanguageSwitch(langKey) {
+            const dictionary = localizationEngine[langKey];
+            document.documentElement.setAttribute('dir', dictionary.direction);
             
-            const positionHtml = `
-                <div class="pos-item">
-                    <div>
-                        <div style="font-weight:700; font-size:13px;"><span style="color:${side === 'buy' ? 'var(--color-up)' : 'var(--color-down)'}">${side.toUpperCase()}</span> ${selectedSymbol.toUpperCase()}USD ${leverage}x</div>
-                        <div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">قەبارە: $${totalVol.toLocaleString()}</div>
-                    </div>
-                    <div style="text-align:left;">
-                        <div style="font-weight:700; font-size:13px; color:var(--color-up);">$0.00</div>
-                        <div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">Live P&L</div>
-                    </div>
-                </div>
-            `;
-            container.insertAdjacentHTML('afterbegin', positionHtml);
-            alert("فەرمانی بازرگانی جیهانی جێبەجێ کرا!");
+            document.querySelectorAll('.lang-option-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`lang-${langKey}`).classList.add('active');
+            
+            document.getElementById('label-sync-status').innerText = dictionary.syncStatus;
+            document.getElementById('welcome-msg-render').innerHTML = dictionary.welcomeMsg;
+            document.getElementById('trans-networth').innerText = dictionary.netWorth;
+            document.getElementById('trans-session-title').innerText = dictionary.sessionTitle;
+            
+            document.getElementById('trans-buy-btn').innerText = dictionary.buyBtn;
+            document.getElementById('trans-sell-btn').innerText = dictionary.sellBtn;
+            document.getElementById('trans-inv-label').innerText = dictionary.invLabel;
+            document.getElementById('trans-lev-label').innerText = dictionary.levLabel;
+            document.getElementById('trans-tot-pos').innerText = dictionary.totPos;
+            document.getElementById('trans-exec-btn').innerText = dictionary.execBtn;
+            
+            document.getElementById('trans-grid-title').innerText = dictionary.gridTitle;
+            document.getElementById('th-g-asset').innerText = dictionary.thGAsset;
+            document.getElementById('th-g-price').innerText = dictionary.thGPrice;
+            document.getElementById('th-g-chg').innerText = dictionary.thGChg;
+
+            document.getElementById('trans-settings-title').innerText = dictionary.settingsTitle;
+            document.getElementById('trans-lang-label').innerText = dictionary.langLabel;
+            document.getElementById('trans-alert-label').innerText = dictionary.alertLabel;
+            document.getElementById('trans-sec-label').innerText = dictionary.secLabel;
+            document.getElementById('trans-hft-label').innerText = dictionary.hftLabel;
+            
+            document.getElementById('nav-lbl-m').innerText = dictionary.navM;
+            document.getElementById('nav-lbl-c').innerText = dictionary.navC;
+            document.getElementById('nav-lbl-t').innerText = dictionary.navT;
+            document.getElementById('nav-lbl-d').innerText = dictionary.navD;
+            document.getElementById('nav-lbl-s').innerText = dictionary.navS;
+            document.getElementById('live-tape').innerText = dictionary.tapeMsg;
+        }
+
+        function appendDebugLog(text) {
+            const view = document.getElementById('debug-log-view');
+            view.innerHTML += `<br>${text}`;
+            view.scrollTop = view.scrollHeight;
+        }
+
+        function logRouterChange() {
+            appendDebugLog(`[ROUTER] Cluster shifted to: ${document.getElementById('data-router-select').value.toUpperCase()}`);
+        }
+
+        function simulateHFTMatchingEngine() {
+            setInterval(() => {
+                const logs = [
+                    `[MATCHED] Arbitration Loop Executed: 400 XAG Lira tokens`,
+                    `[LIQUIDITY] Microsecond Ping verified via New York Server: 11ms`,
+                    `[HFT] High Volume order absorbed via KuCoin Gateway Node`
+                ];
+                const view = document.getElementById('hft-log-view');
+                view.innerHTML += `<br>${logs[Math.floor(Math.random() * logs.length)]}`;
+                view.scrollTop = view.scrollHeight;
+            }, 14000);
         }
 
         function switchSection(sectionId, element) {
@@ -526,17 +1219,7 @@
             document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
             element.classList.add('active');
-            
-            if(sectionId === 'charts' && chart) {
-                chart.resize(document.getElementById('tv-chart-container').clientWidth, document.getElementById('tv-chart-container').clientHeight);
-            }
         }
-
-        window.onload = function() {
-            initTradingViewChart();
-            fetchLiveFeed();
-            setInterval(fetchLiveFeed, 3000); // ٣ چرکە جارێک بۆ نوێبوونەوەی دەقیق لەگەڵ ترەیدینگ ڤیو
-        };
 
         document.addEventListener('touchstart', function (e) {
             if (e.touches.length > 1) e.preventDefault();
