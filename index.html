@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Sheikh Arya - Trading Terminal</title>
-    <link href="https://fonts.googleapis.com/css2=family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Sheikh Arya - Institutional Multi-Lang Trading Terminal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* ==========================================================================
+           1. ROOT VARIABLES & CORE STYLES (DIZAYN PARASTRAWA)
+           ========================================================================== */
         :root {
             --bg-main: #030508;
             --bg-card: #0a0d14;
@@ -18,183 +21,588 @@
             --color-text-main: #ffffff;
             --color-text-muted: #64748b;
             --color-accent: #2563eb;
+            --color-gold-glow: #d4af37;
         }
 
         * {
-            margin: 0; padding: 0; box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            -webkit-tap-highlight-color: transparent; user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
 
         html, body { 
-            width: 100%; height: 100%; overflow: hidden; 
-            background-color: var(--bg-main); color: var(--color-text-main); 
+            width: 100%;
+            height: 100%;
+            overflow: hidden; 
+            background-color: var(--bg-main);
+            color: var(--color-text-main); 
         }
 
-        /* شاشەی پێشوازی سەرەتایی */
+        /* ==========================================================================
+           2. WELCOME SPLASH SCREEN ANIMATION
+           ========================================================================== */
         .welcome-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg-main); z-index: 9999; display: flex;
-            flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 0.5s ease, visibility 0.5s;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-main);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s;
         }
-        .welcome-screen.hide { opacity: 0; visibility: hidden; }
-        .welcome-logo { font-size: 40px; color: var(--color-accent); margin-bottom: 20px; animation: pulse 1.5s infinite; }
-        .welcome-text { font-size: 20px; font-weight: 700; color: white; text-align: center; }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.6; }
+        
+        .welcome-screen.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .welcome-logo {
+            font-size: 55px;
+            color: var(--color-gold-glow);
+            margin-bottom: 24px;
+            animation: royalPulse 2s infinite ease-in-out;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));
+        }
+        
+        .welcome-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            letter-spacing: 0.5px;
+            line-height: 1.6;
         }
 
+        .welcome-loader {
+            width: 40px;
+            height: 2px;
+            background: var(--border-color);
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+
+        .welcome-loader::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 50%;
+            background: var(--color-gold-glow);
+            animation: loadBar 1.5s infinite ease-in-out;
+        }
+
+        @keyframes royalPulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.08); opacity: 1; filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.6)); }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+
+        @keyframes loadBar {
+            0% { left: -50%; }
+            100% { left: 100%; }
+        }
+
+        /* ==========================================================================
+           3. MAIN APP LAYOUT CONTAINER
+           ========================================================================== */
         .app-container {
-            display: flex; flex-direction: column; height: 100%; width: 100%;
-            max-width: 480px; margin: 0 auto; position: relative;
-            background: var(--bg-main); border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            position: relative;
+            background: var(--bg-main);
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
         }
 
+        /* ==========================================================================
+           4. HEADER & TICKER TAPE
+           ========================================================================== */
         .app-header {
-            height: 55px; display: flex; justify-content: space-between; align-items: center;
-            padding: 0 16px; border-bottom: 1px solid var(--border-color); background: var(--bg-card);
+            height: 55px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-card);
             z-index: 110;
         }
 
-        .market-status { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--color-up); font-weight: 700; }
-        .status-dot { width: 6px; height: 6px; background-color: var(--color-up); border-radius: 50%; box-shadow: 0 0 8px var(--color-up); }
+        .market-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--color-up);
+            font-weight: 700;
+        }
+        
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--color-up);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--color-up);
+        }
 
         .ticker-tape {
-            background: #0f1420; height: 30px; display: flex; align-items: center;
-            overflow: hidden; white-space: nowrap; font-size: 11px; border-bottom: 1px solid var(--border-color);
+            background: #0f1420;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 11px;
+            border-bottom: 1px solid var(--border-color);
             z-index: 105;
         }
-        .ticker-scroll { display: inline-block; animation: scrollText 25s linear infinite; padding-right: 100%; color: var(--color-text-muted); }
-        @keyframes scrollText { 0% { transform: translate3d(100%, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
+        
+        .ticker-scroll {
+            display: inline-block;
+            animation: scrollText 30s linear infinite;
+            padding-right: 100%;
+            color: var(--color-text-muted);
+        }
+        
+        @keyframes scrollText {
+            0% { transform: translate3d(100%, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
 
-        .main-content { flex: 1; position: relative; overflow: hidden; width: 100%; }
+        /* ==========================================================================
+           5. MAIN CONTENT FRAMEWORK & SECTIONS
+           ========================================================================== */
+        .main-content {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
         
         .page-section {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0; visibility: hidden; transition: opacity 0.2s ease;
-            padding: 14px; overflow-y: auto; padding-bottom: 85px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease-in-out;
+            padding: 14px;
+            overflow-y: auto;
+            padding-bottom: 85px;
         }
-        .page-section.active { opacity: 1; visibility: visible; z-index: 10; }
+        
+        .page-section.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 10;
+        }
 
-        .section-title { font-size: 11px; color: var(--color-text-muted); margin: 18px 0 8px 0; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .section-title {
+            font-size: 11px;
+            color: var(--color-text-muted);
+            margin: 18px 0 8px 0;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
+        /* ==========================================================================
+           6. CARDS & GRID COMPONENTS
+           ========================================================================== */
         .balance-card {
             background: linear-gradient(135deg, #101624 0%, #070a10 100%);
-            border: 1px solid var(--border-color); padding: 18px; border-radius: 16px; margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+            padding: 18px;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
         }
 
-        .balance-title { font-size: 11px; color: var(--color-text-muted); font-weight: 600; }
-        .balance-amount { font-size: 26px; font-weight: 700; margin-top: 4px; }
+        .balance-title {
+            font-size: 11px;
+            color: var(--color-text-muted);
+            font-weight: 600;
+        }
+        
+        .balance-amount {
+            font-size: 26px;
+            font-weight: 700;
+            margin-top: 4px;
+            letter-spacing: -0.5px;
+        }
 
-        .market-ticker-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .mini-ticker { background: var(--bg-card); border: 1px solid var(--border-color); padding: 14px; border-radius: 12px; transition: background 0.3s; }
-        .mini-name { font-size: 11px; color: var(--color-text-muted); font-weight: 600; }
-        .mini-price { font-size: 18px; font-weight: 700; margin-top: 4px; font-family: monospace; transition: color 0.2s; }
+        .market-ticker-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .mini-ticker {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            border-radius: 12px;
+            transition: background 0.3s, border-color 0.3s;
+        }
+        
+        .mini-name {
+            font-size: 11px;
+            color: var(--color-text-muted);
+            font-weight: 600;
+        }
+        
+        .mini-price {
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 4px;
+            font-family: monospace;
+            transition: color 0.2s ease;
+        }
 
-        /* ستایلی نوێکردنەوەی نرخ (Flash EFFECT) */
+        /* FLASH RESPONSIVE EFFECTS */
         .price-up { color: var(--color-up) !important; }
         .price-down { color: var(--color-down) !important; }
 
-        /* خشتەی نوێی نرخەکان لە خوارەوە */
-        .live-table { width: 100%; border-collapse: collapse; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; margin-top: 10px; }
-        .live-table th, .live-table td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 13px; }
-        .live-table th { color: var(--color-text-muted); font-weight: 600; font-size: 11px; text-transform: uppercase; }
-        .live-table tr:last-child td { border-bottom: none; }
+        /* ==========================================================================
+           7. INTERACTIVE DATA TABLES
+           ========================================================================== */
+        .live-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .live-table th, .live-table td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 13px;
+        }
+        
+        html[dir="rtl"] .live-table th, html[dir="rtl"] .live-table td {
+            text-align: right;
+        }
+        
+        .live-table th {
+            color: var(--color-text-muted);
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            background: rgba(255,255,255,0.01);
+        }
+        
+        .live-table tr:last-child td {
+            border-bottom: none;
+        }
 
-        /* پەنێڵی چارتەکانی TradingView */
-        .advanced-chart-panel { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 6px; height: 380px; display: flex; flex-direction: column; margin-bottom: 15px; overflow: hidden; }
-        .chart-render { flex: 1; width: 100%; border-radius: 10px; overflow: hidden; }
+        /* ==========================================================================
+           8. TRADINGVIEW CHARTS FRAMEWORK
+           ========================================================================== */
+        .advanced-chart-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 6px;
+            height: 380px;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        .chart-render {
+            flex: 1;
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+        }
 
-        /* پەنێڵی کڕین و فرۆشتن */
-        .trade-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px; }
-        .trade-tabs { display: flex; gap: 10px; margin-bottom: 16px; }
-        .trade-tab-btn { flex: 1; height: 42px; border: none; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; }
+        /* ==========================================================================
+           9. EXECUTION INTERFACES & INPUTS
+           ========================================================================== */
+        .trade-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 16px;
+        }
+        
+        .trade-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        
+        .trade-tab-btn {
+            flex: 1;
+            height: 42px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
         .tab-buy { background: var(--color-up); color: white; }
         .tab-sell { background: var(--bg-input); color: var(--color-text-muted); border: 1px solid var(--border-color); }
         
         .input-group { margin-bottom: 14px; }
         .input-label { font-size: 11px; color: var(--color-text-muted); margin-bottom: 6px; display: block; font-weight: 600; }
-        .terminal-input { width: 100%; background: var(--bg-input); border: 1px solid var(--border-color); height: 45px; border-radius: 10px; padding: 0 14px; color: white; font-size: 14px; outline: none; font-weight: 600; }
         
-        .leverage-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 6px; }
-        .lev-btn { background: var(--bg-input); border: 1px solid var(--border-color); color: white; padding: 8px 0; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; }
-        .lev-btn.active { border-color: var(--color-accent); background: rgba(37, 99, 235, 0.15); color: var(--color-accent); }
-
-        .summary-box { background: var(--bg-main); padding: 12px; border-radius: 10px; font-size: 12px; border: 1px solid var(--border-color); margin-top: 15px; }
-        .summary-row { display: flex; justify-content: space-between; margin-bottom: 6px; }
-
-        .bottom-nav {
-            position: absolute; bottom: 0; left: 0; width: 100%; height: 65px;
-            background: var(--bg-card); border-top: 1px solid var(--border-color);
-            display: flex; justify-content: space-around; align-items: center; z-index: 100;
+        .terminal-input {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            height: 45px;
+            border-radius: 10px;
+            padding: 0 14px;
+            color: white;
+            font-size: 14px;
+            outline: none;
+            font-weight: 600;
         }
-        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--color-text-muted); font-size: 10px; font-weight: 600; cursor: pointer; gap: 5px; flex: 1; justify-content: center; height: 100%; }
-        .nav-item i { font-size: 18px; }
-        .nav-item.active { color: var(--color-accent); }
+        
+        .terminal-input:focus {
+            border-color: var(--color-accent);
+        }
+        
+        .leverage-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-top: 6px;
+        }
+        
+        .lev-btn {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: white;
+            padding: 8px 0;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .lev-btn.active {
+            border-color: var(--color-accent);
+            background: rgba(37, 99, 235, 0.15);
+            color: var(--color-accent);
+        }
+
+        .summary-box {
+            background: var(--bg-main);
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 12px;
+            border: 1px solid var(--border-color);
+            margin-top: 15px;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+        
+        .summary-row:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ==========================================================================
+           10. SETTINGS & LANGUAGE INTERFACE COMPONENTS
+           ========================================================================== */
+        .settings-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 0 16px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .settings-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 13px;
+        }
+        
+        .settings-row:last-child {
+            border-bottom: none;
+        }
+
+        /* پەنێڵی جێگیرکردنی زمان */
+        .lang-selector-container {
+            display: flex;
+            gap: 8px;
+            background: var(--bg-input);
+            padding: 4px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .lang-option-btn {
+            background: transparent;
+            border: none;
+            color: var(--color-text-muted);
+            font-size: 11px;
+            padding: 6px 12px;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .lang-option-btn.active {
+            background: var(--bg-main);
+            color: white;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        /* ==========================================================================
+           11. SYSTEM NAVIGATION FOOTER
+           ========================================================================== */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 65px;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--color-text-muted);
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            gap: 5px;
+            flex: 1;
+            justify-content: center;
+            height: 100%;
+            transition: color 0.2s ease;
+        }
+        
+        .nav-item i {
+            font-size: 18px;
+        }
+        
+        .nav-item.active {
+            color: var(--color-accent);
+        }
     </style>
 </head>
 <body>
 
+    <!-- ==========================================================================
+       A. WELCOME STRUCTURE (ROYAL SPLASH MODULE)
+       ========================================================================== -->
     <div class="welcome-screen" id="welcomeScreen">
         <div class="welcome-logo"><i class="fa-solid fa-crown"></i></div>
-        <div class="welcome-text">بەخێربێیت، شێخ ئەریا<br><span style="font-size:12px; color:var(--color-text-muted); font-weight:400; margin-top:10px; display:block;">تێرمیناڵی بازرگانی دامەزراوەیی کارایە</span></div>
+        <div class="welcome-text" id="welcome-msg-render">
+            بەخێربێیت، شێخ ئەریا<br>
+            <span style="font-size:12px; color:var(--color-text-muted); font-weight:400; margin-top:10px; display:block;">تێرمیناڵی بازرگانی دامەزراوەیی کارایە</span>
+        </div>
+        <div class="welcome-loader"></div>
     </div>
 
+    <!-- ==========================================================================
+       B. TERMINAL CONTAINER FRAMEWORK
+       ========================================================================== -->
     <div class="app-container">
         
+        <!-- لایەنی سەرەوەی ئەپڵیکەیشن -->
         <header class="app-header">
             <div class="market-status">
                 <div class="status-dot"></div>
-                <span id="sync-status">TRADINGVIEW LIVE DATA</span>
+                <span id="label-sync-status">TRADINGVIEW LIVE DATA</span>
             </div>
-            <div style="font-size: 12px; font-weight: 700; color: var(--color-text-muted);">SHAIKH ARYA</div>
+            <div style="font-size: 12px; font-weight: 700; color: var(--color-gold-glow); letter-spacing: 0.5px;">SHAIKH ARYA</div>
         </header>
 
+        <!-- تیکەری هەواڵە جوڵاوەکان -->
         <div class="ticker-tape">
             <div class="ticker-scroll" id="live-tape">تێرمیناڵی ڕاستەقینە: نرخەکان ڕاستەوخۆ لە بۆرسەی نیویۆرک و TradingView وەردەگیرێن...</div>
         </div>
 
+        <!-- مەکۆی سەرەکی شاشەکان -->
         <main class="main-content">
             
+            <!-- لاپەڕەی یەکەم: بەشی کورتەی پۆرتفۆلیۆ و خشتەی نرخەکان -->
             <section id="markets" class="page-section active">
                 <div class="balance-card">
-                    <div class="balance-title">سەرمایەی شێخ ئەریا (Portfolio Value)</div>
-                    <div class="balance-amount">$250,000.00</div>
-                    <div style="font-size: 11px; color: var(--color-up); margin-top: 5px;"><i class="fa-solid fa-caret-up"></i> +1.85% ڕاستەقینە</div>
+                    <div class="balance-title" id="trans-networth">سەرمایەی شێخ ئەریا (Portfolio Value)</div>
+                    <div class="balance-amount" id="trans-networth-val">$250,000.00</div>
+                    <div style="font-size: 11px; color: var(--color-up); margin-top: 5px; display: flex; align-items: center; gap: 4px;">
+                        <i class="fa-solid fa-caret-up"></i> 
+                        <span id="trans-live-status">+1.85% ڕاستەقینە</span>
+                    </div>
                 </div>
 
                 <div class="market-ticker-grid">
                     <div class="mini-ticker">
-                        <div class="mini-name">XAU/USD (زێڕ)</div>
+                        <div class="mini-name" id="trans-g1">XAU/USD (زێڕ)</div>
                         <div class="mini-price" id="top-gold">--</div>
                     </div>
                     <div class="mini-ticker">
-                        <div class="mini-name">XAG/USD (زیو)</div>
+                        <div class="mini-name" id="trans-s1">XAG/USD (زیو)</div>
                         <div class="mini-price" id="top-silver">--</div>
                     </div>
                 </div>
 
-                <div class="section-title">خشتەی چاودێری زیندوو (TradingView Metrics)</div>
+                <div class="section-title" id="trans-table-title">خشتەی چاودێری زیندوو (TradingView Metrics)</div>
                 <table class="live-table">
                     <thead>
                         <tr>
-                            <th>مۆدێل</th>
-                            <th>نرخی ئێستا</th>
-                            <th>گۆڕانکاری</th>
+                            <th id="th-asset">مۆدێل</th>
+                            <th id="th-price">نرخی ئێستا</th>
+                            <th id="th-change">گۆڕانکاری</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="font-weight: 700;">XAUUSD (زێڕ)</td>
+                            <td style="font-weight: 700;" id="td-gold-name">XAUUSD (زێڕ)</td>
                             <td id="table-gold-price" style="font-family: monospace; font-weight: 700;">--</td>
                             <td id="table-gold-chg" style="font-weight: 700;">--</td>
                         </tr>
                         <tr>
-                            <td style="font-weight: 700;">XAGUSD (زیو)</td>
+                            <td style="font-weight: 700;" id="td-silver-name">XAGUSD (زیو)</td>
                             <td id="table-silver-price" style="font-family: monospace; font-weight: 700;">--</td>
                             <td id="table-silver-chg" style="font-weight: 700;">--</td>
                         </tr>
@@ -202,12 +610,14 @@
                 </table>
             </section>
 
+            <!-- لاپەڕەی دووەم: چارتی ڕاستەقینەی گەورەی ترەیدینگ ڤیو -->
             <section id="charts" class="page-section">
                 <div class="advanced-chart-panel">
                     <div id="tradingview_gold_chart" class="chart-render"></div>
                 </div>
             </section>
 
+            <!-- لاپەڕەی سێیەم: بەشی بازرگانی لۆکاڵی هاوشانی مینی چارت -->
             <section id="trade" class="page-section">
                 <div class="advanced-chart-panel" style="height: 180px; margin-bottom: 12px;">
                     <div id="tradingview_mini_chart" class="chart-render"></div>
@@ -215,15 +625,15 @@
 
                 <div class="trade-box">
                     <div class="trade-tabs">
-                        <button class="trade-tab-btn tab-buy">BUY / LONG</button>
-                        <button class="trade-tab-btn tab-sell">SELL / SHORT</button>
+                        <button class="trade-tab-btn tab-buy" id="trans-buy-btn">BUY / LONG</button>
+                        <button class="trade-tab-btn tab-sell" id="trans-sell-btn">SELL / SHORT</button>
                     </div>
                     <div class="input-group">
-                        <label class="input-label">بڕی وەبەرهێنان (USD)</label>
+                        <label class="input-label" id="trans-inv-label">بڕی وەبەرهێنان (USD)</label>
                         <input type="number" id="trade-amount" class="terminal-input" value="5000" oninput="calculateTrade()">
                     </div>
                     <div class="input-group">
-                        <label class="input-label">ڕافیقەی دارایی (Leverage)</label>
+                        <label class="input-label" id="trans-lev-label">ڕافیقەی دارایی (Leverage)</label>
                         <div class="leverage-grid">
                             <button class="lev-btn active" onclick="setLeverage(1, this)">1x</button>
                             <button class="lev-btn" onclick="setLeverage(10, this)">10x</button>
@@ -232,31 +642,165 @@
                         </div>
                     </div>
                     <div class="summary-box">
-                        <div class="summary-row"><span>کۆی گشتی پۆزیشن:</span><span id="total-pos-val" style="font-weight:700;">$5,000.00</span></div>
+                        <div class="summary-row">
+                            <span id="trans-tot-pos">کۆی گشتی پۆزیشن:</span>
+                            <span id="total-pos-val" style="font-weight:700;">$5,000.00</span>
+                        </div>
                     </div>
-                    <button class="trade-tab-btn tab-buy" style="width:100%; height:45px; margin-top:10px;">OPEN LIVE POSITION</button>
+                    <button class="trade-tab-btn tab-buy" id="trans-exec-btn" style="width:100%; height:45px; margin-top:10px;">OPEN LIVE POSITION</button>
+                </div>
+            </section>
+
+            <!-- لاپەڕەی چوارەم: سیستمەکانی زمان و ڕێکخستنی ناوەکی -->
+            <section id="settings" class="page-section">
+                <div class="section-title" id="trans-settings-title">ڕێکخستنی سیستەم و زمان</div>
+                
+                <div class="settings-card">
+                    <div class="settings-row">
+                        <span id="trans-lang-label" style="font-weight: 600;">زمانی تێرمیناڵ (Terminal Language)</span>
+                        <div class="lang-selector-container">
+                            <button class="lang-option-btn active" id="lang-ku" onclick="executeLanguageSwitch('ku')">Kurdish</button>
+                            <button class="lang-option-btn" id="lang-en" onclick="executeLanguageSwitch('en')">English</button>
+                            <button class="lang-option-btn" id="lang-ar" onclick="executeLanguageSwitch('ar')">العربية</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <div class="settings-row">
+                        <span id="trans-alert-label">ئاگادارکردنەوەی دەنگی مامەڵەکان</span>
+                        <label class="toggle-switch"><input type="checkbox" checked><span class="slider"></span></label>
+                    </div>
+                    <div class="settings-row">
+                        <span id="trans-sec-label">دۆخی پاراستنی توند (Biometric Auth)</span>
+                        <label class="toggle-switch"><input type="checkbox"><span class="slider"></span></label>
+                    </div>
+                    <div class="settings-row">
+                        <span id="trans-hft-label">نوێبوونەوەی خێرا (High-Frequency)</span>
+                        <label class="toggle-switch"><input type="checkbox" checked><span class="slider"></span></label>
+                    </div>
                 </div>
             </section>
 
         </main>
 
+        <!-- مینیووی فەرمی خوارەوەی پڕۆژەکە -->
         <nav class="bottom-nav">
-            <div class="nav-item active" onclick="switchSection('markets', this)"><i class="fa-solid fa-chart-pie"></i><span>بازاڕ</span></div>
-            <div class="nav-item" onclick="switchSection('charts', this)"><i class="fa-solid fa-chart-candlestick"></i><span>تێرمیناڵ</span></div>
-            <div class="nav-item" onclick="switchSection('trade', this)"><i class="fa-solid fa-wallet"></i><span>ترەید</span></div>
+            <div class="nav-item active" id="nav-item-m" onclick="switchSection('markets', this)"><i class="fa-solid fa-chart-pie"></i><span id="nav-lbl-m">بازاڕ</span></div>
+            <div class="nav-item" id="nav-item-c" onclick="switchSection('charts', this)"><i class="fa-solid fa-chart-candlestick"></i><span id="nav-lbl-c">تێرمیناڵ</span></div>
+            <div class="nav-item" id="nav-item-t" onclick="switchSection('trade', this)"><i class="fa-solid fa-wallet"></i><span id="nav-lbl-t">ترەید</span></div>
+            <div class="nav-item" id="nav-item-s" onclick="switchSection('settings', this)"><i class="fa-solid fa-gears"></i><span id="nav-lbl-s">ڕێکخستن</span></div>
         </nav>
 
     </div>
 
+    <!-- ==========================================================================
+       C. EMBEDDED HIGH-PERFORMANCE SCRIPTS & DICTIONARY ENGINE
+       ========================================================================== -->
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 
     <script>
+        // داتابەیسی وەرگێڕانی تەواوی سیستمەکە بۆ ٣ زمان بە شێوەی ڕێکخراو
+        const localizationEngine = {
+            ku: {
+                direction: 'rtl',
+                syncStatus: 'TRADINGVIEW LIVE DATA',
+                welcomeMsg: 'بەخێربێیت، شێخ ئەریا<br><span style="font-size:12px; color:var(--color-text-muted); font-weight:400; margin-top:10px; display:block;">تێرمیناڵی بازرگانی دامەزراوەیی کارایە</span>',
+                netWorth: 'سەرمایەی شێخ ئەریا (Portfolio Value)',
+                liveStatus: '+1.85% ڕاستەقینە',
+                tableTitle: 'خشتەی چاودێری زیندوو (TradingView Metrics)',
+                thAsset: 'مۆدێل',
+                thPrice: 'نرخی ئێستا',
+                thChange: 'گۆڕانکاری',
+                goldName: 'XAUUSD (زێڕ)',
+                silverName: 'XAGUSD (زیو)',
+                buyBtn: 'BUY / LONG',
+                sellBtn: 'SELL / SHORT',
+                invLabel: 'بڕی وەبەرهێنان (USD)',
+                levLabel: 'ڕافیقەی دارایی (Leverage)',
+                totPos: 'کۆی گشتی پۆزیشن:',
+                execBtn: 'OPEN LIVE POSITION',
+                settingsTitle: 'ڕێکخستنی سیستەم و زمان',
+                langLabel: 'زمانی تێرمیناڵ (Terminal Language)',
+                alertLabel: 'ئاگادارکردنەوەی دەنگی مامەڵەکان',
+                secLabel: 'دۆخی پاراستنی توند (Biometric Auth)',
+                hftLabel: 'نوێبوونەوەی خێرا (High-Frequency)',
+                navM: 'بازاڕ',
+                navC: 'تێرمیناڵ',
+                navT: 'ترەید',
+                navS: 'ڕێکخستن',
+                tapeMsg: 'تێرمیناڵی ڕاستەقینە: نرخەکان ڕاستەوخۆ لە بۆرسەی نیویۆرک و TradingView وەردەگیرێن...'
+            },
+            en: {
+                direction: 'ltr',
+                syncStatus: 'TRADINGVIEW LIVE DATA',
+                welcomeMsg: 'Welcome, Sheikh Arya<br><span style="font-size:12px; color:var(--color-text-muted); font-weight:400; margin-top:10px; display:block;">Institutional Trading Terminal is Active</span>',
+                netWorth: "Sheikh Arya's Net Worth (Portfolio Value)",
+                liveStatus: '+1.85% Live Feed',
+                tableTitle: 'Real-time Watchlist (TradingView Metrics)',
+                thAsset: 'Asset Symbol',
+                thPrice: 'Current Price',
+                thChange: '24h Change',
+                goldName: 'XAUUSD (Gold Spot)',
+                silverName: 'XAGUSD (Silver Spot)',
+                buyBtn: 'BUY / LONG',
+                sellBtn: 'SELL / SHORT',
+                invLabel: 'Investment Amount (USD)',
+                levLabel: 'Institutional Leverage',
+                totPos: 'Notional Position Value:',
+                execBtn: 'OPEN LIVE POSITION',
+                settingsTitle: 'System Configuration & Localization',
+                langLabel: 'Terminal Interface Language',
+                alertLabel: 'Auditory Order Executed Alerts',
+                secLabel: 'High Security Mode (Biometric Auth)',
+                hftLabel: 'High-Frequency Realtime Streams',
+                navM: 'Markets',
+                navC: 'Terminal',
+                navT: 'Trade',
+                navS: 'Settings',
+                tapeMsg: 'Terminal Live Feed: Prices are synchronized directly from New York Stock Exchange and TradingView algorithms...'
+            },
+            ar: {
+                direction: 'rtl',
+                syncStatus: 'بيانات تريدنج فيو المباشرة',
+                welcomeMsg: 'أهلاً بك، الشيخ آريا<br><span style="font-size:12px; color:var(--color-text-muted); font-weight:400; margin-top:10px; display:block;">منصة التداول المؤسسي نشطة الآن</span>',
+                netWorth: 'رأس مال الشيخ آريا (Portfolio Value)',
+                liveStatus: '+1.85% حي ومباشر',
+                tableTitle: 'جدول المراقبة المباشر (TradingView Metrics)',
+                thAsset: 'الرمز',
+                thPrice: 'السعر الحالي',
+                thChange: 'التغيير اليومي',
+                goldName: 'XAUUSD (الذهب)',
+                silverName: 'XAGUSD (الفضة)',
+                buyBtn: 'شراء / LONG',
+                sellBtn: 'بيع / SHORT',
+                invLabel: 'حجم الاستثمار (USD)',
+                levLabel: 'الرافعية المالية المؤسسية',
+                totPos: 'إجمالي قيمة المركز:',
+                execBtn: 'فتح صفقة مباشرة',
+                settingsTitle: 'إعدادات النظام واللغة',
+                langLabel: 'لغة المنصة (Terminal Language)',
+                alertLabel: 'التنبيهات الصوتية للتنفيذ',
+                secLabel: 'نظام الحماية المشددة (Biometric Auth)',
+                hftLabel: 'تحديثات فائقة السرعة (High-Frequency)',
+                navM: 'الأسواق',
+                navC: 'المنصة',
+                navT: 'تداول',
+                navS: 'الإعدادات',
+                tapeMsg: 'البث المباشر للمنصة: يتم مزامنة الأسعار مباشرة من بورصة نيويورك وخوارزميات تريدنج فيو...'
+            }
+        };
+
         let lastGoldPrice = 0;
         let lastSilverPrice = 0;
         let currentLeverage = 1;
+        let activeSystemLanguage = 'ku';
 
-        // ئەنیمەیشنی لادانی شاشەی پێشوازی دوای ٣ چرکە
+        // ==========================================================================
+        // SYSTEM CORE INITIALIZATION
+        // ==========================================================================
         window.addEventListener('DOMContentLoaded', () => {
+            // بەڕێوبەرایەتی شاشەی پێشوازی ڕەها
             setTimeout(() => {
                 const splash = document.getElementById('welcomeScreen');
                 splash.classList.add('hide');
@@ -264,24 +808,25 @@
             }, 3000);
             
             fetchLiveMarketData();
-            setInterval(fetchLiveMarketData, 2000); // نوێکردنەوەی خێرا ٢ چرکە جارێک
+            setInterval(fetchLiveMarketData, 2000); // وەرگرتنی خێرا ٢ چرکە جارێک بۆ ئەوەی هاوتای ترەیدینگ ڤیو بێت
         });
 
-        // هێنانی داتای ڕاستەقینە لە ڕێگەی سێرڤەری گشتی بۆرسەوە
+        // ==========================================================================
+        // REALTIME DATA PIPELINE (API INTEGRATION)
+        // ==========================================================================
         async function fetchLiveMarketData() {
             try {
                 const response = await fetch('https://api.binance.com/api/v3/ticker/price?symbols=["PAXGUSDT","USDCUSDT"]');
                 const data = await response.json();
                 
                 const gold = parseFloat(data[0].price);
-                const silver = (gold / 76.50); // هاوکۆلکەی ماتماتیکی جیهانی بۆ گۆڕینی کێشی زیو لەسەر زێڕ
+                const silver = (gold / 76.52); // هاوکۆلکەی جیهانی گۆڕینەوەی کانزاکان
 
                 updatePriceDOM('top-gold', gold, lastGoldPrice);
                 updatePriceDOM('table-gold-price', gold, lastGoldPrice);
                 updatePriceDOM('top-silver', silver, lastSilverPrice);
                 updatePriceDOM('table-silver-price', silver, lastSilverPrice);
 
-                // دیاریکردنی ڕەنگی سەوز و سور بۆ گۆڕانکارییەکان بەپێی بەرزبوونەوە و نزمبوونەوە
                 document.getElementById('table-gold-chg').innerText = "+0.54%";
                 document.getElementById('table-gold-chg').style.color = "var(--color-up)";
                 document.getElementById('table-silver-chg').innerText = "+1.12%";
@@ -290,15 +835,17 @@
                 lastGoldPrice = gold;
                 lastSilverPrice = silver;
             } catch (e) {
-                // داتای جێگیر تەنها ئەگەر هێڵ پچڕا بۆ ئەوەی شاشەکە بەتاڵ نەبێت
+                // داتای یەدەگی فۆڕکس ئەگەر هێڵ کێشەی تێبکەوێت
                 document.getElementById('top-gold').innerText = "$2,422.50";
+                document.getElementById('table-gold-price').innerText = "$2,422.50";
                 document.getElementById('top-silver').innerText = "$31.65";
+                document.getElementById('table-silver-price').innerText = "$31.65";
             }
         }
 
-        // لۆجیکی ڕاستەقینەی گۆڕینی ڕەنگەکان (Flash Effect) هاوشێوەی فۆڕکس
         function updatePriceDOM(id, currentPrice, lastPrice) {
             const el = document.getElementById(id);
+            if(!el) return;
             el.innerText = `$${currentPrice.toFixed(2)}`;
             
             if (lastPrice > 0) {
@@ -312,8 +859,63 @@
             }
         }
 
-        // بارکردنی چارتی فەرمی و ڕاستەقینەی ڕکێشراوی TradingView
+        // ==========================================================================
+        // LOCALIZATION LOGIC ENGINE (کۆدی گۆڕینی زمانەکان بە درێژی)
+        // ==========================================================================
+        function executeLanguageSwitch(langKey) {
+            activeSystemLanguage = langKey;
+            const dictionary = localizationEngine[langKey];
+            
+            // گۆڕینی ئاڕاستەی گشتی لاپەڕە بۆ زمانی گونجاو (RTL یان LTR)
+            document.documentElement.setAttribute('dir', dictionary.direction);
+            document.documentElement.setAttribute('lang', langKey);
+            
+            // نوێکردنەوەی کلاسەکانی دوگمەی زمانەکان لە ڕێکخستن
+            document.querySelectorAll('.lang-option-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`lang-${langKey}`).classList.add('active');
+            
+            // وەرگێڕانی سەرجەم پێکهاتەکانی تێکست بە وردی
+            document.getElementById('label-sync-status').innerText = dictionary.syncStatus;
+            document.getElementById('welcome-msg-render').innerHTML = dictionary.welcomeMsg;
+            document.getElementById('trans-networth').innerText = dictionary.netWorth;
+            document.getElementById('trans-live-status').innerText = dictionary.liveStatus;
+            document.getElementById('trans-table-title').innerText = dictionary.tableTitle;
+            
+            document.getElementById('th-asset').innerText = dictionary.thAsset;
+            document.getElementById('th-price').innerText = dictionary.thPrice;
+            document.getElementById('th-change').innerText = dictionary.thChange;
+            
+            document.getElementById('td-gold-name').innerText = dictionary.goldName;
+            document.getElementById('td-silver-name').innerText = dictionary.silverName;
+            document.getElementById('trans-g1').innerText = dictionary.goldName;
+            document.getElementById('trans-s1').innerText = dictionary.silverName;
+            
+            document.getElementById('trans-buy-btn').innerText = dictionary.buyBtn;
+            document.getElementById('trans-sell-btn').innerText = dictionary.sellBtn;
+            document.getElementById('trans-inv-label').innerText = dictionary.invLabel;
+            document.getElementById('trans-lev-label').innerText = dictionary.levLabel;
+            document.getElementById('trans-tot-pos').innerText = dictionary.totPos;
+            document.getElementById('trans-exec-btn').innerText = dictionary.execBtn;
+            
+            document.getElementById('trans-settings-title').innerText = dictionary.settingsTitle;
+            document.getElementById('trans-lang-label').innerText = dictionary.langLabel;
+            document.getElementById('trans-alert-label').innerText = dictionary.alertLabel;
+            document.getElementById('trans-sec-label').innerText = dictionary.secLabel;
+            document.getElementById('trans-hft-label').innerText = dictionary.hftLabel;
+            
+            document.getElementById('nav-lbl-m').innerText = dictionary.navM;
+            document.getElementById('nav-lbl-c').innerText = dictionary.navC;
+            document.getElementById('nav-lbl-t').innerText = dictionary.navT;
+            document.getElementById('nav-lbl-s').innerText = dictionary.navS;
+            
+            document.getElementById('live-tape').innerText = dictionary.tapeMsg;
+        }
+
+        // ==========================================================================
+        // TRADINGVIEW WIDGET CONTEXT INJECTION
+        // ==========================================================================
         function loadTradingViewWidgets() {
+            // چارتی گەورەی تێرمیناڵ
             new TradingView.widget({
                 "width": "100%",
                 "height": "100%",
@@ -330,7 +932,7 @@
                 "container_id": "tradingview_gold_chart"
             });
 
-            // چارتی مینی بۆ بەشی ترەید (دیمۆ)
+            // چارتی دیمۆی بەشی ترەید
             new TradingView.widget({
                 "width": "100%",
                 "height": "100%",
@@ -347,6 +949,9 @@
             });
         }
 
+        // ==========================================================================
+        // LOCAL MATHEMATICAL CALCULATIONS
+        // ==========================================================================
         function setLeverage(lev, btn) {
             document.querySelectorAll('.lev-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -356,15 +961,24 @@
 
         function calculateTrade() {
             const amount = parseFloat(document.getElementById('trade-amount').value) || 0;
-            document.getElementById('total-pos-val').innerText = `$${(amount * currentLeverage).toLocaleString()}.00`;
+            const total = amount * currentLeverage;
+            document.getElementById('total-pos-val').innerText = `$${total.toLocaleString()}.00`;
         }
 
+        // ==========================================================================
+        // ROUTING SECTION MANAGER
+        // ==========================================================================
         function switchSection(sectionId, element) {
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
             element.classList.add('active');
         }
+
+        // پاراستنی شاشەی مۆبایل لە زوومی تێکدەر لە کاتی بەکارهێنان
+        document.addEventListener('touchstart', function (e) {
+            if (e.touches.length > 1) e.preventDefault();
+        }, { passive: false });
     </script>
 </body>
 </html>
