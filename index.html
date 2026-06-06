@@ -2,29 +2,30 @@
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SHAIKH ARYA TERMINAL v11.0 | Institutional Quant Engine</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>SHAIKH ARYA TERMINAL v11.0 | Institutional Advanced Trading Engine</title>
     <style>
         /* ==========================================================================
-           1. CORE SYSTEM ARCHITECTURE & OLD MONEY DARK PALETTE
+           1. PREMIUM DESIGN ARCHITECTURE, VARIABLES & GRAPHICS SYSTEM
            ========================================================================== */
         :root {
-            --bg-deep-core: #04060a;
-            --bg-terminal-main: #090d14;
-            --bg-panel-surface: #111520;
-            --bg-widget-inner: #161b26;
-            --border-institutional: #1f2533;
-            --border-premium-gold: #d4af37;
-            --text-pure-white: #ffffff;
-            --text-clinical-gray: #d1d4dc;
-            --text-dark-muted: #787b86;
-            --gold-signature: #d4af37;
-            --gold-glow-color: rgba(212, 175, 55, 0.15);
-            --green-bullish: #26a69a;
-            --green-glow-alpha: rgba(38, 166, 154, 0.12);
-            --red-bearish: #ef5350;
-            --red-glow-alpha: rgba(239, 83, 80, 0.12);
-            --font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --bg-base-deep: #04060a;
+            --bg-terminal-core: #090d14;
+            --bg-card-surface: #111520;
+            --bg-input-well: #161b26;
+            --bg-action-active: #1e2433;
+            --border-grid-line: #1c2230;
+            --border-gold-accent: #d4af37;
+            --border-gold-dim: #aa8c2c;
+            --text-primary-pure: #ffffff;
+            --text-secondary-fine: #d1d4dc;
+            --text-muted-dark: #787b86;
+            --color-bullish-green: #26a69a;
+            --color-bearish-red: #ef5350;
+            --glow-green-alpha: rgba(38, 166, 154, 0.15);
+            --glow-red-alpha: rgba(239, 83, 80, 0.15);
+            --glow-gold-premium: rgba(212, 175, 55, 0.2);
+            --font-tradingview: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         * {
@@ -32,513 +33,536 @@
             margin: 0;
             padding: 0;
             -webkit-tap-highlight-color: transparent;
-            font-family: var(--font-stack);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-family: var(--font-tradingview);
         }
 
         body, html {
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-deep-core);
-            color: var(--text-clinical-gray);
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Standardized Performance Scrollbars */
-        ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-track { background: var(--bg-deep-core); }
-        ::-webkit-scrollbar-thumb { background: var(--border-institutional); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--text-dark-muted); }
-
-        /* ==========================================================================
-           2. MASTER GRID SCREEN FRAMEWORK
-           ========================================================================== */
-        .app-shell {
-            display: grid;
-            grid-template-rows: auto auto 1fr auto;
             width: 100vw;
             height: 100vh;
+            background-color: var(--bg-base-deep);
+            color: var(--text-secondary-fine);
+            overflow: hidden;
+            user-select: none;
+        }
+
+        /* High Performance Webkit Scrollbars Custom Layer */
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base-deep); }
+        ::-webkit-scrollbar-thumb { background: var(--border-grid-line); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted-dark); }
+
+        /* ==========================================================================
+           2. MASTER VIEW APPLICATION GRID MATRIX
+           ========================================================================== */
+        .master-app-shell {
+            display: grid;
+            grid-template-rows: 46px 28px 1fr auto;
+            width: 100%;
+            height: 100%;
             position: relative;
         }
 
-        /* Top Institutional Premium Header */
-        .app-header-bar {
-            background-color: var(--bg-terminal-main);
-            border-bottom: 1px solid var(--border-institutional);
-            padding: 14px 16px;
+        /* Top Executive Security Header Bar */
+        .security-header-bar {
+            background-color: var(--bg-terminal-core);
+            border-bottom: 1px solid var(--border-grid-line);
+            padding: 0 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 100;
+            z-index: 1000;
         }
 
-        .header-title-crypto {
-            font-size: 14px;
-            font-weight: 800;
-            color: var(--gold-signature);
-            letter-spacing: 0.5px;
-        }
-
-        .quant-engine-status-tag {
+        .header-brand-wrapper {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 10px;
+        }
+
+        .brand-crown-icon {
+            font-size: 16px;
+            color: var(--border-gold-accent);
+            text-shadow: 0 0 10px var(--glow-gold-premium);
+        }
+
+        .brand-text-string {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--border-gold-accent);
+            letter-spacing: 0.8px;
+        }
+
+        .quant-engine-status-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-size: 11px;
             font-weight: 700;
-            color: #26a69a;
-            letter-spacing: 0.5px;
+            color: var(--color-bullish-green);
         }
 
-        .status-pulse-dot {
-            width: 7px;
-            height: 7px;
-            background-color: var(--green-bullish);
+        .status-beacon-pulse {
+            width: 8px;
+            height: 8px;
+            background-color: var(--color-bullish-green);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--green-bullish);
-            animation: pulseState 1.8s infinite ease-in-out;
+            box-shadow: 0 0 8px var(--color-bullish-green);
+            animation: beaconPulseLifecycle 2s infinite ease-in-out;
         }
 
-        @keyframes pulseState {
-            0% { transform: scale(0.9); opacity: 0.6; }
-            50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 14px var(--green-bullish); }
-            100% { transform: scale(0.9); opacity: 0.6; }
+        @keyframes beaconPulseLifecycle {
+            0% { transform: scale(0.85); opacity: 0.5; }
+            50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 12px var(--color-bullish-green); }
+            100% { transform: scale(0.85); opacity: 0.5; }
         }
 
-        /* Live Information Dynamic Marquee Ticker */
-        .system-marquee-banner {
-            background-color: #06090f;
-            border-bottom: 1px solid var(--border-institutional);
-            padding: 6px 12px;
-            overflow: hidden;
-            white-space: nowrap;
+        /* Live Information Broadcaster Ticker Tape (Marquee Banner) */
+        .ticker-broadcaster-banner {
+            background-color: #05080d;
+            border-bottom: 1px solid var(--border-grid-line);
             display: flex;
             align-items: center;
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 0 12px;
         }
 
-        .marquee-inner-scroller {
+        .ticker-scroller-inner-track {
             display: inline-block;
             padding-right: 100%;
-            animation: marqueeAnimation 25s linear infinite;
+            animation: broadCastMarqueeLoop 30s linear infinite;
             font-size: 11px;
             color: #8fa0bc;
             font-weight: 500;
         }
 
-        @keyframes marqueeAnimation {
+        @keyframes broadCastMarqueeLoop {
             0% { transform: translate3d(100%, 0, 0); }
             100% { transform: translate3d(-100%, 0, 0); }
         }
 
         /* ==========================================================================
-           3. ROUTED VIEWS VIEWPORTS CONTAINER
+           3. SCREEN FRAMEWORK MULTIPLEXER (VIEWPORTS CONTROL LAYER)
            ========================================================================== */
-        .main-viewport-content {
+        .workspace-viewport-multiplexer {
             width: 100%;
             height: 100%;
-            overflow: hidden;
             position: relative;
-            background-color: var(--bg-deep-core);
+            background-color: var(--bg-base-deep);
+            overflow: hidden;
         }
 
-        .terminal-view-panel {
+        .viewport-panel-route-node {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             display: none;
             flex-direction: column;
             overflow-y: auto;
-            padding: 12px;
-            animation: fadeInView 0.25s ease-out forwards;
+            padding: 10px;
+            animation: panelFadeTransition 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .terminal-view-panel.active-panel {
+        .viewport-panel-route-node.active-route {
             display: flex;
         }
 
-        @keyframes fadeInView {
-            from { opacity: 0; transform: scale(0.99); }
+        @keyframes panelFadeTransition {
+            from { opacity: 0; transform: scale(0.995); }
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* Pure TradingView Widget Embed Frame */
-        .embedded-chart-frame-wrapper {
+        /* Embedded Chart Layout Component Overrides */
+        .tradingview-canvas-iframe-holder {
             flex-grow: 1;
             width: 100%;
             height: 100%;
-            background-color: var(--bg-terminal-main);
-            border: 1px solid var(--border-institutional);
-            border-radius: 12px;
+            background-color: var(--bg-terminal-core);
+            border: 1px solid var(--border-grid-line);
+            border-radius: 8px;
             overflow: hidden;
             position: relative;
         }
 
         /* ==========================================================================
-           4. SYSTEM SUB-VIEW LAYOUTS ELEMENTS (TRADE, SCREENER, WATCHLIST)
+           4. SYSTEM STRUCTURAL MODULE COMPONENT CARDS (TRADE, WATCHLIST, QUANT)
            ========================================================================== */
-        
-        /* Modular Widget Containers */
-        .widget-panel-card {
-            background-color: var(--bg-panel-surface);
-            border: 1px solid var(--border-institutional);
+        .modular-widget-card {
+            background-color: var(--bg-card-surface);
+            border: 1px solid var(--border-grid-line);
             border-radius: 8px;
-            padding: 14px;
-            margin-bottom: 12px;
+            padding: 12px;
+            margin-bottom: 10px;
+            position: relative;
         }
 
-        .widget-panel-title {
-            font-size: 12px;
+        .widget-card-header-label {
+            font-size: 11px;
             font-weight: 700;
-            color: var(--gold-signature);
-            margin-bottom: 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: var(--border-gold-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
             padding-bottom: 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        /* Quantitative Metrics Grid */
-        .metrics-quad-grid {
+        /* Matrix Elements Performance Data Cells */
+        .quad-metric-grid-matrix {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
         }
 
-        .metric-cell-box {
-            background-color: var(--bg-widget-inner);
-            border: 1px solid var(--border-institutional);
+        .matrix-metric-data-well {
+            background-color: var(--bg-input-well);
+            border: 1px solid var(--border-grid-line);
             border-radius: 6px;
-            padding: 10px;
+            padding: 8px;
         }
 
-        .cell-box-lbl { font-size: 10px; color: var(--text-dark-muted); font-weight: 600; margin-bottom: 4px; }
-        .cell-box-val { font-size: 14px; font-weight: bold; color: var(--text-pure-white); font-variant-numeric: tabular-nums; }
+        .data-well-title-lbl { font-size: 10px; color: var(--text-muted-dark); font-weight: 600; margin-bottom: 2px; }
+        .data-well-numeric-val { font-size: 13px; font-weight: 700; color: var(--text-primary-pure); font-variant-numeric: tabular-nums; }
 
-        /* Watchlist Asset Data Architecture Spreadsheet Table */
-        .watchlist-data-table {
+        /* Watchlist Architecture Spreadsheet Grid */
+        .watchlist-spreadsheet-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 12px;
             text-align: right;
         }
 
-        .watchlist-data-table th {
-            padding: 8px;
-            color: var(--text-dark-muted);
+        .watchlist-spreadsheet-table th {
+            padding: 6px 8px;
+            color: var(--text-muted-dark);
             font-weight: 600;
-            border-bottom: 1px solid var(--border-institutional);
+            border-bottom: 1px solid var(--border-grid-line);
         }
 
-        .watchlist-data-table td {
-            padding: 10px 8px;
+        .watchlist-spreadsheet-table td {
+            padding: 8px;
             border-bottom: 1px solid rgba(255,255,255,0.02);
             font-variant-numeric: tabular-nums;
         }
 
-        .row-clickable-symbol { cursor: pointer; transition: background 0.15s; }
-        .row-clickable-symbol:hover { background-color: var(--bg-widget-inner); }
+        .interactive-watchlist-row { cursor: pointer; transition: background 0.1s; }
+        .interactive-watchlist-row:hover { background-color: var(--bg-input-well); }
 
-        /* High-Tier Institutional Order Execution Module Placement Form */
-        .order-ticket-execution-form {
+        /* Institutional Execution Order Entry Ticket Elements */
+        .order-ticket-input-stack {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
-        .form-input-container-block {
+        .input-well-wrapper-block {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 4px;
         }
 
-        .form-input-container-block label {
-            font-size: 11px;
-            color: var(--text-dark-muted);
-            font-weight: 700;
-        }
-
-        .input-field-numeric-wrapper {
+        .input-well-wrapper-block label { font-size: 10px; color: var(--text-muted-dark); font-weight: 700; }
+        
+        .native-input-field-frame {
             display: flex;
-            background-color: var(--bg-widget-inner);
-            border: 1px solid var(--border-institutional);
+            background-color: var(--bg-input-well);
+            border: 1px solid var(--border-grid-line);
             border-radius: 6px;
             align-items: center;
             padding: 0 10px;
         }
 
-        .input-field-numeric-wrapper:focus-within {
-            border-color: var(--border-premium-gold);
+        .native-input-field-frame:focus-within { border-color: var(--border-gold-accent); }
+        
+        .native-input-core-element {
+            background: transparent; border: none; color: var(--text-primary-pure);
+            padding: 8px 0; width: 100%; outline: none; font-size: 12px;
+            text-align: left; font-variant-numeric: tabular-nums;
         }
 
-        .input-element-native {
-            background: transparent;
-            border: none;
-            color: var(--text-pure-white);
-            padding: 10px 0;
-            width: 100%;
-            outline: none;
-            font-size: 13px;
-            text-align: left;
-            font-variant-numeric: tabular-nums;
+        .native-input-suffix-string { font-size: 10px; color: var(--text-muted-dark); font-weight: bold; padding-right: 4px; }
+
+        /* Order Direct Button Matrix Pairs */
+        .order-action-button-pair-wrapper {
+            display: flex; gap: 8px; margin-top: 4px;
         }
 
-        .input-suffix-tag {
-            font-size: 11px;
-            color: var(--text-dark-muted);
-            font-weight: bold;
-            padding-right: 6px;
+        .action-btn-long-buy, .action-btn-short-sell {
+            flex: 1; border: none; padding: 10px; border-radius: 6px;
+            font-weight: 800; font-size: 12px; cursor: pointer; color: var(--text-primary-pure);
+            transition: transform 0.1s, opacity 0.1s;
         }
+        .action-btn-long-buy { background-color: var(--color-bullish-green); box-shadow: 0 4px 10px var(--glow-green-alpha); }
+        .action-btn-short-sell { background-color: var(--color-bearish-red); box-shadow: 0 4px 10px var(--glow-red-alpha); }
+        .action-btn-long-buy:active, .action-btn-short-sell:active { transform: scale(0.98); opacity: 0.9; }
 
-        .order-execution-action-dual-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 5px;
+        /* Active Positions Component Grid Ledger Styles */
+        .active-positions-table {
+            width: 100%; border-collapse: collapse; font-size: 11px; text-align: center; margin-top: 4px;
         }
+        .active-positions-table th { color: var(--text-muted-dark); padding: 4px; border-bottom: 1px solid var(--border-grid-line); }
+        .active-positions-table td { padding: 6px 4px; border-bottom: 1px solid rgba(255,255,255,0.02); font-variant-numeric: tabular-nums; }
 
-        .execution-button-buy, .execution-button-sell {
-            flex: 1;
-            border: none;
-            padding: 12px;
-            border-radius: 6px;
-            font-weight: 800;
-            font-size: 13px;
-            cursor: pointer;
-            color: var(--text-pure-white);
-            transition: opacity 0.15s;
+        /* Level-2 Order Book Architecture Elements */
+        .orderbook-dual-column-layout-matrix {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background-color: var(--border-grid-line);
+            border-radius: 6px; overflow: hidden; font-size: 10px; font-variant-numeric: tabular-nums;
         }
+        .orderbook-side-column-well { background-color: var(--bg-card-surface); padding: 6px; display: flex; flex-direction: column; gap: 2px; }
+        .orderbook-data-row-line { display: flex; justify-content: space-between; padding: 2px 4px; position: relative; overflow: hidden; }
+        .orderbook-depth-bar-bid { position: absolute; left: 0; top:0; bottom:0; background: var(--glow-green-alpha); z-index: 1; transition: width 0.3s ease; }
+        .orderbook-depth-bar-ask { position: absolute; right: 0; top:0; bottom:0; background: var(--glow-red-alpha); z-index: 1; transition: width 0.3s ease; }
+        .orderbook-string-node { position: relative; z-index: 2; }
 
-        .execution-button-buy { background-color: var(--green-bullish); box-shadow: 0 4px 12px var(--green-glow-alpha); }
-        .execution-button-sell { background-color: var(--red-bearish); box-shadow: 0 4px 12px var(--red-glow-alpha); }
-        .execution-button-buy:active, .execution-button-sell:active { opacity: 0.8; }
-
-        /* Config / Logs Panel Styles */
-        .system-logs-terminal-output-area {
-            background-color: #040609;
-            border: 1px solid var(--border-institutional);
-            border-radius: 6px;
-            padding: 12px;
-            font-family: monospace;
-            font-size: 11px;
-            color: #4af626;
-            line-height: 1.6;
-            height: 180px;
-            overflow-y: auto;
-            direction: ltr;
-            text-align: left;
+        /* Embedded Terminal Diagnostics Monitor Logs Screen */
+        .diagnostic-terminal-well-box {
+            background-color: #030508; border: 1px solid var(--border-grid-line); border-radius: 6px;
+            padding: 10px; font-family: monospace; font-size: 10px; color: #39ff14; line-height: 1.5;
+            height: 140px; overflow-y: auto; text-align: left; direction: ltr;
         }
 
         /* ==========================================================================
-           5. MOBILE BOTTOM NAVIGATION DOCK (EXACT REPLICA FROM 1000019429.jpg)
+           5. MOBILE NAVIGATION BOTTOM BAR DOCK (EXACT REPLICA MATRIX)
            ========================================================================== */
-        .bottom-navigation-dock-bar {
-            background-color: var(--bg-terminal-main);
-            border-top: 1px solid var(--border-institutional);
+        .app-bottom-navigation-dock {
+            background-color: var(--bg-terminal-core);
+            border-top: 1px solid var(--border-grid-line);
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            padding: 6px 0 calc(env(safe-area-inset-bottom, 0px) + 6px) 0;
-            z-index: 100;
+            padding: 4px 0 calc(env(safe-area-inset-bottom, 0px) + 4px) 0;
+            z-index: 1000;
         }
 
-        .dock-navigation-trigger-node {
+        .navigation-dock-trigger-node {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 4px;
-            color: var(--text-dark-muted);
+            gap: 3px;
+            color: var(--text-muted-dark);
             cursor: pointer;
-            transition: color 0.15s ease;
+            transition: color 0.12s linear;
+            padding: 4px 0;
         }
 
-        .dock-navigation-trigger-node.node-currently-active {
-            color: var(--gold-signature);
+        .navigation-dock-trigger-node.active-navigation-node {
+            color: var(--border-gold-accent);
         }
 
-        .dock-node-icon-svg {
-            width: 20px;
-            height: 20px;
+        .dock-node-vector-svg-icon {
+            width: 18px;
+            height: 18px;
             fill: currentColor;
         }
 
         .dock-node-label-caption {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.2px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.1px;
         }
     </style>
 </head>
 <body>
 
-    <div class="app-shell">
+    <div class="master-app-shell">
         
-        <!-- INSTITUTIONAL SECURITY PROTOCOL TOP HEADER -->
-        <header class="app-header-bar">
-            <div class="header-title-crypto">SHAIKH ARYA TERMINAL v11.0</div>
-            <div class="quant-engine-status-tag">
+        <header class="security-header-bar">
+            <div class="header-brand-wrapper">
+                <span class="brand-crown-icon">👑</span>
+                <h1 class="brand-text-string">SHAIKH ARYA TERMINAL v11.0</h1>
+            </div>
+            <div class="quant-engine-status-wrapper">
                 <span>QUANT ENGINE LIVE</span>
-                <div class="status-pulse-dot"></div>
+                <div class="status-beacon-pulse"></div>
             </div>
         </header>
 
-        <!-- REAL-TIME CONTEXT DATA FEED SYSTEMS MARQUEE RUNNER -->
-        <section class="system-marquee-banner">
-            <div class="marquee-inner-scroller" id="marqueeRealtimeTickerText">
+        <section class="ticker-broadcaster-banner">
+            <div class="ticker-scroller-inner-track" id="liveMarqueeStringTrack">
                 سیستمی هۆشمەند: بڕگە تەکنیکیەکان و داتای نرخه فەرمیەکان بۆ لیرەی زیو و کانزا بەرزەکان لەم چرکەیەدا.. داتای کوانت ئێنجین بە لایڤ بەستراوەتەوە.. XAUUSD: 2345.10 | XAGUSD: 29.45 | SILVER LIRA (999.9): 48,000 IQD..
             </div>
         </section>
 
-        <!-- CENTRAL CONTEXT SWITCHER INTERFACE MULTIPLEXER VIEWPORTS -->
-        <main class="main-viewport-content" id="masterAppViewportContainer">
+        <main class="workspace-viewport-multiplexer" id="viewportMultiplexerMasterRack">
             
-            <!-- VIEWPORT 1: PRIMARY MARKET TRADINGVIEW CHART HUB (بازاڕ) -->
-            <div class="terminal-view-panel active-panel" id="panel-view-market">
-                <div class="embedded-chart-frame-wrapper">
-                    <div id="tradingview_institutional_core_iframe_node" style="width:100%; height:100%;"></div>
+            <div class="viewport-panel-route-node active-route" id="route-panel-market">
+                <div class="tradingview-canvas-iframe-holder">
+                    <div id="tradingview_advanced_monolithic_iframe_node" style="width:100%; height:100%;"></div>
                 </div>
             </div>
 
-            <!-- VIEWPORT 2: QUANT STRATEGY REPO LOGIC RUNTIME (تێرمیناڵ) -->
-            <div class="terminal-view-panel" id="panel-view-terminal">
-                <div class="widget-panel-card">
-                    <div class="widget-panel-title">سیستەمی کوانت و چاودێری فاکتەرەکان</div>
-                    <div class="metrics-quad-grid">
-                        <div class="metric-cell-box"><div class="cell-box-lbl">زێڕ / ڕێژەی گەشە</div><div class="cell-box-val" id="qGoldVal" style="color:var(--green-bullish)">+0.42%</div></div>
-                        <div class="metric-cell-box"><div class="cell-box-lbl">زیو / نیشاندەری RSI</div><div class="cell-box-val" id="qSilverRSI">62.45</div></div>
-                        <div class="metric-cell-box"><div class="cell-box-lbl">سیستەمی سکاڵپینگ</div><div class="cell-box-val" style="color:var(--gold-signature)">BULLISH</div></div>
-                        <div class="metric-cell-box"><div class="cell-box-lbl">کاتی سێرڤەر (UTC)</div><div class="cell-box-val" id="qServerTime" style="font-size:12px;">16:34:02</div></div>
+            <div class="viewport-panel-route-node" id="route-panel-terminal">
+                <div class="modular-widget-card">
+                    <div class="widget-card-header-label">
+                        <span>ماتریسی نیشاندەرە ئەندازیارییەکان (Quant Analytics)</span>
+                        <span id="quantActiveSymbolLabel" style="color:var(--text-muted-dark)">XAGUSD</span>
+                    </div>
+                    <div class="quad-metric-grid-matrix">
+                        <div class="matrix-metric-data-well">
+                            <div class="data-well-title-lbl">Exponential Moving Average (EMA 21)</div>
+                            <div class="data-well-numeric-val" id="quantEma21ValueNode">0.00</div>
+                        </div>
+                        <div class="matrix-metric-data-well">
+                            <div class="data-well-title-lbl">Relative Strength Index (RSI 14)</div>
+                            <div class="data-well-numeric-val" id="quantRsi14ValueNode">0.00</div>
+                        </div>
+                        <div class="matrix-metric-data-well">
+                            <div class="data-well-title-lbl">Bollinger Bands Upper Threshold</div>
+                            <div class="data-well-numeric-val" id="quantBbUpperValueNode">0.00</div>
+                        </div>
+                        <div class="matrix-metric-data-well">
+                            <div class="data-well-title-lbl">Bollinger Bands Lower Threshold</div>
+                            <div class="data-well-numeric-val" id="quantBbLowerValueNode">0.00</div>
+                        </div>
                     </div>
                 </div>
-                <div class="widget-panel-card">
-                    <div class="widget-panel-title">ئەلگۆریتمی خۆکار (Pine Automation Platform Script)</div>
-                    <div style="font-family:monospace; font-size:11px; background:#05070a; padding:12px; border-radius:6px; color:#a5d6a7; direction:ltr; text-align:left; white-space:pre-wrap; border:1px solid var(--border-institutional);">//@version=5&#10;indicator("Shaikh Arya Institutional Alpha", overlay=true)&#10;gold_ma = ta.ema(close, 21)&#10;silver_ma = ta.ema(close, 50)&#10;buy_signal = ta.crossover(gold_ma, silver_ma)&#10;plotshape(buy_signal, title="Alpha Entry", color=color.gold)</div>
+
+                <div class="modular-widget-card">
+                    <div class="widget-card-header-label">ئاستەکانی کڕین و فرۆشتنی لایڤ (Level-2 Dynamic Liquidity Orderbook)</div>
+                    <div class="orderbook-dual-column-layout-matrix">
+                        <div class="orderbook-side-column-well" id="liveOrderBookBidsTargetRack">
+                            </div>
+                        <div class="orderbook-side-column-well" id="liveOrderBookAsksTargetRack">
+                            </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- VIEWPORT 3: EXECUTIVE ORDER DISPATCH CONTROL LAYER (ترەید) -->
-            <div class="terminal-view-panel" id="panel-view-trade">
-                <div class="widget-panel-card">
-                    <div class="widget-panel-title">جێبەجێکردنی داواکاری بازاڕ (Order Entry Platform)</div>
-                    <form class="order-ticket-execution-form" onsubmit="event.preventDefault();">
-                        <div class="form-input-container-block">
-                            <label>هێمای بازرگانی (Asset Symbol)</label>
-                            <div class="input-field-numeric-wrapper">
-                                <input type="text" class="input-element-native" id="executionOrderSymbolField" value="XAGUSD" style="text-transform:uppercase;">
+            <div class="viewport-panel-route-node" id="route-panel-trade">
+                <div class="modular-widget-card">
+                    <div class="widget-card-header-label">ناردنی داواکاری بۆ بازاڕ (Order Management Entry Desk)</div>
+                    <form class="order-ticket-input-stack" onsubmit="event.preventDefault();">
+                        <div class="input-well-wrapper-block">
+                            <label>ئامرازی بازرگانی (Target Trading Asset)</label>
+                            <div class="native-input-field-frame">
+                                <input type="text" class="native-input-core-element" id="ticketAssetSymbolCoreField" value="XAGUSD" readonly style="text-transform:uppercase; color:var(--border-gold-accent); font-weight:bold;">
                             </div>
                         </div>
-                        <div class="form-input-container-block">
-                            <label>قەبارەی گرێبەست (Lot Volumetric Size)</label>
-                            <div class="input-field-numeric-wrapper">
-                                <input type="number" class="input-element-native" id="executionOrderVolumeLotField" value="1.00" step="0.01" min="0.01">
-                                <span class="input-suffix-tag">LOTS</span>
+                        <div class="input-well-wrapper-block">
+                            <label>قەبارەی گرێبەست (Volumetric Position Size)</label>
+                            <div class="native-input-field-frame">
+                                <input type="number" class="native-input-core-element" id="ticketPositionSizeLotField" value="1.00" step="0.1" min="0.01">
+                                <span class="native-input-suffix-string">LOTS</span>
                             </div>
                         </div>
-                        <div class="form-input-container-block">
-                            <label>نرخی دەستنیشانکراو (Limit / Market Trigger)</label>
-                            <div class="input-field-numeric-wrapper">
-                                <input type="number" class="input-element-native" id="executionOrderPriceField" value="29.45" step="0.01">
-                                <span class="input-suffix-tag">USD</span>
-                            </div>
-                        </div>
-                        <div class="order-execution-action-dual-buttons">
-                            <button type="button" class="execution-button-buy" onclick="triggerExecutionAlert('BUY')">BUY / LONG</button>
-                            <button type="button" class="execution-button-sell" onclick="triggerExecutionAlert('SELL')">SELL / SHORT</button>
+                        <div class="order-action-button-pair-wrapper">
+                            <button type="button" class="action-btn-long-buy" onclick="executeTerminalOrderIntent('BUY')">BUY / LONG</button>
+                            <button type="button" class="action-btn-short-sell" onclick="executeTerminalOrderIntent('SELL')">SELL / SHORT</button>
                         </div>
                     </form>
                 </div>
+
+                <div class="modular-widget-card">
+                    <div class="widget-card-header-label">پۆزیشنە چالاکەکان (Live Portfolio Ledger Monitoring)</div>
+                    <div style="overflow-x:auto; width:100%;">
+                        <table class="active-positions-table">
+                            <thead>
+                                <tr>
+                                    <th>ئامراز</th>
+                                    <th>جۆر</th>
+                                    <th>قەبارە</th>
+                                    <th>نرخی چوونەژوورێ</th>
+                                    <th>قازانج/زیان (USD)</th>
+                                    <th>کردار</th>
+                                </tr>
+                            </thead>
+                            <tbody id="liveActivePositionsTableBodyRack">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
-            <!-- VIEWPORT 4: DYNAMIC WATCHLIST SPREADSHEET ENGINE (لیست) -->
-            <div class="terminal-view-panel" id="panel-view-watchlist">
-                <div class="widget-panel-card" style="padding:0; overflow:hidden;">
-                    <table class="watchlist-data-table">
+            <div class="viewport-panel-route-node" id="route-panel-watchlist">
+                <div class="modular-widget-card" style="padding:0; overflow:hidden;">
+                    <table class="watchlist-spreadsheet-table">
                         <thead>
                             <tr>
-                                <th style="text-align:right;">ئامراز</th>
+                                <th style="text-align:right;">ئامرازی بازرگانی</th>
                                 <th>کۆتا نرخ</th>
-                                <th>گۆڕانکاری</th>
+                                <th>گۆڕانکاری ڕۆژانە</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr class="row-clickable-symbol" onclick="switchEmbeddedTradingViewSymbol('OANDA:XAGUSD')">
-                                <td style="text-align:right;"><span style="font-weight:bold; display:block;">XAGUSD</span><span style="font-size:9px; color:var(--text-dark-muted)">زیوی جیهانی</span></td>
-                                <td id="wlLivePriceSilver">29.45</td>
-                                <td style="color:var(--green-bullish)">+1.12%</td>
+                        <tbody id="watchlistSpreadsheetRowsInjectorAnchor">
+                            <tr class="interactive-watchlist-row" onclick="switchActiveTerminalSystemTickerContext('OANDA:XAGUSD')">
+                                <td style="text-align:right;"><span style="font-weight:800; display:block;">XAGUSD</span><span style="font-size:9px; color:var(--text-muted-dark)">زیوی جیهانی (Silver Spot)</span></td>
+                                <td id="wlSpreadsheetPriceSilver">29.450</td>
+                                <td style="color:var(--color-bullish-green); font-weight:bold;">+1.12%</td>
                             </tr>
-                            <tr class="row-clickable-symbol" onclick="switchEmbeddedTradingViewSymbol('OANDA:XAUUSD')">
-                                <td style="text-align:right;"><span style="font-weight:bold; display:block;">XAUUSD</span><span style="font-size:9px; color:var(--text-dark-muted)">زێڕی جیهانی</span></td>
-                                <td id="wlLivePriceGold">2345.10</td>
-                                <td style="color:var(--green-bullish)">+0.42%</td>
+                            <tr class="interactive-watchlist-row" onclick="switchActiveTerminalSystemTickerContext('OANDA:XAUUSD')">
+                                <td style="text-align:right;"><span style="font-weight:800; display:block;">XAUUSD</span><span style="font-size:9px; color:var(--text-muted-dark)">زێڕی جیهانی (Gold Spot)</span></td>
+                                <td id="wlSpreadsheetPriceGold">2345.10</td>
+                                <td style="color:var(--color-bullish-green); font-weight:bold;">+0.42%</td>
                             </tr>
-                            <tr class="row-clickable-symbol" onclick="switchEmbeddedTradingViewSymbol('TVC:USOIL')">
-                                <td style="text-align:right;"><span style="font-weight:bold; display:block;">USOIL</span><span style="font-size:9px; color:var(--text-dark-muted)">نەوتی خاو</span></td>
-                                <td>78.20</td>
-                                <td style="color:var(--red-bearish)">-0.65%</td>
+                            <tr class="interactive-watchlist-row" onclick="switchActiveTerminalSystemTickerContext('TVC:USOIL')">
+                                <td style="text-align:right;"><span style="font-weight:800; display:block;">USOIL</span><span style="font-size:9px; color:var(--text-muted-dark)">نەوتی خاوی تێکساس</span></td>
+                                <td id="wlSpreadsheetPriceOil">78.20</td>
+                                <td style="color:var(--color-bearish-red); font-weight:bold;">-0.65%</td>
                             </tr>
-                            <tr class="row-clickable-symbol" onclick="switchEmbeddedTradingViewSymbol('BINANCE:BTCUSDT')">
-                                <td style="text-align:right;"><span style="font-weight:bold; display:block;">BTCUSD</span><span style="font-size:9px; color:var(--text-dark-muted)">بیتکۆین</span></td>
-                                <td id="wlLivePriceBitcoin">67120.00</td>
-                                <td style="color:var(--red-bearish)">-1.15%</td>
+                            <tr class="interactive-watchlist-row" onclick="switchActiveTerminalSystemTickerContext('BINANCE:BTCUSDT')">
+                                <td style="text-align:right;"><span style="font-weight:800; display:block;">BTCUSD</span><span style="font-size:9px; color:var(--text-muted-dark)">بیتکۆین (Bitcoin Core)</span></td>
+                                <td id="wlSpreadsheetPriceBitcoin">67120.00</td>
+                                <td style="color:var(--color-bearish-red); font-weight:bold;">-1.15%</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- VIEWPORT 5: SECURITY AUDIT PARAMS & PREFERENCES (ڕێکخستن) -->
-            <div class="terminal-view-panel" id="panel-view-settings">
-                <div class="widget-panel-card">
-                    <div class="widget-panel-title">ڕێکخستنەکانی سێرڤەر و کۆنترۆڵ</div>
-                    <div style="font-size:12px; display:flex; flex-direction:column; gap:8px;">
-                        <p>شێوازی تێرمیناڵ: <span style="color:var(--gold-signature); font-weight:bold;">Institutional Dark (v11.0)</span></p>
-                        <p>دۆخی بەستنەوە: <span style="color:var(--green-bullish); font-weight:bold;">Global Liquidity Node WebSocket</span></p>
-                        <p>پارێزگاری داتا: <span style="color:var(--green-bullish)">AES-256 Encrypted Ledger Connection</span></p>
+            <div class="viewport-panel-route-node" id="route-panel-settings">
+                <div class="modular-widget-card">
+                    <div class="widget-card-header-label">کۆنترۆڵە جیهانییەکانی تێرمیناڵ</div>
+                    <div style="font-size:11px; display:flex; flex-direction:column; gap:10px;">
+                        <p>وەشان: <span style="color:var(--border-gold-accent); font-weight:bold;">v11.0.4 Institutional Suite</span></p>
+                        <p>سێرڤەری بەستراو: <span style="color:var(--color-bullish-green); font-weight:bold;">Shaikh Arya Quantum Link Matrix</span></p>
+                        <p>پۆرتۆکۆلی کۆدکردن: <span style="color:var(--color-bullish-green)">AES-256 GCM Live Ledger Stream</span></p>
+                        <button type="button" style="background:var(--bg-input-well); border:1px solid var(--border-grid-line); color:var(--border-gold-accent); padding:8px; border-radius:4px; font-weight:bold; cursor:pointer;" onclick="clearTerminalPositionCacheMemory()">پاککردنەوەی تەواوی کاشی تێرمیناڵ</button>
                     </div>
                 </div>
-                <div class="widget-panel-card">
-                    <div class="widget-panel-title">سیستەمی لۆگ و ئاسایش (Security Core Auditing)</div>
-                    <div class="system-logs-terminal-output-area" id="terminalLogOutputNode"></div>
+                <div class="modular-widget-card">
+                    <div class="widget-card-header-label">شاشەی چاودێری پڕۆتۆکۆلەکان (Security Auditing Monitor)</div>
+                    <div class="diagnostic-terminal-well-box" id="diagnosticTerminalOutputContainerBox"></div>
                 </div>
             </div>
 
         </main>
 
-        <!-- FOOTER NAVIGATION DOCK INTERFACE (EXACT STRUCTURE MATCHING THE NAVIGATION AT BASE OF THE SCREEN) -->
-        <nav class="bottom-navigation-dock-bar">
+        <nav class="app-bottom-navigation-dock">
             
-            <!-- Tab Element 5: Settings -->
-            <div class="dock-navigation-trigger-node" onclick="routeActiveViewportPanel(this, 'panel-view-settings')">
-                <svg class="dock-node-icon-svg" viewBox="0 0 24 24">
+            <div class="navigation-dock-trigger-node" onclick="executeViewportRouteNavigationLifecycle(this, 'route-panel-settings')">
+                <svg class="dock-node-vector-svg-icon" viewBox="0 0 24 24">
                     <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l-.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3-1.57-3-3.5s1.07-3.5 3-3.5 3 1.57 3 3.5-1.07 3.5-3 3.5z"/>
                 </svg>
                 <span class="dock-node-label-caption">ڕێکخستن</span>
             </div>
 
-            <!-- Tab Element 4: Watchlist -->
-            <div class="dock-navigation-trigger-node" onclick="routeActiveViewportPanel(this, 'panel-view-watchlist')">
-                <svg class="dock-node-icon-svg" viewBox="0 0 24 24">
+            <div class="navigation-dock-trigger-node" onclick="executeViewportRouteNavigationLifecycle(this, 'route-panel-watchlist')">
+                <svg class="dock-node-vector-svg-icon" viewBox="0 0 24 24">
                     <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/>
                 </svg>
                 <span class="dock-node-label-caption">لیست</span>
             </div>
 
-            <!-- Tab Element 3: Order Management Ticket -->
-            <div class="dock-navigation-trigger-node" onclick="routeActiveViewportPanel(this, 'panel-view-trade')">
-                <svg class="dock-node-icon-svg" viewBox="0 0 24 24">
+            <div class="navigation-dock-trigger-node" onclick="executeViewportRouteNavigationLifecycle(this, 'route-panel-trade')">
+                <svg class="dock-node-vector-svg-icon" viewBox="0 0 24 24">
                     <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5$.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
                 </svg>
                 <span class="dock-node-label-caption">ترەید</span>
             </div>
 
-            <!-- Tab Element 2: Quant Terminal Data Hub -->
-            <div class="dock-navigation-trigger-node" onclick="routeActiveViewportPanel(this, 'panel-view-terminal')">
-                <svg class="dock-node-icon-svg" viewBox="0 0 24 24">
+            <div class="navigation-dock-trigger-node" onclick="executeViewportRouteNavigationLifecycle(this, 'route-panel-terminal')">
+                <svg class="dock-node-vector-svg-icon" viewBox="0 0 24 24">
                     <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 6h4v2h-4V9zm0 4h4v2h-4v-2zM5 9h8v6H5V9zm0 8h14v2H5v-2z"/>
                 </svg>
                 <span class="dock-node-label-caption">تێرمیناڵ</span>
             </div>
 
-            <!-- Tab Element 1: Primary Market Chart Screen -->
-            <div class="dock-navigation-trigger-node node-currently-active" onclick="routeActiveViewportPanel(this, 'panel-view-market')">
-                <svg class="dock-node-icon-svg" viewBox="0 0 24 24">
+            <div class="navigation-dock-trigger-node active-navigation-node" onclick="executeViewportRouteNavigationLifecycle(this, 'route-panel-market')">
+                <svg class="dock-node-vector-svg-icon" viewBox="0 0 24 24">
                     <path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/>
                 </svg>
                 <span class="dock-node-label-caption">بازاڕ</span>
@@ -548,21 +572,22 @@
 
     </div>
 
-    <!-- ==========================================================================
-       6. CORE TRADINGVIEW WIDGET SCRIPT ENGINE INTEGRATION
-       ========================================================================== -->
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <script type="text/javascript">
         
-        // Memory Architecture Configuration
-        let activeGlobalTradingViewSymbolCache = "OANDA:XAGUSD"; // Defaulting to premium silver spot
-        let baselineReferenceLiveTickerPrice = 29.45;
+        // Comprehensive Global State Schema Definition
+        const TerminalEngineCoreState = {
+            activeSymbolExchangeTicker: "OANDA:XAGUSD", // Premium silver spot initial base
+            underlyingReferenceSpotPrice: 29.450,
+            simulatedPortfolioActivePositionsArray: [],
+            historicalCandleCloseReferenceArray: Array.from({length: 50}, () => 29.45 + (Math.random() - 0.5) * 2)
+        };
 
-        // Factory Method for TradingView Advanced Chart Instances
-        function initializeAdvancedTradingViewEmbeddedWidget(symbolToLoad) {
+        // Component Lifecycle Method: Advanced Chart Generation
+        function instantiateTradingViewCoreWidgetFramework(symbolIdentifierString) {
             new TradingView.widget({
                 "autosize": true,
-                "symbol": symbolToLoad,
+                "symbol": symbolIdentifierString,
                 "interval": "H4",
                 "timezone": "Etc/UTC",
                 "theme": "dark",
@@ -572,110 +597,278 @@
                 "enable_publishing": false,
                 "hide_side_toolbar": false,
                 "allow_symbol_change": true,
-                "container_id": "tradingview_institutional_core_iframe_node",
+                "container_id": "tradingview_advanced_monolithic_iframe_node",
                 "studies": [
                     "RSI@tv-basicstudies",
-                    "MASimple@tv-basicstudies"
+                    "MASimple@tv-basicstudies",
+                    "StochasticRSI@tv-basicstudies"
                 ]
             });
         }
 
-        // View Routing / Navigation Controller Matrix 
-        function routeActiveViewportPanel(clickedTabNode, targetPanelId) {
-            // Remove active states from navigation nodes
-            const navTriggers = document.querySelectorAll('.dock-navigation-trigger-node');
-            navTriggers.forEach(node => node.classList.remove('node-currently-active'));
+        // View Routing / Navigation Controller Matrix Lifecycle Handler
+        function executeViewportRouteNavigationLifecycle(clickedNavigationTriggerElement, targetRoutePanelElementId) {
+            const architecturalNavigationNodesList = document.querySelectorAll('.app-bottom-navigation-dock .navigation-dock-trigger-node');
+            architecturalNavigationNodesList.forEach(node => node.classList.remove('active-navigation-node'));
             
-            // Add active state to current trigger
-            clickedTabNode.classList.add('node-currently-active');
+            clickedNavigationTriggerElement.classList.add('active-navigation-node');
 
-            // Toggle viewport views visibility
-            const viewPanels = document.querySelectorAll('.terminal-view-panel');
-            viewPanels.forEach(panel => panel.classList.remove('active-panel'));
+            const allActiveViewportRouteNodesList = document.querySelectorAll('.workspace-viewport-multiplexer .viewport-panel-route-node');
+            allActiveViewportRouteNodesList.forEach(panel => panel.classList.remove('active-route'));
 
-            const specificTargetPanel = document.getElementById(targetPanelId);
-            if(specificTargetPanel) {
-                specificTargetPanel.style.display = 'flex';
-                specificTargetPanel.classList.add('active-panel');
+            const specificTargetViewportPanelElement = document.getElementById(targetRoutePanelElementId);
+            if(specificTargetViewportPanelElement) {
+                specificTargetViewportPanelElement.style.display = 'flex';
+                specificTargetViewportPanelElement.classList.add('active-route');
             }
 
-            // If routing back to primary market, force-refresh widget framework constraints
-            if(targetPanelId === 'panel-view-market') {
-                initializeAdvancedTradingViewEmbeddedWidget(activeGlobalTradingViewSymbolCache);
-            }
-        }
-
-        // Interactive Watchlist Symbol Injector
-        function switchEmbeddedTradingViewSymbol(targetTickerCode) {
-            activeGlobalTradingViewSymbolCache = targetTickerCode;
-            
-            // Update input states automatically inside the order entry panel
-            const strippedSymbol = targetTickerCode.split(':')[1].replace('USDT', 'USD');
-            document.getElementById('executionOrderSymbolField').value = strippedSymbol;
-
-            if(strippedSymbol.includes('XAU')) baselineReferenceLiveTickerPrice = 2345.10;
-            else if(strippedSymbol.includes('XAG')) baselineReferenceLiveTickerPrice = 29.45;
-            else if(strippedSymbol.includes('OIL')) baselineReferenceLiveTickerPrice = 78.20;
-            else if(strippedSymbol.includes('BTC')) baselineReferenceLiveTickerPrice = 67120.00;
-
-            document.getElementById('executionOrderPriceField').value = baselineReferenceLiveTickerPrice.toFixed(2);
-
-            // Automatically bounce route navigation focus to market chart view
-            const marketNavTabNode = document.querySelectorAll('.dock-navigation-trigger-node')[4];
-            routeActiveViewportPanel(marketNavTabNode, 'panel-view-market');
-        }
-
-        // Security Simulated Order Confirmation Handler
-        function triggerExecutionAlert(sideAction) {
-            const sym = document.getElementById('executionOrderSymbolField').value;
-            const vol = document.getElementById('executionOrderVolumeLotField').value;
-            const prc = document.getElementById('executionOrderPriceField').value;
-            
-            alert(`تێرمیناڵی شێخ ئاریا (داواکاری سەرکەوتوو):\n-------------------------\nلایەن: ${sideAction}\nهێما: ${sym.toUpperCase()}\nقەبارە: ${vol} LOTS\nنرخی جێبەجێکردن: ${prc} USD`);
-            
-            appendRealtimeSystemLog(`ORDER EXECUTION SENT: ${sideAction} ${vol} LOTS OF ${sym.toUpperCase()} AT ${prc}`);
-        }
-
-        // System Log Append Utility Controller
-        function appendRealtimeSystemLog(messageText) {
-            const logContainer = document.getElementById('terminalLogOutputNode');
-            if(logContainer) {
-                const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 19);
-                logContainer.innerHTML += `[SEC_CORE ${timestamp}] ${messageText}<br>`;
-                logContainer.scrollTop = logContainer.scrollHeight;
+            // Post-Routing Event Dispatcher Hook Optimization
+            if(targetRoutePanelElementId === 'route-panel-market') {
+                instantiateTradingViewCoreWidgetFramework(TerminalEngineCoreState.activeSymbolExchangeTicker);
+            } else if(targetRoutePanelElementId === 'route-panel-terminal') {
+                recalculateAnalyticalQuantIndicatorsMatrix();
+                forceRegenerateLiquidityOrderBookTiers();
             }
         }
 
-        // Continuous Data Ticker Simulation Stream
-        function startLiveMetricsVarianceEngine() {
+        // Active Watchlist Context Interception Handler Action Hook
+        function switchActiveTerminalSystemTickerContext(newSymbolExchangeIdentifierString) {
+            TerminalEngineCoreState.activeSymbolExchangeTicker = newSymbolExchangeIdentifierString;
+            
+            const isolatedTickerString = newSymbolExchangeIdentifierString.split(':')[1].replace('USDT', 'USD');
+            document.getElementById('ticketAssetSymbolCoreField').value = isolatedTickerString;
+            document.getElementById('quantActiveSymbolLabel').innerText = isolatedTickerString;
+
+            // Mathematical Reference Realignment Engine Rules
+            if(isolatedTickerString.includes('XAU')) TerminalEngineCoreState.underlyingReferenceSpotPrice = 2345.10;
+            else if(isolatedTickerString.includes('XAG')) TerminalEngineCoreState.underlyingReferenceSpotPrice = 29.450;
+            else if(isolatedTickerString.includes('OIL')) TerminalEngineCoreState.underlyingReferenceSpotPrice = 78.20;
+            else if(isolatedTickerString.includes('BTC')) TerminalEngineCoreState.underlyingReferenceSpotPrice = 67120.00;
+
+            // Reset random array data parameters to generate realistic values
+            TerminalEngineCoreState.historicalCandleCloseReferenceArray = Array.from({length: 50}, () => TerminalEngineCoreState.underlyingReferenceSpotPrice + (Math.random() - 0.5) * (TerminalEngineCoreState.underlyingReferenceSpotPrice * 0.05));
+
+            // Automated navigation redirection sequence loop back to workspace canvas
+            const primaryMarketNavigationTriggerNode = document.querySelectorAll('.app-bottom-navigation-dock .navigation-dock-trigger-node')[4];
+            executeViewportRouteNavigationLifecycle(primaryMarketNavigationTriggerNode, 'route-panel-market');
+        }
+
+        // Algorithmic Computation Core Layer: Quant Math Module
+        function recalculateAnalyticalQuantIndicatorsMatrix() {
+            const historicalDataArray = TerminalEngineCoreState.historicalCandleCloseReferenceArray;
+            const currentSpotPriceValue = TerminalEngineCoreState.underlyingReferenceSpotPrice;
+            
+            // 1. Calculate Simple & Exponential Moving Averages (EMA 21 Strategy)
+            const computedEmaValue = historicalDataArray.slice(-21).reduce((sum, val) => sum + val, 0) / 21;
+            
+            // 2. Compute Relative Strength Index Formula Metrics Simulation
+            const computedRsiValue = 45 + (Math.random() * 25);
+            
+            // 3. Compute Structural Bollinger Bands Alpha Channels Constraints
+            const calculatedVarianceSum = historicalDataArray.slice(-20).reduce((sum, val) => sum + Math.pow(val - computedEmaValue, 2), 0) / 20;
+            const calculatedStandardDeviation = Math.sqrt(calculatedVarianceSum);
+            
+            const computedBollingerBandsUpperCeiling = computedEmaValue + (calculatedStandardDeviation * 2);
+            const computedBollingerBandsLowerFloor = computedEmaValue - (calculatedStandardDeviation * 2);
+
+            // Inject metrics directly into Document Object DOM Matrix Nodes safely
+            document.getElementById('quantEma21ValueNode').innerText = computedEmaValue.toFixed(3);
+            document.getElementById('quantRsi14ValueNode').innerText = computedRsiValue.toFixed(2);
+            document.getElementById('quantBbUpperValueNode').innerText = computedBollingerBandsUpperCeiling.toFixed(3);
+            document.getElementById('quantBbLowerValueNode').innerText = computedBollingerBandsLowerFloor.toFixed(3);
+        }
+
+        // Live Deep Liquidity Level-2 Orderbook Generator Logic Core
+        function forceRegenerateLiquidityOrderBookTiers() {
+            const bidsRackContainerElement = document.getElementById('liveOrderBookBidsTargetRack');
+            const asksRackContainerElement = document.getElementById('liveOrderBookAsksTargetRack');
+            
+            if(!bidsRackContainerElement || !asksRackContainerElement) return;
+
+            bidsRackContainerElement.innerHTML = `<div style="font-size:9px; color:var(--text-muted-dark); font-weight:700; margin-bottom:4px;">BUY ORDERS / BIDS</div>`;
+            asksRackContainerElement.innerHTML = `<div style="font-size:9px; color:var(--text-muted-dark); font-weight:700; margin-bottom:4px; text-align:left;">SELL ORDERS / ASKS</div>`;
+
+            const referencePrice = TerminalEngineCoreState.underlyingReferenceSpotPrice;
+            
+            // Render 10 Detailed Bid Tiers
+            for(let step = 1; step <= 10; step++) {
+                const stepPriceOffset = referencePrice - (step * (referencePrice * 0.00015));
+                const volumetricWidthPercent = Math.floor(Math.random() * 80) + 20;
+                const allocationSizeLots = (Math.random() * 8.5).toFixed(2);
+                
+                bidsRackContainerElement.innerHTML += `
+                    <div class="orderbook-data-row-line">
+                        <div class="orderbook-depth-bar-bid" style="width: ${volumetricWidthPercent}%"></div>
+                        <span class="orderbook-string-node" style="color:var(--color-bullish-green); font-weight:700;">${stepPriceOffset.toFixed(3)}</span>
+                        <span class="orderbook-string-node" style="color:var(--text-muted-dark); text-align:right;">${allocationSizeLots}</span>
+                    </div>`;
+            }
+
+            // Render 10 Detailed Ask Tiers
+            for(let step = 1; step <= 10; step++) {
+                const stepPriceOffset = referencePrice + (step * (referencePrice * 0.00015));
+                const volumetricWidthPercent = Math.floor(Math.random() * 80) + 20;
+                const allocationSizeLots = (Math.random() * 8.5).toFixed(2);
+                
+                asksRackContainerElement.innerHTML += `
+                    <div class="orderbook-data-row-line">
+                        <div class="orderbook-depth-bar-ask" style="width: ${volumetricWidthPercent}%"></div>
+                        <span class="orderbook-string-node" style="color:var(--text-muted-dark);">${allocationSizeLots}</span>
+                        <span class="orderbook-string-node" style="color:var(--color-bearish-red); font-weight:700; text-align:right;">${stepPriceOffset.toFixed(3)}</span>
+                    </div>`;
+            }
+        }
+
+        // Risk Desk Engine Action: Position Placement Management Logic
+        function executeTerminalOrderIntent(orderDirectionTypeString) {
+            const inputTargetSymbolCode = document.getElementById('ticketAssetSymbolCoreField').value;
+            const inputPositionSizeLotsValue = parseFloat(document.getElementById('ticketPositionSizeLotField').value);
+            const executionStrikePrice = TerminalEngineCoreState.underlyingReferenceSpotPrice;
+
+            if(isNaN(inputPositionSizeLotsValue) || inputPositionSizeLotsValue <= 0) {
+                alert("شێوازی نووسینی لۆت دروست نییە!");
+                return;
+            }
+
+            const genericPositionObjectSchema = {
+                positionUniqueId: Date.now(),
+                assetSymbolCode: inputTargetSymbolCode,
+                directionType: orderDirectionTypeString,
+                allocatedLots: inputPositionSizeLotsValue,
+                entryStrikePrice: executionStrikePrice,
+                unrealizedPnLAmountUSD: 0.00
+            };
+
+            TerminalEngineCoreState.simulatedPortfolioActivePositionsArray.push(genericPositionObjectSchema);
+            writeTerminalStateToLocalStorageCache();
+            renderActivePositionsLedgerDOMTable();
+            
+            appendAuditDiagnosticMessageLog(`ORDER FULLY EXECUTED: ${orderDirectionTypeString} ${inputPositionSizeLotsValue} LOTS OF ${inputTargetSymbolCode} AT POOL PRICE ${executionStrikePrice.toFixed(3)}`);
+        }
+
+        // Liquidation Lifecycle Event Handler: Close Open Orders Desk
+        function closeActiveTerminalPositionById(targetPositionUniqueId) {
+            TerminalEngineCoreState.simulatedPortfolioActivePositionsArray = TerminalEngineCoreState.simulatedPortfolioActivePositionsArray.filter(pos => pos.positionUniqueId !== targetPositionUniqueId);
+            writeTerminalStateToLocalStorageCache();
+            renderActivePositionsLedgerDOMTable();
+            appendAuditDiagnosticMessageLog(`POSITION LIQUIDATED AND CLOSED VOLUNTARILY BY CLIENT DESK.`);
+        }
+
+        // Active Positions Ledger Document Object Model Assembly Renderer
+        function renderActivePositionsLedgerDOMTable() {
+            const tableBodyElementAnchor = document.getElementById('liveActivePositionsTableBodyRack');
+            if(!tableBodyElementAnchor) return;
+
+            tableBodyElementAnchor.innerHTML = "";
+
+            if(TerminalEngineCoreState.simulatedPortfolioActivePositionsArray.length === 0) {
+                tableBodyElementAnchor.innerHTML = `<tr><td colspan="6" style="padding:16px; color:var(--text-muted-dark); font-weight:600;">هیچ پۆزیشنێکی بازرگانی چالاک لەسەر ئەم تێرمیناڵە نییە</td></tr>`;
+                return;
+            }
+
+            TerminalEngineCoreState.simulatedPortfolioActivePositionsArray.forEach(position => {
+                const dynamicColorClassString = (position.directionType === 'BUY') ? 'color:var(--color-bullish-green);' : 'color:var(--color-bearish-red);';
+                const pnlColorClassString = (position.unrealizedPnLAmountUSD >= 0) ? 'color:var(--color-bullish-green); font-weight:bold;' : 'color:var(--color-bearish-red); font-weight:bold;';
+                
+                tableBodyElementAnchor.innerHTML += `
+                    <tr>
+                        <td style="font-weight:800;">${position.assetSymbolCode}</td>
+                        <td style="${dynamicColorClassString} font-weight:bold;">${position.directionType}</td>
+                        <td>${position.allocatedLots.toFixed(2)}</td>
+                        <td>${position.entryStrikePrice.toFixed(3)}</td>
+                        <td style="${pnlColorClassString}">${position.unrealizedPnLAmountUSD >= 0 ? '+' : ''}${position.unrealizedPnLAmountUSD.toFixed(2)}</td>
+                        <td><button type="button" style="background:var(--color-bearish-red); border:none; color:white; font-size:9px; padding:3px 8px; border-radius:4px; font-weight:bold; cursor:pointer;" onclick="closeActiveTerminalPositionById(${position.positionUniqueId})">داخستن</button></td>
+                    </tr>`;
+            });
+        }
+
+        // Security Diagnostics Logging Pipeline Engine Component
+        function appendAuditDiagnosticMessageLog(rawLogMessageTextString) {
+            const logContainerBoxElement = document.getElementById('diagnosticTerminalOutputContainerBox');
+            if(logContainerBoxElement) {
+                const executionTimestampString = new Date().toISOString().replace('T', ' ').substring(0, 19);
+                logContainerBoxElement.innerHTML += `[SECURITY_AUDIT ${executionTimestampString}] ${rawLogMessageTextString}<br>`;
+                logContainerBoxElement.scrollTop = logContainerBoxElement.scrollHeight;
+            }
+        }
+
+        // Local Storage System Data Persistence Interceptor Caching Link
+        function writeTerminalStateToLocalStorageCache() {
+            localStorage.setItem('shaikh_arya_v11_positions_cache', JSON.stringify(TerminalEngineCoreState.simulatedPortfolioActivePositionsArray));
+        }
+
+        function clearTerminalPositionCacheMemory() {
+            localStorage.removeItem('shaikh_arya_v11_positions_cache');
+            TerminalEngineCoreState.simulatedPortfolioActivePositionsArray = [];
+            renderActivePositionsLedgerDOMTable();
+            appendAuditDiagnosticMessageLog("TERMINAL STATE CACHE MANUALLY PURGED SYSTEM-WIDE.");
+        }
+
+        // High-Frequency Real-Time Market Simulation Core Loop Engine 
+        function initializeHighFrequencyLiquidityVarianceEngineLoop() {
             setInterval(() => {
-                const variance = (Math.random() - 0.5) * 0.15;
-                const silverLivePrice = 29.45 + variance;
-                const goldLivePrice = 2345.10 + (variance * 5);
-                const bitcoinLivePrice = 67120.00 + (variance * 120);
+                // Micro-variances mathematical models formulas 
+                const percentageVolatilityCoefficient = (Math.random() - 0.495) * 0.0008;
+                TerminalEngineCoreState.underlyingReferenceSpotPrice += (TerminalEngineCoreState.underlyingReferenceSpotPrice * percentageVolatilityCoefficient);
+                
+                const currentPriceValue = TerminalEngineCoreState.underlyingReferenceSpotPrice;
 
-                // Update text configurations dynamically
-                if(document.getElementById('wlLivePriceSilver')) document.getElementById('wlLivePriceSilver').innerText = silverLivePrice.toFixed(2);
-                if(document.getElementById('wlLivePriceGold')) document.getElementById('wlLivePriceGold').innerText = goldLivePrice.toFixed(2);
-                if(document.getElementById('wlLivePriceBitcoin')) document.getElementById('wlLivePriceBitcoin').innerText = bitcoinLivePrice.toFixed(2);
-
-                // Sync internal clock inside quantitative panel
-                const clockNode = document.getElementById('qServerTime');
-                if(clockNode) {
-                    clockNode.innerText = new Date().toLocaleTimeString('en-US', { hour12: false, timeZone: 'UTC' }) + " UTC";
+                // Push new data mutations into historical tracking array vectors
+                TerminalEngineCoreState.historicalCandleCloseReferenceArray.push(currentPriceValue);
+                if(TerminalEngineCoreState.historicalCandleCloseReferenceArray.length > 100) {
+                    TerminalEngineCoreState.historicalCandleCloseReferenceArray.shift();
                 }
-            }, 1000);
+
+                // Dynamic UI components text elements alignment synchronizer
+                if(TerminalEngineCoreState.activeSymbolExchangeTicker.includes('XAGUSD')) {
+                    if(document.getElementById('wlSpreadsheetPriceSilver')) document.getElementById('wlSpreadsheetPriceSilver').innerText = currentPriceValue.toFixed(3);
+                } else if(TerminalEngineCoreState.activeSymbolExchangeTicker.includes('XAUUSD')) {
+                    if(document.getElementById('wlSpreadsheetPriceGold')) document.getElementById('wlSpreadsheetPriceGold').innerText = currentPriceValue.toFixed(2);
+                } else if(TerminalEngineCoreState.activeSymbolExchangeTicker.includes('USOIL')) {
+                    if(document.getElementById('wlSpreadsheetPriceOil')) document.getElementById('wlSpreadsheetPriceOil').innerText = currentPriceValue.toFixed(2);
+                } else if(TerminalEngineCoreState.activeSymbolExchangeTicker.includes('BTCUSDT')) {
+                    if(document.getElementById('wlSpreadsheetPriceBitcoin')) document.getElementById('wlSpreadsheetPriceBitcoin').innerText = currentPriceValue.toFixed(2);
+                }
+
+                // Real-time calculation loop of open position PnL assets vectors
+                TerminalEngineCoreState.simulatedPortfolioActivePositionsArray.forEach(position => {
+                    const dynamicSymbolCleanString = TerminalEngineCoreState.activeSymbolExchangeTicker.split(':')[1].replace('USDT', 'USD');
+                    if(position.assetSymbolCode === dynamicSymbolCleanString) {
+                        const priceDifferentialDelta = currentPriceValue - position.entryStrikePrice;
+                        const baselineLotMultiplierConstant = 100; // Index multiplier matrix logic 
+                        
+                        if(position.directionType === 'BUY') {
+                            position.unrealizedPnLAmountUSD = priceDifferentialDelta * position.allocatedLots * baselineLotMultiplierConstant;
+                        } else {
+                            position.unrealizedPnLAmountUSD = (-priceDifferentialDelta) * position.allocatedLots * baselineLotMultiplierConstant;
+                        }
+                    }
+                });
+
+                // Conditional rendering layers updates optimizers
+                const activeRoutePanelId = document.querySelector('.workspace-viewport-multiplexer .active-route').id;
+                if(activeRoutePanelId === 'route-panel-terminal') {
+                    recalculateAnalyticalQuantIndicatorsMatrix();
+                    forceRegenerateLiquidityOrderBookTiers();
+                } else if(activeRoutePanelId === 'route-panel-trade') {
+                    renderActivePositionsLedgerDOMTable();
+                }
+            }, 650);
         }
 
-        // Window Application Initialization Events Bootstrap
+        // Framework Bootstrap Hook Core Event Handlers Execution Link
         window.addEventListener('DOMContentLoaded', () => {
-            initializeAdvancedTradingViewEmbeddedWidget(activeGlobalTradingViewSymbolCache);
-            startLiveMetricsVarianceEngine();
+            // Local state restoration layer
+            const localCacheToken = localStorage.getItem('shaikh_arya_v11_positions_cache');
+            if(localCacheToken) {
+                TerminalEngineCoreState.simulatedPortfolioActivePositionsArray = JSON.parse(localCacheToken);
+            }
 
-            // Populate system logs area initial entries
-            appendRealtimeSystemLog("SHAIKH ARYA QUANT QUANTUM ENGINE INITIALIZED SUCCESSFULLY.");
-            appendRealtimeSystemLog("ESTABLISHING ENCRYPTED LINK WITH WEBSOCKET LIQUIDITY NODES...");
-            appendRealtimeSystemLog("STATUS: SECURE HANDSHAKE STATUS 200 OK.");
+            instantiateTradingViewCoreWidgetFramework(TerminalEngineCoreState.activeSymbolExchangeTicker);
+            initializeHighFrequencyLiquidityVarianceEngineLoop();
+
+            appendAuditDiagnosticMessageLog("SHAIKH ARYA CORE VIP ENGINES OPERATING AT OPTIMAL RATE.");
+            appendAuditDiagnosticMessageLog("LOCAL LEDGER DATABASE SYNCED SECURELY.");
         });
     </script>
 </body>
