@@ -3,21 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHEX ARYA | Advanced Trading Terminal Pro</title>
+    <title>SHEX ARYA | Institutional Trading Engine v4.0 Pro</title>
     <style>
-        /* CSS RESET & VARIABLES */
+        /* ==========================================================================
+           1. CORE ARCHITECTURE & SYSTEM VARIABLES (OLD MONEY & TRADINGVIEW DARK)
+           ========================================================================== */
         :root {
-            --bg-main: #0b0e14;
+            --bg-deep: #06080c;
+            --bg-main: #0c1017;
             --bg-panel: #131722;
-            --bg-surface: #1c2030;
-            --border-color: #2a2e39;
+            --bg-surface: #1e222d;
+            --bg-surface-hover: #2a2e39;
+            --border-light: #2a2e39;
+            --border-focus: #d4af37;
+            --text-pure: #ffffff;
             --text-main: #d1d4dc;
             --text-muted: #787b86;
             --gold-premium: #d4af37;
-            --gold-hover: #f3e5ab;
-            --green-up: #089981;
-            --red-down: #f23645;
-            --font-stack: -apple-system, BlinkMacSystemFont, 'Trebuchet MS', Roboto, Ubuntu, sans-serif;
+            --gold-dim: #aa8c2c;
+            --gold-glow: rgba(212, 175, 55, 0.2);
+            --green-trade: #26a69a;
+            --green-glow: rgba(38, 166, 154, 0.1);
+            --red-trade: #ef5350;
+            --red-glow: rgba(239, 83, 80, 0.1);
+            --font-terminal: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
 
         * {
@@ -25,743 +34,586 @@
             margin: 0;
             padding: 0;
             user-select: none;
+            -webkit-user-drag: none;
         }
 
         body, html {
             height: 100%;
             width: 100%;
-            background-color: var(--bg-main);
+            background-color: var(--bg-deep);
             color: var(--text-main);
-            font-family: var(--font-stack);
+            font-family: var(--font-terminal);
             overflow: hidden;
         }
 
-        /* CUSTOM SCROLLBARS */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-main);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-muted);
-        }
+        /* Webkit Scrollbars Customization */
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: var(--bg-deep); }
+        ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 2px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
-        /* WELCOME OVERLAY MODAL */
-        .welcome-overlay {
+        /* ==========================================================================
+           2. APP LAUNCH WELCOME PORTAL LAYER 
+           ========================================================================== */
+        .premium-gate-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(11, 14, 20, 0.95);
-            z-index: 10000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, var(--bg-main) 0%, var(--bg-deep) 100%);
+            z-index: 99999;
+            display: flex; justify-content: center; align-items: center;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-        .welcome-card {
+        .premium-gate-card {
             background: var(--bg-panel);
-            border: 2px solid var(--gold-premium);
-            padding: 40px;
-            border-radius: 12px;
+            border: 1px solid var(--gold-premium);
+            border-radius: 8px;
+            padding: 50px;
+            width: 550px;
             text-align: center;
-            max-width: 500px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            animation: fadeInScale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.8), 0 0 40px var(--gold-glow);
+            position: relative;
         }
-
-        @keyframes fadeInScale {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        .gate-crown { font-size: 45px; color: var(--gold-premium); margin-bottom: 15px; }
+        .gate-title { color: var(--text-pure); font-size: 26px; font-weight: 800; letter-spacing: 3px; margin-bottom: 10px; }
+        .gate-subtitle { color: var(--gold-premium); font-size: 11px; letter-spacing: 5px; margin-bottom: 25px; text-transform: uppercase; }
+        .gate-desc { color: var(--text-main); font-size: 13px; line-height: 1.6; margin-bottom: 35px; text-align: justify; direction: rtl; }
+        .gate-btn {
+            background: linear-gradient(135deg, var(--gold-premium) 0%, var(--gold-dim) 100%);
+            color: var(--bg-deep); border: none; padding: 14px 45px; font-size: 14px; font-weight: bold;
+            border-radius: 4px; cursor: pointer; transition: all 0.3s ease; letter-spacing: 1px;
         }
+        .gate-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px var(--gold-glow); background: var(--gold-premium); }
 
-        .welcome-card h1 {
-            color: var(--gold-premium);
-            font-size: 28px;
-            margin-bottom: 15px;
-            letter-spacing: 2px;
-        }
-
-        .welcome-card p {
-            color: var(--text-main);
-            font-size: 14px;
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-
-        .enter-btn {
-            background: var(--gold-premium);
-            color: var(--bg-main);
-            border: none;
-            padding: 12px 35px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.3s ease, transform 0.2s;
-        }
-
-        .enter-btn:hover {
-            background: var(--gold-hover);
-            transform: translateY(-2px);
-        }
-
-        /* MAIN APP LAYOUT GRID */
-        .app-grid {
+        /* ==========================================================================
+           3. MASTER VIEW GRID MATRIX
+           ========================================================================== */
+        .master-grid {
             display: grid;
-            grid-template-rows: 48px 1px calc(100vh - 49px);
-            grid-template-columns: 1fr;
-            height: 100vh;
-            width: 100vw;
+            grid-template-rows: 48px calc(100vh - 48px);
+            width: 100vw; height: 100vh;
         }
 
-        /* TOP NAVIGATION BAR */
-        .top-navbar {
+        /* Header / Top Navigation */
+        .app-topbar {
             background-color: var(--bg-panel);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 16px;
-            z-index: 100;
+            border-bottom: 1px solid var(--border-light);
+            display: flex; justify-content: space-between; align-items: center; padding: 0 16px;
+        }
+        .topbar-left, .topbar-right { display: flex; align-items: center; gap: 20px; }
+        .terminal-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; color: var(--gold-premium); font-size: 15px; letter-spacing: 1px; }
+        
+        .live-ticker-wrap { display: flex; gap: 20px; border-left: 1px solid var(--border-light); padding-left: 20px; font-size: 12px; }
+        .ticker-node { display: flex; gap: 6px; align-items: center; }
+        .node-val-up { color: var(--green-trade); font-weight: 600; }
+        .node-val-down { color: var(--red-trade); font-weight: 600; }
+        
+        .clock-monitor { font-variant-numeric: tabular-nums; font-size: 13px; color: var(--text-muted); }
+        .user-clearance { display: flex; align-items: center; gap: 8px; background: var(--bg-surface); padding: 5px 14px; border-radius: 4px; border: 1px solid var(--border-light); font-size: 11px; font-weight: 600; color: var(--gold-premium); }
+        .clearance-pulse { width: 6px; height: 6px; background-color: var(--green-trade); border-radius: 50%; box-shadow: 0 0 8px var(--green-trade); }
+
+        /* Main Workspace Framework */
+        .main-workspace-frame {
+            display: flex; width: 100%; height: 100%; position: relative;
         }
 
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
+        /* Left Action Strip Bar */
+        .action-strip-left {
+            width: 45px; background-color: var(--bg-panel); border-right: 1px solid var(--border-light);
+            display: flex; flex-direction: column; align-items: center; padding: 8px 0; gap: 10px;
         }
-
-        .brand-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
+        .strip-icon {
+            width: 32px; height: 32px; display: flex; justify-content: center; align-items: center;
+            border-radius: 4px; color: var(--text-muted); cursor: pointer; font-size: 15px; transition: all 0.15s;
         }
+        .strip-icon:hover, .strip-icon.active { background-color: var(--bg-surface); color: var(--gold-premium); }
+        .strip-divider { width: 22px; height: 1px; background-color: var(--border-light); }
 
-        .brand-logo {
-            font-size: 22px;
-            color: var(--gold-premium);
-            animation: pulse 2s infinite alternate;
+        /* Central Control Unit (Chart Grid + Bottom Complex) */
+        .central-control-unit {
+            flex-grow: 1; display: flex; flex-direction: column; height: 100%; overflow: hidden;
         }
+        .primary-chart-container { flex-grow: 1; width: 100%; background-color: var(--bg-deep); position: relative; }
 
-        @keyframes pulse {
-            0% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(212,175,55,0.4)); }
-            100% { transform: scale(1.05); filter: drop-shadow(0 0 8px rgba(212,175,55,0.8)); }
+        /* Bottom Tab Modular Management Panel */
+        .modular-bottom-panel {
+            height: 240px; background-color: var(--bg-panel); border-top: 1px solid var(--border-light);
+            display: flex; flex-direction: column;
         }
-
-        .brand-text {
-            font-weight: 700;
-            font-size: 16px;
-            color: var(--gold-premium);
-            letter-spacing: 1.5px;
+        .bottom-tabs-header {
+            height: 38px; background-color: var(--bg-deep); display: flex; align-items: center;
+            border-bottom: 1px solid var(--border-light); padding: 0 8px;
         }
-
-        .market-ticker-mini {
-            display: flex;
-            gap: 15px;
-            font-size: 12px;
-            border-left: 1px solid var(--border-color);
-            padding-left: 15px;
+        .tab-trigger {
+            padding: 0 16px; height: 100%; display: flex; align-items: center; font-size: 11px;
+            font-weight: 600; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent;
         }
+        .tab-trigger.active { color: var(--gold-premium); border-bottom-color: var(--gold-premium); background: var(--bg-panel); }
+        .tab-body-container { flex-grow: 1; padding: 12px; overflow-y: auto; position: relative; }
 
-        .ticker-item {
-            display: flex;
-            gap: 5px;
+        /* Right Interface Wing (Watchlist / Orderbook / Order Entry) */
+        .right-interface-wing {
+            width: 360px; background-color: var(--bg-panel); border-left: 1px solid var(--border-light);
+            display: flex; flex-direction: column; height: 100%;
         }
-
-        .ticker-up { color: var(--green-up); }
-        .ticker-down { color: var(--red-down); }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .wing-section-header {
+            padding: 10px 14px; font-size: 11px; font-weight: 700; color: var(--gold-premium);
+            background-color: var(--bg-deep); border-bottom: 1px solid var(--border-light);
+            display: flex; justify-content: space-between; align-items: center; letter-spacing: 0.5px;
         }
+        .wing-scroll-container { flex-grow: 1; overflow-y: auto; }
 
-        .system-time {
-            font-variant-numeric: tabular-nums;
-            font-size: 13px;
-            color: var(--text-muted);
-            border-right: 1px solid var(--border-color);
-            padding-right: 15px;
-        }
+        /* Watchlist System Details Table */
+        .panel-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .panel-table th { text-align: left; padding: 6px 14px; color: var(--text-muted); font-weight: 500; border-bottom: 1px solid var(--border-light); position: sticky; top: 0; background: var(--bg-panel); }
+        .panel-table td { padding: 8px 14px; border-bottom: 1px solid rgba(42, 46, 57, 0.3); cursor: pointer; }
+        .panel-table-row:hover { background-color: var(--bg-surface); }
 
-        .profile-badge {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--bg-surface);
-            padding: 4px 12px;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            font-size: 12px;
-        }
+        /* Dynamic Order Book Mechanics Grid */
+        .orderbook-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border-light); font-size: 11px; font-variant-numeric: tabular-nums; }
+        .ob-side { background: var(--bg-panel); padding: 5px; display: flex; flex-direction: column; }
+        .ob-line { display: flex; justify-content: space-between; padding: 3px 6px; position: relative; }
+        .ob-bar-ask { position: absolute; right: 0; top: 0; bottom: 0; background: var(--red-glow); z-index: 1; transition: width 0.4s ease; }
+        .ob-bar-bid { position: absolute; right: 0; top: 0; bottom: 0; background: var(--green-glow); z-index: 1; transition: width 0.4s ease; }
+        .ob-txt { position: relative; z-index: 2; }
 
-        .profile-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--green-up);
-            border-radius: 50%;
-        }
+        /* Order Entry Form Elements Layout */
+        .order-entry-panel { padding: 14px; background: var(--bg-panel); border-top: 1px solid var(--border-light); display: flex; flex-direction: column; gap: 10px; }
+        .oe-type-toggle { display: flex; background: var(--bg-deep); padding: 2px; border-radius: 4px; }
+        .oe-toggle-btn { flex: 1; text-align: center; padding: 6px; font-size: 11px; font-weight: 600; cursor: pointer; border-radius: 3px; color: var(--text-muted); }
+        .oe-toggle-btn.active { background: var(--bg-surface); color: var(--gold-premium); }
+        
+        .oe-input-group { display: flex; flex-direction: column; gap: 4px; }
+        .oe-label { font-size: 10px; color: var(--text-muted); font-weight: 600; }
+        .oe-field-row { display: flex; background: var(--bg-deep); border: 1px solid var(--border-light); border-radius: 4px; align-items: center; padding: 0 8px; }
+        .oe-field-row:focus-within { border-color: var(--gold-premium); }
+        .oe-input { background: transparent; border: none; color: var(--text-pure); padding: 8px 0; width: 100%; outline: none; font-size: 12px; font-variant-numeric: tabular-nums; }
+        .oe-unit { font-size: 11px; color: var(--text-muted); font-weight: 600; }
 
-        .border-line {
-            background-color: var(--border-color);
-            height: 1px;
-            width: 100%;
-        }
+        .oe-action-row { display: flex; gap: 10px; margin-top: 5px; }
+        .oe-btn-buy { flex: 1; background: var(--green-trade); color: var(--text-pure); border: none; padding: 10px; border-radius: 4px; font-weight: bold; font-size: 12px; cursor: pointer; }
+        .oe-btn-sell { flex: 1; background: var(--ef5350); color: var(--text-pure); border: none; padding: 10px; border-radius: 4px; font-weight: bold; font-size: 12px; cursor: pointer; }
+        .oe-btn-buy:hover { background: #2bbbad; } .oe-btn-sell:hover { background: #f6615f; }
 
-        /* WORKSPACE CONTAINER */
-        .workspace {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
+        /* Advanced Pine Editor Terminal Mock Style */
+        .pine-editor-container { width: 100%; height: 100%; display: flex; flex-direction: column; font-family: monospace; }
+        .pine-toolbar { display: flex; gap: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border-light); margin-bottom: 8px; }
+        .pine-btn { background: var(--bg-surface); border: 1px solid var(--border-light); color: var(--text-main); padding: 3px 10px; font-size: 11px; border-radius: 3px; cursor: pointer; }
+        .pine-btn:hover { border-color: var(--gold-premium); color: var(--gold-premium); }
+        .pine-code-area { flex-grow: 1; background: var(--bg-deep); border: 1px solid var(--border-light); border-radius: 4px; padding: 10px; color: #a5d6a7; font-size: 12px; line-height: 1.5; outline: none; white-space: pre; overflow-y: auto; }
 
-        /* LEFT DRAWING TOOLBAR (TRADINGVIEW STYLE) */
-        .left-toolbar {
-            width: 45px;
-            background-color: var(--bg-panel);
-            border-right: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 10px;
-            gap: 12px;
-            z-index: 50;
-        }
-
-        .tool-btn {
-            width: 32px;
-            height: 32px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 4px;
-            cursor: pointer;
-            color: var(--text-muted);
-            transition: all 0.2s ease;
-            font-size: 16px;
-        }
-
-        .tool-btn:hover, .tool-btn.active {
-            background-color: var(--bg-surface);
-            color: var(--gold-premium);
-        }
-
-        .tool-separator {
-            width: 20px;
-            height: 1px;
-            background-color: var(--border-color);
-        }
-
-        /* MIDDLE CENTER MAIN AREA (CHART + BOTTOM) */
-        .center-workspace {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            border-right: 1px solid var(--border-color);
-        }
-
-        .chart-frame-wrapper {
-            flex-grow: 1;
-            width: 100%;
-            position: relative;
-            background: var(--bg-main);
-        }
-
-        /* BOTTOM DATA PANEL */
-        .bottom-panel {
-            height: 180px;
-            background-color: var(--bg-panel);
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .panel-tabs {
-            height: 35px;
-            background-color: var(--bg-main);
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding: 0 10px;
-        }
-
-        .p-tab {
-            padding: 0 15px;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            font-size: 12px;
-            color: var(--text-muted);
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-        }
-
-        .p-tab.active {
-            color: var(--gold-premium);
-            border-bottom-color: var(--gold-premium);
-            background: var(--bg-panel);
-        }
-
-        .panel-content-area {
-            flex-grow: 1;
-            padding: 12px;
-            overflow-y: auto;
-            font-size: 13px;
-        }
-
-        .journal-textarea {
-            width: 100%;
-            height: 100%;
-            background: var(--bg-main);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 10px;
-            border-radius: 4px;
-            resize: none;
-            outline: none;
-            font-family: inherit;
-        }
-
-        .journal-textarea:focus {
-            border-color: var(--gold-premium);
-        }
-
-        /* RIGHT SIDEBAR (WATCHLIST / DETAILS / ECONOMIC) */
-        .right-sidebar {
-            width: 320px;
-            background-color: var(--bg-panel);
-            display: flex;
-            flex-direction: column;
-            z-index: 50;
-        }
-
-        .sidebar-section-title {
-            padding: 12px 16px;
-            font-size: 12px;
-            font-weight: bold;
-            color: var(--gold-premium);
-            border-bottom: 1px solid var(--border-color);
-            letter-spacing: 1px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .watchlist-container {
-            flex-grow: 1;
-            overflow-y: auto;
-        }
-
-        .watchlist-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-        }
-
-        .watchlist-table th {
-            text-align: left;
-            padding: 8px 16px;
-            color: var(--text-muted);
-            font-weight: normal;
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            background: var(--bg-panel);
-        }
-
-        .watchlist-table td {
-            padding: 10px 16px;
-            border-bottom: 1px solid rgba(42, 46, 57, 0.4);
-            cursor: pointer;
-        }
-
-        .watchlist-row:hover {
-            background-color: var(--bg-surface);
-        }
-
-        .asset-symbol {
-            font-weight: bold;
-            color: var(--text-main);
-        }
-
-        .asset-name {
-            color: var(--text-muted);
-            font-size: 10px;
-            display: block;
-        }
-
-        .asset-price {
-            font-variant-numeric: tabular-nums;
-            text-align: right;
-            font-weight: 600;
-        }
-
-        .asset-chg {
-            font-variant-numeric: tabular-nums;
-            text-align: right;
-        }
-
-        /* EXTRA NEWS SECTION */
-        .news-section {
-            height: 220px;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            background: var(--bg-main);
-        }
-
-        .news-feed {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .news-card {
-            background: var(--bg-panel);
-            padding: 8px;
-            border-radius: 4px;
-            border-left: 2px solid var(--border-color);
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .news-card:hover {
-            background: var(--bg-surface);
-            border-left-color: var(--gold-premium);
-        }
-
-        .news-title {
-            font-size: 11px;
-            font-weight: 600;
-            margin-bottom: 4px;
-            color: var(--text-main);
-        }
-
-        .news-meta {
-            font-size: 9px;
-            color: var(--text-muted);
-            display: flex;
-            justify-content: space-between;
-        }
+        /* Screener Matrix Element Blocks Grid Layout */
+        .screener-matrix-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+        .screener-card { background: var(--bg-deep); border: 1px solid var(--border-light); padding: 12px; border-radius: 4px; display: flex; flex-direction: column; gap: 6px; }
+        .sc-title-row { display: flex; justify-content: space-between; font-weight: bold; font-size: 12px; }
+        .sc-metric-row { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); }
+        .signal-badge-bullish { color: var(--green-trade); font-weight: bold; font-size: 10px; background: var(--green-glow); padding: 1px 6px; border-radius: 2px; }
+        .signal-badge-bearish { color: var(--red-trade); font-weight: bold; font-size: 10px; background: var(--red-glow); padding: 1px 6px; border-radius: 2px; }
     </style>
 </head>
 <body>
 
-    <div class="welcome-overlay" id="welcomeOverlay">
-        <div class="welcome-card">
-            <h1>👑 SHEX ARYA</h1>
-            <p>بەخێربێیت بۆ تێرمیناڵی پێشکەوتووی بازرگانی شێخ ئاریا. پلاتفۆرمەکە لەسەر بنەمای نوێترین داتای ڕاستەوخۆ و سیستەمی پیشەیی هاوشێوەی TradingView ڕێکخراوە بۆ چاودێری کردنی تەواوی بازاڕە جیهانییەکان.</p>
-            <button class="enter-btn" onclick="closeWelcomeOverlay()">چوونە ژوورەوە بۆ تێرمیناڵ</button>
+    <!-- ==========================================================================
+       OVERLAY SECURITY SCREEN ENTRYWAY 
+       ========================================================================== -->
+    <div class="premium-gate-overlay" id="gateOverlay">
+        <div class="premium-gate-card">
+            <div class="gate-crown">👑</div>
+            <h1 class="gate-title">SHEX ARYA TERMINAL</h1>
+            <div class="gate-subtitle">Institutional Intelligence Layer</div>
+            <p class="gate-desc">
+                بۆ سیستەمی فەرمی و دەش بۆردی ڕاستەوخۆی شێخ ئاریا. ئەم تێرمیناڵە پێشکەوتووە بەستراوەتەوە بە ئێنجینی سەرەکی داتای دامەزراوەیی جیھانی بۆ چاودێریکردن و ئەنجامدانی شیکاری تەکنیکی چڕ لەسەر زێڕ، زیو، بازاڕی دراوەکان و کریپتۆ. سیستەمەکە پڕکراوە لە لۆجیکەکانی جۆرناڵ، واچلیستی داینامیکی، کۆنترۆڵەری فۆرمی داواکاری بازاڕ و ماتریسی شیکارکەر.
+            </p>
+            <button class="gate-btn" onclick="unlockTerminalEngine()">INITIALIZE SECURE ACCESS</button>
         </div>
     </div>
 
-    <div class="app-grid">
+    <!-- ==========================================================================
+       MAIN WORKSPACE APPLICATION CONTAINER 
+       ========================================================================== -->
+    <div class="master-grid">
         
-        <header class="top-navbar">
-            <div class="nav-left">
-                <div class="brand-wrapper">
-                    <span class="brand-logo">👑</span>
-                    <span class="brand-text">SHEX ARYA PRO</span>
+        <!-- APPLICATION NAVIGATION HEADER HEADER -->
+        <header class="app-topbar">
+            <div class="topbar-left">
+                <div class="terminal-brand">
+                    <span>👑</span>
+                    <span>SHEX ARYA PRO TERMINAL</span>
                 </div>
-                <div class="market-ticker-mini">
-                    <div class="ticker-item">
-                        <span class="asset-symbol">XAUUSD</span>
-                        <span class="ticker-up">$2,345.10 (+0.42%)</span>
+                <div class="live-ticker-wrap">
+                    <div class="ticker-node">
+                        <span style="color:var(--text-muted)">XAUUSD</span>
+                        <span id="tickerGold" class="node-val-up">2345.10</span>
                     </div>
-                    <div class="ticker-item">
-                        <span class="asset-symbol">BTCUSD</span>
-                        <span class="ticker-down">$67,120.00 (-1.15%)</span>
+                    <div class="ticker-node">
+                        <span style="color:var(--text-muted)">XAGUSD</span>
+                        <span id="tickerSilver" class="node-val-up">29.45</span>
+                    </div>
+                    <div class="ticker-node">
+                        <span style="color:var(--text-muted)">BTCUSD</span>
+                        <span id="tickerBitcoin" class="node-val-down">67120.00</span>
                     </div>
                 </div>
             </div>
-            <div class="nav-right">
-                <div class="system-time" id="liveClock">00:00:00 UTC</div>
-                <div class="profile-badge">
-                    <div class="profile-dot"></div>
-                    <span>Shex Arya (VIP)</span>
+            <div class="topbar-right">
+                <div class="clock-monitor" id="terminalClock">00:00:00 UTC</div>
+                <div class="user-clearance">
+                    <div class="clearance-pulse"></div>
+                    <span>Shex Arya (Clearance Level 5)</span>
                 </div>
             </div>
         </header>
 
-        <div class="border-line"></div>
-
-        <main class="workspace">
+        <!-- SUB-FRAME GRID FOR INTERACTIVE LAYERS -->
+        <div class="main-workspace-frame">
             
-            <section class="left-toolbar">
-                <div class="tool-btn active" title="Cursor">🎛️</div>
-                <div class="tool-separator"></div>
-                <div class="tool-btn" title="Trend Line">📈</div>
-                <div class="tool-btn" title="Fibonacci Retracement">🧬</div>
-                <div class="tool-btn" title="Geometric Shapes">📐</div>
-                <div class="tool-btn" title="Annotation Tools">📝</div>
-                <div class="tool-btn" title="Patterns">📊</div>
-                <div class="tool-btn" title="Prediction and Measurement">🎯</div>
-                <div class="tool-separator"></div>
-                <div class="tool-btn" title="Icons">⭐</div>
-                <div class="tool-btn" title="Eraser">🧹</div>
-            </section>
+            <!-- LEFT EMBEDDED SHORTCUT ACTION BAR -->
+            <nav class="action-strip-left">
+                <div class="strip-icon active" title="Crosshair Selector">🎯</div>
+                <div class="strip-divider"></div>
+                <div class="strip-icon" title="Trendlines Mode">📈</div>
+                <div class="strip-icon" title="Gann & Fibonacci Controls">📐</div>
+                <div class="strip-icon" title="Geometric Target Brushes">🖌️</div>
+                <div class="strip-icon" title="Annotation Layers">📝</div>
+                <div class="strip-icon" title="Pattern Recognition Indexes">📊</div>
+                <div class="strip-icon" title="Risk Reward Ratios Engine">🎯</div>
+                <div class="strip-divider"></div>
+                <div class="strip-icon" title="Global Indicators Matrix">⚙️</div>
+                <div class="strip-icon" title="Clear Canvas Layer">🧹</div>
+            </nav>
 
-            <section class="center-workspace">
+            <!-- CORE CHARTING & LOGGING INFRASTRUCTURE MODULE -->
+            <main class="central-control-unit">
                 
-                <div class="chart-frame-wrapper">
+                <!-- PRIMARY TRADINGVIEW FRAME ATTACHMENT HUB -->
+                <div class="primary-chart-container" id="mainChartAnchor">
                     <div class="tradingview-widget-container" style="height:100%;width:100%">
-                        <div id="tradingview_advanced_terminal" style="height:100%;width:100%"></div>
+                        <div id="tradingview_advanced_core_layer" style="height:100%;width:100%"></div>
                         <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
                         <script type="text/javascript">
-                        new TradingView.widget({
-                            "autosize": true,
-                            "symbol": "OANDA:XAUUSD",
-                            "interval": "H4",
-                            "timezone": "Etc/UTC",
-                            "theme": "dark",
-                            "style": "1",
-                            "locale": "en",
-                            "toolbar_bg": "#131722",
-                            "enable_publishing": false,
-                            "hide_side_toolbar": false, /* نیشاندانی تولباری حەقیقی لای چەپی ناوخۆیی */
-                            "allow_symbol_change": true,
-                            "save_image": true,
-                            "details": false,
-                            "hotlist": false,
-                            "calendar": false,
-                            "show_popup_button": true,
-                            "popup_width": "1000",
-                            "popup_height": "650",
-                            "container_id": "tradingview_advanced_terminal",
-                            "studies": [
-                                "RSI@tv-basicstudies",
-                                "MASimple@tv-basicstudies"
-                            ]
-                        });
+                            function buildTradingViewWidgetInstance(symbolName) {
+                                new TradingView.widget({
+                                    "autosize": true,
+                                    "symbol": symbolName,
+                                    "interval": "H4",
+                                    "timezone": "Etc/UTC",
+                                    "theme": "dark",
+                                    "style": "1",
+                                    "locale": "en",
+                                    "toolbar_bg": "#131722",
+                                    "enable_publishing": false,
+                                    "hide_side_toolbar": false,
+                                    "allow_symbol_change": true,
+                                    "save_image": true,
+                                    "container_id": "tradingview_advanced_core_layer",
+                                    "studies": [
+                                        "RSI@tv-basicstudies",
+                                        "StochasticRSI@tv-basicstudies",
+                                        "MASimple@tv-basicstudies"
+                                    ]
+                                });
+                            }
                         </script>
                     </div>
                 </div>
 
-                <div class="bottom-panel">
-                    <div class="panel-tabs">
-                        <div class="p-tab active" onclick="switchBottomTab(event, 'journal')">TRADING JOURNAL</div>
-                        <div class="p-tab" onclick="switchBottomTab(event, 'screener')">MARKET SCREENER</div>
-                        <div class="p-tab" onclick="switchBottomTab(event, 'terminal-log')">SYSTEM LOG</div>
+                <!-- SUB-TABS INTERACTIVE UTILITY MULTIPLEXER -->
+                <div class="modular-bottom-panel">
+                    <div class="bottom-tabs-header">
+                        <div class="tab-trigger active" onclick="activateControlTab(event, 'tab-journal')">TRADING JOURNAL SYSTEM</div>
+                        <div class="tab-trigger" onclick="activateControlTab(event, 'tab-pine')">PINE ENGINE SCRIPT REPO</div>
+                        <div class="tab-trigger" onclick="activateControlTab(event, 'tab-screener')">ALGORITHMIC SCREENER MATRIX</div>
+                        <div class="tab-trigger" onclick="activateControlTab(event, 'tab-logs')">CORE SYSTEM SECURITY DIAL</div>
                     </div>
-                    <div class="panel-content-area" id="bottomContent">
-                        <textarea class="journal-textarea" id="journalInput" placeholder="شیکاری پێشەکەوتوو، ستراتیژی ڕۆژانە یان تێبینییە تایبەتەکانت لێرە بنووسە... (ئەم داتایە خۆکار سەیڤ دەبێت)"></textarea>
+                    
+                    <div class="tab-body-container" id="controlPanelDynamicOutput">
+                        <!-- Default Embedded Tab: Journaling Subsystem -->
+                        <textarea class="journal-textarea" id="secureJournalField" placeholder="بۆ نووسینی ستراتیژی، دەستکاری شیکاری ڕۆژانەی زێڕ یان تێبینی ڕاوێژکارییە ئابوورییەکانت... (ئەم داتایە پارێزراوە لە ناو لۆکاڵ ستۆریج)"></textarea>
                     </div>
                 </div>
 
-            </section>
+            </main>
 
-            <section class="right-sidebar">
+            <!-- RIGHT CONTROL CONTROL STATION WINDOW -->
+            <aside class="right-interface-wing">
                 
-                <div class="sidebar-section-title">
-                    <span>MAIN WATCHLIST</span>
-                    <span style="color: var(--text-muted); cursor:pointer;">+ Add</span>
+                <!-- Section 1: Active Watchlist -->
+                <div class="wing-section-header">
+                    <span>CORE ASSETS WATCHLIST</span>
+                    <span style="color:var(--text-muted); font-size:10px;">6 Active</span>
                 </div>
-
-                <div class="watchlist-container">
-                    <table class="watchlist-table">
+                <div class="wing-scroll-container" style="max-height: 220px;">
+                    <table class="panel-table">
                         <thead>
                             <tr>
                                 <th>Symbol</th>
-                                <th style="text-align:right">Last</th>
-                                <th style="text-align:right">Chg%</th>
+                                <th style="text-align:right">Last Price</th>
+                                <th style="text-align:right">Net Chg%</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr class="watchlist-row" onclick="changeWidgetSymbol('OANDA:XAUUSD')">
-                                <td><span class="asset-symbol">XAUUSD</span><span class="asset-name">Gold Spot</span></td>
-                                <td class="asset-price">2345.10</td>
-                                <td class="asset-chg ticker-up">+0.42%</td>
+                        <tbody id="watchlistTableBody">
+                            <tr class="panel-table-row" onclick="swapActiveMarketSymbol('OANDA:XAUUSD')">
+                                <td><span style="font-weight:bold;">XAUUSD</span><span style="font-size:9px;color:var(--text-muted);display:block;">Gold Spot</span></td>
+                                <td style="text-align:right; font-variant-numeric:tabular-nums;" id="wlGoldPrice">2345.10</td>
+                                <td style="text-align:right; color:var(--green-trade)" id="wlGoldChg">+0.42%</td>
                             </tr>
-                            <tr class="watchlist-row" onclick="changeWidgetSymbol('OANDA:XAGUSD')">
-                                <td><span class="asset-symbol">XAGUSD</span><span class="asset-name">Silver Spot</span></td>
-                                <td class="asset-price">29.45</td>
-                                <td class="asset-chg ticker-up">+1.12%</td>
+                            <tr class="panel-table-row" onclick="swapActiveMarketSymbol('OANDA:XAGUSD')">
+                                <td><span style="font-weight:bold;">XAGUSD</span><span style="font-size:9px;color:var(--text-muted);display:block;">Silver Spot</span></td>
+                                <td style="text-align:right; font-variant-numeric:tabular-nums;" id="wlSilverPrice">29.45</td>
+                                <td style="text-align:right; color:var(--green-trade)" id="wlSilverChg">+1.12%</td>
                             </tr>
-                            <tr class="watchlist-row" onclick="changeWidgetSymbol('TVC:USOIL')">
-                                <td><span class="asset-symbol">USOIL</span><span class="asset-name">Crude Oil</span></td>
-                                <td class="asset-price">78.20</td>
-                                <td class="asset-chg ticker-down">-0.65%</td>
+                            <tr class="panel-table-row" onclick="swapActiveMarketSymbol('TVC:USOIL')">
+                                <td><span style="font-weight:bold;">USOIL</span><span style="font-size:9px;color:var(--text-muted);display:block;">Crude Oil</span></td>
+                                <td style="text-align:right; font-variant-numeric:tabular-nums;" id="wlOilPrice">78.20</td>
+                                <td style="text-align:right; color:var(--red-trade)" id="wlOilChg">-0.65%</td>
                             </tr>
-                            <tr class="watchlist-row" onclick="changeWidgetSymbol('BINANCE:BTCUSDT')">
-                                <td><span class="asset-symbol">BTCUSD</span><span class="asset-name">Bitcoin</span></td>
-                                <td class="asset-price">67120.00</td>
-                                <td class="asset-chg ticker-down">-1.15%</td>
-                            </tr>
-                            <tr class="watchlist-row" onclick="changeWidgetSymbol('BINANCE:ETHUSDT')">
-                                <td><span class="asset-symbol">ETHUSD</span><span class="asset-name">Ethereum</span></td>
-                                <td class="asset-price">3512.40</td>
-                                <td class="asset-chg ticker-up">+0.85%</td>
-                            </tr>
-                            <tr class="watchlist-row" onclick="changeWidgetSymbol('FX_IDC:EURUSD')">
-                                <td><span class="asset-symbol">EURUSD</span><span class="asset-name">Euro / US Dollar</span></td>
-                                <td class="asset-price">1.0845</td>
-                                <td class="asset-chg ticker-up">+0.03%</td>
+                            <tr class="panel-table-row" onclick="swapActiveMarketSymbol('BINANCE:BTCUSDT')">
+                                <td><span style="font-weight:bold;">BTCUSD</span><span style="font-size:9px;color:var(--text-muted);display:block;">Bitcoin Cash</span></td>
+                                <td style="text-align:right; font-variant-numeric:tabular-nums;" id="wlBitcoinPrice">67120.00</td>
+                                <td style="text-align:right; color:var(--red-trade)" id="wlBitcoinChg">-1.15%</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <div class="news-section">
-                    <div class="sidebar-section-title">
-                        <span>PREMIUM NEWS FEED</span>
+                <!-- Section 2: Real-Time Orderbook Simulation Grid -->
+                <div class="wing-section-header">
+                    <span>LIVE LIQUIDITY ORDERBOOK</span>
+                    <span id="obSpreadDisp" style="color:var(--gold-premium); font-size:10px;">Spread: 0.15</span>
+                </div>
+                <div class="orderbook-grid">
+                    <!-- Bid Side (Buys) -->
+                    <div class="ob-side" id="obBidsContainer">
+                        <div style="font-size:9px; color:var(--text-muted); padding-bottom:4px;">BIDS (BUY orders)</div>
+                        <!-- JavaScript injects nodes here -->
                     </div>
-                    <div class="news-feed">
-                        <div class="news-card">
-                            <div class="news-title">Gold hits local resistance amid inflation data update</div>
-                            <div class="news-meta"><span>Bloomberg</span><span>5m ago</span></div>
-                        </div>
-                        <div class="news-card">
-                            <div class="news-title">Fed members signal conservative stance on interest rates</div>
-                            <div class="news-meta"><span>Reuters</span><span>22m ago</span></div>
-                        </div>
-                        <div class="news-card">
-                            <div class="news-title">Bitcoin holds support at $67K as volume consolidates</div>
-                            <div class="news-meta"><span>CoinDesk</span><span>1h ago</span></div>
-                        </div>
+                    <!-- Ask Side (Sells) -->
+                    <div class="ob-side" id="obAsksContainer">
+                        <div style="font-size:9px; color:var(--text-muted); padding-bottom:4px; text-align:right;">ASKS (SELL orders)</div>
+                        <!-- JavaScript injects nodes here -->
                     </div>
                 </div>
 
-            </section>
+                <!-- Section 3: Professional Execution Order Entry Form -->
+                <div class="wing-section-header">
+                    <span>EXECUTIVE TERMINAL ORDERS</span>
+                </div>
+                <div class="order-entry-panel">
+                    <div class="oe-type-toggle">
+                        <div class="oe-toggle-btn active" onclick="toggleOrderType(this, 'market')">MARKET</div>
+                        <div class="oe-toggle-btn" onclick="toggleOrderType(this, 'limit')">LIMIT ORDER</div>
+                    </div>
+                    
+                    <div class="oe-input-group">
+                        <label class="oe-label">LOT VOLUMETRIC SIZE</label>
+                        <div class="oe-field-row">
+                            <input type="number" class="oe-input" id="oeVolumeInput" value="1.00" step="0.1" min="0.01">
+                            <span class="oe-unit">LOTS</span>
+                        </div>
+                    </div>
 
-        </main>
+                    <div class="oe-input-group" id="limitPriceGroup" style="display:none;">
+                        <label class="oe-label">EXECUTION TRIGGER PRICE</label>
+                        <div class="oe-field-row">
+                            <input type="number" class="oe-input" id="oePriceInput" value="2345.00">
+                            <span class="oe-unit">USD</span>
+                        </div>
+                    </div>
+
+                    <div class="oe-action-row">
+                        <button class="oe-btn-buy" onclick="dispatchOrderEvent('BUY')">BUY / LONG</button>
+                        <button class="oe-btn-sell" onclick="dispatchOrderEvent('SELL')">SELL / SHORT</button>
+                    </div>
+                </div>
+
+            </aside>
+        </div>
     </div>
 
+    <!-- ==========================================================================
+       4. JAVASCRIPT OBJECT CONTROLLER LOGIC MATRIX
+       ========================================================================== -->
     <script>
-        // 1. Live Clock System
-        function startLiveClock() {
-            const clockElement = document.getElementById('liveClock');
+        // System Global Configurations Cache
+        let currentTargetSymbol = 'OANDA:XAUUSD';
+        let executionOrderMode = 'market';
+        let underlyingBasePrice = 2345.10;
+
+        // Unified Real-Time Live Clock Engine
+        function bootSystemClock() {
+            const clockNode = document.getElementById('terminalClock');
             setInterval(() => {
-                const now = new Date();
-                clockElement.innerText = now.toUTCString().replace('GMT', 'UTC');
+                const timestamp = new Date();
+                clockNode.innerText = timestamp.toUTCString().replace('GMT', 'UTC');
             }, 1000);
         }
 
-        // 2. Overlay controller
-        function closeWelcomeOverlay() {
-            const overlay = document.getElementById('welcomeOverlay');
-            overlay.style.opacity = '0';
-            overlay.style.visibility = 'hidden';
-            // Save state so it doesn't annoy on every refresh if needed
-            localStorage.setItem('terminal_entered', 'true');
+        // Gate Management Validation Controller
+        function unlockTerminalEngine() {
+            const shield = document.getElementById('gateOverlay');
+            shield.style.opacity = '0';
+            setTimeout(() => {
+                shield.style.display = 'none';
+                buildTradingViewWidgetInstance(currentTargetSymbol);
+                executeLiquidityStreamEngine();
+                bindJournalAutoPersistence();
+            }, 600);
+            localStorage.setItem('shex_terminal_authorized', 'true');
         }
 
-        // 3. Tab Management for Bottom Panel
-        function switchBottomTab(event, tabName) {
-            // Remove active classes
-            const tabs = document.querySelectorAll('.p-tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
+        // Symbol Swapper Handler
+        function swapActiveMarketSymbol(newSymbol) {
+            currentTargetSymbol = newSymbol;
+            if(newSymbol.includes('XAUUSD')) underlyingBasePrice = 2345.10;
+            else if(newSymbol.includes('XAGUSD')) underlyingBasePrice = 29.45;
+            else if(newSymbol.includes('USOIL')) underlyingBasePrice = 78.20;
+            else if(newSymbol.includes('BTCUSDT')) underlyingBasePrice = 67120.00;
             
-            // Add active class to current tab
+            buildTradingViewWidgetInstance(newSymbol);
+            document.getElementById('oePriceInput').value = underlyingBasePrice.toFixed(2);
+        }
+
+        // Tab System Panel Routing
+        function activateControlTab(event, actionId) {
+            const tabTriggers = document.querySelectorAll('.tab-trigger');
+            tabTriggers.forEach(t => t.classList.remove('active'));
             event.currentTarget.classList.add('active');
+
+            const interfaceTarget = document.getElementById('controlPanelDynamicOutput');
             
-            const contentArea = document.getElementById('bottomContent');
-            
-            if(tabName === 'journal') {
-                contentArea.innerHTML = `<textarea class="journal-textarea" id="journalInput" placeholder="شیکاری پێشەکەوتوو..."></textarea>`;
-                // Re-bind storage logic
-                bindJournalStorage();
-            } else if(tabName === 'screener') {
-                contentArea.innerHTML = `
-                    <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:15px; height:100%; align-content:start;">
-                        <div style="background:var(--bg-main); padding:15px; border-radius:4px; border:1px solid var(--border-color)">
-                            <div style="color:var(--text-muted); font-size:11px;">RSI (14) OVERBOUGHT</div>
-                            <div style="font-size:16px; font-weight:bold; color:var(--red-down); margin-top:5px;">XAUUSD, EURJPY</div>
+            if(actionId === 'tab-journal') {
+                interfaceTarget.innerHTML = `<textarea class="journal-textarea" id="secureJournalField" placeholder="بۆ نووسینی ستراتیژی..."></textarea>`;
+                bindJournalAutoPersistence();
+            } else if(actionId === 'tab-pine') {
+                interfaceTarget.innerHTML = `
+                    <div class="pine-editor-container">
+                        <div class="pine-toolbar">
+                            <button class="pine-btn" onclick="alert('Pine code successfully compiled!')">Compile Script</button>
+                            <button class="pine-btn" onclick="alert('Added to primary chart grid layers')">Add to Chart</button>
                         </div>
-                        <div style="background:var(--bg-main); padding:15px; border-radius:4px; border:1px solid var(--border-color)">
-                            <div style="color:var(--text-muted); font-size:11px;">RSI (14) OVERSOLD</div>
-                            <div style="font-size:16px; font-weight:bold; color:var(--green-up); margin-top:5px;">USOIL, GBPUSD</div>
-                        </div>
-                        <div style="background:var(--bg-main); padding:15px; border-radius:4px; border:1px solid var(--border-color)">
-                            <div style="color:var(--text-muted); font-size:11px;">MACD BULLISH CROSS</div>
-                            <div style="font-size:16px; font-weight:bold; color:var(--green-up); margin-top:5px;">BTCUSD, ETHUSD</div>
-                        </div>
-                        <div style="background:var(--bg-main); padding:15px; border-radius:4px; border:1px solid var(--border-color)">
-                            <div style="color:var(--text-muted); font-size:11px;">HIGH VOLATILITY DETECTED</div>
-                            <div style="font-size:16px; font-weight:bold; color:var(--gold-premium); margin-top:5px;">XAGUSD</div>
-                        </div>
+                        <div class="pine-code-area" contenteditable="true">//@version=5\nindicator("Shex Arya Premium Algorithm Suite", overlay=true)\n\nsrc = input(close, title="Source Data")\nfastMA = ta.ema(src, 20)\nslowMA = ta.ema(src, 200)\n\nbullishSignal = ta.crossover(fastMA, slowMA)\nbearishSignal = ta.crossunder(fastMA, slowMA)\n\nplotshape(bullishSignal, title="VIP Buy Target", style=shape.triangleup, location=location.belowbar, color=color.gold, size=size.small)</div>
                     </div>`;
-            } else if(tabName === 'terminal-log') {
-                contentArea.innerHTML = `
-                    <div style="font-family: monospace; color: #00ff00; font-size: 11px; line-height: 1.5;">
-                        [${new Date().toISOString()}] SECURE CONNECTION ESTABLISHED TO GLOBAL FEED...<br>
-                        [${new Date().toISOString()}] SHEX ARYA VIP PROFILE VALIDATED SUCCESSFULLY.<br>
-                        [${new Date().toISOString()}] ADVANCED TOOLKIT LAYER REFRESHED ACTIVE.<br>
-                        [${new Date().toISOString()}] WEBSOCKET STATUS: CONNECTED (0ms delay).
+            } else if(actionId === 'tab-screener') {
+                interfaceTarget.innerHTML = `
+                    <div class="screener-matrix-grid">
+                        <div class="screener-card"><div class="sc-title-row"><span>XAUUSD / Gold</span><span class="signal-badge-bullish">STRONG BUY</span></div><div class="sc-metric-row"><span>RSI(14): 64.2</span><span>EMA(200): Bullish</span></div></div>
+                        <div class="screener-card"><div class="sc-title-row"><span>XAGUSD / Silver</span><span class="signal-badge-bullish">BUY</span></div><div class="sc-metric-row"><span>RSI(14): 58.1</span><span>EMA(200): Bullish</span></div></div>
+                        <div class="screener-card"><div class="sc-title-row"><span>USOIL / Crude</span><span class="signal-badge-bearish">SELL</span></div><div class="sc-metric-row"><span>RSI(14): 41.5</span><span>EMA(200): Bearish</span></div></div>
+                        <div class="screener-card"><div class="sc-title-row"><span>BTCUSD / Bitcoin</span><span class="signal-badge-bearish">STRONG SELL</span></div><div class="sc-metric-row"><span>RSI(14): 32.9</span><span>EMA(200): Bearish</span></div></div>
+                    </div>`;
+            } else if(actionId === 'tab-logs') {
+                interfaceTarget.innerHTML = `
+                    <div style="font-family: monospace; color: #00ff00; font-size: 11px; line-height: 1.6;">
+                        [LOG CORE - ${new Date().toISOString()}] INITIALIZING SHEX ARYA VIP MATRIX ENGINES...<br>
+                        [LOG SECURITY - ${new Date().toISOString()}] ENCRYPTED SESSION KEYS SYNCED WITH DATA NODES SYSTEM...<br>
+                        [LOG ROUTER - ${new Date().toISOString()}] WEBSOCKET HANDSHAKE CONFIRMED AT 0ms DELAY RATE.<br>
+                        [LOG DATA - ${new Date().toISOString()}] LIQUIDITY DATA STREAM INJECTED INTO SIDEBAR CACHE.
                     </div>`;
             }
         }
 
-        // 4. Local Storage Persistence for Trading Journal
-        function bindJournalStorage() {
-            const journalInput = document.getElementById('journalInput');
-            if(journalInput) {
-                // Load existing
-                journalInput.value = localStorage.getItem('shex_arya_journal') || '';
-                // Listen to inputs
-                journalInput.addEventListener('input', (e) => {
-                    localStorage.setItem('shex_arya_journal', e.target.value);
+        // Data Storage Auto-Save Logic Linker
+        function bindJournalAutoPersistence() {
+            const entryField = document.getElementById('secureJournalField');
+            if(entryField) {
+                entryField.value = localStorage.getItem('shex_master_journal_v4') || '';
+                entryField.addEventListener('input', (e) => {
+                    localStorage.setItem('shex_master_journal_v4', e.target.value);
                 });
             }
         }
 
-        // 5. Interactive Watchlist - Changes the Symbol dynamically
-        function changeWidgetSymbol(symbolName) {
-            const container = document.getElementById('tradingview_advanced_terminal');
-            container.innerHTML = ''; // Clear old widget instance
-            
-            new TradingView.widget({
-                "autosize": true,
-                "symbol": symbolName,
-                "interval": "H4",
-                "timezone": "Etc/UTC",
-                "theme": "dark",
-                "style": "1",
-                "locale": "en",
-                "toolbar_bg": "#131722",
-                "enable_publishing": false,
-                "hide_side_toolbar": false,
-                "allow_symbol_change": true,
-                "save_image": true,
-                "container_id": "tradingview_advanced_terminal",
-                "studies": [
-                    "RSI@tv-basicstudies",
-                    "MASimple@tv-basicstudies"
-                ]
-            });
+        // Live Order Entry Mechanism Type Toggler
+        function toggleOrderType(element, selectedMode) {
+            const buttons = document.querySelectorAll('.oe-toggle-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            element.classList.add('active');
+            executionOrderMode = selectedMode;
+
+            const targetPriceGroup = document.getElementById('limitPriceGroup');
+            targetPriceGroup.style.display = (selectedMode === 'limit') ? 'flex' : 'none';
         }
 
-        // Left sidebar icon interactive feel
-        const toolBtns = document.querySelectorAll('.tool-btn');
-        toolBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                toolBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            });
-        });
+        // Simulated Order Placer Handler
+        function dispatchOrderEvent(sideAction) {
+            const targetVolume = document.getElementById('oeVolumeInput').value;
+            const chosenPrice = document.getElementById('oePriceInput').value;
+            alert(`ناردنی داواکاری بە سەرکەوتوویی:\n-------------------------\nلایەن: ${sideAction}\nشێواز: ${executionOrderMode.toUpperCase()}\nقەبارە: ${targetVolume} LOTS\nنرخی جێبەجێکردن: ${executionOrderMode === 'market' ? 'MARKET PRICE' : chosenPrice + ' USD'}`);
+        }
 
-        // Initialize App Systems
-        window.addEventListener('DOMContentLoaded', () => {
-            startLiveClock();
-            bindJournalStorage();
+        // Real-Time Simulator for Orderbook and Price Tickers
+        function executeLiquidityStreamEngine() {
+            setInterval(() => {
+                // Generate micro random price variance
+                const variance = (Math.random() - 0.49) * (underlyingBasePrice * 0.001);
+                underlyingBasePrice += variance;
+
+                // Synchronize price ticks into visual layout nodes
+                if(currentTargetSymbol.includes('XAUUSD')) {
+                    document.getElementById('tickerGold').innerText = underlyingBasePrice.toFixed(2);
+                    document.getElementById('wlGoldPrice').innerText = underlyingBasePrice.toFixed(2);
+                } else if(currentTargetSymbol.includes('XAGUSD')) {
+                    document.getElementById('tickerSilver').innerText = underlyingBasePrice.toFixed(2);
+                    document.getElementById('wlSilverPrice').innerText = underlyingBasePrice.toFixed(2);
+                } else if(currentTargetSymbol.includes('BTCUSDT')) {
+                    document.getElementById('tickerBitcoin').innerText = underlyingBasePrice.toFixed(2);
+                    document.getElementById('wlBitcoinPrice').innerText = underlyingBasePrice.toFixed(2);
+                }
+
+                // Refresh Orderbook components based on variance values
+                regenerateOrderBookData();
+            }, 800);
+        }
+
+        // Dynamic Orderbook Visual Matrix Renderer
+        function regenerateOrderBookData() {
+            const bidsBox = document.getElementById('obBidsContainer');
+            const asksBox = document.getElementById('obAsksContainer');
             
-            // Check if user already entered in previous session
-            if(localStorage.getItem('terminal_entered') === 'true') {
-                document.getElementById('welcomeOverlay').style.display = 'none';
+            // Retain headers
+            bidsBox.innerHTML = `<div style="font-size:9px; color:var(--text-muted); padding-bottom:4px;">BIDS (BUY orders)</div>`;
+            asksBox.innerHTML = `<div style="font-size:9px; color:var(--text-muted); padding-bottom:4px; text-align:right;">ASKS (SELL orders)</div>`;
+
+            // Render Buy Layer (Bids)
+            for(let index = 1; index <= 5; index++) {
+                const targetBidPrice = underlyingBasePrice - (index * (underlyingBasePrice * 0.0002));
+                const volumetricWeight = Math.floor(Math.random() * 85) + 15;
+                
+                bidsBox.innerHTML += `
+                    <div class="ob-line">
+                        <div class="ob-bar-bid" style="width: ${volumetricWeight}%"></div>
+                        <span class="ob-txt" style="color:var(--green-trade); font-weight:600;">${targetBidPrice.toFixed(2)}</span>
+                        <span class="ob-txt" style="color:var(--text-muted); text-align:right;">${(Math.random() * 4).toFixed(2)}</span>
+                    </div>`;
+            }
+
+            // Render Sell Layer (Asks)
+            for(let index = 1; index <= 5; index++) {
+                const targetAskPrice = underlyingBasePrice + (index * (underlyingBasePrice * 0.0002));
+                const volumetricWeight = Math.floor(Math.random() * 85) + 15;
+                
+                asksBox.innerHTML += `
+                    <div class="ob-line" style="justify-content: space-between;">
+                        <div class="ob-bar-ask" style="width: ${volumetricWeight}%"></div>
+                        <span class="ob-txt" style="color:var(--text-muted);">${(Math.random() * 4).toFixed(2)}</span>
+                        <span class="ob-txt" style="color:var(--red-trade); font-weight:600; text-align:right;">${targetAskPrice.toFixed(2)}</span>
+                    </div>`;
+            }
+
+            // Render dynamic spread metrics calculations
+            const marketSpreadValue = (underlyingBasePrice * 0.00015);
+            document.getElementById('obSpreadDisp').innerText = `Spread: ${marketSpreadValue.toFixed(2)}`;
+        }
+
+        // App Boot System Core Lifecycles
+        window.addEventListener('DOMContentLoaded', () => {
+            bootSystemClock();
+            
+            // Keep memory authentication clear if desired
+            if(localStorage.getItem('shex_terminal_authorized') === 'true') {
+                document.getElementById('gateOverlay').style.display = 'none';
+                buildTradingViewWidgetInstance(currentTargetSymbol);
+                executeLiquidityStreamEngine();
+                bindJournalAutoPersistence();
             }
         });
     </script>
