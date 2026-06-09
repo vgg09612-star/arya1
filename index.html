@@ -3,43 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>SHEX ARYA QUANTUM TRADING LAB</title>
+    <title>SHEX ARYA TACTICAL TERMINAL</title>
     
-    <!-- Premium Global UI Fonts & Core Icon Architecture -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- SOVEREIGN OBSIDIAN & LIQUID GOLD ULTRA-LUXURY ROOT THEME --- */
+        /* --- CYBERNETIC TACTICAL VOID ROOT ARCHITECTURE --- */
         :root {
-            --bg-absolute: #020203;
-            --bg-card: #08080C;
-            --bg-hud: #0D0D12;
-            --bg-input: #12121A;
-            --gold-pure: #D4AF37;
-            --gold-bright: #F3E5AB;
-            --gold-glow: rgba(212, 175, 55, 0.45);
-            --gold-dim: rgba(212, 175, 55, 0.15);
-            --silver-pure: #E6E8EA;
-            --silver-glow: rgba(230, 232, 234, 0.2);
-            --bullish: #00E676;
-            --bullish-glow: rgba(0, 230, 118, 0.2);
-            --bearish: #FF3D00;
-            --bearish-glow: rgba(255, 61, 0, 0.2);
-            --text-pure: #FFFFFF;
-            --text-premium: #F5F5F7;
-            --text-dim: #8E8E93;
-            --text-dark: #44444A;
-            --border-premium: rgba(212, 175, 55, 0.12);
-            --border-subtle: rgba(255, 255, 255, 0.03);
-            --font-display: 'Cinzel Decorative', serif;
-            --font-sans: 'Inter', sans-serif;
-            --transition-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+            --bg-void: #020204;
+            --bg-surface: #07070B;
+            --bg-panel: #0D0D12;
+            --bg-active-tab: #14141F;
+            --accent-purple: #8B5CF6;
+            --accent-purple-glow: rgba(139, 92, 246, 0.3);
+            --accent-cyan: #06B6D4;
+            --accent-cyan-glow: rgba(6, 182, 212, 0.25);
+            --bullish: #10B981;
+            --bullish-glow: rgba(16, 185, 129, 0.2);
+            --bearish: #EF4444;
+            --bearish-glow: rgba(239, 68, 68, 0.2);
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --text-muted: #475569;
+            --border-tactical: rgba(139, 92, 246, 0.15);
+            --border-dark: rgba(255, 255, 255, 0.02);
+            --font-code: 'JetBrains Mono', monospace;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --bezier-smooth: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Full Screen Fluid Hardware Accelerated Resets */
+        /* Fullscreen Viewport Hardware Acceleration Resets */
         * {
             margin: 0;
             padding: 0;
@@ -53,265 +49,252 @@
         body, html {
             width: 100%;
             height: 100%;
-            background-color: var(--bg-absolute);
-            color: var(--text-premium);
-            font-family: var(--font-sans);
+            background-color: var(--bg-void);
+            color: var(--text-primary);
+            font-family: var(--font-main);
             overflow: hidden;
             position: relative;
         }
 
-        /* Main Fullscreen Adaptive Matrix Container */
-        .terminal-container {
+        /* Main Structural Core Grid Wrapper */
+        .tactical-grid-frame {
             display: flex;
             flex-direction: column;
             width: 100%;
             height: 100vh;
-            padding: env(safe-area-inset-top) 10px env(safe-area-inset-bottom) 10px;
-            gap: 10px;
-            background: radial-gradient(circle at 50% -20%, #161622 0%, #020203 100%);
+            padding: env(safe-area-inset-top) 8px env(safe-area-inset-bottom) 8px;
+            gap: 8px;
+            background: radial-gradient(circle at 50% 120%, #0D071F 0%, #020204 100%);
         }
 
-        /* Executive Branding Header Architecture */
-        .premium-header-hud {
+        /* Telemetry Stream Top Header Layout */
+        .terminal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 20px;
-            background: rgba(8, 8, 12, 0.75);
-            border: 1px solid var(--border-premium);
-            border-radius: 16px;
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.9), inset 0 1px 1px rgba(212, 175, 55, 0.1);
+            padding: 12px 16px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-tactical);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
         }
 
-        .identity-wrapper {
+        .sys-title-block {
             display: flex;
             flex-direction: column;
             text-align: right;
         }
 
-        .identity-title {
-            font-family: var(--font-display);
-            font-size: 1.6rem;
-            font-weight: 900;
-            color: var(--gold-pure);
-            letter-spacing: 3px;
-            text-shadow: 0 0 15px var(--gold-glow);
-        }
-
-        .identity-subtitle {
-            font-size: 0.65rem;
-            font-weight: 700;
-            color: var(--text-dim);
-            letter-spacing: 5px;
-            margin-top: 2px;
-            text-transform: uppercase;
-        }
-
-        .telemetry-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            text-align: left;
-        }
-
-        .websocket-badge {
+        .sys-main-title {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: 1px;
+            font-family: var(--font-main);
             display: flex;
             align-items: center;
             gap: 6px;
-            background: rgba(0, 230, 118, 0.05);
-            border: 1px solid rgba(0, 230, 118, 0.2);
-            padding: 4px 10px;
-            border-radius: 30px;
         }
 
-        .websocket-pulse {
-            width: 7px;
-            height: 7px;
-            background-color: var(--bullish);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--bullish);
-            animation: pulseNode 2s infinite ease-in-out;
+        .sys-main-title span {
+            color: var(--accent-purple);
+            text-shadow: 0 0 10px var(--accent-purple-glow);
         }
 
-        @keyframes pulseNode {
-            0% { transform: scale(0.9); opacity: 0.5; }
-            50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 14px var(--bullish); }
-            100% { transform: scale(0.9); opacity: 0.5; }
-        }
-
-        .websocket-text {
+        .sys-status-subtitle {
             font-size: 0.6rem;
-            font-weight: 900;
-            color: var(--bullish);
-            letter-spacing: 0.5px;
-        }
-
-        .live-clock-lbl {
-            font-size: 0.85rem;
-            color: var(--text-pure);
             font-weight: 700;
-            margin-top: 6px;
-            font-family: monospace;
-            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            font-family: var(--font-code);
+            letter-spacing: 2px;
+            margin-top: 1px;
         }
 
-        /* Real-Time Market Ticker Selector Grid */
-        .ticker-selection-grid {
+        .sys-network-stats {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .feed-active-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(6, 182, 212, 0.04);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        .feed-pulse-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-cyan);
+            animation: coreTacticalPulse 1.6s infinite ease-in-out;
+        }
+
+        @keyframes coreTacticalPulse {
+            0% { transform: scale(0.9); opacity: 0.4; }
+            50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 12px var(--accent-cyan); }
+            100% { transform: scale(0.9); opacity: 0.4; }
+        }
+
+        .feed-pulse-text {
+            font-size: 0.55rem;
+            font-weight: 800;
+            color: var(--accent-cyan);
+            font-family: var(--font-code);
+        }
+
+        .terminal-utc-clock {
+            font-size: 0.8rem;
+            color: var(--text-primary);
+            font-weight: 700;
+            margin-top: 5px;
+            font-family: var(--font-code);
+        }
+
+        /* Institutional Level Spot Asset Selector Deck */
+        .spot-selector-deck {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .ticker-luxury-card {
-            background: rgba(8, 8, 12, 0.5);
-            border: 1px solid var(--border-subtle);
-            border-radius: 18px;
-            padding: 16px;
+        .tactical-asset-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-dark);
+            border-radius: 14px;
+            padding: 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
             position: relative;
-            overflow: hidden;
-            transition: all 0.4s var(--transition-smooth);
+            transition: all 0.3s var(--bezier-smooth);
         }
 
-        .ticker-luxury-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.03) 0%, rgba(0,0,0,0) 100%);
-            opacity: 0;
-            transition: opacity 0.4s var(--transition-smooth);
+        .tactical-asset-card.active#asset-xag {
+            border-color: var(--accent-cyan);
+            background: linear-gradient(145deg, #090E14 0%, #07070B 100%);
+            box-shadow: inset 0 0 12px rgba(6, 182, 212, 0.05), 0 8px 20px rgba(0,0,0,0.6);
         }
 
-        .ticker-luxury-card.active#card-gold {
-            background: #09090E;
-            border: 1px solid var(--gold-pure);
-            box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.08), 0 8px 25px rgba(0, 0, 0, 0.7);
+        .tactical-asset-card.active#asset-xau {
+            border-color: var(--accent-purple);
+            background: linear-gradient(145deg, #110A1E 0%, #07070B 100%);
+            box-shadow: inset 0 0 12px rgba(139, 92, 246, 0.05), 0 8px 20px rgba(0,0,0,0.6);
         }
 
-        .ticker-luxury-card.active#card-silver {
-            background: #09090E;
-            border: 1px solid var(--silver-pure);
-            box-shadow: inset 0 0 15px rgba(230, 232, 234, 0.08), 0 8px 25px rgba(0, 0, 0, 0.7);
-        }
-
-        .ticker-luxury-card.active::before {
-            opacity: 1;
-        }
-
-        .ticker-meta-block {
+        .asset-identity-grp {
             display: flex;
             flex-direction: column;
             text-align: right;
-            z-index: 2;
         }
 
-        .ticker-symbol {
-            font-size: 1.1rem;
-            font-weight: 900;
-            letter-spacing: 0.5px;
+        .asset-ticker-code {
+            font-size: 1.05rem;
+            font-weight: 800;
+            font-family: var(--font-code);
         }
 
-        #card-gold.active .ticker-symbol { color: var(--gold-pure); text-shadow: 0 0 10px var(--gold-glow); }
-        #card-silver.active .ticker-symbol { color: var(--silver-pure); text-shadow: 0 0 10px var(--silver-glow); }
+        #asset-xag.active .asset-ticker-code { color: var(--accent-cyan); text-shadow: 0 0 8px var(--accent-cyan-glow); }
+        #asset-xau.active .asset-ticker-code { color: var(--accent-purple); text-shadow: 0 0 8px var(--accent-purple-glow); }
 
-        .ticker-name {
-            font-size: 0.65rem;
-            color: var(--text-dim);
+        .asset-ticker-label {
+            font-size: 0.6rem;
+            color: var(--text-secondary);
             font-weight: 600;
-            margin-top: 2px;
+            margin-top: 1px;
         }
 
-        .ticker-rates-block {
+        .asset-rates-grp {
             text-align: left;
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            z-index: 2;
         }
 
-        .ticker-live-price {
-            font-size: 1.15rem;
+        .asset-live-price-node {
+            font-size: 1.1rem;
             font-weight: 800;
-            font-family: monospace;
+            font-family: var(--font-code);
             letter-spacing: -0.5px;
         }
 
-        .ticker-percentage-delta {
-            font-size: 0.7rem;
+        .asset-delta-percentage {
+            font-size: 0.65rem;
             font-weight: 700;
-            margin-top: 3px;
+            margin-top: 2px;
             display: flex;
             align-items: center;
-            gap: 3px;
+            gap: 2px;
+            font-family: var(--font-code);
         }
 
-        .pos-trend { color: var(--bullish); text-shadow: 0 0 8px rgba(0,230,118,0.2); }
-        .neg-trend { color: var(--bearish); text-shadow: 0 0 8px rgba(255,61,0,0.2); }
+        .trend-up { color: var(--bullish); }
+        .trend-down { color: var(--bearish); }
 
-        /* Navigation Sliding Horizontal Dock Systems */
-        .sliding-nav-dock {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding: 2px 0;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .sliding-nav-dock::-webkit-scrollbar {
-            display: none;
-        }
-
-        .nav-dock-item {
-            flex: 0 0 auto;
-            background: rgba(8, 8, 12, 0.6);
-            border: 1px solid var(--border-subtle);
-            padding: 10px 18px;
+        /* Icon-Driven Modular Tab Navigation Dock System */
+        .tactical-nav-dock {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background: var(--bg-surface);
+            padding: 4px;
             border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--text-dim);
-            cursor: pointer;
+            border: 1px solid var(--border-dark);
+        }
+
+        .dock-tab-item {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 8px;
-            transition: all 0.3s var(--transition-smooth);
+            justify-content: center;
+            padding: 8px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            gap: 4px;
+            transition: all 0.25s var(--bezier-smooth);
         }
 
-        .nav-dock-item i {
-            font-size: 0.85rem;
+        .dock-tab-item i {
+            font-size: 1.05rem;
         }
 
-        .nav-dock-item.active {
-            background: rgba(212, 175, 55, 0.08);
-            border-color: var(--gold-pure);
-            color: var(--gold-pure);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        .dock-tab-item span {
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
         }
 
-        /* Central Workspaces Multi-View Controller Frame */
-        .workspace-view-deck {
+        .dock-tab-item.active {
+            background: var(--bg-active-tab);
+            color: var(--text-primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
+        #nav-tab-chart.active { color: var(--accent-cyan); border: 1px solid rgba(6, 182, 212, 0.1); }
+        #nav-tab-prices.active { color: var(--accent-purple); border: 1px solid rgba(139, 92, 246, 0.1); }
+        #nav-tab-book.active { color: #EAB308; border: 1px solid rgba(234, 179, 8, 0.1); }
+        #nav-tab-matrix.active { color: var(--bullish); border: 1px solid rgba(16, 185, 129, 0.1); }
+
+        /* Core Workspaces Multi-View Terminal Board Container */
+        .terminal-viewport-deck {
             flex: 1;
             position: relative;
             width: 100%;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 22px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-dark);
+            border-radius: 18px;
             overflow: hidden;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.95);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95);
         }
 
-        /* Abstract Internal View Frame Interface */
-        .view-frame-panel {
+        /* Abstract Internal View Deck Modular Interfaces */
+        .viewport-panel-view {
             position: absolute;
             top: 0;
             left: 0;
@@ -321,77 +304,67 @@
             flex-direction: column;
         }
 
-        .view-frame-panel.active {
+        .viewport-panel-view.active {
             display: flex;
         }
 
-        /* Chart Engine Menu & Interface Controls Sub-hud */
-        .chart-engine-subbar {
+        /* View Subbar Layout Control Panel */
+        .viewport-controls-subbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 14px;
+            padding: 8px 12px;
             background: #050508;
-            border-bottom: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-dark);
         }
 
-        .engine-selectors-box {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-        }
-
-        .selector-luxury-dropdown {
-            background: #0D0D14;
-            border: 1px solid var(--border-subtle);
-            color: var(--text-premium);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 0.7rem;
+        .tactical-dropdown-element {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-tactical);
+            color: var(--text-primary);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.68rem;
             font-weight: 700;
             outline: none;
             cursor: pointer;
-            transition: border 0.3s;
+            font-family: var(--font-main);
         }
 
-        .selector-luxury-dropdown:focus {
-            border-color: var(--gold-pure);
-        }
-
-        .timeframe-pill-container {
+        .timeframe-segment-box {
             display: flex;
-            background: rgba(255, 255, 255, 0.02);
-            padding: 3px;
-            border-radius: 8px;
-            border: 1px solid var(--border-subtle);
+            background: var(--bg-void);
+            padding: 2px;
+            border-radius: 6px;
+            border: 1px solid var(--border-dark);
         }
 
-        .timeframe-pill-btn {
+        .timeframe-segment-btn {
             background: transparent;
             border: none;
-            color: var(--text-dim);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.65rem;
+            color: var(--text-secondary);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.62rem;
             font-weight: 800;
+            font-family: var(--font-code);
             cursor: pointer;
-            transition: all 0.2s ease;
         }
 
-        .timeframe-pill-btn.active {
-            background: rgba(212, 175, 55, 0.12);
-            color: var(--gold-pure);
+        .timeframe-segment-btn.active {
+            background: var(--bg-active-tab);
+            color: var(--text-primary);
         }
 
-        /* Canvas Vector Layout Engine Node */
-        .canvas-render-viewport {
+        /* Viewport Canvas Drawing Element */
+        .canvas-drawing-field {
             flex: 1;
             position: relative;
             width: 100%;
-            background: #030305;
+            background: #030306;
         }
 
-        #quantumCanvasCore {
+        #tacticalCoreCanvas {
             position: absolute;
             top: 0;
             left: 0;
@@ -400,440 +373,422 @@
             display: block;
         }
 
-        /* Shutter Loader Processing Interceptor Layer */
-        .shutter-loader-overlay {
+        /* Tactical Interceptor Processing Shutter Layer */
+        .tactical-shutter-mask {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--bg-absolute);
+            background: var(--bg-void);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
             z-index: 999;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.4s ease;
         }
 
-        .loader-quantum-ring {
-            width: 36px;
-            height: 36px;
-            border: 2px solid rgba(212, 175, 55, 0.03);
-            border-top: 2px solid var(--gold-pure);
+        .shutter-radar-spinner {
+            width: 32px;
+            height: 32px;
+            border: 2px solid rgba(6, 182, 212, 0.03);
+            border-top: 2px solid var(--accent-cyan);
             border-radius: 50%;
-            animation: spinMatrixCore 0.9s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+            animation: spinTacticalRadar 0.7s linear infinite;
         }
 
-        @keyframes spinMatrixCore {
+        @keyframes spinTacticalRadar {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        .loader-telemetry-text {
-            font-size: 0.65rem;
-            color: var(--gold-pure);
-            font-weight: 800;
-            letter-spacing: 3px;
-            text-align: center;
+        .shutter-radar-lbl {
+            font-size: 0.6rem;
+            color: var(--accent-cyan);
+            font-weight: 700;
+            font-family: var(--font-code);
+            letter-spacing: 2px;
         }
 
-        /* --- INTERNAL PANELS LAYOUT STYLES --- */
-        .panel-scroll-container {
+        /* --- INTERNAL PANEL LIST VIEWS STRUCTURES --- */
+        .panel-scrollable-body {
             flex: 1;
             overflow-y: auto;
-            padding: 16px;
+            padding: 12px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 8px;
         }
 
-        .panel-scroll-container::-webkit-scrollbar {
-            width: 4px;
+        .panel-scrollable-body::-webkit-scrollbar {
+            width: 3px;
         }
 
-        .panel-scroll-container::-webkit-scrollbar-thumb {
-            background: var(--border-premium);
+        .panel-scrollable-body::-webkit-scrollbar-thumb {
+            background: var(--text-muted);
+            border-radius: 4px;
+        }
+
+        /* Price Matrices Table Architecture Grid */
+        .price-matrix-sheet {
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-panel);
             border-radius: 10px;
+            border: 1px solid var(--border-dark);
+            overflow: hidden;
         }
 
-        .section-headline-group {
-            border-bottom: 1px solid var(--border-subtle);
-            padding-bottom: 8px;
-            margin-bottom: 4px;
-        }
-
-        .section-main-title {
-            font-size: 0.95rem;
-            font-weight: 800;
-            color: var(--gold-pure);
-            letter-spacing: 0.5px;
-        }
-
-        .section-desc-para {
-            font-size: 0.65rem;
-            color: var(--text-dim);
-            margin-top: 2px;
-        }
-
-        /* Multi-column grid for metrics structures */
-        .matrix-metrics-row-triple {
+        .matrix-sheet-row {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 8px;
-        }
-
-        .metric-luxury-box {
-            background: rgba(255, 255, 255, 0.01);
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: 10px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .metric-luxury-lbl {
-            font-size: 0.55rem;
-            color: var(--text-dim);
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .metric-luxury-val {
-            font-size: 0.8rem;
-            font-weight: 800;
-            font-family: monospace;
-        }
-
-        /* Strategy Activation Multi-row Stack Deck */
-        .strategy-matrix-deck {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .strategy-luxury-row {
-            background: #0D0D14;
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: 12px 16px;
-            display: flex;
-            justify-content: space-between;
+            grid-template-columns: 1.2fr 1fr 1fr;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-dark);
             align-items: center;
-            transition: all 0.2s ease;
+            font-size: 0.7rem;
         }
 
-        .strategy-identity-block {
-            display: flex;
-            flex-direction: column;
-            text-align: right;
-        }
-
-        .strategy-name-lbl {
-            font-size: 0.8rem;
+        .matrix-sheet-row.header-row {
+            background: #09090D;
             font-weight: 700;
-            color: var(--text-premium);
+            color: var(--text-secondary);
+            font-family: var(--font-main);
+            font-size: 0.62rem;
+            letter-spacing: 0.5px;
         }
 
-        .strategy-class-tag {
-            font-size: 0.55rem;
-            color: var(--gold-pure);
-            font-weight: 600;
-            margin-top: 1px;
-            font-family: monospace;
+        .matrix-cell-ticker {
+            font-family: var(--font-code);
+            font-weight: 700;
+            color: var(--text-primary);
         }
 
-        .strategy-execution-toggle {
-            position: relative;
-            width: 38px;
-            height: 20px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 20px;
-            cursor: pointer;
-            border: 1px solid var(--border-subtle);
-            transition: all 0.3s var(--transition-smooth);
+        .matrix-cell-val {
+            font-family: var(--font-code);
+            font-weight: 500;
+            text-align: left;
         }
 
-        .strategy-execution-toggle::after {
-            content: '';
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            width: 14px;
-            height: 14px;
-            background: var(--text-dim);
-            border-radius: 50%;
-            transition: all 0.3s var(--transition-smooth);
-        }
-
-        .strategy-luxury-row.active {
-            border-color: rgba(0,230,118,0.3);
-            background: rgba(0,230,118,0.02);
-        }
-
-        .strategy-luxury-row.active .strategy-execution-toggle {
-            background: var(--bullish);
-        }
-
-        .strategy-luxury-row.active .strategy-execution-toggle::after {
-            transform: translateX(-18px);
-            background: var(--bg-absolute);
-        }
-
-        /* Order Book Liquidity Split Panels Floor */
-        .liquidity-split-grid {
+        /* Level 2 Book Structure Row Styles */
+        .book-split-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 8px;
         }
 
-        .liquidity-book-header {
+        .book-pane-header {
+            font-size: 0.58rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            padding: 4px 0;
+            border-bottom: 1px solid var(--border-dark);
             display: flex;
             justify-content: space-between;
-            font-size: 0.6rem;
-            font-weight: 800;
-            color: var(--text-dark);
-            padding: 4px 0;
-            border-bottom: 1px solid var(--border-subtle);
         }
 
-        .liquidity-tape-stream {
+        .book-data-stream-stack {
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            font-family: monospace;
-            font-size: 0.7rem;
-            margin-top: 6px;
+            gap: 3px;
+            font-family: var(--font-code);
+            font-size: 0.68rem;
+            margin-top: 4px;
         }
 
-        .tape-row-line {
+        .book-stream-line {
             display: flex;
             justify-content: space-between;
             padding: 2px 0;
             font-weight: 700;
         }
 
-        .tape-row-line.ask-side { color: var(--bearish); }
-        .tape-row-line.bid-side { color: var(--bullish); }
-        .tape-vol-span { color: var(--text-dark); font-weight: 500; }
+        .book-stream-line.ask-side { color: var(--bearish); }
+        .book-stream-line.bid-side { color: var(--bullish); }
+        .book-vol-lbl { color: var(--text-muted); font-weight: 500; }
 
-        /* Secure Infrastructure App Footer Layout */
-        .app-structural-footer {
+        /* Strategy Node Rows Structural Configuration */
+        .strategy-tactical-row {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-dark);
+            border-radius: 10px;
+            padding: 10px 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 16px;
-            background: rgba(2, 2, 3, 0.9);
-            border-radius: 12px;
-            font-size: 0.6rem;
-            color: var(--text-dark);
-            font-weight: 700;
-            border: 1px solid var(--border-subtle);
         }
 
-        .signature-gold {
-            color: var(--gold-pure);
-            text-shadow: 0 0 5px var(--gold-dim);
+        .strat-meta-block {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+        }
+
+        .strat-name-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .strat-type-tag {
+            font-size: 0.52rem;
+            color: var(--accent-purple);
+            font-weight: 700;
+            font-family: var(--font-code);
+            margin-top: 1px;
+        }
+
+        .strat-switch-node {
+            position: relative;
+            width: 32px;
+            height: 16px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            cursor: pointer;
+            border: 1px solid var(--border-dark);
+            transition: all 0.25s var(--bezier-smooth);
+        }
+
+        .strat-switch-node::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 10px;
+            height: 10px;
+            background: var(--text-secondary);
+            border-radius: 50%;
+            transition: all 0.25s var(--bezier-smooth);
+        }
+
+        .strategy-tactical-row.active {
+            border-color: rgba(16, 185, 129, 0.25);
+            background: rgba(16, 185, 129, 0.01);
+        }
+
+        .strategy-tactical-row.active .strat-switch-node {
+            background: var(--bullish);
+        }
+
+        .strategy-tactical-row.active .strat-switch-node::after {
+            transform: translateX(-16px);
+            background: var(--bg-void);
+        }
+
+        /* Metrics Grid Row Triple Frame */
+        .metrics-row-triple {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .metric-tactical-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-dark);
+            border-radius: 8px;
+            padding: 8px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .metric-card-lbl {
+            font-size: 0.52rem;
+            color: var(--text-secondary);
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .metric-card-val {
+            font-size: 0.75rem;
+            font-weight: 800;
+            font-family: var(--font-code);
+        }
+
+        /* App Structural Footer Layout Node */
+        .terminal-secure-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: var(--bg-surface);
+            border-radius: 8px;
+            font-size: 0.55rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            border: 1px solid var(--border-dark);
+        }
+
+        .signature-purple {
+            color: var(--accent-purple);
+            text-shadow: 0 0 4px var(--accent-purple-glow);
         }
     </style>
 </head>
 <body>
 
-    <div class="terminal-container">
+    <div class="tactical-grid-frame">
         
-        <!-- Top Executive Telemetry Header HUD Section -->
-        <header class="premium-header-hud">
-            <div class="identity-wrapper">
-                <h1 class="identity-title">SHEX ARYA</h1>
-                <p class="identity-subtitle">Quantum Trading Lab v12.0</p>
+        <header class="terminal-header">
+            <div class="sys-title-block">
+                <h1 class="sys-main-title">SHEX <span>ARYA</span></h1>
+                <p class="sys-status-subtitle">CYBERNETIC VOID CORE v15.0</p>
             </div>
-            <div class="telemetry-wrapper">
-                <div class="websocket-badge">
-                    <span class="websocket-pulse"></span>
-                    <span class="websocket-text">BINANCE SOCKET SYNCHRONIZED</span>
+            <div class="sys-network-stats">
+                <div class="feed-active-badge">
+                    <span class="feed-pulse-dot"></span>
+                    <span class="feed-pulse-text">BINANCE LIVE FEED</span>
                 </div>
-                <div class="live-clock-lbl" id="terminalLiveClock">00:00:00 UTC</div>
+                <div class="terminal-utc-clock" id="tacticalClockNode">00:00:00 UTC</div>
             </div>
         </header>
 
-        <!-- Live Spot Market Tickers Selection Deck Grid -->
-        <section class="ticker-selection-grid">
-            <!-- Gold Spot Ticker Card Configuration -->
-            <div class="ticker-luxury-card active" id="card-gold" onclick="executeTickerMutation('XAU')">
-                <div class="ticker-meta-block">
-                    <span class="ticker-symbol">XAU / USD</span>
-                    <span class="ticker-name">زێڕی جیهانی لایڤ</span>
+        <section class="spot-selector-deck">
+            <div class="tactical-asset-card active" id="asset-xag" onclick="mutateTerminalActiveTicker('XAG')">
+                <div class="asset-identity-grp">
+                    <span class="asset-ticker-code">XAG / USD</span>
+                    <span class="asset-ticker-label">زیوی جیهانی لایڤ</span>
                 </div>
-                <div class="ticker-rates-block">
-                    <span class="ticker-live-price" id="goldNodePrice">$4,258.35</span>
-                    <span class="ticker-percentage-delta pos-trend" id="goldNodeDelta">
-                        <i class="fa-solid fa-arrow-trend-up"></i> +0.00%
+                <div class="asset-rates-grp">
+                    <span class="asset-live-price-node" id="xagPriceNode">$65.210</span>
+                    <span class="asset-delta-percentage trend-up" id="xagDeltaNode">
+                        <i class="fa-solid fa-caret-up"></i> +0.14%
                     </span>
                 </div>
             </div>
 
-            <!-- Silver Spot Ticker Card Configuration -->
-            <div class="ticker-luxury-card" id="card-silver" onclick="executeTickerMutation('XAG')">
-                <div class="ticker-meta-block">
-                    <span class="ticker-symbol">XAG / USD</span>
-                    <span class="ticker-name">زیوی جیهانی لایڤ</span>
+            <div class="tactical-asset-card" id="asset-xau" onclick="mutateTerminalActiveTicker('XAU')">
+                <div class="asset-identity-grp">
+                    <span class="asset-ticker-code">XAU / USD</span>
+                    <span class="asset-ticker-label">زێڕی جیهانی لایڤ</span>
                 </div>
-                <div class="ticker-rates-block">
-                    <span class="ticker-live-price" id="silverNodePrice">$65.21</span>
-                    <span class="ticker-percentage-delta neg-trend" id="silverNodeDelta">
-                        <i class="fa-solid fa-arrow-trend-down"></i> -0.00%
+                <div class="asset-rates-grp">
+                    <span class="asset-live-price-node" id="xauPriceNode">$4,258.35</span>
+                    <span class="asset-delta-percentage trend-up" id="xauDeltaNode">
+                        <i class="fa-solid fa-caret-up"></i> +0.32%
                     </span>
                 </div>
             </div>
         </section>
 
-        <!-- Horizontal Smooth Sliding View Selection Dock Controller -->
-        <nav class="sliding-nav-dock">
-            <div class="nav-dock-item active" id="nav-chart" onclick="switchActiveWorkspaceView('chart')">
-                <i class="fa-solid fa-chart-line"></i> چارتە گۆڕاوەکان
+        <nav class="tactical-nav-dock">
+            <div class="dock-tab-item active" id="nav-tab-chart" onclick="switchTerminalWorkspaceView('chart')">
+                <i class="fa-solid fa-chart-candlestick"></i>
+                <span>چارتی پێشکەوتوو</span>
             </div>
-            <div class="nav-dock-item" id="nav-strategies" onclick="switchActiveWorkspaceView('strategies')">
-                <i class="fa-solid fa-chess-knight"></i> ٢٠ ستراتیژی نێودەوڵەتی
+            <div class="dock-tab-item" id="nav-tab-prices" onclick="switchTerminalWorkspaceView('prices')">
+                <i class="fa-solid fa-table-list"></i>
+                <span>خشتەی نرخەکان</span>
             </div>
-            <div class="nav-dock-item" id="nav-orderbook" onclick="switchActiveWorkspaceView('orderbook')">
-                <i class="fa-solid fa-layer-group"></i> قەبارەی بازاڕ (Depth)
+            <div class="dock-tab-item" id="nav-tab-book" onclick="switchTerminalWorkspaceView('book')">
+                <i class="fa-solid fa-chart-area"></i>
+                <span>قەبارە (Depth)</span>
             </div>
-            <div class="nav-dock-item" id="nav-analytics" onclick="switchActiveWorkspaceView('analytics')">
-                <i class="fa-solid fa-brain"></i> شیكردنەوەی ژیری دەستكرد
+            <div class="dock-tab-item" id="nav-tab-matrix" onclick="switchTerminalWorkspaceView('matrix')">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>ستراتیژییەکان</span>
             </div>
         </nav>
 
-        <!-- Core Workspaces Multi-View Container Deck Wrapper -->
-        <main class="workspace-view-deck">
+        <main class="terminal-viewport-deck">
             
-            <!-- Shutter Processing Loader Mask Frame Overlayer Node -->
-            <div class="shutter-loader-overlay" id="globalTerminalShutter">
-                <div class="loader-quantum-ring"></div>
-                <div class="loader-telemetry-text">INITIALIZING QUANTUM LIQUIDITY PIPELINE...</div>
+            <div class="tactical-shutter-mask" id="terminalShutterOverlayNode">
+                <div class="shutter-radar-spinner"></div>
+                <div class="shutter-radar-lbl">SYNCHRONIZING TARGET ASSET MEMORY MATRICES...</div>
             </div>
 
-            <!-- VIEW MODULE 1: CUSTOM CHART ENGINE VIEW FRAME -->
-            <div class="view-frame-panel active" id="view-chart">
-                <div class="chart-engine-subbar">
-                    <div class="engine-selectors-box">
-                        <!-- Supporting 10 custom selectable graph profiles configurations -->
-                        <select class="selector-luxury-dropdown" id="chartTypeDropdown" onchange="modifyChartProfileMode(this.value)">
-                            <option value="CANDLE">Candlestick (مۆمی ستاندارد)</option>
-                            <option value="LINE">Line Vector (هێڵکاری لوکس)</option>
-                            <option value="HEIKIN">Heikin Ashi (مۆمی نەرمکراو)</option>
-                            <option value="AREA">Area Gradient (ڕووبەری سێبەر)</option>
-                            <option value="HOLLOW">Hollow Candles (مۆمی ناوبۆش)</option>
-                            <option value="BARS">OHLC Bars (شێوازی هێڵی بار)</option>
-                            <option value="BASELINE">Baseline Drift (هێڵی بنەڕەت)</option>
-                            <option value="RENKO">Renko Bricks (خشتەی ڕێنکۆ)</option>
-                            <option value="MOUNTAIN">Mountain Wave (شێوازی کێو)</option>
-                            <option value="DOTS">Quantum Dots (خاڵیی چرکەیی)</option>
-                        </select>
-                    </div>
-                    <div class="timeframe-pill-container">
-                        <button class="timeframe-pill-btn active" onclick="triggerTimeframeAdjustment('1M')">1M</button>
-                        <button class="timeframe-pill-btn" onclick="triggerTimeframeAdjustment('5M')">5M</button>
-                        <button class="timeframe-pill-btn" onclick="triggerTimeframeAdjustment('1H')">1H</button>
-                        <button class="timeframe-pill-btn" onclick="triggerTimeframeAdjustment('1D')">1D</button>
+            <div class="viewport-panel-view active" id="view-panel-chart">
+                <div class="viewport-controls-subbar">
+                    <select class="tactical-dropdown-element" id="chartProfileSelector" onchange="alterChartVisualProfile(this.value)">
+                        <option value="CANDLE">Standard Candlestick (مۆمی نێودەوڵەتی)</option>
+                        <option value="LINE">Vector Line (هێڵکاری قووڵ)</option>
+                        <option value="HEIKIN">Heikin Ashi (مۆمی ڕێکخراو)</option>
+                        <option value="HOLLOW">Hollow System (مۆمی ناوبۆش)</option>
+                        <option value="AREA">Mountain Area (ڕووبەری سێبەر)</option>
+                        <option value="BARS">OHLC Bars (شێوازی دارتاش)</option>
+                        <option value="DOTS">Quantum Dots (خاڵیی ورد)</option>
+                    </select>
+                    <div class="timeframe-segment-box">
+                        <button class="timeframe-segment-btn active" onclick="adjustTerminalTimeframe('5M')">5M</button>
+                        <button class="timeframe-segment-btn" onclick="adjustTerminalTimeframe('1H')">1H</button>
+                        <button class="timeframe-segment-btn" onclick="adjustTerminalTimeframe('1D')">1D</button>
                     </div>
                 </div>
-                <div class="canvas-render-viewport">
-                    <canvas id="quantumCanvasCore"></canvas>
+                <div class="canvas-drawing-field">
+                    <canvas id="tacticalCoreCanvas"></canvas>
                 </div>
             </div>
 
-            <!-- VIEW MODULE 2: 20 STRATEGIES IMPLEMENTATION INTERFACE PANEL -->
-            <div class="view-frame-panel" id="view-strategies">
-                <div class="panel-scroll-container">
-                    <div class="section-headline-group">
-                        <h2 class="section-main-title">ماتریسی ٢٠ ستراتیژی جیهانی</h2>
-                        <p class="section-desc-para">سیستەمەکانی گۆڕانکاری بۆرسە لێرەوە بە لێدانی نەرمی پەنجەکان چالاک بکە</p>
-                    </div>
-                    <div class="strategy-matrix-deck" id="strategiesLayoutStack">
-                        <!-- 20 Highly sophisticated dynamic strategy node structures inside the DOM framework -->
-                        <!-- Generated programmatically with rich detailed tracking fields inside part 2 executable loop script -->
+            <div class="viewport-panel-view" id="view-panel-prices">
+                <div class="panel-scrollable-body">
+                    <div class="price-matrix-sheet">
+                        <div class="matrix-sheet-row header-row">
+                            <div>سەروەت (ASSET)</div>
+                            <div style="text-align: left;">نرخی لایڤ (BID)</div>
+                            <div style="text-align: left;">نرخی لایڤ (ASK)</div>
+                        </div>
+                        <div class="matrix-sheet-row">
+                            <div class="matrix-cell-ticker" style="color: var(--accent-cyan);">XAG / USD</div>
+                            <div class="matrix-cell-val trend-up" id="tableBidXag">65.210</div>
+                            <div class="matrix-cell-val trend-up" id="tableAskXag">65.225</div>
+                        </div>
+                        <div class="matrix-sheet-row">
+                            <div class="matrix-cell-ticker" style="color: var(--accent-purple);">XAU / USD</div>
+                            <div class="matrix-cell-val trend-up" id="tableBidXau">4258.35</div>
+                            <div class="matrix-cell-val trend-up" id="tableAskXau">4259.10</div>
+                        </div>
+                        <div class="matrix-sheet-row">
+                            <div class="matrix-cell-ticker" style="color: #10B981;">PAXG / USDT</div>
+                            <div class="matrix-cell-val" id="tableBidPaxg">4261.20</div>
+                            <div class="matrix-cell-val" id="tableAskPaxg">4262.90</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- VIEW MODULE 3: MARKET LIQUIDITY AND DEEPEST VOLUME TAPE VIEW PANEL -->
-            <div class="view-frame-panel" id="view-orderbook">
-                <div class="panel-scroll-container">
-                    <div class="section-headline-group">
-                        <h2 class="section-main-title">دەفتەری داواکارییە گشتییەکان (Level 2 Book)</h2>
-                        <p class="section-desc-para">کۆبونەوەی قەبارەی ڕاستەقینەی فەرمانەکانی کڕین و فرۆشتنی جیهان</p>
-                    </div>
-                    <div class="matrix-metrics-row-triple">
-                        <div class="metric-luxury-box">
-                            <span class="metric-luxury-lbl">SPREAD MATRIX</span>
-                            <span class="metric-luxury-val" id="hudSpreadNode" style="color: var(--gold-pure);">0.04</span>
+            <div class="viewport-panel-view" id="view-panel-book">
+                <div class="panel-scrollable-body">
+                    <div class="metrics-row-triple">
+                        <div class="metric-tactical-card">
+                            <span class="metric-card-lbl">SPREAD</span>
+                            <span class="metric-card-val" id="bookSpreadMetric" style="color: #EAB308;">0.015</span>
                         </div>
-                        <div class="metric-luxury-box">
-                            <span class="metric-luxury-lbl">BID LIQUIDITY</span>
-                            <span class="metric-luxury-val" style="color: var(--bullish);">54.8M</span>
+                        <div class="metric-tactical-card">
+                            <span class="metric-card-lbl">BID DEPTH</span>
+                            <span class="metric-card-val" style="color: var(--bullish);">82.4K</span>
                         </div>
-                        <div class="metric-luxury-box">
-                            <span class="metric-luxury-lbl">ASK LIQUIDITY</span>
-                            <span class="metric-luxury-val" style="color: var(--bearish);">51.2M</span>
+                        <div class="metric-tactical-card">
+                            <span class="metric-card-lbl">ASK DEPTH</span>
+                            <span class="metric-card-val" style="color: var(--bearish);">79.1K</span>
                         </div>
                     </div>
-                    <div class="liquidity-split-grid">
+                    <div class="book-split-layout">
                         <div>
-                            <div class="liquidity-book-header"><span>PRICE (USD)</span><span>SIZE (LOT)</span></div>
-                            <div class="liquidity-tape-stream" id="askTapeStreamNode"></div>
+                            <div class="book-pane-header"><span>PRICE (USD)</span><span>SIZE (LOT)</span></div>
+                            <div class="book-data-stream-stack" id="askBookContainerNode"></div>
                         </div>
                         <div>
-                            <div class="liquidity-book-header"><span>PRICE (USD)</span><span>SIZE (LOT)</span></div>
-                            <div class="liquidity-tape-stream" id="bidTapeStreamNode"></div>
+                            <div class="book-pane-header"><span>PRICE (USD)</span><span>SIZE (LOT)</span></div>
+                            <div class="book-data-stream-stack" id="bidBookContainerNode"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- VIEW MODULE 4: INTEGRATED PREDICTIVE MATRIX AI INTELLIGENCE SYSTEM VIEW PANEL -->
-            <div class="view-frame-panel" id="view-analytics">
-                <div class="panel-scroll-container">
-                    <div class="section-headline-group">
-                        <h2 class="section-main-title">مەکینەی شیکردنەوەی کوانتەم AI</h2>
-                        <p class="section-desc-para">ئاماژە جیهانییەکانی سیستەمی کۆمپیوتەری داهاتوو</p>
+            <div class="viewport-panel-view" id="view-panel-matrix">
+                <div class="panel-scrollable-body" id="strategyScrollStackNode">
                     </div>
-                    <div class="matrix-metrics-row-triple">
-                        <div class="metric-luxury-box">
-                            <span class="metric-luxury-lbl">RSI OSCILLATOR</span>
-                            <span class="metric-luxury-val" id="analyticsRsiNode" style="color: #42A5F5;">52.41</span>
-                        </div>
-                        <div class="metric-luxury-box">
-                            <span class="metric-luxury-lbl">VOLATILITY (ATR)</span>
-                            <span class="metric-luxury-val" id="analyticsAtrNode">1.42</span>
-                        </div>
-                        <div class="metric-luxury-box">
-                            <span class="metric-luxury-lbl">AI CONFIDENCE</span>
-                            <span class="metric-luxury-val" style="color: var(--bullish);">94.2%</span>
-                        </div>
-                    </div>
-                    <div class="strategy-luxury-row" style="background: rgba(212,175,55,0.02); border-color: rgba(212,175,55,0.2);">
-                        <div class="strategy-identity-block">
-                            <span class="strategy-name-lbl" style="color: var(--gold-pure);">بڕیاری کۆتایی سیستەم (Quantum Signal Direction)</span>
-                            <span class="strategy-class-tag" id="aiDirectionDecisionNode">STRONG BUY TREND DETECTED</span>
-                        </div>
-                        <i class="fa-solid fa-brain-circuit" style="color: var(--gold-pure); font-size: 1.2rem;"></i>
-                    </div>
-                </div>
             </div>
 
         </main>
 
-        <!-- Base Structural Architecture Secure System Footer Node Layout -->
-        <footer class="app-structural-footer">
-            <div>سیستەمی فەرمی: <span class="signature-gold">SECURED SUBSYSTEM ACTIVE</span></div>
-            <div>&copy; 2026 SHEX ARYA LABS</div>
+        <footer class="terminal-secure-footer">
+            <div>SECURITY KEY SYNCED: <span class="signature-purple">AES-256 PARALLEL DEPLOYED</span></div>
+            <div>&copy; 2026 SHEX ARYA CORP</div>
         </footer>
 
     </div>
 
-    <!-- SCRIPT TRANSITION AND EXECUTABLE BUSINESS LOGIC ATTACHMENTS -->
     <script>
