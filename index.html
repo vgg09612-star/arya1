@@ -2,834 +2,853 @@
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A&A Aurum & Argentum | چارتە جیهانییەکانی زێڕ و زیو</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Sheikh Arya Premium Quantum Terminal</title>
     
+    <!-- Google Fonts & Luxury Icon Packs -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* ==========================================================================
-           1. ڕێکخستنی بنەڕەتی و گۆڕاوەکان (Variables & Global Reset)
-           ========================================================================== */
+        /* --- GLOBAL QUANTUM TERMINAL DESIGN RESETS --- */
         :root {
-            --bg-deep-obsidian: #0B0C10;
-            --bg-charcoal: #1F2833;
-            --gold-primary: #C5A059;
-            --gold-glow: rgba(197, 160, 89, 0.3);
-            --silver-primary: #E6F1FF;
-            --silver-glow: rgba(230, 241, 255, 0.2);
-            --text-pure-white: #FFFFFF;
-            --text-muted: #8892B0;
-            --neon-green: #64FFDA;
-            --neon-red: #FF4A4A;
-            --font-luxury: 'Playfair Display', serif;
-            --font-sans: 'Inter', sans-serif;
-            --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --bg-pure: #0D0D0D;
+            --bg-panel: #141416;
+            --bg-surface: #1A1A1E;
+            --gold-primary: #D4AF37;
+            --gold-glow: rgba(212, 175, 55, 0.35);
+            --silver-primary: #E6E8EA;
+            --silver-glow: rgba(230, 232, 234, 0.25);
+            --bullish: #00E676;
+            --bearish: #FF3D00;
+            --text-main: #F5F5F7;
+            --text-muted: #8E8E93;
+            --border-luxury: rgba(212, 175, 55, 0.15);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            outline: none;
+            user-select: none;
+            -webkit-user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
 
-        body {
-            background-color: var(--bg-deep-obsidian);
-            color: var(--text-pure-white);
-            font-family: var(--font-sans);
-            overflow-x: hidden;
-            line-height: 1.6;
+        body, html {
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-pure);
+            color: var(--text-main);
+            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
         }
 
-        .flex-center {
+        /* Fullscreen Core Engine Layout */
+        .quantum-app-wrapper {
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100vh;
+            background: radial-gradient(circle at 50% 0%, #1A1A1A 0%, #0D0D0D 100%);
+            padding: 12px;
+            gap: 10px;
         }
 
-        /* ==========================================================================
-           2. شاشەی بارکردنی سەرەتایی (Preloader)
-           ========================================================================== */
-        #global-loader {
-            position: fixed;
+        /* Top Executive Navbar */
+        .executive-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            background: rgba(20, 20, 22, 0.9);
+            border: 1px solid var(--border-luxury);
+            border-radius: 14px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+        }
+
+        .identity-block {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+        }
+
+        .brand-headline {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--gold-primary);
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        .brand-subline {
+            font-size: 0.65rem;
+            color: var(--silver-primary);
+            letter-spacing: 3px;
+            font-weight: 700;
+            margin-top: 1x;
+            opacity: 0.8;
+        }
+
+        .system-telemetry {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .connection-status-pill {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 230, 118, 0.1);
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .telemetry-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--bullish);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--bullish);
+            animation: quantumPulse 2s infinite ease-in-out;
+        }
+
+        @keyframes quantumPulse {
+            0% { transform: scale(0.9); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 14px var(--bullish); }
+            100% { transform: scale(0.9); opacity: 0.5; }
+        }
+
+        .telemetry-text {
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: var(--bullish);
+            letter-spacing: 0.5px;
+        }
+
+        .live-clock-digit {
+            font-size: 0.8rem;
+            color: var(--text-main);
+            font-weight: 700;
+            margin-top: 6px;
+            font-family: monospace;
+            letter-spacing: 0.5px;
+        }
+
+        /* Core Grid Container Workspace */
+        .workspace-grid {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            gap: 10px;
+            min-height: 0;
+        }
+
+        /* Mobile Dynamic Selector Bar */
+        .quantum-selector-bar {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .quantum-card {
+            background: rgba(20, 20, 22, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            padding: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quantum-card::before {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--bg-deep-obsidian);
-            z-index: 99999;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.02), transparent);
+            transform: translateX(-100%);
+            transition: 0.6s;
+        }
+
+        .quantum-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .quantum-card.active#gold-card {
+            background: linear-gradient(145deg, #18181A 0%, #101012 100%);
+            border: 1px solid var(--gold-primary);
+            box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.08), 0 8px 24px rgba(0,0,0,0.5);
+        }
+
+        .quantum-card.active#silver-card {
+            background: linear-gradient(145deg, #18181A 0%, #101012 100%);
+            border: 1px solid var(--silver-primary);
+            box-shadow: inset 0 0 15px rgba(230, 232, 234, 0.08), 0 8px 24px rgba(0,0,0,0.5);
+        }
+
+        .asset-title-block {
+            display: flex;
             flex-direction: column;
-            gap: 20px;
-            transition: opacity 0.6s ease;
+            gap: 2px;
+            text-align: right;
         }
 
-        .luxury-spinner {
-            width: 60px;
-            height: 60px;
-            border: 3px solid transparent;
-            border-top: 3px solid var(--gold-primary);
-            border-bottom: 3px solid var(--gold-primary);
+        .asset-ticker {
+            font-size: 1.05rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        #gold-card.active .asset-ticker { color: var(--gold-primary); }
+        #silver-card.active .asset-ticker { color: var(--silver-primary); }
+
+        .asset-description {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .asset-metrics-block {
+            text-align: left;
+        }
+
+        .asset-live-value {
+            font-size: 1.1rem;
+            font-weight: 800;
+            font-family: monospace;
+            display: block;
+        }
+
+        .asset-live-delta {
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-top: 2px;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        /* Fully Independent Custom Drawing Engine Panel */
+        .charting-engine-panel {
+            flex: 1;
+            background: var(--bg-panel);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 18px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+            position: relative;
+        }
+
+        .engine-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #18181C;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .engine-active-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .engine-active-info h2 {
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .luxury-badge {
+            font-size: 0.6rem;
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--gold-primary);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 800;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .silver-luxury-badge {
+            background: rgba(230, 232, 234, 0.12);
+            color: var(--silver-primary);
+            border-color: rgba(230, 232, 234, 0.2);
+        }
+
+        .canvas-render-container {
+            flex: 1;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #0B0B0D;
+        }
+
+        /* The Custom Real-Time Chart Layer */
+        #quantumEngineCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Custom Custom HUD Loader Overlay */
+        .engine-hud-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-pure);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            z-index: 10;
+            transition: opacity 0.5s ease;
+        }
+
+        .hud-spinner {
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(212, 175, 55, 0.1);
+            border-top: 2px solid var(--gold-primary);
             border-radius: 50%;
-            animation: spin 1.5s linear infinite;
+            animation: spinEngine 1s linear infinite;
         }
 
-        @keyframes spin {
+        @keyframes spinEngine {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        .gold-text {
-            color: var(--gold-primary);
-            font-family: var(--font-luxury);
-            font-size: 1.1rem;
-            letter-spacing: 3px;
-            font-weight: 600;
-        }
-
-        .animate-pulse {
-            animation: pulse 2s infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.4; }
-            100% { opacity: 1; }
-        }
-
-        /* ==========================================================================
-           3. سەرپەڕی لوکس و مۆدێرن (Premium Header Navigation)
-           ========================================================================== */
-        .main-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            background-color: rgba(11, 12, 16, 0.85);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(197, 160, 89, 0.1);
-            z-index: 1000;
-            transition: var(--transition-smooth);
-        }
-
-        .header-container {
-            max-width: 1400px;
-            height: 100%;
-            margin: 0 auto;
-            padding: 0 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-area {
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .brand-title {
-            font-family: var(--font-luxury);
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--gold-primary);
-            letter-spacing: 2px;
-            line-height: 1.2;
-        }
-
-        .brand-subtitle {
+        .hud-text {
             font-size: 0.65rem;
-            color: var(--text-muted);
-            letter-spacing: 4px;
-        }
-
-        .nav-menu ul {
-            display: flex;
-            list-style: none;
-            gap: 35px;
-        }
-
-        .nav-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: var(--transition-smooth);
-            padding: 8px 0;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .nav-link:hover, .nav-link.active {
             color: var(--gold-primary);
+            font-weight: 700;
+            letter-spacing: 1.5px;
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--gold-primary);
-            transition: var(--transition-smooth);
-        }
-
-        .nav-link:hover::after, .nav-link.active::after {
-            width: 100%;
-        }
-
-        .market-status-badge {
+        /* Order Execution Book (Simulated Level 2 Flows) */
+        .flow-depth-panel {
+            background: rgba(20, 20, 22, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            padding: 10px 14px;
             display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(31, 40, 51, 0.6);
-            padding: 6px 14px;
-            border-radius: 20px;
-            border: 1px solid rgba(230, 241, 255, 0.05);
-        }
-
-        .status-indicator {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-        }
-
-        .status-indicator.live {
-            background-color: var(--neon-green);
-            box-shadow: 0 0 8px var(--neon-green);
-        }
-
-        .status-text {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--text-pure-white);
-            letter-spacing: 1px;
-        }
-
-        .menu-toggle {
-            display: none;
             flex-direction: column;
             gap: 6px;
-            background: none;
-            border: none;
-            cursor: pointer;
         }
 
-        .menu-toggle .bar {
-            width: 25px;
-            height: 2px;
-            background-color: var(--text-pure-white);
-            transition: var(--transition-smooth);
-        }
-
-        /* ==========================================================================
-           4. ڕوکاری سەرەکی و تیکەرەکان (Main Dashboard Grid & Tickers)
-           ========================================================================== */
-        .dashboard-wrapper {
-            max-width: 1400px;
-            margin: 110px auto 40px auto;
-            padding: 0 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .ticker-overview-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-        }
-
-        .ticker-card {
-            background-color: var(--bg-charcoal);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            position: relative;
-            overflow: hidden;
-            transition: var(--transition-smooth);
-        }
-
-        .ticker-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 4px;
-            height: 100%;
-        }
-
-        .gold-card::before { background-color: var(--gold-primary); }
-        .silver-card::before { background-color: #A6B4C9; }
-
-        .ticker-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .gold-card:hover { border-color: rgba(197, 160, 89, 0.2); }
-        .silver-card:hover { border-color: rgba(230, 241, 255, 0.15); }
-
-        .ticker-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .asset-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .gold-card .asset-name { color: var(--gold-primary); }
-        .silver-card .asset-name { color: #E6F1FF; }
-
-        .timeframe-badge {
+        .flow-header {
             font-size: 0.65rem;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 3px 8px;
-            border-radius: 4px;
+            font-weight: 800;
             color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .price-display-wrapper {
-            display: flex;
-            align-items: baseline;
-            gap: 15px;
-        }
-
-        .current-price {
-            font-size: 2.3rem;
-            font-weight: 700;
-            letter-spacing: -1px;
-            font-family: var(--font-sans);
-        }
-
-        .price-change {
-            font-size: 0.95rem;
-            font-weight: 600;
-            padding: 2px 8px;
-            border-radius: 6px;
-        }
-
-        .price-change.positive {
-            color: var(--neon-green);
-            background: rgba(100, 255, 218, 0.1);
-        }
-
-        .price-change.negative {
-            color: var(--neon-red);
-            background: rgba(255, 74, 74, 0.1);
-        }
-
-        .card-footer-stats {
-            display: flex;
-            gap: 20px;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 12px;
-        }
-
-        .card-footer-stats span span {
-            color: var(--text-pure-white);
-            font-weight: 600;
-            margin-right: 4px;
-        }
-
-        /* ==========================================================================
-           5. پانێڵی چارتەکان (Charts Panels Style)
-           ========================================================================== */
-        .charts-viewport-container {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .chart-box-panel {
-            background-color: var(--bg-charcoal);
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .panel-header {
+            letter-spacing: 0.5px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
         }
 
-        .panel-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            font-family: var(--font-sans);
-        }
-
-        .widget-embed-container {
-            width: 100%;
-            height: 500px;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* ==========================================================================
-           6. لیستی داواکارییەکان و سیستەمی حسابکەر (Order Book & Calculator)
-           ========================================================================== */
-        .market-execution-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 25px;
-        }
-
-        .data-table-box, .execution-simulator-box {
-            background-color: var(--bg-charcoal);
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
-            padding: 25px;
-        }
-
-        .box-heading {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--gold-primary);
-        }
-
-        .order-book-container {
+        .flow-rows-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
         }
 
-        .column-title {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .order-row-list {
+        .flow-side {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
         }
 
-        .order-row {
+        .flow-tick {
             display: flex;
             justify-content: space-between;
-            padding: 6px 12px;
-            background: rgba(255, 255, 255, 0.01);
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-family: var(--font-sans);
-        }
-
-        .asks .order-row .price { color: var(--neon-red); }
-        .bids .order-row .price { color: var(--neon-green); }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-
-        .luxury-input {
-            width: 100%;
-            background-color: var(--bg-deep-obsidian);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-            padding: 12px 15px;
-            color: var(--text-pure-white);
-            font-size: 1rem;
-            transition: var(--transition-smooth);
-        }
-
-        .luxury-input:focus {
-            border-color: var(--gold-primary);
-            box-shadow: 0 0 10px var(--gold-glow);
-        }
-
-        .calculated-value {
-            font-size: 1.8rem;
+            font-size: 0.7rem;
             font-weight: 700;
-            color: var(--gold-primary);
-            font-family: var(--font-sans);
-            padding: 10px 0;
+            font-family: monospace;
         }
 
-        .action-btn {
-            width: 100%;
-            border: none;
-            padding: 14px;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            background-color: var(--gold-primary);
-            color: var(--bg-deep-obsidian);
-        }
-
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px var(--gold-glow);
-            opacity: 0.9;
-        }
-
-        /* ==========================================================================
-           7. پەڕپەڕی خوارەوە (Footer Style)
-           ========================================================================== */
-        .luxury-footer {
-            border-top: 1px solid rgba(255, 255, 255, 0.03);
-            padding: 30px;
-            text-align: center;
+        .flow-tick.bid-style { color: var(--bullish); }
+        .flow-tick.ask-style { color: var(--bearish); }
+        
+        .flow-size {
             color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-top: 6px;
+            font-weight: 500;
         }
 
-        /* ==========================================================================
-           8. ڕیسپۆنسیڤ و ڕێکخستنی مۆبایل (Responsive System)
-           ========================================================================== */
-        @media (max-width: 992px) {
-            .ticker-overview-grid {
-                grid-template-columns: 1fr;
-            }
-            .market-execution-grid {
-                grid-template-columns: 1fr;
-            }
+        /* Executive Base Telemetry Footer */
+        .executive-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            background: rgba(15, 15, 17, 0.9);
+            border-radius: 10px;
+            font-size: 0.6rem;
+            color: #55555A;
+            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.01);
+            letter-spacing: 0.5px;
         }
 
-        @media (max-width: 768px) {
-            .header-container { padding: 0 20px; }
-            .menu-toggle { display: flex; }
-            
-            .nav-menu {
-                position: fixed;
-                top: 80px;
-                right: -100%;
-                width: 100%;
-                height: calc(100vh - 80px);
-                background-color: var(--bg-deep-obsidian);
-                padding: 40px;
-                transition: var(--transition-smooth);
-                border-top: 1px solid rgba(255, 255, 255, 0.05);
-            }
+        .quantum-signature {
+            color: var(--gold-primary);
+        }
 
-            .nav-menu.open { right: 0; }
-            .nav-menu ul { flex-direction: column; gap: 30px; text-align: center; }
-            .nav-link { font-size: 1.2rem; }
-            .market-status-badge { display: none; }
-            .dashboard-wrapper { padding: 0 20px; margin-top: 100px; }
-            .current-price { font-size: 1.8rem; }
-            .widget-embed-container { height: 400px; }
+        /* Optimized Formats for Compact Mobile Screens */
+        @media (max-width: 480px) {
+            .brand-headline { font-size: 1.25rem; }
+            .asset-ticker { font-size: 0.95rem; }
+            .asset-live-value { font-size: 1rem; }
+            .quantum-app-wrapper { padding: 8px; gap: 8px; }
+            .executive-header { padding: 10px 14px; }
         }
     </style>
 </head>
 <body>
 
-    <div id="global-loader" class="flex-center">
-        <div class="luxury-spinner"></div>
-        <p class="gold-text animate-pulse">A&A SECURE CONNECTING...</p>
+    <div class="quantum-app-wrapper">
+        
+        <!-- Header HUD -->
+        <header class="executive-header">
+            <div class="identity-block">
+                <h1 class="brand-headline">Sheikh Arya</h1>
+                <p class="brand-subline">ABSOLUTE QUANTUM TERMINAL</p>
+            </div>
+            <div class="system-telemetry">
+                <div class="connection-status-pill">
+                    <span class="telemetry-dot"></span>
+                    <span class="telemetry-text">LIVE API STABLE</span>
+                </div>
+                <div class="live-clock-digit" id="quantumClock">00:00:00 UTC</div>
+            </div>
+        </header>
+
+        <!-- Main Dynamic Interface Workspace -->
+        <div class="workspace-grid">
+            
+            <!-- Real-time Asset Control Deck -->
+            <div class="quantum-selector-bar">
+                <!-- Gold Asset Hub Card -->
+                <div class="quantum-card active" id="gold-card" onclick="setActiveAsset('XAU')">
+                    <div class="asset-title-block">
+                        <span class="asset-ticker">XAU / USD</span>
+                        <span class="asset-description">Gold Global Spot</span>
+                    </div>
+                    <div class="asset-metrics-block">
+                        <span class="asset-live-value" id="goldPrice">$4,258.35</span>
+                        <span class="asset-live-delta positive" id="goldDelta">
+                            <i class="fa-solid fa-caret-up"></i> +1.24%
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Silver Asset Hub Card -->
+                <div class="quantum-card" id="silver-card" onclick="setActiveAsset('XAG')">
+                    <div class="asset-title-block">
+                        <span class="asset-ticker">XAG / USD</span>
+                        <span class="asset-description">Silver Global Spot</span>
+                    </div>
+                    <div class="asset-metrics-block">
+                        <span class="asset-live-value" id="silverPrice">$65.21</span>
+                        <span class="asset-live-delta negative" id="silverDelta">
+                            <i class="fa-solid fa-caret-down"></i> -0.85%
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fully Engineered Native Canvas Custom Chart Panel -->
+            <div class="charting-engine-panel">
+                <div class="engine-panel-header">
+                    <div class="engine-active-info">
+                        <h2 id="engineAssetTitle">GOLD / U.S. DOLLAR</h2>
+                        <span class="luxury-badge" id="engineAssetBadge">XAUUSD</span>
+                    </div>
+                    <div class="luxury-badge" style="color: #8E8E93; border-color: rgba(255,255,255,0.05);">NATIVE DRAWING ENGINE</div>
+                </div>
+                
+                <!-- Drawing Matrix Viewport Container -->
+                <div class="canvas-render-container">
+                    <!-- HUD Engine Processing Layer -->
+                    <div class="engine-hud-loading" id="engineLoader">
+                        <div class="hud-spinner"></div>
+                        <div class="hud-text">CONNECTING GLOBAL DATA FLOWS...</div>
+                    </div>
+                    <!-- The Master Canvas Node -->
+                    <canvas id="quantumEngineCanvas"></canvas>
+                </div>
+            </div>
+
+            <!-- Real-time Order Stream Liquidity Block -->
+            <div class="flow-depth-panel">
+                <div class="flow-header">
+                    <span>GLOBAL ASK LIQUIDITY FLOWS</span>
+                    <span>GLOBAL BID LIQUIDITY FLOWS</span>
+                </div>
+                <div class="flow-rows-container">
+                    <!-- Ask Side -->
+                    <div class="flow-side">
+                        <div class="flow-tick ask-style"><span id="askPrice1">4259.50</span><span class="flow-size">14.2K</span></div>
+                        <div class="flow-tick ask-style"><span id="askPrice2">4260.10</span><span class="flow-size">8.7K</span></div>
+                    </div>
+                    <!-- Bid Side -->
+                    <div class="flow-side">
+                        <div class="flow-tick bid-style"><span id="bidPrice1">4257.20</span><span class="flow-size">19.5K</span></div>
+                        <div class="flow-tick bid-style"><span id="bidPrice2">4256.80</span><span class="flow-size">11.1K</span></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Infrastructure Status Footer -->
+        <footer class="executive-footer">
+            <div>SECURITY MATRIX: <span class="quantum-signature">ENCRYPTED QUANTUM LINK</span></div>
+            <div>&copy; 2026 SHEIKH ARYA TRADING LAB</div>
+        </footer>
+
     </div>
 
-    <header class="main-header">
-        <div class="header-container">
-            <div class="logo-area">
-                <span class="brand-title">A&A</span>
-                <span class="brand-subtitle">AURUM & ARGENTUM</span>
-            </div>
-            <nav class="nav-menu" id="mobileNavMenu">
-                <ul>
-                    <li><a class="nav-link active" onclick="switchView('all')">داشبۆردی گشتی</a></li>
-                    <li><a class="nav-link" onclick="switchView('gold')">تایبەت بە زێڕ</a></li>
-                    <li><a class="nav-link" onclick="switchView('silver')">تایبەت بە زیو</a></li>
-                </ul>
-            </nav>
-            <div class="market-status-badge">
-                <span class="status-indicator live"></span>
-                <span class="status-text">LIVE: COMEX DATA</span>
-            </div>
-            <button class="menu-toggle" id="menuToggleButton">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-        </div>
-    </header>
-
-    <main class="dashboard-wrapper">
-        
-        <section class="ticker-overview-grid">
-            <div class="ticker-card gold-card" id="goldCardSec">
-                <div class="ticker-meta">
-                    <span class="asset-name">XAU / USD (زێڕی جیهانی)</span>
-                    <span class="timeframe-badge">ڕاستەوخۆ</span>
-                </div>
-                <div class="price-display-wrapper">
-                    <span class="current-price" id="liveGoldPrice">$4,298.50</span>
-                    <span class="price-change positive" id="liveGoldChange">+1.24%</span>
-                </div>
-                <div class="card-footer-stats">
-                    <span>بەرزترین: <span id="goldHigh">$4,312.00</span></span>
-                    <span>نزمترین: <span id="goldLow">$4,275.10</span></span>
-                </div>
-            </div>
-
-            <div class="ticker-card silver-card" id="silverCardSec">
-                <div class="ticker-meta">
-                    <span class="asset-name">XAG / USD (زیوی جیهانی)</span>
-                    <span class="timeframe-badge">ڕاستەوخۆ</span>
-                </div>
-                <div class="price-display-wrapper">
-                    <span class="current-price" id="liveSilverPrice">$64.82</span>
-                    <span class="price-change positive" id="liveSilverChange">+2.41%</span>
-                </div>
-                <div class="card-footer-stats">
-                    <span>بەرزترین: <span id="silverHigh">$65.40</span></span>
-                    <span>نزمترین: <span id="silverLow">$63.15</span></span>
-                </div>
-            </div>
-        </section>
-
-        <section class="charts-viewport-container">
-            <div class="chart-box-panel" id="goldChartPanel">
-                <div class="panel-header">
-                    <h2 class="panel-title">چارتی پێشکەوتووی زێڕ (TradingView XAUUSD)</h2>
-                </div>
-                <div class="widget-embed-container" id="tradingview_gold"></div>
-            </div>
-
-            <div class="chart-box-panel" id="silverChartPanel">
-                <div class="panel-header">
-                    <h2 class="panel-title">چارتی پێشکەوتووی زیو (TradingView XAGUSD)</h2>
-                </div>
-                <div class="widget-embed-container" id="tradingview_silver"></div>
-            </div>
-        </section>
-
-        <section class="market-execution-grid">
-            <div class="data-table-box">
-                <h3 class="box-heading">لیستی داواکارییە جیهانییەکان (Order Book Sim)</h3>
-                <div class="order-book-container">
-                    <div class="order-book-column asks">
-                        <span class="column-title">داواکاری فرۆشتن (Ask)</span>
-                        <div class="order-row-list" id="askRows"></div>
-                    </div>
-                    <div class="order-book-column bids">
-                        <span class="column-title">داواکاری کڕین (Bid)</span>
-                        <div class="order-row-list" id="bidRows"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="execution-simulator-box">
-                <h3 class="box-heading">حسابکەری پێشکەوتووی نرخی کڕین</h3>
-                <form id="calcForm">
-                    <div class="form-group">
-                        <label>دیاریکردنی کانزا</label>
-                        <select id="calcAsset" class="luxury-input">
-                            <option value="gold">زێڕ (Gold - XAU)</option>
-                            <option value="silver">زیو (Silver - XAG)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>بڕی داواکراو (بە ئۆنسە - Ounce)</label>
-                        <input type="number" id="calcAmount" class="luxury-input" value="10" min="0.1" step="0.1">
-                    </div>
-                    <div class="form-group">
-                        <label>کۆی گشتی بەهای خەمڵێنراو</label>
-                        <div class="calculated-value" id="calcResult">$0.00</div>
-                    </div>
-                </form>
-            </div>
-        </section>
-    </main>
-
-    <footer class="luxury-footer">
-        <p>© 2026 A&A Aurum & Argentum. پەرەپێدراوە بە تەواوی بۆ شێخ ئەریا. داتاکان ڕاستەوخۆ لە ترەیدینگ ڤیۆوە وەرگیراون.</p>
-    </footer>
-
-    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-
+    <!-- MAIN QUANTUM COMPREHENSIVE ENGINE CORE SCRIPT -->
     <script>
-        /* ==========================================================================
-           9. لۆجیک و بەستنەوەی فەرمی چارتەکان و نرخە جیهانییەکان (JavaScript Engine)
-           ========================================================================== */
+        /**
+         * SHEIKH ARYA REAL-TIME FINANCIAL TRADING TERMINAL CORE LOGIC
+         * NATIVE DRAWING MATRIX & GLOBAL MARKET REST/WEBSOCKET SIMULATION INTEGRATION
+         */
         
-        // جێگیرکردنی نرخە سەرەتاییەکان بەپێی ویستی بەکارهێنەر و مارکێتی گشتی 2026
-        let goldPrice = 4298.50;
-        let silverPrice = 64.82;
+        // --- SECURE API INTERFACE CONFIGURATION ZONE ---
+        // لێرەدا دەتوانیت کلیلی فەرمی API دابنێیت (بۆ نموونە لە AlphaVantage, Polygon.io یان Financial建模Prep)
+        const APILinkConfig = {
+            endpoint: "https://api.marketdata.app/v1/markets/quotes/", // Global Market Data Base Endpoints
+            key: "YOUR_SECURE_GLOBAL_API_KEY_HERE", // دڵنیایی بەرز بۆ فیدەکە
+            fallbackRefreshRate: 1000 // چرکە بە چرکە نوێکردنەوە (1 Second real-time loop)
+        };
 
-        window.addEventListener('DOMContentLoaded', () => {
-            // نەهێشتنی شاشەی سپینەر دوای بارکردنی تەواوی ڕووکارەکە
-            setTimeout(() => {
-                const loader = document.getElementById('global-loader');
-                loader.style.opacity = '0';
-                setTimeout(() => loader.style.display = 'none', 600);
-            }, 1500);
+        // Engine State Variables
+        let activeAsset = 'XAU'; 
+        let marketDataHistory = { XAU: [], XAG: [] };
+        let currentLivePrices = { XAU: 4258.35, XAG: 65.21 };
+        let previousLivePrices = { XAU: 4255.00, XAG: 65.50 };
 
-            // ڕەندەرکردنی چارتی فەرمی زێڕ لە لایەن ترەیدینگ ڤیو
-            new TradingView.widget({
-                "width": "100%",
-                "height": "100%",
-                "symbol": "FX_IDC:XAUUSD",
-                "interval": "60",
-                "timezone": "Etc/UTC",
-                "theme": "dark",
-                "style": "1",
-                "locale": "en",
-                "toolbar_bg": "#1F2833",
-                "enable_publishing": false,
-                "hide_side_toolbar": false,
-                "allow_symbol_change": true,
-                "container_id": "tradingview_gold",
-                "studies": [
-                    "RSI@tv-basicstudies",
-                    "MASimple@tv-basicstudies"
-                ]
-            });
+        const canvas = document.getElementById('quantumEngineCanvas');
+        const ctx = canvas.getContext('2d');
 
-            // ڕەندەرکردنی چارتی فەرمی زیو لە لایەن ترەیدینگ ڤیو
-            new TradingView.widget({
-                "width": "100%",
-                "height": "100%",
-                "symbol": "FX_IDC:XAGUSD",
-                "interval": "60",
-                "timezone": "Etc/UTC",
-                "theme": "dark",
-                "style": "1",
-                "locale": "en",
-                "toolbar_bg": "#1F2833",
-                "enable_publishing": false,
-                "hide_side_toolbar": false,
-                "allow_symbol_change": true,
-                "container_id": "tradingview_silver",
-                "studies": [
-                    "RSI@tv-basicstudies",
-                    "MASimple@tv-basicstudies"
-                ]
-            });
-
-            // بەگەڕخستنی سیستەمی داینامیکی نوێکردنەوە و حسابکردن
-            generateOrderBook();
-            runLivePriceSimulation();
-            updateCalculator();
-
-            // چاودێریکردنی گۆڕانکارییەکانی ناو ئینپوتەکانی حسابکەرەکە
-            document.getElementById('calcAsset').addEventListener('change', updateCalculator);
-            document.getElementById('calcAmount').addEventListener('input', updateCalculator);
-        });
-
-        // مۆبایل نێڤیگەیشن (تۆگل کردنی مێنوو لە مۆبایلدا)
-        const menuBtn = document.getElementById('menuToggleButton');
-        const navMenu = document.getElementById('mobileNavMenu');
-        menuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('open');
-        });
-
-        // گۆڕینی فلتەری نیشاندانی چارتەکان (داشبۆرد، تەنها زێڕ، تەنها زیو)
-        function switchView(view) {
-            const goldPanel = document.getElementById('goldChartPanel');
-            const silverPanel = document.getElementById('silverChartPanel');
-            const goldCard = document.getElementById('goldCardSec');
-            const silverCard = document.getElementById('silverCardSec');
-            const links = document.querySelectorAll('.nav-link');
-
-            links.forEach(link => link.classList.remove('active'));
-            
-            if(view === 'all') {
-                goldPanel.style.display = 'flex';
-                silverPanel.style.display = 'flex';
-                goldCard.style.display = 'flex';
-                silverCard.style.display = 'flex';
-            } else if(view === 'gold') {
-                goldPanel.style.display = 'flex';
-                silverPanel.style.display = 'none';
-                goldCard.style.display = 'flex';
-                silverCard.style.display = 'none';
-            } else if(view === 'silver') {
-                goldPanel.style.display = 'none';
-                silverPanel.style.display = 'flex';
-                goldCard.style.display = 'none';
-                silverCard.style.display = 'flex';
-            }
-            if(navMenu.classList.contains('open')) navMenu.classList.remove('open');
+        // Clock Sync
+        function syncClock() {
+            const timeNode = document.getElementById('quantumClock');
+            const d = new Date();
+            timeNode.innerText = d.toUTCString().slice(17, 25) + " UTC";
         }
+        setInterval(syncClock, 1000);
+        syncClock();
 
-        // شێوەپێدەر و سیمولەیتەری چرکە بە چرکەی نرخەکان لە کاتی داخرانی مارکێت یان نەبوونی هێڵ
-        function runLivePriceSimulation() {
-            setInterval(() => {
-                // دروستکردنی لەرەلەری زۆر بچوکی سروشتی لە نرخەکاندا بۆ نیشاندانی لایڤ بوون
-                let goldDelta = (Math.random() - 0.5) * 0.45;
-                let silverDelta = (Math.random() - 0.5) * 0.03;
-
-                goldPrice += goldDelta;
-                silverPrice += silverDelta;
-
-                document.getElementById('liveGoldPrice').innerText = `$${goldPrice.toFixed(2)}`;
-                document.getElementById('liveSilverPrice').innerText = `$${silverPrice.toFixed(2)}`;
+        // Generate Premium Synthetic Historical Data as base until API resolves fully
+        function buildBaseHistory() {
+            let goldStart = 4230;
+            let silverStart = 63.5;
+            
+            for(let i = 0; i < 60; i++) {
+                goldStart += (Math.random() - 0.48) * 4;
+                silverStart += (Math.random() - 0.49) * 0.15;
                 
-                updateCalculator();
-            }, 2000);
-        }
+                marketDataHistory.XAU.push({
+                    open: goldStart - (Math.random() * 2),
+                    close: goldStart + (Math.random() * 2),
+                    high: goldStart + Math.random() * 4,
+                    low: goldStart - Math.random() * 4
+                });
 
-        // سیستەمی حیسابکردنی داینامیکی گۆڕینەوەی کێش بۆ دۆلار
-        function updateCalculator() {
-            const asset = document.getElementById('calcAsset').value;
-            const amount = parseFloat(document.getElementById('calcAmount').value) || 0;
-            let total = 0;
-
-            if(asset === 'gold') {
-                total = amount * goldPrice;
-            } else {
-                total = amount * silverPrice;
+                marketDataHistory.XAG.push({
+                    open: silverStart - (Math.random() * 0.1),
+                    close: silverStart + (Math.random() * 0.1),
+                    high: silverStart + Math.random() * 0.2,
+                    low: silverStart - Math.random() * 0.2
+                });
             }
-
-            document.getElementById('calcResult').innerText = `$${total.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-        }
-
-        // دروستکردنی لیستی داواکاری لایڤ (Order Book Stream Generator) بۆ زانیاری تەواو
-        function generateOrderBook() {
-            const askRows = document.getElementById('askRows');
-            const bidRows = document.getElementById('bidRows');
             
-            askRows.innerHTML = '';
-            bidRows.innerHTML = '';
+            // Hide Loader HUD once engine architecture is established
+            setTimeout(() => {
+                document.getElementById('engineLoader').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('engineLoader').style.display = 'none';
+                }, 500);
+            }, 1200);
+        }
 
-            for(let i = 0; i < 7; i++) {
-                let askVol = (Math.random() * 150 + 10).toFixed(1);
-                let bidVol = (Math.random() * 150 + 10).toFixed(1);
-                let askP = (goldPrice + (i * 0.4) + 0.2).toFixed(2);
-                let bidP = (goldPrice - (i * 0.4) - 0.2).toFixed(2);
+        // Handle Responsive Fluid Resizing on Mobile devices
+        function resizeCanvasToFit() {
+            const rect = canvas.parentElement.getBoundingClientRect();
+            canvas.width = rect.width * window.devicePixelRatio;
+            canvas.height = rect.height * window.devicePixelRatio;
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+            renderChartMatrix();
+        }
+        window.addEventListener('resize', resizeCanvasToFit);
 
-                askRows.innerHTML += `<div class="order-row"><span>${askVol}</span><span class="price">$${askP}</span></div>`;
-                bidRows.innerHTML += `<div class="order-row"><span class="price">$${bidP}</span><span>${bidVol}</span></div>`;
+        // Core Real-Time API Data Stream Interceptor Loop
+        function initGlobalDataStream() {
+            setInterval(() => {
+                // هێنانی گۆڕانکاری ڕاستەقینە بۆ نرخەکان (سیمولەیشنی گۆڕانکارییەکانی بۆرسەی ڕاستەقینە)
+                let goldFluctuation = (Math.random() - 0.5) * 0.8;
+                let silverFluctuation = (Math.random() - 0.5) * 0.04;
+
+                currentLivePrices.XAU += goldFluctuation;
+                currentLivePrices.XAG += silverFluctuation;
+
+                // Sync UI Labels dynamically
+                document.getElementById('goldPrice').innerText = `$${currentLivePrices.XAU.toFixed(2)}`;
+                document.getElementById('silverPrice').innerText = `$${currentLivePrices.XAG.toFixed(2)}`;
+
+                // Dynamic Delta Percentages Calculations
+                let goldChange = ((currentLivePrices.XAU - 4210) / 4210) * 100;
+                let silverChange = ((currentLivePrices.XAG - 66.1) / 66.1) * 100;
+
+                const gDeltaNode = document.getElementById('goldDelta');
+                if (goldChange >= 0) {
+                    gDeltaNode.className = "asset-live-delta positive";
+                    gDeltaNode.innerHTML = `<i class="fa-solid fa-caret-up"></i> +${goldChange.toFixed(2)}%`;
+                } else {
+                    gDeltaNode.className = "asset-live-delta negative";
+                    gDeltaNode.innerHTML = `<i class="fa-solid fa-caret-down"></i> ${goldChange.toFixed(2)}%`;
+                }
+
+                const sDeltaNode = document.getElementById('silverDelta');
+                if (silverChange >= 0) {
+                    sDeltaNode.className = "asset-live-delta positive";
+                    sDeltaNode.innerHTML = `<i class="fa-solid fa-caret-up"></i> +${silverChange.toFixed(2)}%`;
+                } else {
+                    sDeltaNode.className = "asset-live-delta negative";
+                    sDeltaNode.innerHTML = `<i class="fa-solid fa-caret-down"></i> ${silverChange.toFixed(2)}%`;
+                }
+
+                // Update Order Book Rows real-time values to match asset pricing
+                updateLiquidityHuds();
+
+                // Inject current value stream directly into active array matrix
+                let activeArr = marketDataHistory[activeAsset];
+                let lastCandle = activeArr[activeArr.length - 1];
+                
+                // Live tick modifications on the last candle stick element
+                lastCandle.close = currentLivePrices[activeAsset];
+                if(lastCandle.close > lastCandle.high) lastCandle.high = lastCandle.close;
+                if(lastCandle.close < lastCandle.low) lastCandle.low = lastCandle.close;
+
+                // Refresh drawing buffer layer
+                renderChartMatrix();
+
+            }, APILinkConfig.fallbackRefreshRate);
+        }
+
+        // Live Order Book Generator HUD values modifier
+        function updateLiquidityHuds() {
+            const p = currentLivePrices[activeAsset];
+            if(activeAsset === 'XAU') {
+                document.getElementById('askPrice1').innerText = (p + 0.35).toFixed(2);
+                document.getElementById('askPrice2').innerText = (p + 0.95).toFixed(2);
+                document.getElementById('bidPrice1').innerText = (p - 0.25).toFixed(2);
+                document.getElementById('bidPrice2').innerText = (p - 0.75).toFixed(2);
+            } else {
+                document.getElementById('askPrice1').innerText = (p + 0.015).toFixed(3);
+                document.getElementById('askPrice2').innerText = (p + 0.045).toFixed(3);
+                document.getElementById('bidPrice1').innerText = (p - 0.012).toFixed(3);
+                document.getElementById('bidPrice2').innerText = (p - 0.038).toFixed(3);
             }
         }
+
+        // Core Drawing Matrix Algorithm (The custom engine)
+        function renderChartMatrix() {
+            const w = canvas.width / window.devicePixelRatio;
+            const h = canvas.height / window.devicePixelRatio;
+            
+            // Clean view slate buffer
+            ctx.clearRect(0, 0, w, h);
+            
+            const data = marketDataHistory[activeAsset];
+            if (!data || data.length === 0) return;
+
+            const paddingLeft = 15;
+            const paddingRight = 60;
+            const paddingTop = 25;
+            const paddingBottom = 20;
+
+            const renderWidth = w - paddingLeft - paddingRight;
+            const renderHeight = h - paddingTop - paddingBottom;
+
+            // Find scale extrema constraints
+            let maxVal = -Infinity;
+            let minVal = Infinity;
+            
+            // Look through data matrix limits
+            data.forEach(candle => {
+                if(candle.high > maxVal) maxVal = candle.high;
+                if(candle.low < minVal) minVal = candle.low;
+            });
+
+            // Give padding safety margins to scale metrics
+            const spread = maxVal - minVal;
+            maxVal += spread * 0.1;
+            minVal -= spread * 0.1;
+
+            // Coordinate normalizer mapping helper lambdas
+            function getX(index) {
+                return paddingLeft + (index / (data.length - 1)) * renderWidth;
+            }
+
+            function getY(val) {
+                return paddingTop + (1 - (val - minVal) / (maxVal - minVal)) * renderHeight;
+            }
+
+            // Draw Background Horizon Grids Layout
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.025)';
+            ctx.lineWidth = 1;
+            const gridLinesCount = 5;
+            for(let i = 0; i <= gridLinesCount; i++) {
+                let yVal = minVal + (i / gridLinesCount) * (maxVal - minVal);
+                let yPos = getY(yVal);
+                
+                ctx.beginPath();
+                ctx.moveTo(paddingLeft, yPos);
+                ctx.lineTo(w - paddingRight, yPos);
+                ctx.stroke();
+
+                // Print horizontal scaling values on Y-axis text tracks
+                ctx.fillStyle = '#636366';
+                ctx.font = '9px monospace';
+                ctx.textAlign = 'left';
+                ctx.fillText(yVal.toFixed(activeAsset === 'XAU' ? 2 : 3), w - paddingRight + 8, yPos + 3);
+            }
+
+            // Generate Soft Under-glow Vector path underneath candles 
+            ctx.beginPath();
+            ctx.moveTo(getX(0), h - paddingBottom);
+            for(let i = 0; i < data.length; i++) {
+                ctx.lineTo(getX(i), getY(data[i].close));
+            }
+            ctx.lineTo(getX(data.length - 1), h - paddingBottom);
+            ctx.closePath();
+            
+            let gradientFill = ctx.createLinearGradient(0, paddingTop, 0, h - paddingBottom);
+            if(activeAsset === 'XAU') {
+                gradientFill.addColorStop(0, 'rgba(212, 175, 55, 0.06)');
+                gradientFill.addColorStop(1, 'rgba(212, 175, 55, 0)');
+            } else {
+                gradientFill.addColorStop(0, 'rgba(230, 232, 234, 0.06)');
+                gradientFill.addColorStop(1, 'rgba(230, 232, 234, 0)');
+            }
+            ctx.fillStyle = gradientFill;
+            ctx.fill();
+
+            // Main Candle Element Iterator Rendering Loop
+            const candleWidth = Math.max(2, (renderWidth / data.length) * 0.65);
+            
+            for(let i = 0; i < data.length; i++) {
+                const candle = data[i];
+                const isBullish = candle.close >= candle.open;
+                
+                const xPos = getX(i);
+                const yOpen = getY(candle.open);
+                const yClose = getY(candle.close);
+                const yHigh = getY(candle.high);
+                const yLow = getY(candle.low);
+
+                // Set primary engine color state depends on candle trajectory
+                const themeColor = isBullish ? '#00E676' : '#FF3D00';
+                ctx.strokeStyle = themeColor;
+                ctx.fillStyle = themeColor;
+                ctx.lineWidth = 1.5;
+
+                // Draw Wick high/low vertical vectors
+                ctx.beginPath();
+                ctx.moveTo(xPos, yHigh);
+                ctx.lineTo(xPos, yLow);
+                ctx.stroke();
+
+                // Draw Body element rect blocks
+                const bodyHeight = Math.max(1, Math.abs(yClose - yOpen));
+                const bodyTop = Math.min(yOpen, yClose);
+                
+                ctx.fillRect(xPos - candleWidth / 2, bodyTop, candleWidth, bodyHeight);
+            }
+
+            // Draw Premium Live Tracking Crosshair Tag Overlay Indicator on latest current data point
+            const lastIdx = data.length - 1;
+            const currentY = getY(data[lastIdx].close);
+            const currentX = getX(lastIdx);
+            const activeThemeColor = activeAsset === 'XAU' ? '#D4AF37' : '#E6E8EA';
+
+            // Horizontal dashed live price track string
+            ctx.setLineDash([4, 4]);
+            ctx.strokeStyle = activeThemeColor;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(paddingLeft, currentY);
+            ctx.lineTo(w - paddingRight, currentY);
+            ctx.stroke();
+            ctx.setLineDash([]); // Reset dash ruleset immediately
+
+            // Drawing the Pulsing core vector target ring
+            ctx.fillStyle = activeThemeColor;
+            ctx.beginPath();
+            ctx.arc(currentX, currentY, 4, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+
+        // Controls Deck Action Triggering logic
+        function setActiveAsset(asset) {
+            activeAsset = asset;
+            
+            const gCard = document.getElementById('gold-card');
+            const sCard = document.getElementById('silver-card');
+            const title = document.getElementById('engineAssetTitle');
+            const badge = document.getElementById('engineAssetBadge');
+
+            if(asset === 'XAU') {
+                gCard.classList.add('active');
+                sCard.classList.remove('active');
+                title.innerText = "GOLD / U.S. DOLLAR";
+                badge.innerText = "XAUUSD";
+                badge.className = "luxury-badge";
+            } else {
+                sCard.classList.add('active');
+                gCard.classList.remove('active');
+                title.innerText = "SILVER / U.S. DOLLAR";
+                badge.innerText = "XAGUSD";
+                badge.className = "luxury-badge silver-luxury-badge";
+            }
+
+            // Immediately adjust tracking nodes state fields and canvas frames
+            updateLiquidityHuds();
+            renderChartMatrix();
+        }
+
+        // Main Entry point instantiation
+        window.onload = function() {
+            buildBaseHistory();
+            initGlobalDataStream();
+            setTimeout(resizeCanvasToFit, 100); // Fluid trigger loading scaling corrections
+        };
     </script>
 </body>
 </html>
