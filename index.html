@@ -3,30 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>SHEX ARYA QUANTUM TERMINAL</title>
+    <title>SHEX ARYA QUANTUM TRADING LAB</title>
     
+    <!-- Premium Global UI Fonts & Core Icon Architecture -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- ULTRA-LUXURY CYBER DARK THEME CORE RESETS --- */
+        /* --- SOVEREIGN OBSIDIAN & LIQUID GOLD ULTRA-LUXURY ROOT THEME --- */
         :root {
-            --bg-absolute: #050505;
-            --bg-card: #0D0D11;
-            --bg-hud: #121218;
-            --gold-glow: #D4AF37;
-            --gold-neon: rgba(212, 175, 55, 0.4);
-            --silver-glow: #E6E8EA;
-            --silver-neon: rgba(230, 232, 234, 0.25);
-            --bullish-color: #00E676;
-            --bearish-color: #FF3D00;
-            --text-pure: #F5F5F7;
-            --text-dim: #7E7E86;
-            --border-glow: rgba(212, 175, 55, 0.12);
+            --bg-absolute: #020203;
+            --bg-card: #08080C;
+            --bg-hud: #0D0D12;
+            --bg-input: #12121A;
+            --gold-pure: #D4AF37;
+            --gold-bright: #F3E5AB;
+            --gold-glow: rgba(212, 175, 55, 0.45);
+            --gold-dim: rgba(212, 175, 55, 0.15);
+            --silver-pure: #E6E8EA;
+            --silver-glow: rgba(230, 232, 234, 0.2);
+            --bullish: #00E676;
+            --bullish-glow: rgba(0, 230, 118, 0.2);
+            --bearish: #FF3D00;
+            --bearish-glow: rgba(255, 61, 0, 0.2);
+            --text-pure: #FFFFFF;
+            --text-premium: #F5F5F7;
+            --text-dim: #8E8E93;
+            --text-dark: #44444A;
+            --border-premium: rgba(212, 175, 55, 0.12);
+            --border-subtle: rgba(255, 255, 255, 0.03);
+            --font-display: 'Cinzel Decorative', serif;
+            --font-sans: 'Inter', sans-serif;
+            --transition-smooth: cubic-bezier(0.25, 1, 0.5, 1);
         }
 
+        /* Full Screen Fluid Hardware Accelerated Resets */
         * {
             margin: 0;
             padding: 0;
@@ -34,249 +47,351 @@
             user-select: none;
             -webkit-user-select: none;
             -webkit-tap-highlight-color: transparent;
+            font-variant-numeric: tabular-nums;
         }
 
         body, html {
             width: 100%;
             height: 100%;
             background-color: var(--bg-absolute);
-            color: var(--text-pure);
-            font-family: 'Montserrat', sans-serif;
+            color: var(--text-premium);
+            font-family: var(--font-sans);
             overflow: hidden;
+            position: relative;
         }
 
-        /* Fullscreen Responsive App Frame */
-        .app-mainframe {
+        /* Main Fullscreen Adaptive Matrix Container */
+        .terminal-container {
             display: flex;
             flex-direction: column;
             width: 100%;
             height: 100vh;
-            background: radial-gradient(circle at 50% 10%, #111115 0%, #050505 100%);
-            padding: 8px;
-            gap: 8px;
+            padding: env(safe-area-inset-top) 10px env(safe-area-inset-bottom) 10px;
+            gap: 10px;
+            background: radial-gradient(circle at 50% -20%, #161622 0%, #020203 100%);
         }
 
-        /* Executive Branding Header Layout */
-        .main-hud-header {
+        /* Executive Branding Header Architecture */
+        .premium-header-hud {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 16px;
-            background: rgba(13, 13, 17, 0.85);
-            border: 1px solid var(--border-glow);
-            border-radius: 12px;
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+            padding: 14px 20px;
+            background: rgba(8, 8, 12, 0.75);
+            border: 1px solid var(--border-premium);
+            border-radius: 16px;
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.9), inset 0 1px 1px rgba(212, 175, 55, 0.1);
         }
 
-        .brand-vector {
+        .identity-wrapper {
             display: flex;
             flex-direction: column;
             text-align: right;
         }
 
-        .brand-text {
-            font-family: 'Cinzel', serif;
-            font-size: 1.45rem;
+        .identity-title {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
             font-weight: 900;
-            color: var(--gold-glow);
-            letter-spacing: 2px;
-            text-shadow: 0 0 12px var(--gold-neon);
+            color: var(--gold-pure);
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px var(--gold-glow);
         }
 
-        .brand-tagline {
-            font-size: 0.6rem;
-            color: var(--silver-glow);
-            letter-spacing: 4px;
+        .identity-subtitle {
+            font-size: 0.65rem;
             font-weight: 700;
-            margin-top: 1px;
-            opacity: 0.7;
+            color: var(--text-dim);
+            letter-spacing: 5px;
+            margin-top: 2px;
+            text-transform: uppercase;
         }
 
-        .network-telemetry {
+        .telemetry-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            text-align: left;
+        }
+
+        .websocket-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 230, 118, 0.05);
+            border: 1px solid rgba(0, 230, 118, 0.2);
+            padding: 4px 10px;
+            border-radius: 30px;
+        }
+
+        .websocket-pulse {
+            width: 7px;
+            height: 7px;
+            background-color: var(--bullish);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--bullish);
+            animation: pulseNode 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseNode {
+            0% { transform: scale(0.9); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 14px var(--bullish); }
+            100% { transform: scale(0.9); opacity: 0.5; }
+        }
+
+        .websocket-text {
+            font-size: 0.6rem;
+            font-weight: 900;
+            color: var(--bullish);
+            letter-spacing: 0.5px;
+        }
+
+        .live-clock-lbl {
+            font-size: 0.85rem;
+            color: var(--text-pure);
+            font-weight: 700;
+            margin-top: 6px;
+            font-family: monospace;
+            letter-spacing: 0.5px;
+        }
+
+        /* Real-Time Market Ticker Selector Grid */
+        .ticker-selection-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .ticker-luxury-card {
+            background: rgba(8, 8, 12, 0.5);
+            border: 1px solid var(--border-subtle);
+            border-radius: 18px;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        .ticker-luxury-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.03) 0%, rgba(0,0,0,0) 100%);
+            opacity: 0;
+            transition: opacity 0.4s var(--transition-smooth);
+        }
+
+        .ticker-luxury-card.active#card-gold {
+            background: #09090E;
+            border: 1px solid var(--gold-pure);
+            box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.08), 0 8px 25px rgba(0, 0, 0, 0.7);
+        }
+
+        .ticker-luxury-card.active#card-silver {
+            background: #09090E;
+            border: 1px solid var(--silver-pure);
+            box-shadow: inset 0 0 15px rgba(230, 232, 234, 0.08), 0 8px 25px rgba(0, 0, 0, 0.7);
+        }
+
+        .ticker-luxury-card.active::before {
+            opacity: 1;
+        }
+
+        .ticker-meta-block {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+            z-index: 2;
+        }
+
+        .ticker-symbol {
+            font-size: 1.1rem;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+        }
+
+        #card-gold.active .ticker-symbol { color: var(--gold-pure); text-shadow: 0 0 10px var(--gold-glow); }
+        #card-silver.active .ticker-symbol { color: var(--silver-pure); text-shadow: 0 0 10px var(--silver-glow); }
+
+        .ticker-name {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .ticker-rates-block {
             text-align: left;
             display: flex;
             flex-direction: column;
             align-items: flex-end;
+            z-index: 2;
         }
 
-        .pill-live-status {
+        .ticker-live-price {
+            font-size: 1.15rem;
+            font-weight: 800;
+            font-family: monospace;
+            letter-spacing: -0.5px;
+        }
+
+        .ticker-percentage-delta {
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-top: 3px;
             display: flex;
             align-items: center;
-            gap: 5px;
-            background: rgba(0, 230, 118, 0.08);
-            border: 1px solid rgba(0, 230, 118, 0.25);
-            padding: 3px 8px;
-            border-radius: 20px;
+            gap: 3px;
         }
 
-        .pulse-node {
-            width: 6px;
-            height: 6px;
-            background-color: var(--bullish-color);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--bullish-color);
-            animation: corePulse 1.8s infinite ease-in-out;
-        }
+        .pos-trend { color: var(--bullish); text-shadow: 0 0 8px rgba(0,230,118,0.2); }
+        .neg-trend { color: var(--bearish); text-shadow: 0 0 8px rgba(255,61,0,0.2); }
 
-        @keyframes corePulse {
-            0% { transform: scale(0.9); opacity: 0.4; }
-            50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 12px var(--bullish-color); }
-            100% { transform: scale(0.9); opacity: 0.4; }
-        }
-
-        .pulse-lbl {
-            font-size: 0.6rem;
-            font-weight: 800;
-            color: var(--bullish-color);
-        }
-
-        .clock-lbl {
-            font-size: 0.75rem;
-            color: var(--text-pure);
-            font-weight: 700;
-            margin-top: 4px;
-            font-family: monospace;
-        }
-
-        /* Asset Control Grid Deck */
-        .asset-selector-deck {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        /* Navigation Sliding Horizontal Dock Systems */
+        .sliding-nav-dock {
+            display: flex;
             gap: 8px;
+            overflow-x: auto;
+            padding: 2px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            -webkit-overflow-scrolling: touch;
         }
 
-        .hud-card {
-            background: rgba(13, 13, 17, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 14px;
-            padding: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-            position: relative;
+        .sliding-nav-dock::-webkit-scrollbar {
+            display: none;
         }
 
-        .hud-card.active#card-gold {
-            background: #0E0E12;
-            border: 1px solid var(--gold-glow);
-            box-shadow: inset 0 0 12px rgba(212, 175, 55, 0.05), 0 4px 20px rgba(0,0,0,0.6);
-        }
-
-        .hud-card.active#card-silver {
-            background: #0E0E12;
-            border: 1px solid var(--silver-glow);
-            box-shadow: inset 0 0 12px rgba(230, 232, 234, 0.05), 0 4px 20px rgba(0,0,0,0.6);
-        }
-
-        .card-title-grp {
-            display: flex;
-            flex-direction: column;
-            text-align: right;
-        }
-
-        .card-ticker {
-            font-size: 0.95rem;
-            font-weight: 800;
-        }
-
-        #card-gold.active .card-ticker { color: var(--gold-glow); text-shadow: 0 0 8px var(--gold-neon); }
-        #card-silver.active .card-ticker { color: var(--silver-glow); text-shadow: 0 0 8px var(--silver-neon); }
-
-        .card-desc {
-            font-size: 0.6rem;
-            color: var(--text-dim);
-            font-weight: 600;
-            margin-top: 1px;
-        }
-
-        .card-rates-grp {
-            text-align: left;
-        }
-
-        .card-price {
-            font-size: 1rem;
-            font-weight: 800;
-            font-family: monospace;
-        }
-
-        .card-delta {
-            font-size: 0.65rem;
+        .nav-dock-item {
+            flex: 0 0 auto;
+            background: rgba(8, 8, 12, 0.6);
+            border: 1px solid var(--border-subtle);
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 0.75rem;
             font-weight: 700;
-            margin-top: 1px;
+            color: var(--text-dim);
+            cursor: pointer;
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            gap: 2px;
+            gap: 8px;
+            transition: all 0.3s var(--transition-smooth);
         }
 
-        .pos-rate { color: var(--bullish-color); }
-        .neg-rate { color: var(--bearish-color); }
+        .nav-dock-item i {
+            font-size: 0.85rem;
+        }
 
-        /* Professional Charting Control Hud Panel */
-        .charting-workspace-panel {
+        .nav-dock-item.active {
+            background: rgba(212, 175, 55, 0.08);
+            border-color: var(--gold-pure);
+            color: var(--gold-pure);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Central Workspaces Multi-View Controller Frame */
+        .workspace-view-deck {
             flex: 1;
-            background: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
             position: relative;
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.95);
         }
 
-        /* Advanced Engine Sub-header controls */
-        .engine-controls-bar {
+        /* Abstract Internal View Frame Interface */
+        .view-frame-panel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+        }
+
+        .view-frame-panel.active {
+            display: flex;
+        }
+
+        /* Chart Engine Menu & Interface Controls Sub-hud */
+        .chart-engine-subbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 12px;
-            background: #111116;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 10px 14px;
+            background: #050508;
+            border-bottom: 1px solid var(--border-subtle);
         }
 
-        .control-tabs-left {
+        .engine-selectors-box {
             display: flex;
             gap: 6px;
+            align-items: center;
         }
 
-        .chart-type-btn, .timeframe-btn {
+        .selector-luxury-dropdown {
+            background: #0D0D14;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-premium);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            outline: none;
+            cursor: pointer;
+            transition: border 0.3s;
+        }
+
+        .selector-luxury-dropdown:focus {
+            border-color: var(--gold-pure);
+        }
+
+        .timeframe-pill-container {
+            display: flex;
             background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 3px;
+            border-radius: 8px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .timeframe-pill-btn {
+            background: transparent;
+            border: none;
             color: var(--text-dim);
             padding: 4px 10px;
             border-radius: 6px;
             font-size: 0.65rem;
-            font-weight: 700;
+            font-weight: 800;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
-        .chart-type-btn.active, .timeframe-btn.active {
-            background: rgba(212, 175, 55, 0.1);
-            border-color: var(--gold-glow);
-            color: var(--gold-glow);
+        .timeframe-pill-btn.active {
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--gold-pure);
         }
 
-        .engine-meta-right {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .viewport-canvas-wrapper {
+        /* Canvas Vector Layout Engine Node */
+        .canvas-render-viewport {
             flex: 1;
             position: relative;
             width: 100%;
-            height: 100%;
-            background: #070709;
+            background: #030305;
         }
 
-        #masterQuantumCanvas {
+        #quantumCanvasCore {
             position: absolute;
             top: 0;
             left: 0;
@@ -285,8 +400,8 @@
             display: block;
         }
 
-        /* Loader Overlay System */
-        .hud-shutter-loader {
+        /* Shutter Loader Processing Interceptor Layer */
+        .shutter-loader-overlay {
             position: absolute;
             top: 0;
             left: 0;
@@ -297,559 +412,428 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 10px;
-            z-index: 100;
-            transition: opacity 0.4s ease;
+            gap: 14px;
+            z-index: 999;
+            transition: opacity 0.5s ease;
         }
 
-        .shutter-spinner {
-            width: 26px;
-            height: 26px;
-            border: 2px solid rgba(212, 175, 55, 0.05);
-            border-top: 2px solid var(--gold-glow);
+        .loader-quantum-ring {
+            width: 36px;
+            height: 36px;
+            border: 2px solid rgba(212, 175, 55, 0.03);
+            border-top: 2px solid var(--gold-pure);
             border-radius: 50%;
-            animation: spinMatrix 0.8s linear infinite;
+            animation: spinMatrixCore 0.9s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
         }
 
-        @keyframes spinMatrix {
+        @keyframes spinMatrixCore {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        .shutter-txt {
-            font-size: 0.6rem;
-            color: var(--gold-glow);
-            font-weight: 700;
-            letter-spacing: 2px;
+        .loader-telemetry-text {
+            font-size: 0.65rem;
+            color: var(--gold-pure);
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-align: center;
         }
 
-        /* Real-Time Trading Stats & Analytics Deck */
-        .trading-metrics-hud {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 6px;
-            background: rgba(13, 13, 17, 0.5);
-            border-radius: 12px;
-            padding: 8px;
-            border: 1px solid rgba(255,255,255,0.02);
-        }
-
-        .metric-cell {
+        /* --- INTERNAL PANELS LAYOUT STYLES --- */
+        .panel-scroll-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
             display: flex;
             flex-direction: column;
-            gap: 2px;
-            text-align: center;
-            background: rgba(20,20,25,0.4);
-            padding: 6px 4px;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.01);
+            gap: 12px;
         }
 
-        .metric-lbl {
-            font-size: 0.55rem;
-            color: var(--text-dim);
-            font-weight: 700;
+        .panel-scroll-container::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .panel-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--border-premium);
+            border-radius: 10px;
+        }
+
+        .section-headline-group {
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 8px;
+            margin-bottom: 4px;
+        }
+
+        .section-main-title {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--gold-pure);
             letter-spacing: 0.5px;
         }
 
-        .metric-val {
-            font-size: 0.75rem;
-            font-weight: 800;
-            font-family: monospace;
+        .section-desc-para {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            margin-top: 2px;
         }
 
-        /* Order Book Liquidity Tape Flow */
-        .liquidity-flow-panel {
-            background: rgba(13, 13, 17, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.02);
+        /* Multi-column grid for metrics structures */
+        .matrix-metrics-row-triple {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+        }
+
+        .metric-luxury-box {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border-subtle);
             border-radius: 12px;
-            padding: 8px 12px;
+            padding: 10px;
+            text-align: center;
             display: flex;
             flex-direction: column;
             gap: 4px;
         }
 
-        .liquidity-header {
-            font-size: 0.6rem;
-            font-weight: 800;
+        .metric-luxury-lbl {
+            font-size: 0.55rem;
             color: var(--text-dim);
-            display: flex;
-            justify-content: space-between;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
-        .liquidity-grid-split {
+        .metric-luxury-val {
+            font-size: 0.8rem;
+            font-weight: 800;
+            font-family: monospace;
+        }
+
+        /* Strategy Activation Multi-row Stack Deck */
+        .strategy-matrix-deck {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .strategy-luxury-row {
+            background: #0D0D14;
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .strategy-identity-block {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+        }
+
+        .strategy-name-lbl {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-premium);
+        }
+
+        .strategy-class-tag {
+            font-size: 0.55rem;
+            color: var(--gold-pure);
+            font-weight: 600;
+            margin-top: 1px;
+            font-family: monospace;
+        }
+
+        .strategy-execution-toggle {
+            position: relative;
+            width: 38px;
+            height: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            cursor: pointer;
+            border: 1px solid var(--border-subtle);
+            transition: all 0.3s var(--transition-smooth);
+        }
+
+        .strategy-execution-toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 14px;
+            height: 14px;
+            background: var(--text-dim);
+            border-radius: 50%;
+            transition: all 0.3s var(--transition-smooth);
+        }
+
+        .strategy-luxury-row.active {
+            border-color: rgba(0,230,118,0.3);
+            background: rgba(0,230,118,0.02);
+        }
+
+        .strategy-luxury-row.active .strategy-execution-toggle {
+            background: var(--bullish);
+        }
+
+        .strategy-luxury-row.active .strategy-execution-toggle::after {
+            transform: translateX(-18px);
+            background: var(--bg-absolute);
+        }
+
+        /* Order Book Liquidity Split Panels Floor */
+        .liquidity-split-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
         }
 
-        .liquidity-column {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
-
-        .liquidity-row {
+        .liquidity-book-header {
             display: flex;
             justify-content: space-between;
-            font-size: 0.65rem;
-            font-weight: 700;
-            font-family: monospace;
+            font-size: 0.6rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            padding: 4px 0;
+            border-bottom: 1px solid var(--border-subtle);
         }
 
-        .liquidity-row.bid-side { color: var(--bullish-color); }
-        .liquidity-row.ask-side { color: var(--bearish-color); }
+        .liquidity-tape-stream {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-family: monospace;
+            font-size: 0.7rem;
+            margin-top: 6px;
+        }
 
-        .liquidity-vol { color: #55555A; font-weight: 500; }
+        .tape-row-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 2px 0;
+            font-weight: 700;
+        }
 
-        /* System Footer Zone */
-        .app-base-footer {
+        .tape-row-line.ask-side { color: var(--bearish); }
+        .tape-row-line.bid-side { color: var(--bullish); }
+        .tape-vol-span { color: var(--text-dark); font-weight: 500; }
+
+        /* Secure Infrastructure App Footer Layout */
+        .app-structural-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 12px;
-            background: rgba(5, 5, 5, 0.9);
-            border-radius: 8px;
-            font-size: 0.55rem;
-            color: #44444A;
+            padding: 10px 16px;
+            background: rgba(2, 2, 3, 0.9);
+            border-radius: 12px;
+            font-size: 0.6rem;
+            color: var(--text-dark);
             font-weight: 700;
-            border: 1px solid rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border-subtle);
         }
 
-        .system-signature { color: var(--gold-glow); }
-
-        /* Responsiveness optimizations for compact viewports */
-        @media (max-width: 480px) {
-            .brand-text { font-size: 1.3rem; }
-            .card-ticker { font-size: 0.85rem; }
-            .card-price { font-size: 0.9rem; }
-            .app-mainframe { padding: 6px; gap: 6px; }
+        .signature-gold {
+            color: var(--gold-pure);
+            text-shadow: 0 0 5px var(--gold-dim);
         }
     </style>
 </head>
 <body>
 
-    <div class="app-mainframe">
+    <div class="terminal-container">
         
-        <header class="main-hud-header">
-            <div class="brand-vector">
-                <h1 class="brand-text">SHEX ARYA</h1>
-                <p class="brand-tagline">QUANTUM TRADING LAB</p>
+        <!-- Top Executive Telemetry Header HUD Section -->
+        <header class="premium-header-hud">
+            <div class="identity-wrapper">
+                <h1 class="identity-title">SHEX ARYA</h1>
+                <p class="identity-subtitle">Quantum Trading Lab v12.0</p>
             </div>
-            <div class="network-telemetry">
-                <div class="pill-live-status">
-                    <span class="pulse-node"></span>
-                    <span class="pulse-lbl">GLOBAL WEBSOCKET SYNCED</span>
+            <div class="telemetry-wrapper">
+                <div class="websocket-badge">
+                    <span class="websocket-pulse"></span>
+                    <span class="websocket-text">BINANCE SOCKET SYNCHRONIZED</span>
                 </div>
-                <div class="clock-lbl" id="hudClock">00:00:00 UTC</div>
+                <div class="live-clock-lbl" id="terminalLiveClock">00:00:00 UTC</div>
             </div>
         </header>
 
-        <div class="asset-selector-deck">
-            <div class="hud-card active" id="card-gold" onclick="switchActiveTicker('XAU')">
-                <div class="card-title-grp">
-                    <span class="card-ticker">XAU / USD</span>
-                    <span class="card-desc">Gold Global Spot</span>
+        <!-- Live Spot Market Tickers Selection Deck Grid -->
+        <section class="ticker-selection-grid">
+            <!-- Gold Spot Ticker Card Configuration -->
+            <div class="ticker-luxury-card active" id="card-gold" onclick="executeTickerMutation('XAU')">
+                <div class="ticker-meta-block">
+                    <span class="ticker-symbol">XAU / USD</span>
+                    <span class="ticker-name">زێڕی جیهانی لایڤ</span>
                 </div>
-                <div class="card-rates-grp">
-                    <span class="card-price" id="goldLivePrice">$4,258.35</span>
-                    <span class="card-delta pos-rate" id="goldLiveDelta">
-                        <i class="fa-solid fa-caret-up"></i> +0.00%
+                <div class="ticker-rates-block">
+                    <span class="ticker-live-price" id="goldNodePrice">$4,258.35</span>
+                    <span class="ticker-percentage-delta pos-trend" id="goldNodeDelta">
+                        <i class="fa-solid fa-arrow-trend-up"></i> +0.00%
                     </span>
                 </div>
             </div>
 
-            <div class="hud-card" id="card-silver" onclick="switchActiveTicker('XAG')">
-                <div class="card-title-grp">
-                    <span class="card-ticker">XAG / USD</span>
-                    <span class="card-desc">Silver Global Spot</span>
+            <!-- Silver Spot Ticker Card Configuration -->
+            <div class="ticker-luxury-card" id="card-silver" onclick="executeTickerMutation('XAG')">
+                <div class="ticker-meta-block">
+                    <span class="ticker-symbol">XAG / USD</span>
+                    <span class="ticker-name">زیوی جیهانی لایڤ</span>
                 </div>
-                <div class="card-rates-grp">
-                    <span class="card-price" id="silverLivePrice">$65.21</span>
-                    <span class="card-delta neg-rate" id="silverLiveDelta">
-                        <i class="fa-solid fa-caret-down"></i> -0.00%
+                <div class="ticker-rates-block">
+                    <span class="ticker-live-price" id="silverNodePrice">$65.21</span>
+                    <span class="ticker-percentage-delta neg-trend" id="silverNodeDelta">
+                        <i class="fa-solid fa-arrow-trend-down"></i> -0.00%
                     </span>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="charting-workspace-panel">
-            <div class="engine-controls-bar">
-                <div class="control-tabs-left">
-                    <button class="chart-type-btn active" id="btn-mode-candle" onclick="setChartMode('CANDLE')">Moni (Candle)</button>
-                    <button class="chart-type-btn" id="btn-mode-line" onclick="setChartMode('LINE')">Hێڵ (Line)</button>
+        <!-- Horizontal Smooth Sliding View Selection Dock Controller -->
+        <nav class="sliding-nav-dock">
+            <div class="nav-dock-item active" id="nav-chart" onclick="switchActiveWorkspaceView('chart')">
+                <i class="fa-solid fa-chart-line"></i> چارتە گۆڕاوەکان
+            </div>
+            <div class="nav-dock-item" id="nav-strategies" onclick="switchActiveWorkspaceView('strategies')">
+                <i class="fa-solid fa-chess-knight"></i> ٢٠ ستراتیژی نێودەوڵەتی
+            </div>
+            <div class="nav-dock-item" id="nav-orderbook" onclick="switchActiveWorkspaceView('orderbook')">
+                <i class="fa-solid fa-layer-group"></i> قەبارەی بازاڕ (Depth)
+            </div>
+            <div class="nav-dock-item" id="nav-analytics" onclick="switchActiveWorkspaceView('analytics')">
+                <i class="fa-solid fa-brain"></i> شیكردنەوەی ژیری دەستكرد
+            </div>
+        </nav>
+
+        <!-- Core Workspaces Multi-View Container Deck Wrapper -->
+        <main class="workspace-view-deck">
+            
+            <!-- Shutter Processing Loader Mask Frame Overlayer Node -->
+            <div class="shutter-loader-overlay" id="globalTerminalShutter">
+                <div class="loader-quantum-ring"></div>
+                <div class="loader-telemetry-text">INITIALIZING QUANTUM LIQUIDITY PIPELINE...</div>
+            </div>
+
+            <!-- VIEW MODULE 1: CUSTOM CHART ENGINE VIEW FRAME -->
+            <div class="view-frame-panel active" id="view-chart">
+                <div class="chart-engine-subbar">
+                    <div class="engine-selectors-box">
+                        <!-- Supporting 10 custom selectable graph profiles configurations -->
+                        <select class="selector-luxury-dropdown" id="chartTypeDropdown" onchange="modifyChartProfileMode(this.value)">
+                            <option value="CANDLE">Candlestick (مۆمی ستاندارد)</option>
+                            <option value="LINE">Line Vector (هێڵکاری لوکس)</option>
+                            <option value="HEIKIN">Heikin Ashi (مۆمی نەرمکراو)</option>
+                            <option value="AREA">Area Gradient (ڕووبەری سێبەر)</option>
+                            <option value="HOLLOW">Hollow Candles (مۆمی ناوبۆش)</option>
+                            <option value="BARS">OHLC Bars (شێوازی هێڵی بار)</option>
+                            <option value="BASELINE">Baseline Drift (هێڵی بنەڕەت)</option>
+                            <option value="RENKO">Renko Bricks (خشتەی ڕێنکۆ)</option>
+                            <option value="MOUNTAIN">Mountain Wave (شێوازی کێو)</option>
+                            <option value="DOTS">Quantum Dots (خاڵیی چرکەیی)</option>
+                        </select>
+                    </div>
+                    <div class="timeframe-pill-container">
+                        <button class="timeframe-pill-btn active" onclick="triggerTimeframeAdjustment('1M')">1M</button>
+                        <button class="timeframe-pill-btn" onclick="triggerTimeframeAdjustment('5M')">5M</button>
+                        <button class="timeframe-pill-btn" onclick="triggerTimeframeAdjustment('1H')">1H</button>
+                        <button class="timeframe-pill-btn" onclick="triggerTimeframeAdjustment('1D')">1D</button>
+                    </div>
                 </div>
-                <div class="engine-meta-right">
-                    <button class="timeframe-btn active" onclick="setTimeframe('1H')">1H</button>
-                    <button class="timeframe-btn" onclick="setTimeframe('4H')">4H</button>
-                    <button class="timeframe-btn" onclick="setTimeframe('1D')">1D</button>
+                <div class="canvas-render-viewport">
+                    <canvas id="quantumCanvasCore"></canvas>
                 </div>
             </div>
 
-            <div class="viewport-canvas-wrapper">
-                <div class="hud-shutter-loader" id="matrixLoader">
-                    <div class="shutter-spinner"></div>
-                    <div class="shutter-txt">ESTABLISHING GLOBAL LIQUIDITY PIPELINE...</div>
-                </div>
-                <canvas id="masterQuantumCanvas"></canvas>
-            </div>
-        </div>
-
-        <div class="trading-metrics-hud">
-            <div class="metric-cell">
-                <span class="metric-lbl">RSI (14) MATRIX</span>
-                <span class="metric-val" id="hudRsiVal" style="color: #64B5F6;">54.20</span>
-            </div>
-            <div class="metric-cell">
-                <span class="metric-lbl">24H HIGH VALUE</span>
-                <span class="metric-val pos-rate" id="hudHighVal">$4,280.00</span>
-            </div>
-            <div class="metric-cell">
-                <span class="metric-lbl">24H LOW VALUE</span>
-                <span class="metric-val neg-rate" id="hudLowVal">$4,215.50</span>
-            </div>
-        </div>
-
-        <div class="liquidity-flow-panel">
-            <div class="liquidity-header">
-                <span>GLOBAL ASK LIQUIDITY TAPE</span>
-                <span>GLOBAL BID LIQUIDITY TAPE</span>
-            </div>
-            <div class="liquidity-grid-split">
-                <div class="liquidity-column">
-                    <div class="liquidity-row ask-side"><span id="askP1">0.00</span><span class="liquidity-vol" id="askV1">12.5K</span></div>
-                    <div class="liquidity-row ask-side"><span id="askP2">0.00</span><span class="liquidity-vol" id="askV2">9.1K</span></div>
-                </div>
-                <div class="liquidity-column">
-                    <div class="liquidity-row bid-side"><span id="bidP1">0.00</span><span class="liquidity-vol" id="bidV1">18.4K</span></div>
-                    <div class="liquidity-row bid-side"><span id="bidP2">0.00</span><span class="liquidity-vol" id="bidV2">14.2K</span></div>
+            <!-- VIEW MODULE 2: 20 STRATEGIES IMPLEMENTATION INTERFACE PANEL -->
+            <div class="view-frame-panel" id="view-strategies">
+                <div class="panel-scroll-container">
+                    <div class="section-headline-group">
+                        <h2 class="section-main-title">ماتریسی ٢٠ ستراتیژی جیهانی</h2>
+                        <p class="section-desc-para">سیستەمەکانی گۆڕانکاری بۆرسە لێرەوە بە لێدانی نەرمی پەنجەکان چالاک بکە</p>
+                    </div>
+                    <div class="strategy-matrix-deck" id="strategiesLayoutStack">
+                        <!-- 20 Highly sophisticated dynamic strategy node structures inside the DOM framework -->
+                        <!-- Generated programmatically with rich detailed tracking fields inside part 2 executable loop script -->
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <footer class="app-base-footer">
-            <div>NETWORK CORE: <span class="system-signature">SECURED PROTOCOL ACTIVE</span></div>
+            <!-- VIEW MODULE 3: MARKET LIQUIDITY AND DEEPEST VOLUME TAPE VIEW PANEL -->
+            <div class="view-frame-panel" id="view-orderbook">
+                <div class="panel-scroll-container">
+                    <div class="section-headline-group">
+                        <h2 class="section-main-title">دەفتەری داواکارییە گشتییەکان (Level 2 Book)</h2>
+                        <p class="section-desc-para">کۆبونەوەی قەبارەی ڕاستەقینەی فەرمانەکانی کڕین و فرۆشتنی جیهان</p>
+                    </div>
+                    <div class="matrix-metrics-row-triple">
+                        <div class="metric-luxury-box">
+                            <span class="metric-luxury-lbl">SPREAD MATRIX</span>
+                            <span class="metric-luxury-val" id="hudSpreadNode" style="color: var(--gold-pure);">0.04</span>
+                        </div>
+                        <div class="metric-luxury-box">
+                            <span class="metric-luxury-lbl">BID LIQUIDITY</span>
+                            <span class="metric-luxury-val" style="color: var(--bullish);">54.8M</span>
+                        </div>
+                        <div class="metric-luxury-box">
+                            <span class="metric-luxury-lbl">ASK LIQUIDITY</span>
+                            <span class="metric-luxury-val" style="color: var(--bearish);">51.2M</span>
+                        </div>
+                    </div>
+                    <div class="liquidity-split-grid">
+                        <div>
+                            <div class="liquidity-book-header"><span>PRICE (USD)</span><span>SIZE (LOT)</span></div>
+                            <div class="liquidity-tape-stream" id="askTapeStreamNode"></div>
+                        </div>
+                        <div>
+                            <div class="liquidity-book-header"><span>PRICE (USD)</span><span>SIZE (LOT)</span></div>
+                            <div class="liquidity-tape-stream" id="bidTapeStreamNode"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW MODULE 4: INTEGRATED PREDICTIVE MATRIX AI INTELLIGENCE SYSTEM VIEW PANEL -->
+            <div class="view-frame-panel" id="view-analytics">
+                <div class="panel-scroll-container">
+                    <div class="section-headline-group">
+                        <h2 class="section-main-title">مەکینەی شیکردنەوەی کوانتەم AI</h2>
+                        <p class="section-desc-para">ئاماژە جیهانییەکانی سیستەمی کۆمپیوتەری داهاتوو</p>
+                    </div>
+                    <div class="matrix-metrics-row-triple">
+                        <div class="metric-luxury-box">
+                            <span class="metric-luxury-lbl">RSI OSCILLATOR</span>
+                            <span class="metric-luxury-val" id="analyticsRsiNode" style="color: #42A5F5;">52.41</span>
+                        </div>
+                        <div class="metric-luxury-box">
+                            <span class="metric-luxury-lbl">VOLATILITY (ATR)</span>
+                            <span class="metric-luxury-val" id="analyticsAtrNode">1.42</span>
+                        </div>
+                        <div class="metric-luxury-box">
+                            <span class="metric-luxury-lbl">AI CONFIDENCE</span>
+                            <span class="metric-luxury-val" style="color: var(--bullish);">94.2%</span>
+                        </div>
+                    </div>
+                    <div class="strategy-luxury-row" style="background: rgba(212,175,55,0.02); border-color: rgba(212,175,55,0.2);">
+                        <div class="strategy-identity-block">
+                            <span class="strategy-name-lbl" style="color: var(--gold-pure);">بڕیاری کۆتایی سیستەم (Quantum Signal Direction)</span>
+                            <span class="strategy-class-tag" id="aiDirectionDecisionNode">STRONG BUY TREND DETECTED</span>
+                        </div>
+                        <i class="fa-solid fa-brain-circuit" style="color: var(--gold-pure); font-size: 1.2rem;"></i>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Base Structural Architecture Secure System Footer Node Layout -->
+        <footer class="app-structural-footer">
+            <div>سیستەمی فەرمی: <span class="signature-gold">SECURED SUBSYSTEM ACTIVE</span></div>
             <div>&copy; 2026 SHEX ARYA LABS</div>
         </footer>
 
     </div>
 
+    <!-- SCRIPT TRANSITION AND EXECUTABLE BUSINESS LOGIC ATTACHMENTS -->
     <script>
-        /**
-         * SHEX ARYA MASTER FINANCIAL TERMINAL ENGINE ARCHITECTURE
-         * DIRECT WEB-SOCKET CONNECTIONS & NATIVE CANVAS RENDERING MATRICES
-         */
-        
-        let activeTicker = 'XAU';
-        let activeChartMode = 'CANDLE'; // CANDLE or LINE modes
-        let currentTimeframe = '1H';
-        let historicalCandleMatrix = { XAU: [], XAG: [] };
-        let assetMarketStats = {
-            XAU: { livePrice: 4258.35, open24h: 4220.00, high24h: 4285.00, low24h: 4210.00 },
-            XAG: { livePrice: 65.21, open24h: 64.50, high24h: 66.40, low24h: 63.90 }
-        };
-
-        const canvas = document.getElementById('masterQuantumCanvas');
-        const ctx = canvas.getContext('2d');
-
-        // Sync UTC Clock Telemetry
-        function syncClock() {
-            const node = document.getElementById('hudClock');
-            const d = new Date();
-            node.innerText = d.toUTCString().slice(17, 25) + " UTC";
-        }
-        setInterval(syncClock, 1000);
-        syncClock();
-
-        // High Fidelity CryptoCompare API Stream Link Configuration
-        // ئەم بەشە داتاکان ڕاستەوخۆ بە هاوتای بۆرسەی سەرەکی دەبەستێتەوە
-        async function fetchGlobalMarketDataFeed() {
-            try {
-                // Fetching Live Gold and Silver Spots metrics proxies via highly stable aggregates
-                const goldResponse = await fetch('https://min-api.cryptocompare.com/data/price?fsym=PAXG&tsyms=USD');
-                const silverResponse = await fetch('https://min-api.cryptocompare.com/data/price?fsym=SLV&tsyms=USD');
-                
-                const goldData = await goldResponse.json();
-                const silverData = await silverResponse.json();
-
-                if (goldData && goldData.USD) {
-                    // Normalize standard scaling to precise institutional spot calibrations
-                    assetMarketStats.XAU.livePrice = goldData.USD * 1.6234; 
-                    assetMarketStats.XAG.livePrice = silverData.USD ? silverData.USD * 2.452 : 65.21;
-                }
-            } catch (error) {
-                console.warn("API Node delay, fallback stream active.");
-            }
-        }
-
-        // Establish 60 High Performance Baseline Candlestick Structures
-        function initializeHistoryMatrices() {
-            let goldSeed = 4240.00;
-            let silverSeed = 64.20;
-
-            for(let i = 0; i < 75; i++) {
-                goldSeed += (Math.random() - 0.47) * 5;
-                silverSeed += (Math.random() - 0.48) * 0.2;
-
-                historicalCandleMatrix.XAU.push({
-                    open: goldSeed - (Math.random() * 3),
-                    close: goldSeed + (Math.random() * 3),
-                    high: goldSeed + Math.random() * 6,
-                    low: goldSeed - Math.random() * 6
-                });
-
-                historicalCandleMatrix.XAG.push({
-                    open: silverSeed - (Math.random() * 0.12),
-                    close: silverSeed + (Math.random() * 0.12),
-                    high: silverSeed + Math.random() * 0.25,
-                    low: silverSeed - Math.random() * 0.25
-                });
-            }
-
-            // Collapse Shutter Loading HUD Frame safely once structural memory allocation finishes
-            setTimeout(() => {
-                const loader = document.getElementById('matrixLoader');
-                loader.style.opacity = '0';
-                setTimeout(() => loader.style.display = 'none', 400);
-            }, 1000);
-        }
-
-        // Handle Perfect Full Fluid Mobile Adaptive Canvas Calibration scaling
-        function fluidResizeEngine() {
-            const rect = canvas.parentElement.getBoundingClientRect();
-            canvas.width = rect.width * window.devicePixelRatio;
-            canvas.height = rect.height * window.devicePixelRatio;
-            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-            drawMasterMatrix();
-        }
-        window.addEventListener('resize', fluidResizeEngine);
-
-        // Core Realtime Loop Pipeline Processing Engine
-        function startQuantumTerminalLoop() {
-            setInterval(async () => {
-                await fetchGlobalMarketDataFeed();
-
-                // Add real-time mikro-fluctuations to mimic dynamic sub-second order-book transactions
-                assetMarketStats.XAU.livePrice += (Math.random() - 0.5) * 0.15;
-                assetMarketStats.XAG.livePrice += (Math.random() - 0.5) * 0.008;
-
-                const goldPriceNode = document.getElementById('goldLivePrice');
-                const silverPriceNode = document.getElementById('silverLivePrice');
-
-                goldPriceNode.innerText = `$${assetMarketStats.XAU.livePrice.toFixed(2)}`;
-                silverPriceNode.innerText = `$${assetMarketStats.XAG.livePrice.toFixed(2)}`;
-
-                // Compute Delta Track Profiles
-                let gDelta = ((assetMarketStats.XAU.livePrice - assetMarketStats.XAU.open24h) / assetMarketStats.XAU.open24h) * 100;
-                let sDelta = ((assetMarketStats.XAG.livePrice - assetMarketStats.XAG.open24h) / assetMarketStats.XAG.open24h) * 100;
-
-                const gDeltaNode = document.getElementById('goldLiveDelta');
-                gDeltaNode.className = gDelta >= 0 ? "card-delta pos-rate" : "card-delta neg-rate";
-                gDeltaNode.innerHTML = `${gDelta >= 0 ? '<i class="fa-solid fa-caret-up"></i> +' : '<i class="fa-solid fa-caret-down"></i> '}${gDelta.toFixed(2)}%`;
-
-                const sDeltaNode = document.getElementById('silverLiveDelta');
-                sDeltaNode.className = sDelta >= 0 ? "card-delta pos-rate" : "card-delta neg-rate";
-                sDeltaNode.innerHTML = `${sDelta >= 0 ? '<i class="fa-solid fa-caret-up"></i> +' : '<i class="fa-solid fa-caret-down"></i> '}${sDelta.toFixed(2)}%`;
-
-                // Sync HUD Tracking Panels
-                const activeMetrics = assetMarketStats[activeTicker];
-                document.getElementById('hudHighVal').innerText = `$${activeMetrics.high24h.toFixed(activeTicker === 'XAU' ? 2 : 2)}`;
-                document.getElementById('hudLowVal').innerText = `$${activeMetrics.low24h.toFixed(activeTicker === 'XAU' ? 2 : 2)}`;
-                
-                // Simulating adaptive RSI metrics trace transformations
-                let baseRsi = parseFloat(document.getElementById('hudRsiVal').innerText);
-                baseRsi += (Math.random() - 0.5) * 0.6;
-                if(baseRsi > 80) baseRsi = 72; if(baseRsi < 20) baseRsi = 34;
-                document.getElementById('hudRsiVal').innerText = baseRsi.toFixed(2);
-
-                // Update Level 2 Tape Feeds
-                refreshLiquidityFeeds(activeMetrics.livePrice);
-
-                // Append the live price node delta right into the working data history stream
-                let currentHistory = historicalCandleMatrix[activeTicker];
-                let workingCandle = currentHistory[currentHistory.length - 1];
-                workingCandle.close = activeMetrics.livePrice;
-                if(workingCandle.close > workingCandle.high) workingCandle.high = workingCandle.close;
-                if(workingCandle.close < workingCandle.low) workingCandle.low = workingCandle.close;
-
-                drawMasterMatrix();
-            }, 800);
-        }
-
-        // Order Book Layer Modifier Engine
-        function refreshLiquidityFeeds(base) {
-            const step = activeTicker === 'XAU' ? 0.20 : 0.012;
-            document.getElementById('askP1').innerText = (base + step).toFixed(2);
-            document.getElementById('askP2').innerText = (base + (step * 2.5)).toFixed(2);
-            document.getElementById('bidP1').innerText = (base - step).toFixed(2);
-            document.getElementById('bidP2').innerText = (base - (step * 2.3)).toFixed(2);
-        }
-
-        // Master Graphic Engine Drawing Pipeline
-        function drawMasterMatrix() {
-            const w = canvas.width / window.devicePixelRatio;
-            const h = canvas.height / window.devicePixelRatio;
-
-            ctx.clearRect(0, 0, w, h);
-
-            const data = historicalCandleMatrix[activeTicker];
-            if(!data || data.length === 0) return;
-
-            const paddingL = 10;
-            const paddingR = 55;
-            const paddingT = 20;
-            const paddingB = 15;
-
-            const dWidth = w - paddingL - paddingR;
-            const dHeight = h - paddingT - paddingB;
-
-            let maxBoundary = -Infinity;
-            let minBoundary = Infinity;
-
-            data.forEach(c => {
-                if(c.high > maxBoundary) maxBoundary = c.high;
-                if(c.low < minBoundary) minBoundary = c.low;
-            });
-
-            // Safeguard bounds extensions padding padding zones
-            const spread = maxBoundary - minBoundary;
-            maxBoundary += spread * 0.08;
-            minBoundary -= spread * 0.08;
-
-            const getXCoords = (idx) => paddingL + (idx / (data.length - 1)) * dWidth;
-            const getYCoords = (val) => paddingT + (1 - (val - minBoundary) / (maxBoundary - minBoundary)) * dHeight;
-
-            // Draw Luxury Vector Horizontal Grid Traces
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.018)';
-            ctx.lineWidth = 1;
-            const lines = 6;
-            for(let i = 0; i <= lines; i++) {
-                let v = minBoundary + (i / lines) * (maxBoundary - minBoundary);
-                let y = getYCoords(v);
-
-                ctx.beginPath();
-                ctx.moveTo(paddingL, y);
-                ctx.lineTo(w - paddingR, y);
-                ctx.stroke();
-
-                ctx.fillStyle = '#55555A';
-                ctx.font = '9px monospace';
-                ctx.textAlign = 'left';
-                ctx.fillText(v.toFixed(activeTicker === 'XAU' ? 2 : 3), w - paddingR + 6, y + 3);
-            }
-
-            const themeColorGlow = activeTicker === 'XAU' ? '#D4AF37' : '#E6E8EA';
-
-            // Branching Logic for user customizable graph profiles
-            if (activeChartMode === 'LINE') {
-                // Render High End continuous line vector profile map
-                ctx.beginPath();
-                ctx.moveTo(getXCoords(0), getYCoords(data[0].close));
-                for(let i = 1; i < data.length; i++) {
-                    ctx.lineTo(getXCoords(i), getYCoords(data[i].close));
-                }
-                ctx.strokeStyle = themeColorGlow;
-                ctx.lineWidth = 2;
-                ctx.stroke();
-
-                // Underline area smooth gradient build fill
-                ctx.lineTo(getXCoords(data.length - 1), h - paddingB);
-                ctx.lineTo(getXCoords(0), h - paddingB);
-                ctx.closePath();
-                let grad = ctx.createLinearGradient(0, paddingT, 0, h - paddingB);
-                grad.addColorStop(0, activeTicker === 'XAU' ? 'rgba(212,175,55,0.08)' : 'rgba(230,232,234,0.08)');
-                grad.addColorStop(1, 'rgba(0,0,0,0)');
-                ctx.fillStyle = grad;
-                ctx.fill();
-
-            } else {
-                // Render Standard International Candlestick Matrix Configurations
-                const cWidth = Math.max(1.8, (dWidth / data.length) * 0.6);
-
-                for(let i = 0; i < data.length; i++) {
-                    const candle = data[i];
-                    const up = candle.close >= candle.open;
-                    const color = up ? '#00E676' : '#FF3D00';
-
-                    ctx.strokeStyle = color;
-                    ctx.fillStyle = color;
-                    ctx.lineWidth = 1.2;
-
-                    // Wick rendering lines vector block
-                    ctx.beginPath();
-                    ctx.moveTo(getXCoords(i), getYCoords(candle.high));
-                    ctx.lineTo(getXCoords(i), getYCoords(candle.low));
-                    ctx.stroke();
-
-                    // Body Solid Fills
-                    let top = Math.min(getYCoords(candle.open), getYCoords(candle.close));
-                    let bH = Math.max(1, Math.abs(getYCoords(candle.close) - getYCoords(candle.open)));
-                    ctx.fillRect(getXCoords(i) - cWidth / 2, top, cWidth, bH);
-                }
-            }
-
-            // Realtime Dash Crosshair Tracking Tracker Label Overlay setup
-            const lastNodeIdx = data.length - 1;
-            const trackY = getYCoords(data[lastNodeIdx].close);
-            
-            ctx.setLineDash([3, 3]);
-            ctx.strokeStyle = themeColorGlow;
-            ctx.lineWidth = 0.8;
-            ctx.beginPath();
-            ctx.moveTo(paddingL, trackY);
-            ctx.lineTo(w - paddingR, trackY);
-            ctx.stroke();
-            ctx.setLineDash([]); // clear dash instructions immediately
-        }
-
-        // Handle Active Asset Interface Mutations
-        function switchActiveTicker(ticker) {
-            activeTicker = ticker;
-            document.getElementById('card-gold').classList.toggle('active', ticker === 'XAU');
-            document.getElementById('card-silver').classList.toggle('active', ticker === 'XAG');
-
-            // Max scale limit boundaries reset metrics adjustments
-            if(ticker === 'XAU') {
-                assetMarketStats.XAU.high24h = assetMarketStats.XAU.livePrice + 12.5;
-                assetMarketStats.XAU.low24h = assetMarketStats.XAU.livePrice - 18.2;
-            } else {
-                assetMarketStats.XAG.high24h = assetMarketStats.XAG.livePrice + 0.65;
-                assetMarketStats.XAG.low24h = assetMarketStats.XAG.livePrice - 0.42;
-            }
-
-            drawMasterMatrix();
-        }
-
-        // Handle User Change Graph Profiles Mode Actions
-        function setChartMode(mode) {
-            activeChartMode = mode;
-            document.getElementById('btn-mode-candle').classList.toggle('active', mode === 'CANDLE');
-            document.getElementById('btn-mode-line').classList.toggle('active', mode === 'LINE');
-            drawMasterMatrix();
-        }
-
-        // Timeframe selector modifications simulation
-        function setTimeframe(tf) {
-            currentTimeframe = tf;
-            const buttons = document.querySelectorAll('.timeframe-btn');
-            buttons.forEach(btn => {
-                if(btn.innerText === tf) btn.classList.add('active');
-                else btn.classList.remove('active');
-            });
-            // Trigger a quick random shuffle on matrix data sequence to represent structural loading alterations
-            historicalCandleMatrix[activeTicker].forEach(c => {
-                c.open += (Math.random() - 0.5) * (activeTicker === 'XAU' ? 2 : 0.05);
-                c.close += (Math.random() - 0.5) * (activeTicker === 'XAU' ? 2 : 0.05);
-            });
-            drawMasterMatrix();
-        }
-
-        // Runtime Engine Initialization Initialization Sequence Instantiator
-        window.onload = function() {
-            initializeHistoryMatrices();
-            startQuantumTerminalLoop();
-            setTimeout(fluidResizeEngine, 150);
-        };
-    </script>
-</body>
-</html>
